@@ -14,6 +14,8 @@
 
 <html lang="en"
   
+    data-mode="dark"
+  
 >
 
   <!--
@@ -43,26 +45,24 @@
     <!-- Begin Jekyll SEO tag v2.8.0 -->
 <meta name="generator" content="Jekyll v4.2.2" />
 <meta property="og:title" content="Enable Google Page Views" />
-<meta name="author" content="Dinesh Prasanth Moluguwan Krishnamoorthy" />
+<meta name="author" content="sille_bille" />
 <meta property="og:locale" content="en" />
 <meta name="description" content="This post is to enable Page Views on the Chirpy theme based blog that you just built. This requires technical knowledge and it’s recommended to keep the google_analytics.pv.* empty unless you have a good reason. If your website has low traffic, the page views count would discourage you to write more blogs. With that said, let’s start with the setup." />
 <meta property="og:description" content="This post is to enable Page Views on the Chirpy theme based blog that you just built. This requires technical knowledge and it’s recommended to keep the google_analytics.pv.* empty unless you have a good reason. If your website has low traffic, the page views count would discourage you to write more blogs. With that said, let’s start with the setup." />
 <link rel="canonical" href="http://localhost:4000/posts/enable-google-pv/" />
 <meta property="og:url" content="http://localhost:4000/posts/enable-google-pv/" />
-<meta property="og:site_name" content="Chirpy" />
+<meta property="og:site_name" content="Yinhui" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2021-01-04T07:32:00+08:00" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Enable Google Page Views" />
-<meta name="twitter:site" content="@twitter_username" />
-<meta name="twitter:creator" content="@dinesh_MKD" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Dinesh Prasanth Moluguwan Krishnamoorthy","url":"https://github.com/SilleBille/"},"dateModified":"2021-01-04T07:32:00+08:00","datePublished":"2021-01-04T07:32:00+08:00","description":"This post is to enable Page Views on the Chirpy theme based blog that you just built. This requires technical knowledge and it’s recommended to keep the google_analytics.pv.* empty unless you have a good reason. If your website has low traffic, the page views count would discourage you to write more blogs. With that said, let’s start with the setup.","headline":"Enable Google Page Views","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/enable-google-pv/"},"url":"http://localhost:4000/posts/enable-google-pv/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"sille_bille"},"dateModified":"2021-01-04T07:32:00+08:00","datePublished":"2021-01-04T07:32:00+08:00","description":"This post is to enable Page Views on the Chirpy theme based blog that you just built. This requires technical knowledge and it’s recommended to keep the google_analytics.pv.* empty unless you have a good reason. If your website has low traffic, the page views count would discourage you to write more blogs. With that said, let’s start with the setup.","headline":"Enable Google Page Views","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/enable-google-pv/"},"url":"http://localhost:4000/posts/enable-google-pv/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
 
-  <title>Enable Google Page Views | Chirpy
+  <title>Enable Google Page Views | Yinhui
   </title>
 
   <!--
@@ -77,8 +77,8 @@
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png">
 <link rel="manifest" href="/assets/img/favicons/site.webmanifest">
 <link rel="shortcut icon" href="/assets/img/favicons/favicon.ico">
-<meta name="apple-mobile-web-app-title" content="Chirpy">
-<meta name="application-name" content="Chirpy">
+<meta name="apple-mobile-web-app-title" content="Yinhui">
+<meta name="application-name" content="Yinhui">
 <meta name="msapplication-TileColor" content="#da532c">
 <meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml">
 <meta name="theme-color" content="#ffffff">
@@ -129,137 +129,6 @@
   <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
 
   
-    <!--
-  Switch the mode between dark and light.
--->
-
-<script type="text/javascript">
-  class ModeToggle {
-    static get MODE_KEY() { return "mode"; }
-    static get MODE_ATTR() { return "data-mode"; }
-    static get DARK_MODE() { return "dark"; }
-    static get LIGHT_MODE() { return "light"; }
-    static get ID() { return "mode-toggle"; }
-
-    constructor() {
-      if (this.hasMode) {
-        if (this.isDarkMode) {
-          if (!this.isSysDarkPrefer) {
-            this.setDark();
-          }
-        } else {
-          if (this.isSysDarkPrefer) {
-            this.setLight();
-          }
-        }
-      }
-
-      let self = this;
-
-      /* always follow the system prefers */
-      this.sysDarkPrefers.addEventListener("change", () => {
-        if (self.hasMode) {
-          if (self.isDarkMode) {
-            if (!self.isSysDarkPrefer) {
-              self.setDark();
-            }
-
-          } else {
-            if (self.isSysDarkPrefer) {
-              self.setLight();
-            }
-          }
-
-          self.clearMode();
-        }
-
-        self.notify();
-
-      });
-
-    } /* constructor() */
-
-    get sysDarkPrefers() { return window.matchMedia("(prefers-color-scheme: dark)"); }
-
-    get isSysDarkPrefer() { return this.sysDarkPrefers.matches; }
-
-    get isDarkMode() { return this.mode === ModeToggle.DARK_MODE; }
-
-    get isLightMode() { return this.mode === ModeToggle.LIGHT_MODE; }
-
-    get hasMode() { return this.mode != null; }
-
-    get mode() { return sessionStorage.getItem(ModeToggle.MODE_KEY); }
-
-    /* get the current mode on screen */
-    get modeStatus() {
-      if (this.isDarkMode
-        || (!this.hasMode && this.isSysDarkPrefer)) {
-        return ModeToggle.DARK_MODE;
-      } else {
-        return ModeToggle.LIGHT_MODE;
-      }
-    }
-
-    setDark() {
-      $('html').attr(ModeToggle.MODE_ATTR, ModeToggle.DARK_MODE);
-      sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.DARK_MODE);
-    }
-
-    setLight() {
-      $('html').attr(ModeToggle.MODE_ATTR, ModeToggle.LIGHT_MODE);
-      sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.LIGHT_MODE);
-    }
-
-    clearMode() {
-      $('html').removeAttr(ModeToggle.MODE_ATTR);
-      sessionStorage.removeItem(ModeToggle.MODE_KEY);
-    }
-
-    /* Notify another plugins that the theme mode has changed */
-    notify() {
-      window.postMessage({
-        direction: ModeToggle.ID,
-        message: this.modeStatus
-      }, "*");
-    }
-
-  } /* ModeToggle */
-
-  const toggle = new ModeToggle();
-
-  function flipMode() {
-    if (toggle.hasMode) {
-      if (toggle.isSysDarkPrefer) {
-        if (toggle.isLightMode) {
-          toggle.clearMode();
-        } else {
-          toggle.setLight();
-        }
-
-      } else {
-        if (toggle.isDarkMode) {
-          toggle.clearMode();
-        } else {
-          toggle.setDark();
-        }
-      }
-
-    } else {
-      if (toggle.isSysDarkPrefer) {
-        toggle.setLight();
-      } else {
-        toggle.setDark();
-      }
-    }
-
-    toggle.notify();
-
-  } /* flipMode() */
-
-</script>
-
-  
 </head>
 
 
@@ -275,15 +144,15 @@
       <a href="/" class="mx-auto">
         
           
-          <img src="https://raw.githubusercontent.com/cotes2020/chirpy-images/main/commons/avatar.jpg" alt="avatar" onerror="this.style.display='none'">
+          <img src="/assets/img/yinhui.png" alt="avatar" onerror="this.style.display='none'">
         
       </a>
     </div>
 
     <div class="site-title mt-3">
-      <a href="/">Chirpy</a>
+      <a href="/">Yinhui</a>
     </div>
-    <div class="site-subtitle font-italic">A text-focused Jekyll theme</div>
+    <div class="site-subtitle font-italic">A programming enthusiast</div>
 
   </div><!-- .profile-wrapper -->
 
@@ -340,20 +209,12 @@
   <div class="sidebar-bottom mt-auto d-flex flex-wrap justify-content-center align-items-center">
 
     
-      <button class="mode-toggle btn" aria-label="Switch Mode">
-        <i class="fas fa-adjust"></i>
-      </button>
-
-      
-        <span class="icon-border"></span>
-      
-    
 
     
       
 
       
-      <a href="https://github.com/github_username" aria-label="github"
+      <a href="https://github.com/yinhui1984" aria-label="github"
         target="_blank" rel="noopener">
         <i class="fab fa-github"></i>
       </a>
@@ -363,18 +224,8 @@
       
 
       
-      <a href="https://twitter.com/twitter_username" aria-label="twitter"
-        target="_blank" rel="noopener">
-        <i class="fab fa-twitter"></i>
-      </a>
-      
-
-    
-      
-
-      
       <a href="
-          javascript:location.href = 'mailto:' + ['example','doamin.com'].join('@')" aria-label="email"
+          javascript:location.href = 'mailto:' + ['g44784803','gmail.com'].join('@')" aria-label="email"
         >
         <i class="fas fa-envelope"></i>
       </a>
@@ -1203,7 +1054,7 @@
 
       <em>
         
-          <a href="https://github.com/SilleBille/">Dinesh Prasanth Moluguwan Krishnamoorthy</a>
+        zhouyinhui
         
       </em>
     </span>
@@ -1272,7 +1123,7 @@
 
 <p>It should look like this:</p>
 
-<p><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1086 542'%3E%3C/svg%3E" data-src="https://raw.githubusercontent.com/cotes2020/chirpy-images/main/posts/20210103/01-google-analytics-data-stream.png" alt="google-analytics-data-stream" width="1086" height="542" data-proofer-ignore></p>
+<p><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1086 542'%3E%3C/svg%3E" data-src="/posts/20210103/01-google-analytics-data-stream.png" alt="google-analytics-data-stream" width="1086" height="542" data-proofer-ignore></p>
 
 <p>Now, click on the new data stream and grab the <strong>Measurement ID</strong>. It should look something like <code class="language-plaintext highlighter-rouge">G-V6XXXXXXXX</code>. Copy this to your <code class="language-plaintext filepath highlighter-rouge">_config.yml</code> file:</p>
 
@@ -1294,7 +1145,7 @@
 
 <p>When you push these changes to your blog, you should start seeing the traffic on your Google Analytics. Play around with the Google Analytics dashboard to get familiar with the options available as it takes like 5 mins to pick up your changes. You should now be able to monitor your traffic in real time.</p>
 
-<p><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 616 557'%3E%3C/svg%3E" data-src="https://raw.githubusercontent.com/cotes2020/chirpy-images/main/posts/20210103/02-google-analytics-realtime.png" alt="google-analytics-realtime" width="616" height="557" data-proofer-ignore></p>
+<p><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 616 557'%3E%3C/svg%3E" data-src="/posts/20210103/02-google-analytics-realtime.png" alt="google-analytics-realtime" width="616" height="557" data-proofer-ignore></p>
 
 <h2 id="setup-page-views"><span class="mr-2">Setup Page Views</span><a href="#setup-page-views" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
@@ -1531,7 +1382,7 @@ To view your application in the web browser run:
 
 <p>If everything went good, you’ll get this screen:</p>
 
-<p><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1366 354'%3E%3C/svg%3E" data-src="https://raw.githubusercontent.com/cotes2020/chirpy-images/main/posts/20210103/03-superProxy-deployed.png" alt="superProxy-deployed" width="1366" height="354" data-proofer-ignore></p>
+<p><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1366 354'%3E%3C/svg%3E" data-src="/posts/20210103/03-superProxy-deployed.png" alt="superProxy-deployed" width="1366" height="354" data-proofer-ignore></p>
 
 <h3 id="create-google-analytics-query"><span class="mr-2">Create Google Analytics Query</span><a href="#create-google-analytics-query" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
@@ -1562,13 +1413,13 @@ To view your application in the web browser run:
 
 <p>After the query is saved on GAE, a <strong>Public Endpoint</strong> (public access address) will be generated, and we will get the query result in JSON format when accessing it. Finally, click <kbd>Enable Endpoint</kbd> in <strong>Public Request Endpoint</strong> to make the query effective, and click <kbd>Start Scheduling</kbd> in <strong>Scheduling</strong> to start the scheduled task.</p>
 
-<p><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1100 126'%3E%3C/svg%3E" data-src="https://raw.githubusercontent.com/cotes2020/chirpy-images/main/posts/20210103/04-superproxy-query.png" alt="superproxy-query" width="1100" height="126" data-proofer-ignore></p>
+<p><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1100 126'%3E%3C/svg%3E" data-src="/posts/20210103/04-superproxy-query.png" alt="superproxy-query" width="1100" height="126" data-proofer-ignore></p>
 
 <h2 id="configure-chirpy-to-display-page-view"><span class="mr-2">Configure Chirpy to Display Page View</span><a href="#configure-chirpy-to-display-page-view" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
 
 <p>Once all the hard part is done, it is very easy to enable the Page View on Chirpy theme. Your superProxy dashboard should look something like below and you can grab the required values.</p>
 
-<p><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1210 694'%3E%3C/svg%3E" data-src="https://raw.githubusercontent.com/cotes2020/chirpy-images/main/posts/20210103/05-superproxy-dashboard.png" alt="superproxy-dashboard" width="1210" height="694" data-proofer-ignore></p>
+<p><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1210 694'%3E%3C/svg%3E" data-src="/posts/20210103/05-superproxy-dashboard.png" alt="superproxy-dashboard" width="1210" height="694" data-proofer-ignore></p>
 
 <p>Update the <code class="language-plaintext filepath highlighter-rouge">_config.yml</code> file of <a href="https://github.com/cotes2020/jekyll-theme-chirpy/"><strong>Chirpy</strong></a> project with the values from your dashboard, to look similar to the following:</p>
 
@@ -1656,19 +1507,19 @@ To view your application in the web browser run:
 
     
       
-        <a href="https://twitter.com/intent/tweet?text=Enable+Google+Page+Views+-+Chirpy&url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Fenable-google-pv%2F" data-toggle="tooltip" data-placement="top"
+        <a href="https://twitter.com/intent/tweet?text=Enable+Google+Page+Views+-+Yinhui&url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Fenable-google-pv%2F" data-toggle="tooltip" data-placement="top"
           title="Twitter" target="_blank" rel="noopener" aria-label="Twitter">
           <i class="fa-fw fab fa-twitter"></i>
         </a>
     
       
-        <a href="https://www.facebook.com/sharer/sharer.php?title=Enable+Google+Page+Views+-+Chirpy&u=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Fenable-google-pv%2F" data-toggle="tooltip" data-placement="top"
+        <a href="https://www.facebook.com/sharer/sharer.php?title=Enable+Google+Page+Views+-+Yinhui&u=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Fenable-google-pv%2F" data-toggle="tooltip" data-placement="top"
           title="Facebook" target="_blank" rel="noopener" aria-label="Facebook">
           <i class="fa-fw fab fa-facebook-square"></i>
         </a>
     
       
-        <a href="https://t.me/share/url?url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Fenable-google-pv%2F&text=Enable+Google+Page+Views+-+Chirpy" data-toggle="tooltip" data-placement="top"
+        <a href="https://t.me/share/url?url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Fenable-google-pv%2F&text=Enable+Google+Page+Views+-+Yinhui" data-toggle="tooltip" data-placement="top"
           title="Telegram" target="_blank" rel="noopener" aria-label="Telegram">
           <i class="fa-fw fab fa-telegram"></i>
         </a>
@@ -2204,7 +2055,7 @@ Crea...
     <div class="footer-left">
       <p class="mb-0">
         © 2022
-        <a href="https://twitter.com/username">your_full_name</a>.
+        <a href="https://github.com/yinhui1984">zhouyinhui</a>.
         
         <span data-toggle="tooltip" data-placement="top"
           title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author.">Some rights reserved.</span>

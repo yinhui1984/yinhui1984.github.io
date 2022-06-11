@@ -14,6 +14,8 @@
 
 <html lang="en"
   
+    data-mode="dark"
+  
 >
 
   <!--
@@ -38,59 +40,35 @@
   
 
   
-    
-
-    
-      
-        <!-- `site.img_cdn` is a cross-origin URL -->
-        
-        
-      
-
-      
-
-    
-      
-        <!-- `site.img_cdn` is a cross-origin URL -->
-        
-        
-      
-
-      
-
-    
-  
 
   
     <!-- Begin Jekyll SEO tag v2.8.0 -->
 <meta name="generator" content="Jekyll v4.2.2" />
 <meta property="og:title" content="Text and Typography" />
-<meta name="author" content="Cotes Chung" />
+<meta name="author" content="yinhui ZHOU" />
 <meta property="og:locale" content="en" />
 <meta name="description" content="This post is to show Markdown syntax rendering on Chirpy, you can also use it as an example of writing. Now, let’s start looking at text and typography." />
 <meta property="og:description" content="This post is to show Markdown syntax rendering on Chirpy, you can also use it as an example of writing. Now, let’s start looking at text and typography." />
 <link rel="canonical" href="http://localhost:4000/posts/text-and-typography/" />
 <meta property="og:url" content="http://localhost:4000/posts/text-and-typography/" />
-<meta property="og:site_name" content="Chirpy" />
-<meta property="og:image" content="https://raw.githubusercontent.com/cotes2020/chirpy-images/main/commons/devices-mockup.png" />
+<meta property="og:site_name" content="Yinhui" />
+<meta property="og:image" content="http://localhost:4000/commons/devices-mockup.png" />
 <meta property="og:image:height" content="500" />
 <meta property="og:image:width" content="800" />
 <meta property="og:image:alt" content="Responsive rendering of Chirpy theme on multiple devices." />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2019-08-08T11:33:00+08:00" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta property="twitter:image" content="https://raw.githubusercontent.com/cotes2020/chirpy-images/main/commons/devices-mockup.png" />
+<meta property="twitter:image" content="http://localhost:4000/commons/devices-mockup.png" />
 <meta name="twitter:image:alt" content="Responsive rendering of Chirpy theme on multiple devices." />
 <meta property="twitter:title" content="Text and Typography" />
-<meta name="twitter:site" content="@twitter_username" />
-<meta name="twitter:creator" content="@cotes2020" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Cotes Chung","url":"https://github.com/cotes2020/"},"dateModified":"2019-08-08T11:33:00+08:00","datePublished":"2019-08-08T11:33:00+08:00","description":"This post is to show Markdown syntax rendering on Chirpy, you can also use it as an example of writing. Now, let’s start looking at text and typography.","headline":"Text and Typography","image":{"width":800,"height":500,"alt":"Responsive rendering of Chirpy theme on multiple devices.","url":"http://localhost:4000/commons/devices-mockup.png","@type":"imageObject"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/text-and-typography/"},"url":"http://localhost:4000/posts/text-and-typography/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"yinhui ZHOU","url":"https://github.com/yinhui1984/"},"dateModified":"2019-08-08T11:33:00+08:00","datePublished":"2019-08-08T11:33:00+08:00","description":"This post is to show Markdown syntax rendering on Chirpy, you can also use it as an example of writing. Now, let’s start looking at text and typography.","headline":"Text and Typography","image":{"width":800,"height":500,"alt":"Responsive rendering of Chirpy theme on multiple devices.","url":"http://localhost:4000/commons/devices-mockup.png","@type":"imageObject"},"mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/text-and-typography/"},"url":"http://localhost:4000/posts/text-and-typography/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
 
-  <title>Text and Typography | Chirpy
+  <title>Text and Typography | Yinhui
   </title>
 
   <!--
@@ -105,8 +83,8 @@
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png">
 <link rel="manifest" href="/assets/img/favicons/site.webmanifest">
 <link rel="shortcut icon" href="/assets/img/favicons/favicon.ico">
-<meta name="apple-mobile-web-app-title" content="Chirpy">
-<meta name="application-name" content="Chirpy">
+<meta name="apple-mobile-web-app-title" content="Yinhui">
+<meta name="application-name" content="Yinhui">
 <meta name="msapplication-TileColor" content="#da532c">
 <meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml">
 <meta name="theme-color" content="#ffffff">
@@ -157,137 +135,6 @@
   <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
 
   
-    <!--
-  Switch the mode between dark and light.
--->
-
-<script type="text/javascript">
-  class ModeToggle {
-    static get MODE_KEY() { return "mode"; }
-    static get MODE_ATTR() { return "data-mode"; }
-    static get DARK_MODE() { return "dark"; }
-    static get LIGHT_MODE() { return "light"; }
-    static get ID() { return "mode-toggle"; }
-
-    constructor() {
-      if (this.hasMode) {
-        if (this.isDarkMode) {
-          if (!this.isSysDarkPrefer) {
-            this.setDark();
-          }
-        } else {
-          if (this.isSysDarkPrefer) {
-            this.setLight();
-          }
-        }
-      }
-
-      let self = this;
-
-      /* always follow the system prefers */
-      this.sysDarkPrefers.addEventListener("change", () => {
-        if (self.hasMode) {
-          if (self.isDarkMode) {
-            if (!self.isSysDarkPrefer) {
-              self.setDark();
-            }
-
-          } else {
-            if (self.isSysDarkPrefer) {
-              self.setLight();
-            }
-          }
-
-          self.clearMode();
-        }
-
-        self.notify();
-
-      });
-
-    } /* constructor() */
-
-    get sysDarkPrefers() { return window.matchMedia("(prefers-color-scheme: dark)"); }
-
-    get isSysDarkPrefer() { return this.sysDarkPrefers.matches; }
-
-    get isDarkMode() { return this.mode === ModeToggle.DARK_MODE; }
-
-    get isLightMode() { return this.mode === ModeToggle.LIGHT_MODE; }
-
-    get hasMode() { return this.mode != null; }
-
-    get mode() { return sessionStorage.getItem(ModeToggle.MODE_KEY); }
-
-    /* get the current mode on screen */
-    get modeStatus() {
-      if (this.isDarkMode
-        || (!this.hasMode && this.isSysDarkPrefer)) {
-        return ModeToggle.DARK_MODE;
-      } else {
-        return ModeToggle.LIGHT_MODE;
-      }
-    }
-
-    setDark() {
-      $('html').attr(ModeToggle.MODE_ATTR, ModeToggle.DARK_MODE);
-      sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.DARK_MODE);
-    }
-
-    setLight() {
-      $('html').attr(ModeToggle.MODE_ATTR, ModeToggle.LIGHT_MODE);
-      sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.LIGHT_MODE);
-    }
-
-    clearMode() {
-      $('html').removeAttr(ModeToggle.MODE_ATTR);
-      sessionStorage.removeItem(ModeToggle.MODE_KEY);
-    }
-
-    /* Notify another plugins that the theme mode has changed */
-    notify() {
-      window.postMessage({
-        direction: ModeToggle.ID,
-        message: this.modeStatus
-      }, "*");
-    }
-
-  } /* ModeToggle */
-
-  const toggle = new ModeToggle();
-
-  function flipMode() {
-    if (toggle.hasMode) {
-      if (toggle.isSysDarkPrefer) {
-        if (toggle.isLightMode) {
-          toggle.clearMode();
-        } else {
-          toggle.setLight();
-        }
-
-      } else {
-        if (toggle.isDarkMode) {
-          toggle.clearMode();
-        } else {
-          toggle.setDark();
-        }
-      }
-
-    } else {
-      if (toggle.isSysDarkPrefer) {
-        toggle.setLight();
-      } else {
-        toggle.setDark();
-      }
-    }
-
-    toggle.notify();
-
-  } /* flipMode() */
-
-</script>
-
-  
 </head>
 
 
@@ -303,15 +150,15 @@
       <a href="/" class="mx-auto">
         
           
-          <img src="https://raw.githubusercontent.com/cotes2020/chirpy-images/main/commons/avatar.jpg" alt="avatar" onerror="this.style.display='none'">
+          <img src="/assets/img/yinhui.png" alt="avatar" onerror="this.style.display='none'">
         
       </a>
     </div>
 
     <div class="site-title mt-3">
-      <a href="/">Chirpy</a>
+      <a href="/">Yinhui</a>
     </div>
-    <div class="site-subtitle font-italic">A text-focused Jekyll theme</div>
+    <div class="site-subtitle font-italic">A programming enthusiast</div>
 
   </div><!-- .profile-wrapper -->
 
@@ -368,20 +215,12 @@
   <div class="sidebar-bottom mt-auto d-flex flex-wrap justify-content-center align-items-center">
 
     
-      <button class="mode-toggle btn" aria-label="Switch Mode">
-        <i class="fas fa-adjust"></i>
-      </button>
-
-      
-        <span class="icon-border"></span>
-      
-    
 
     
       
 
       
-      <a href="https://github.com/github_username" aria-label="github"
+      <a href="https://github.com/yinhui1984" aria-label="github"
         target="_blank" rel="noopener">
         <i class="fab fa-github"></i>
       </a>
@@ -391,18 +230,8 @@
       
 
       
-      <a href="https://twitter.com/twitter_username" aria-label="twitter"
-        target="_blank" rel="noopener">
-        <i class="fab fa-twitter"></i>
-      </a>
-      
-
-    
-      
-
-      
       <a href="
-          javascript:location.href = 'mailto:' + ['example','doamin.com'].join('@')" aria-label="email"
+          javascript:location.href = 'mailto:' + ['g44784803','gmail.com'].join('@')" aria-label="email"
         >
         <i class="fas fa-envelope"></i>
       </a>
@@ -1625,7 +1454,7 @@
     
 
     <div class="mt-3 mb-3">
-      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 500'%3E%3C/svg%3E" data-src="https://raw.githubusercontent.com/cotes2020/chirpy-images/main/commons/devices-mockup.png" class="preview-img bg"
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 500'%3E%3C/svg%3E" data-src="/commons/devices-mockup.png" class="preview-img bg"
         alt="Responsive rendering of Chirpy theme on multiple devices."
 
       
@@ -1655,7 +1484,7 @@
 
       <em>
         
-          <a href="https://github.com/cotes2020/">Cotes Chung</a>
+          <a href="https://github.com/yinhui1984/">yinhui ZHOU</a>
         
       </em>
     </span>
@@ -1836,7 +1665,7 @@
   <li>Default (with caption)</li>
 </ul>
 
-<p><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 972 589'%3E%3C/svg%3E" data-src="https://raw.githubusercontent.com/cotes2020/chirpy-images/main/posts/20190808/mockup.png" alt="Desktop View" width="972" height="589" data-proofer-ignore>
+<p><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 972 589'%3E%3C/svg%3E" data-src="/posts/20190808/mockup.png" alt="Desktop View" width="972" height="589" data-proofer-ignore>
 <em>Full screen width and center alignment</em></p>
 
 <p><br /></p>
@@ -1845,7 +1674,7 @@
   <li>Shadow</li>
 </ul>
 
-<p><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1548 864'%3E%3C/svg%3E" data-src="https://raw.githubusercontent.com/cotes2020/chirpy-images/main/posts/20190808/window.png" alt="Window shadow" class="shadow" width="1548" height="864" style="max-width: 90%" data-proofer-ignore>
+<p><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1548 864'%3E%3C/svg%3E" data-src="/posts/20190808/window.png" alt="Window shadow" class="shadow" width="1548" height="864" style="max-width: 90%" data-proofer-ignore>
 <em>shadow effect (visible in light mode)</em></p>
 
 <p><br /></p>
@@ -1854,7 +1683,7 @@
   <li>Left aligned</li>
 </ul>
 
-<p><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 972 589'%3E%3C/svg%3E" data-src="https://raw.githubusercontent.com/cotes2020/chirpy-images/main/posts/20190808/mockup.png" alt="Desktop View" width="972" height="589" style="max-width: 70%" class="normal" data-proofer-ignore></p>
+<p><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 972 589'%3E%3C/svg%3E" data-src="/posts/20190808/mockup.png" alt="Desktop View" width="972" height="589" style="max-width: 70%" class="normal" data-proofer-ignore></p>
 
 <p><br /></p>
 
@@ -1862,7 +1691,7 @@
   <li>
     <p>Float to left</p>
 
-    <p><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 972 589'%3E%3C/svg%3E" data-src="https://raw.githubusercontent.com/cotes2020/chirpy-images/main/posts/20190808/mockup.png" alt="Desktop View" width="972" height="589" style="max-width: 200px" class="left" data-proofer-ignore>
+    <p><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 972 589'%3E%3C/svg%3E" data-src="/posts/20190808/mockup.png" alt="Desktop View" width="972" height="589" style="max-width: 200px" class="left" data-proofer-ignore>
 “A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space.”</p>
   </li>
 </ul>
@@ -1873,7 +1702,7 @@
   <li>
     <p>Float to right</p>
 
-    <p><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 972 589'%3E%3C/svg%3E" data-src="https://raw.githubusercontent.com/cotes2020/chirpy-images/main/posts/20190808/mockup.png" alt="Desktop View" width="972" height="589" style="max-width: 200px" class="right" data-proofer-ignore>
+    <p><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 972 589'%3E%3C/svg%3E" data-src="/posts/20190808/mockup.png" alt="Desktop View" width="972" height="589" style="max-width: 200px" class="right" data-proofer-ignore>
 “A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space. A repetitive and meaningless text is used to fill the space.”</p>
   </li>
 </ul>
@@ -2025,19 +1854,19 @@ PYENV_SHELL=bash
 
     
       
-        <a href="https://twitter.com/intent/tweet?text=Text+and+Typography+-+Chirpy&url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Ftext-and-typography%2F" data-toggle="tooltip" data-placement="top"
+        <a href="https://twitter.com/intent/tweet?text=Text+and+Typography+-+Yinhui&url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Ftext-and-typography%2F" data-toggle="tooltip" data-placement="top"
           title="Twitter" target="_blank" rel="noopener" aria-label="Twitter">
           <i class="fa-fw fab fa-twitter"></i>
         </a>
     
       
-        <a href="https://www.facebook.com/sharer/sharer.php?title=Text+and+Typography+-+Chirpy&u=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Ftext-and-typography%2F" data-toggle="tooltip" data-placement="top"
+        <a href="https://www.facebook.com/sharer/sharer.php?title=Text+and+Typography+-+Yinhui&u=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Ftext-and-typography%2F" data-toggle="tooltip" data-placement="top"
           title="Facebook" target="_blank" rel="noopener" aria-label="Facebook">
           <i class="fa-fw fab fa-facebook-square"></i>
         </a>
     
       
-        <a href="https://t.me/share/url?url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Ftext-and-typography%2F&text=Text+and+Typography+-+Chirpy" data-toggle="tooltip" data-placement="top"
+        <a href="https://t.me/share/url?url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2Ftext-and-typography%2F&text=Text+and+Typography+-+Yinhui" data-toggle="tooltip" data-placement="top"
           title="Telegram" target="_blank" rel="noopener" aria-label="Telegram">
           <i class="fa-fw fab fa-telegram"></i>
         </a>
@@ -2573,7 +2402,7 @@ Crea...
     <div class="footer-left">
       <p class="mb-0">
         © 2022
-        <a href="https://twitter.com/username">your_full_name</a>.
+        <a href="https://github.com/yinhui1984">zhouyinhui</a>.
         
         <span data-toggle="tooltip" data-placement="top"
           title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author.">Some rights reserved.</span>

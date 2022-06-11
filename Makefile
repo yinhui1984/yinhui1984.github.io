@@ -26,4 +26,9 @@ install:
 
 release:
 	git pull && cp -aRvf ./jekyllContent/myblog/_site/* ./docs/ && git add . && git commit -m "auto updated by script" && git push
+
+help:
+	open https://chirpy.cotes.page
+	open https://docs.github.com/cn/pages/quickstart
+
 	
