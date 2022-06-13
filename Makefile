@@ -5,6 +5,9 @@
 # newsite:
 # 	jekyll new $(site)
 
+newpost:
+	 go run newPost.go "$(title)"
+
 run:
 	-killall -9 ruby
 	cd jekyllContent/myblog && bundle exec jekyll serve --trace  &

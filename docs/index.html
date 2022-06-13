@@ -334,7 +334,7 @@
 
   <div class="post-preview">
     <h1>
-      <a href="/posts/getting-started/">Getting Started</a>
+      <a href="/posts/go%E8%AF%AD%E8%A8%80%E4%B8%ADchannel%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84/">go语言中Channel是如何工作的</a>
     </h1>
 
     <div class="post-content">
@@ -345,13 +345,23 @@
 
 
 
-        Prerequisites
+        了解Golang通道的内部工作原理
 
-Follow the instructions in the Jekyll Docs to complete the installation of Ruby, RubyGems, Jekyll, and Bundler. In addition, Git is also required to be installed.
 
-Installation
 
-Crea...
+goroutine(协程)和通道
+
+goroutine是一个轻量级的用户空间线程，由Go运行时管理。它同时执行任务，可能是并行的。
+
+通道是用于goroutine之间的通信。
+
+在这篇文章中，我们将深入了解通道的内部运作和它的发送/接收操作。
+
+缓冲通道
+
+我们先创建一个缓冲通道用于下面的解释。
+
+ch := make(chan int, 3)   ...
       </p>
     </div>
 
@@ -370,10 +380,10 @@ Crea...
 
 
 <em class=""
-    data-ts="1565355300"
+    data-ts="1655049600"
     data-df="ll"
     >
-  Aug  9, 2019
+  Jun 13, 2022
 </em>
 
 
@@ -382,72 +392,8 @@ Crea...
           <i class="far fa-folder-open fa-fw"></i>
           <span>
           
-            Blogging,
-            Tutorial
-          </span>
-        
-
-      </div>
-
-      
-      <div class="pin">
-        <i class="fas fa-thumbtack fa-fw"></i>
-        <span>Pinned</span>
-      </div>
-      
-
-    </div> <!-- .post-meta -->
-
-  </div> <!-- .post-review -->
-
-
-
-  <div class="post-preview">
-    <h1>
-      <a href="/posts/enable-google-pv/">Enable Google Page Views</a>
-    </h1>
-
-    <div class="post-content">
-      <p>
-        
-
-
-
-
-
-        This post is to enable Page Views on the Chirpy theme based blog that you just built. This requires technical knowledge and it’s recommended to keep the google_analytics.pv.* empty unless you have ...
-      </p>
-    </div>
-
-    <div class="post-meta text-muted d-flex">
-      <div class="mr-auto">
-
-        <!-- posted date -->
-        <i class="far fa-calendar fa-fw"></i>
-        <!--
-  Date format snippet
-  See: ${JS_ROOT}/utils/locale-dateime.js
--->
-
-
-
-
-
-<em class=""
-    data-ts="1609716720"
-    data-df="ll"
-    >
-  Jan  4, 2021
-</em>
-
-
-        <!-- categories -->
-        
-          <i class="far fa-folder-open fa-fw"></i>
-          <span>
-          
-            Blogging,
-            Tutorial
+            BlockChain,
+            golang
           </span>
         
 
@@ -463,7 +409,7 @@ Crea...
 
   <div class="post-preview">
     <h1>
-      <a href="/posts/customize-the-favicon/">Customize the Favicon</a>
+      <a href="/posts/golang_http_server/">golang http server</a>
     </h1>
 
     <div class="post-content">
@@ -474,7 +420,21 @@ Crea...
 
 
 
-        The favicons of Chirpy are placed in the directory assets/img/favicons/. You may want to replace them with your own. The following sections will guide you to create and replace the default favicons...
+        golang 中http server 基础知识.
+
+简单的文件服务器
+
+package main
+
+import (
+	&quot;log&quot;
+	&quot;net/http&quot;
+)
+
+func main() {
+	err := http.ListenAndServe(&quot;:8080&quot;, http.FileServer(http.Dir(&quot;.&quot;)))
+	if err != nil {
+		log.Fatal(err...
       </p>
     </div>
 
@@ -493,10 +453,10 @@ Crea...
 
 
 <em class=""
-    data-ts="1565454840"
+    data-ts="1655049600"
     data-df="ll"
     >
-  Aug 11, 2019
+  Jun 13, 2022
 </em>
 
 
@@ -505,135 +465,8 @@ Crea...
           <i class="far fa-folder-open fa-fw"></i>
           <span>
           
-            Blogging,
-            Tutorial
-          </span>
-        
-
-      </div>
-
-      
-
-    </div> <!-- .post-meta -->
-
-  </div> <!-- .post-review -->
-
-
-
-  <div class="post-preview">
-    <h1>
-      <a href="/posts/write-a-new-post/">Writing a New Post</a>
-    </h1>
-
-    <div class="post-content">
-      <p>
-        
-
-
-
-
-
-        This post will guide you how to write a post on Chirpy theme. Even if you have previous experience with Jekyll, this article is worth reading, because many features require specific variables to be...
-      </p>
-    </div>
-
-    <div class="post-meta text-muted d-flex">
-      <div class="mr-auto">
-
-        <!-- posted date -->
-        <i class="far fa-calendar fa-fw"></i>
-        <!--
-  Date format snippet
-  See: ${JS_ROOT}/utils/locale-dateime.js
--->
-
-
-
-
-
-<em class=""
-    data-ts="1565244600"
-    data-df="ll"
-    >
-  Aug  8, 2019
-</em>
-
-
-        <!-- categories -->
-        
-          <i class="far fa-folder-open fa-fw"></i>
-          <span>
-          
-            Blogging,
-            Tutorial
-          </span>
-        
-
-      </div>
-
-      
-
-    </div> <!-- .post-meta -->
-
-  </div> <!-- .post-review -->
-
-
-
-  <div class="post-preview">
-    <h1>
-      <a href="/posts/text-and-typography/">Text and Typography</a>
-    </h1>
-
-    <div class="post-content">
-      <p>
-        
-
-
-
-
-
-        This post is to show Markdown syntax rendering on Chirpy, you can also use it as an example of writing. Now, let’s start looking at text and typography.
-
-Titles
-
-
-H1 - heading
-
-H2 - heading
-
-H3 - h...
-      </p>
-    </div>
-
-    <div class="post-meta text-muted d-flex">
-      <div class="mr-auto">
-
-        <!-- posted date -->
-        <i class="far fa-calendar fa-fw"></i>
-        <!--
-  Date format snippet
-  See: ${JS_ROOT}/utils/locale-dateime.js
--->
-
-
-
-
-
-<em class=""
-    data-ts="1565235180"
-    data-df="ll"
-    >
-  Aug  8, 2019
-</em>
-
-
-        <!-- categories -->
-        
-          <i class="far fa-folder-open fa-fw"></i>
-          <span>
-          
-            Blogging,
-            Demo
+            BlockChain,
+            golang
           </span>
         
 
@@ -774,140 +607,6 @@ H3 - h...
         
         
 
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
 
 
   <div id="access-tags">
@@ -916,22 +615,10 @@ H3 - h...
 
     
       
-      <a class="post-tag" href="/tags/favicon/">favicon</a>
+      <a class="post-tag" href="/tags/chan/">chan</a>
     
       
-      <a class="post-tag" href="/tags/getting-started/">getting started</a>
-    
-      
-      <a class="post-tag" href="/tags/google-analytics/">google analytics</a>
-    
-      
-      <a class="post-tag" href="/tags/pageviews/">pageviews</a>
-    
-      
-      <a class="post-tag" href="/tags/typography/">typography</a>
-    
-      
-      <a class="post-tag" href="/tags/writing/">writing</a>
+      <a class="post-tag" href="/tags/http/">http</a>
     
 
     </div>
@@ -1033,140 +720,6 @@ H3 - h...
         
         
 
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
 
 
   <div id="access-tags">
@@ -1175,22 +728,10 @@ H3 - h...
 
     
       
-      <a class="post-tag" href="/tags/favicon/">favicon</a>
+      <a class="post-tag" href="/tags/chan/">chan</a>
     
       
-      <a class="post-tag" href="/tags/getting-started/">getting started</a>
-    
-      
-      <a class="post-tag" href="/tags/google-analytics/">google analytics</a>
-    
-      
-      <a class="post-tag" href="/tags/pageviews/">pageviews</a>
-    
-      
-      <a class="post-tag" href="/tags/typography/">typography</a>
-    
-      
-      <a class="post-tag" href="/tags/writing/">writing</a>
+      <a class="post-tag" href="/tags/http/">http</a>
     
 
     </div>
