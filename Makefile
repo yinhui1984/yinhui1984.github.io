@@ -34,4 +34,7 @@ help:
 	open https://chirpy.cotes.page
 	open https://docs.github.com/cn/pages/quickstart
 
+actions:
+	open https://github.com/yinhui1984/yinhui1984.github.io/actions
+
 	
