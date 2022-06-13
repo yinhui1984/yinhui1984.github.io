@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>http://localhost:4000/posts/%E8%81%8A%E8%81%8Ago%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84sync/</loc>
+<lastmod>2022-06-12T00:00:00+08:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/posts/golang_http_server/</loc>
 <lastmod>2022-06-13T00:00:00+08:00</lastmod>
 </url>
@@ -10,22 +14,25 @@
 </url>
 <url>
 <loc>http://localhost:4000/categories/</loc>
-<lastmod>2022-06-13T11:21:09+08:00</lastmod>
+<lastmod>2022-06-13T15:26:40+08:00</lastmod>
 </url>
 <url>
 <loc>http://localhost:4000/tags/</loc>
-<lastmod>2022-06-13T11:21:09+08:00</lastmod>
+<lastmod>2022-06-13T15:26:40+08:00</lastmod>
 </url>
 <url>
 <loc>http://localhost:4000/archives/</loc>
-<lastmod>2022-06-13T11:21:09+08:00</lastmod>
+<lastmod>2022-06-13T15:26:40+08:00</lastmod>
 </url>
 <url>
 <loc>http://localhost:4000/about/</loc>
-<lastmod>2022-06-13T11:21:09+08:00</lastmod>
+<lastmod>2022-06-13T15:26:40+08:00</lastmod>
 </url>
 <url>
 <loc>http://localhost:4000/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/tags/sync/</loc>
 </url>
 <url>
 <loc>http://localhost:4000/tags/http/</loc>

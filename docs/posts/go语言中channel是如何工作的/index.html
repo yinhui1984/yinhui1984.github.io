@@ -1535,6 +1535,29 @@ type sudog struct {
         
         
 
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
 
 
   <div id="access-tags">
@@ -1547,6 +1570,9 @@ type sudog struct {
     
       
       <a class="post-tag" href="/tags/http/">http</a>
+    
+      
+      <a class="post-tag" href="/tags/sync/">sync</a>
     
 
     </div>
@@ -1618,6 +1644,19 @@ type sudog struct {
   
 
 
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
 
 
 
@@ -1638,6 +1677,12 @@ type sudog struct {
       
     
   
+    
+    
+      
+      
+    
+  
 
 
 
@@ -1645,6 +1690,61 @@ type sudog struct {
     <h3 class="pt-2 mt-1 mb-4 ml-1"
       data-toc-skip>Further Reading</h3>
     <div class="card-deck mb-4">
+    
+      
+      
+      <div class="card">
+        <a href="/posts/%E8%81%8A%E8%81%8Ago%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84sync/">
+          <div class="card-body">
+            <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+
+<em class="small"
+    data-ts="1654963200"
+    data-df="ll"
+    >
+  Jun 12, 2022
+</em>
+
+            <h3 class="pt-0 mt-1 mb-3" data-toc-skip>聊聊go语言中的sync</h3>
+            <div class="text-muted small">
+              <p>
+                
+
+
+
+
+
+                我们将用些简单的例子来尝试golang中sync包的各种有趣的情况
+
+一个简单的DEMO
+
+package main
+
+import &quot;fmt&quot;
+
+var (
+	sharedCounter = 0
+)
+
+func add(count int) {
+	for i := 0; i &amp;lt; count; i++ {
+		sharedCounter++
+	}
+}
+
+func sub(count i...
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
     
       
       
@@ -1819,6 +1919,29 @@ func main() {
         
         
 
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
 
 
   <div id="access-tags">
@@ -1831,6 +1954,9 @@ func main() {
     
       
       <a class="post-tag" href="/tags/http/">http</a>
+    
+      
+      <a class="post-tag" href="/tags/sync/">sync</a>
     
 
     </div>
