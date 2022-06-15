@@ -55,7 +55,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="golang实现一个简单的事件处理程序" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"yinhui ZHOU","url":"https://github.com/yinhui1984/"},"dateModified":"2022-06-14T00:00:00+08:00","datePublished":"2022-06-14T00:00:00+08:00","description":"一个简单的事件处理程序.","headline":"golang实现一个简单的事件处理程序","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/golang%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F/"},"url":"http://localhost:4000/posts/golang%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"yinhui ZHOU","url":"https://github.com/yinhui1984/"},"dateModified":"2022-06-15T11:16:58+08:00","datePublished":"2022-06-14T00:00:00+08:00","description":"一个简单的事件处理程序.","headline":"golang实现一个简单的事件处理程序","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/golang%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F/"},"url":"http://localhost:4000/posts/golang%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
@@ -644,6 +644,26 @@
 
     <!-- lastmod date -->
     
+    <span>
+      Updated
+      <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+
+<em class=""
+    data-ts="1655263018"
+    data-df="ll"
+    data-toggle="tooltip" data-placement="bottom">
+  Jun 15, 2022
+</em>
+
+    </span>
+    
 
   
 
@@ -688,7 +708,7 @@
 
 <!-- return element -->
 <span class="readtime" data-toggle="tooltip" data-placement="bottom"
-  title="391 words">
+  title="379 words">
   <em>2 min</em> read</span>
 
     </div>
@@ -772,14 +792,14 @@
 
 <span class="k">import</span> <span class="s">"sync"</span>
 
-<span class="k">type</span> <span class="n">EventHandler</span> <span class="k">func</span><span class="p">(</span><span class="n">event</span> <span class="n">Event</span><span class="p">,</span> <span class="n">arg</span> <span class="o">*</span><span class="k">interface</span><span class="p">{})</span>
+<span class="k">type</span> <span class="n">EventHandler</span> <span class="k">func</span><span class="p">(</span><span class="n">event</span> <span class="n">Event</span><span class="p">,</span> <span class="n">arg</span> <span class="k">interface</span><span class="p">{})</span>
 
 <span class="k">var</span> <span class="n">lock</span> <span class="n">sync</span><span class="o">.</span><span class="n">Mutex</span>
 
 <span class="k">type</span> <span class="n">Event</span> <span class="k">interface</span> <span class="p">{</span>
 	<span class="n">Name</span><span class="p">()</span> <span class="kt">string</span>
 	<span class="n">Register</span><span class="p">(</span><span class="n">EventHandler</span><span class="p">)</span> <span class="kt">error</span>
-	<span class="n">Trigger</span><span class="p">(</span><span class="n">arg</span> <span class="o">*</span><span class="k">interface</span><span class="p">{})</span> <span class="kt">error</span>
+	<span class="n">Trigger</span><span class="p">(</span><span class="n">arg</span> <span class="k">interface</span><span class="p">{})</span> <span class="kt">error</span>
 <span class="p">}</span>
 
 <span class="k">type</span> <span class="n">SimpleEvent</span> <span class="k">struct</span> <span class="p">{</span>
@@ -798,7 +818,7 @@
 	<span class="k">return</span> <span class="no">nil</span>
 <span class="p">}</span>
 
-<span class="k">func</span> <span class="p">(</span><span class="n">e</span> <span class="o">*</span><span class="n">SimpleEvent</span><span class="p">)</span> <span class="n">Trigger</span><span class="p">(</span><span class="n">arg</span> <span class="o">*</span><span class="k">interface</span><span class="p">{})</span> <span class="kt">error</span> <span class="p">{</span>
+<span class="k">func</span> <span class="p">(</span><span class="n">e</span> <span class="o">*</span><span class="n">SimpleEvent</span><span class="p">)</span> <span class="n">Trigger</span><span class="p">(</span><span class="n">arg</span> <span class="k">interface</span><span class="p">{})</span> <span class="kt">error</span> <span class="p">{</span>
 	<span class="n">lock</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
 	<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">h</span> <span class="o">:=</span> <span class="k">range</span> <span class="n">e</span><span class="o">.</span><span class="n">handlers</span> <span class="p">{</span>
 		<span class="k">go</span> <span class="n">h</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">arg</span><span class="p">)</span>
@@ -853,9 +873,6 @@
 31
 32
 33
-34
-35
-36
 </pre></td><td class="rouge-code"><pre><span class="k">package</span> <span class="n">user</span>
 
 <span class="k">import</span> <span class="p">(</span>
@@ -880,15 +897,12 @@
 <span class="p">}</span>
 
 <span class="k">func</span> <span class="n">Login</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="kt">bool</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-	<span class="k">var</span> <span class="n">i</span> <span class="k">interface</span><span class="p">{}</span> <span class="o">=</span> <span class="n">LoginArg</span><span class="p">{</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">Now</span><span class="p">()}</span>
-	<span class="n">_</span> <span class="o">=</span> <span class="n">LoginEvent</span><span class="o">.</span><span class="n">Trigger</span><span class="p">(</span><span class="o">&amp;</span><span class="n">i</span><span class="p">)</span>
-
+	<span class="n">_</span> <span class="o">=</span> <span class="n">LoginEvent</span><span class="o">.</span><span class="n">Trigger</span><span class="p">(</span><span class="n">LoginArg</span><span class="p">{</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">Now</span><span class="p">()})</span>
 	<span class="k">return</span> <span class="no">true</span><span class="p">,</span> <span class="no">nil</span>
 <span class="p">}</span>
 
 <span class="k">func</span> <span class="n">Logout</span><span class="p">(</span><span class="n">username</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
-	<span class="k">var</span> <span class="n">i</span> <span class="k">interface</span><span class="p">{}</span> <span class="o">=</span> <span class="n">LogoutArg</span><span class="p">{</span><span class="n">username</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">Now</span><span class="p">()}</span>
-	<span class="n">_</span> <span class="o">=</span> <span class="n">LogoutEvent</span><span class="o">.</span><span class="n">Trigger</span><span class="p">(</span><span class="o">&amp;</span><span class="n">i</span><span class="p">)</span>
+	<span class="n">_</span> <span class="o">=</span> <span class="n">LogoutEvent</span><span class="o">.</span><span class="n">Trigger</span><span class="p">(</span><span class="n">LogoutArg</span><span class="p">{</span><span class="n">username</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">Now</span><span class="p">()})</span>
 	<span class="k">return</span> <span class="no">nil</span>
 <span class="p">}</span>
 
@@ -927,6 +941,7 @@
 27
 28
 29
+30
 </pre></td><td class="rouge-code"><pre><span class="k">package</span> <span class="n">main</span>
 
 <span class="k">import</span> <span class="p">(</span>
@@ -939,13 +954,13 @@
 <span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
 
 	<span class="c">//事件处理程序 注册</span>
-	<span class="n">user</span><span class="o">.</span><span class="n">LoginEvent</span><span class="o">.</span><span class="n">Register</span><span class="p">(</span><span class="k">func</span><span class="p">(</span><span class="n">event</span> <span class="n">events</span><span class="o">.</span><span class="n">Event</span><span class="p">,</span> <span class="n">arg</span> <span class="o">*</span><span class="k">interface</span><span class="p">{})</span> <span class="p">{</span>
-		<span class="n">a</span> <span class="o">:=</span> <span class="p">(</span><span class="o">*</span><span class="n">arg</span><span class="p">)</span><span class="o">.</span><span class="p">(</span><span class="n">user</span><span class="o">.</span><span class="n">LoginArg</span><span class="p">)</span>
+	<span class="n">user</span><span class="o">.</span><span class="n">LoginEvent</span><span class="o">.</span><span class="n">Register</span><span class="p">(</span><span class="k">func</span><span class="p">(</span><span class="n">event</span> <span class="n">events</span><span class="o">.</span><span class="n">Event</span><span class="p">,</span> <span class="n">arg</span> <span class="k">interface</span><span class="p">{})</span> <span class="p">{</span>
+		<span class="n">a</span> <span class="o">:=</span> <span class="n">arg</span><span class="o">.</span><span class="p">(</span><span class="n">user</span><span class="o">.</span><span class="n">LoginArg</span><span class="p">)</span>
 		<span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%q: %q %q %q</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">Name</span><span class="p">(),</span> <span class="n">a</span><span class="o">.</span><span class="n">Username</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">Password</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">Time</span><span class="p">)</span>
 	<span class="p">})</span>
 
-	<span class="n">user</span><span class="o">.</span><span class="n">LogoutEvent</span><span class="o">.</span><span class="n">Register</span><span class="p">(</span><span class="k">func</span><span class="p">(</span><span class="n">event</span> <span class="n">events</span><span class="o">.</span><span class="n">Event</span><span class="p">,</span> <span class="n">arg</span> <span class="o">*</span><span class="k">interface</span><span class="p">{})</span> <span class="p">{</span>
-		<span class="n">a</span> <span class="o">:=</span> <span class="p">(</span><span class="o">*</span><span class="n">arg</span><span class="p">)</span><span class="o">.</span><span class="p">(</span><span class="n">user</span><span class="o">.</span><span class="n">LogoutArg</span><span class="p">)</span>
+	<span class="n">user</span><span class="o">.</span><span class="n">LogoutEvent</span><span class="o">.</span><span class="n">Register</span><span class="p">(</span><span class="k">func</span><span class="p">(</span><span class="n">event</span> <span class="n">events</span><span class="o">.</span><span class="n">Event</span><span class="p">,</span> <span class="n">arg</span> <span class="k">interface</span><span class="p">{})</span> <span class="p">{</span>
+		<span class="n">a</span> <span class="o">:=</span> <span class="n">arg</span><span class="o">.</span><span class="p">(</span><span class="n">user</span><span class="o">.</span><span class="n">LogoutArg</span><span class="p">)</span>
 		<span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%q: %q %q</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">Name</span><span class="p">(),</span> <span class="n">a</span><span class="o">.</span><span class="n">Username</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">Time</span><span class="p">)</span>
 	<span class="p">})</span>
 
@@ -956,6 +971,7 @@
 	<span class="n">time</span><span class="o">.</span><span class="n">Sleep</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">Second</span><span class="p">)</span>
 
 <span class="p">}</span>
+
 </pre></td></tr></tbody></table></code></div></div>
 
 </div>
@@ -1070,6 +1086,20 @@
 
 
 
+
+
+
+  <div id="access-lastmod" class="post">
+    <div class="panel-heading">Recently Updated</div>
+    <ul class="post-content pl-0 pb-1 ml-1 mt-2">
+      
+        
+        
+        
+      <li><a href="/posts/golang%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F/">golang实现一个简单的事件处理程序</a></li>
+      
+    </ul>
+  </div> <!-- #access-lastmod -->
 
 
 

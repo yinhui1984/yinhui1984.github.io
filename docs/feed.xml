@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yinhui</title>
   <subtitle>this is yinhui's blog.</subtitle>
-  <updated>2022-06-15T11:16:28+08:00</updated>
+  <updated>2022-06-15T14:40:55+08:00</updated>
   <author>
     <name>zhouyinhui</name>
     <uri>http://localhost:4000/</uri>
@@ -24,7 +24,7 @@
     <link href="http://localhost:4000/posts/golang%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F/" rel="alternate" type="text/html" title="golang实现一个简单的事件处理程序" />
     <published>2022-06-14T00:00:00+08:00</published>
   
-    <updated>2022-06-14T00:00:00+08:00</updated>
+    <updated>2022-06-15T11:16:58+08:00</updated>
   
     <id>http://localhost:4000/posts/golang%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F/</id>
     <content src="http://localhost:4000/posts/golang%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F/" />
@@ -68,21 +68,22 @@ package events
 
 import "sync"
 
-type EventHandler func(event Event, arg *interface{})
+type EventHandler func(event Event, arg interface{})
 
 var lock sync.Mutex
 
 type Event interface {
 	Name() string
 	Register(EventHandler) error
-	Trigger(arg *interface{}) error
+	Trigger(arg interface{}) error
 }
 
 type SimpleEvent struct {
 	name     string
 	handlers []EventHandler
 }
-...
+
+f...
     </summary>
   
 
