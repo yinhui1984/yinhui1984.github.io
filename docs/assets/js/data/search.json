@@ -1,6 +1,21 @@
 [
   
   {
+    "title": "使用delve对go代码进行调试",
+    "url": "/posts/%E4%BD%BF%E7%94%A8delve%E5%AF%B9go%E4%BB%A3%E7%A0%81%E8%BF%9B%E8%A1%8C%E8%B0%83%E8%AF%95/",
+    "categories": "BlockChain, golang",
+    "tags": "delve, debug",
+    "date": "2022-06-21 00:00:00 +0800",
+    
+
+
+
+
+
+    "snippet": "delve就是go语言的gdb,虽然 gdb也可以调试go程序 (https://go.dev/doc/gdb). 但是, 用gdb调试go程序有这些已知问题:已知问题  字符串pretty printing 只对字符串类型触发，而不是对其派生类型。  运行库的 C 部分缺少类型信息。  GDB 不理解 Go 的名称资格，并将 “fmt.Print “视为带有”. “的非结构化字面，需要加以引号。它对pkg.(*MyType).Meth形式的方法名反对得更厉害。  从Go 1.11开始，调试信息默认是压缩的。旧版本的gdb，例如MacOS上默认提供的版本，并不理解压缩。你可以使用go build -ldflags=-compressdwarf=false来生成未压缩的调试信息。(为了方便，你可以把-ldflags选项放在GOFLAGS环境变量中，这样你就不必每次都指定它)。使用 delve  https://github.com/go-delve/delve 更简单舒适首次安装go install github.com/go-delve/delve/cmd/dlv@latest基本使用  如果是调试主程序, cd到main.go所在目录, 运行 dlv debug  如果是调试测试代码,  cd到*_test.go所在目录, 运行 dlv test然后 和 gdb用法类似  break: 打断点 b packageName.functionName  或 b fileName:lineNumber比如 b main.Add,  b main.main  continue: 开始执行或继续执行 c   (开始执行也用c)  next :执行下一行 n  step: 单步进入 s  stepout: 单步退出so  print:打印 p thevar   quit退出调试 q更多的  https://github.com/go-delve/delve/blob/master/Documentation/cli/README.md高级使用dlv attach - 附加到正在运行的进程并开始调试。dlv connect - 用终端客户端连接到headless debug server。dlv core - 检查一个核心转储。dlv dap - 启动一个通过调试适配器协议（DAP）通信的无头TCP服务器。dlv debug - 编译并开始调试当前目录下的主包，或指定的包。dlv exec - 执行一个预编译的二进制文件，并开始一个调试会话。dlv replay - 回放一个rr跟踪。dlv run - 废弃的命令。使用’debug’代替。dlv test - 编译测试二进制文件并开始调试程序。dlv trace - 编译并开始追踪程序。dlv version - 打印版本。dlv log - 关于记录标记的帮助dlv backend -  --backend flag的帮助"
+  },
+  
+  {
     "title": "golang实现一个简单的事件处理程序",
     "url": "/posts/golang%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F/",
     "categories": "BlockChain, golang",

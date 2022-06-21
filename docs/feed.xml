@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yinhui</title>
   <subtitle>this is yinhui's blog.</subtitle>
-  <updated>2022-06-15T14:40:55+08:00</updated>
+  <updated>2022-06-21T14:07:02+08:00</updated>
   <author>
     <name>zhouyinhui</name>
     <uri>http://localhost:4000/</uri>
@@ -20,11 +20,55 @@
 
   
   <entry>
+    <title>使用delve对go代码进行调试</title>
+    <link href="http://localhost:4000/posts/%E4%BD%BF%E7%94%A8delve%E5%AF%B9go%E4%BB%A3%E7%A0%81%E8%BF%9B%E8%A1%8C%E8%B0%83%E8%AF%95/" rel="alternate" type="text/html" title="使用delve对go代码进行调试" />
+    <published>2022-06-21T00:00:00+08:00</published>
+  
+    <updated>2022-06-21T00:00:00+08:00</updated>
+  
+    <id>http://localhost:4000/posts/%E4%BD%BF%E7%94%A8delve%E5%AF%B9go%E4%BB%A3%E7%A0%81%E8%BF%9B%E8%A1%8C%E8%B0%83%E8%AF%95/</id>
+    <content src="http://localhost:4000/posts/%E4%BD%BF%E7%94%A8delve%E5%AF%B9go%E4%BB%A3%E7%A0%81%E8%BF%9B%E8%A1%8C%E8%B0%83%E8%AF%95/" />
+    <author>
+      <name>yinhui</name>
+    </author>
+
+  
+    
+    <category term="BlockChain" />
+    
+    <category term="golang" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      delve就是go语言的gdb,虽然 gdb也可以调试go程序 (https://go.dev/doc/gdb). 但是, 用gdb调试go程序有这些已知问题:
+
+已知问题
+
+
+  字符串pretty printing 只对字符串类型触发，而不是对其派生类型。
+  运行库的 C 部分缺少类型信息。
+  GDB 不理解 Go 的名称资格，并将 “fmt.Print “视为带有”. “的非结构化字面，需要加以引号。它对pkg.(*MyType).Meth形式的方法名反对得更厉害。
+  从Go 1.11开始，调试信息默认是压缩的。旧版本的gdb，例如MacOS上默认提供的版本，并不理解压缩。你可以使用go build -ldflags=-compressdwarf=false来生成未压缩的调试信息。(为了方便，你可以把-ldflags选项放在GOFLAGS环境变量中，这样你就不必每次都指定...
+    </summary>
+  
+
+  </entry>
+
+  
+  <entry>
     <title>golang实现一个简单的事件处理程序</title>
     <link href="http://localhost:4000/posts/golang%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F/" rel="alternate" type="text/html" title="golang实现一个简单的事件处理程序" />
     <published>2022-06-14T00:00:00+08:00</published>
   
-    <updated>2022-06-15T11:16:58+08:00</updated>
+    <updated>2022-06-15T14:41:40+08:00</updated>
   
     <id>http://localhost:4000/posts/golang%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F/</id>
     <content src="http://localhost:4000/posts/golang%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F/" />
