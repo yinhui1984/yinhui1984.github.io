@@ -1,6 +1,21 @@
 [
   
   {
+    "title": "golang1.18以后slice扩容策略变化",
+    "url": "/posts/golang1.18%E4%BB%A5%E5%90%8Eslice%E6%89%A9%E5%AE%B9%E7%AD%96%E7%95%A5%E5%8F%98%E5%8C%96/",
+    "categories": "BlockChain, golang",
+    "tags": "slice",
+    "date": "2022-06-22 00:00:00 +0800",
+    
+
+
+
+
+
+    "snippet": "golang1.18版本以前, 扩容策略:  当原 slice 容量小于 1024 的时候，新 slice 容量变成原来的 2 倍；原 slice 容量超过 1024，新 slice 容量变成原来的1.25倍。在1.18版本更新之后，slice的扩容策略变为了:  当原slice容量小于256的时候，新slice容量为原来的2倍；原slice容量超过256，新slice容量newcap = oldcap+(oldcap+3*256)/4// go@1.17   slice.gofunc growslice(et *_type, old slice, cap int) slice {    //....  newcap := old.cap\tdoublecap := newcap + newcap\tif cap &gt; doublecap {\t\tnewcap = cap\t} else {\t\tif old.cap &lt; 1024 {\t\t\tnewcap = doublecap\t\t} else {\t\t\t// Check 0 &lt; newcap to detect overflow\t\t\t// and prevent an infinite loop.\t\t\tfor 0 &lt; newcap &amp;&amp; newcap &lt; cap {\t\t\t\tnewcap += newcap / 4\t\t\t}\t\t\t// Set newcap to the requested cap when\t\t\t// the newcap calculation overflowed.\t\t\tif newcap &lt;= 0 {\t\t\t\tnewcap = cap\t\t\t}\t\t}\t}    //....  }// go 1.18 slice.gofunc growslice(et *_type, old slice, cap int) slice {    // ……    newcap := old.cap\tdoublecap := newcap + newcap\tif cap &gt; doublecap {\t\tnewcap = cap\t} else {\t\tconst threshold = 256\t\tif old.cap &lt; threshold {\t\t\tnewcap = doublecap\t\t} else {\t\t\tfor 0 &lt; newcap &amp;&amp; newcap &lt; cap {                // Transition from growing 2x for small slices\t\t\t\t// to growing 1.25x for large slices. This formula\t\t\t\t// gives a smooth-ish transition between the two.\t\t\t\tnewcap += (newcap + 3*threshold) / 4\t\t\t}\t\t\tif newcap &lt;= 0 {\t\t\t\tnewcap = cap\t\t\t}\t\t}\t}\t// ……    }可以通过下面的demo程序来看扩容变化package mainimport \"fmt\"func main() {\ts := make([]int, 0)\toldCap := cap(s)\tfor i := 0; i &lt; 2048; i++ {\t\ts = append(s, i)\t\tcurrentCap := cap(s)\t\tif oldCap != currentCap {\t\t\tfmt.Printf(\"current cap: %d\\n\", currentCap)\t\t\toldCap = currentCap\t\t}\t}}"
+  },
+  
+  {
     "title": "使用delve对go代码进行调试",
     "url": "/posts/%E4%BD%BF%E7%94%A8delve%E5%AF%B9go%E4%BB%A3%E7%A0%81%E8%BF%9B%E8%A1%8C%E8%B0%83%E8%AF%95/",
     "categories": "BlockChain, golang",
