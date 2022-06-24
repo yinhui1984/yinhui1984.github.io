@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yinhui</title>
   <subtitle>this is yinhui's blog.</subtitle>
-  <updated>2022-06-22T13:07:00+08:00</updated>
+  <updated>2022-06-24T12:46:53+08:00</updated>
   <author>
     <name>zhouyinhui</name>
     <uri>http://localhost:4000/</uri>
@@ -17,6 +17,71 @@
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>golang GetHashCode</title>
+    <link href="http://localhost:4000/posts/golang-gethashcode/" rel="alternate" type="text/html" title="golang GetHashCode" />
+    <published>2022-06-23T00:00:00+08:00</published>
+  
+    <updated>2022-06-23T00:00:00+08:00</updated>
+  
+    <id>http://localhost:4000/posts/golang-gethashcode/</id>
+    <content src="http://localhost:4000/posts/golang-gethashcode/" />
+    <author>
+      <name>yinhui</name>
+    </author>
+
+  
+    
+    <category term="BlockChain" />
+    
+    <category term="golang" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      一个简单的helper函数
+
+package helpers
+
+import (
+	"crypto/sha256"
+	"encoding/hex"
+	"encoding/json"
+)
+
+func GetHashCode(i interface{}) string {
+	s := GetHashCodeHex(i)
+	return hex.EncodeToString(s[:])
+}
+
+func GetHashCodeHex(i interface{}) [32]byte {
+	j, err := json.Marshal(i)
+	if err != nil {
+		panic("can not Marshal")
+	}
+
+	return sha256.Sum256(j)
+}
+
+
+
+
+  缺陷:
+
+  对于结构体, 生成hashcode时只使用了public字段, 如果同一结构体类型...
+    </summary>
+  
+
+  </entry>
 
   
   <entry>
@@ -249,68 +314,6 @@ ch := make(chan int, 3)
 some fields of hchan struct
 
 type...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>golang http server</title>
-    <link href="http://localhost:4000/posts/golang_http_server/" rel="alternate" type="text/html" title="golang http server" />
-    <published>2022-06-13T00:00:00+08:00</published>
-  
-    <updated>2022-06-13T00:00:00+08:00</updated>
-  
-    <id>http://localhost:4000/posts/golang_http_server/</id>
-    <content src="http://localhost:4000/posts/golang_http_server/" />
-    <author>
-      <name>yinhui</name>
-    </author>
-
-  
-    
-    <category term="BlockChain" />
-    
-    <category term="golang" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      golang 中http server 基础知识.
-
-简单的文件服务器
-
-package main
-
-import (
-	"log"
-	"net/http"
-)
-
-func main() {
-	err := http.ListenAndServe(":8080", http.FileServer(http.Dir(".")))
-	if err != nil {
-		log.Fatal(err)
-	}
-}
-
-
-上面这个例子创建了一个以当前目录为站点跟目录的文件服务器,  我一般用这个来作为局域网文件共享.
-
-然后写一个函数放到bash.rc 或zshrc中
-
-#文件服务器
-function fileserver(){
-	echo "start file server :12345"
-	cat &amp;lt;&amp;lt;EOF | tee /tmp/fileserver.go | go run /...
     </summary>
   
 

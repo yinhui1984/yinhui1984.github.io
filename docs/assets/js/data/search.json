@@ -1,6 +1,21 @@
 [
   
   {
+    "title": "golang GetHashCode",
+    "url": "/posts/golang-gethashcode/",
+    "categories": "BlockChain, golang",
+    "tags": "hash",
+    "date": "2022-06-23 00:00:00 +0800",
+    
+
+
+
+
+
+    "snippet": "一个简单的helper函数package helpersimport (\t\"crypto/sha256\"\t\"encoding/hex\"\t\"encoding/json\")func GetHashCode(i interface{}) string {\ts := GetHashCodeHex(i)\treturn hex.EncodeToString(s[:])}func GetHashCodeHex(i interface{}) [32]byte {\tj, err := json.Marshal(i)\tif err != nil {\t\tpanic(\"can not Marshal\")\t}\treturn sha256.Sum256(j)}  缺陷:  对于结构体, 生成hashcode时只使用了public字段, 如果同一结构体类型的两个对象只有private字段不同, 那么其生成的hashcode是一样的测试:package main_testimport (\t\"goplayground/helpers\"\t\"testing\")func TestGetHashCode(t *testing.T) {\tt.Run(\"基本类型测试\", func(t *testing.T) {\t\tt.Helper()\t\t_ = helpers.GetHashCode(1)\t\t_ = helpers.GetHashCode(1.23)\t\t_ = helpers.GetHashCode(\"abc\")\t\tif helpers.GetHashCode(\"123456\") != helpers.GetHashCode(\"123456\") {\t\t\tt.Error(\"相同字面量,应该有相同hash\")\t\t}\t})\tt.Run(\"nil测试\", func(t *testing.T) {\t\tt.Helper()\t\tif helpers.GetHashCode(nil) != helpers.GetHashCode(nil) {\t\t\tt.Error(\"nil应该有相同hash\")\t\t}\t})\tt.Run(\"map测试\", func(t *testing.T) {\t\tt.Helper()\t\tm1 := make(map[int]string)\t\tm1[0] = \"hi\"\t\tm1[1] = \"world\"\t\tm2 := make(map[int]string)\t\tm2[0] = \"hi\"\t\tm2[1] = \"world\"\t\tif helpers.GetHashCode(m1) != helpers.GetHashCode(m2) {\t\t\tt.Error(\"相同map应该有相同hash\")\t\t}\t\tm3 := make(map[int]string)\t\tm3[0] = \"hello\"\t\tm3[1] = \"world\"\t\tif helpers.GetHashCode(m1) == helpers.GetHashCode(m3) {\t\t\tt.Error(\"不同map应该有不同hash\")\t\t}\t})\tt.Run(\"结构体测试\", func(t *testing.T) {\t\tt.Helper()\t\ttype people struct {\t\t\tName string\t\t\tAge  uint\t\t}\t\tp1 := people{}\t\tp2 := people{}\t\tif helpers.GetHashCode(p1) != helpers.GetHashCode(p2) {\t\t\tt.Error(\"相同类型空结构体应该有相同hash\")\t\t}\t\tp3 := people{\t\t\tName: \"zhangSan\",\t\t\tAge:  20,\t\t}\t\tp4 := people{\t\t\tName: \"zhangSan\",\t\t\tAge:  20,\t\t}\t\tif helpers.GetHashCode(p3) != helpers.GetHashCode(p4) {\t\t\tt.Error(\"相同结构体应该有相同hash\")\t\t}\t\tp5 := people{\t\t\tName: \"liSi\",\t\t\tAge:  20,\t\t}\t\tif helpers.GetHashCode(p3) == helpers.GetHashCode(p5) {\t\t\tt.Error(\"不同结构体应该有不同hash\")\t\t}\t})}"
+  },
+  
+  {
     "title": "golang1.18以后slice扩容策略变化",
     "url": "/posts/golang1.18%E4%BB%A5%E5%90%8Eslice%E6%89%A9%E5%AE%B9%E7%AD%96%E7%95%A5%E5%8F%98%E5%8C%96/",
     "categories": "BlockChain, golang",
