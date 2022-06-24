@@ -4,7 +4,7 @@
   <id>http://localhost:4000/</id>
   <title>Yinhui</title>
   <subtitle>this is yinhui's blog.</subtitle>
-  <updated>2022-06-24T12:46:53+08:00</updated>
+  <updated>2022-06-24T13:29:10+08:00</updated>
   <author>
     <name>zhouyinhui</name>
     <uri>http://localhost:4000/</uri>
@@ -17,6 +17,55 @@
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>两台服务器之间的文件挂载</title>
+    <link href="http://localhost:4000/posts/%E4%B8%A4%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B9%8B%E9%97%B4%E7%9A%84%E6%96%87%E4%BB%B6%E6%8C%82%E8%BD%BD/" rel="alternate" type="text/html" title="两台服务器之间的文件挂载" />
+    <published>2022-06-24T00:00:00+08:00</published>
+  
+    <updated>2022-06-24T00:00:00+08:00</updated>
+  
+    <id>http://localhost:4000/posts/%E4%B8%A4%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B9%8B%E9%97%B4%E7%9A%84%E6%96%87%E4%BB%B6%E6%8C%82%E8%BD%BD/</id>
+    <content src="http://localhost:4000/posts/%E4%B8%A4%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B9%8B%E9%97%B4%E7%9A%84%E6%96%87%E4%BB%B6%E6%8C%82%E8%BD%BD/" />
+    <author>
+      <name>yinhui</name>
+    </author>
+
+  
+    
+    <category term="linux" />
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      在开发过程中,经常会遇到将一台服务器的文件或目录挂载到另外一台服务器上.
+
+下面说说我经常使用的两种方式.
+
+先举例一个简单的应用场景
+
+我的工作环境经常是这样的
+
+
+  编译服务器: 编译环境, 有编译工具链, 需要将代码编译成x86, arm, powerpc等多种格式, 所以没办法在自己笔记本电脑上编译.
+  自己的笔记本电脑: 用VSCode编辑代码, 上网查资料
+  调试服务器, 调试时需要调用其它软件提供的提供的接口, 甚至底层软件提供的数据, 调试服务器还可能经常重装系统, 所以调试服务器和编译服务器不能在一台机器上.
+
+
+┌──────────────────────────┐         ┌──────────────────────────┐
+│      compile server      │         │ running and debug se...
+    </summary>
+  
+
+  </entry>
 
   
   <entry>
@@ -250,70 +299,6 @@ type SimpleEvent struct {
 }
 
 f...
-    </summary>
-  
-
-  </entry>
-
-  
-  <entry>
-    <title>go语言中Channel是如何工作的</title>
-    <link href="http://localhost:4000/posts/go%E8%AF%AD%E8%A8%80%E4%B8%ADchannel%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84/" rel="alternate" type="text/html" title="go语言中Channel是如何工作的" />
-    <published>2022-06-13T00:00:00+08:00</published>
-  
-    <updated>2022-06-13T00:00:00+08:00</updated>
-  
-    <id>http://localhost:4000/posts/go%E8%AF%AD%E8%A8%80%E4%B8%ADchannel%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84/</id>
-    <content src="http://localhost:4000/posts/go%E8%AF%AD%E8%A8%80%E4%B8%ADchannel%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84/" />
-    <author>
-      <name>yinhui</name>
-    </author>
-
-  
-    
-    <category term="BlockChain" />
-    
-    <category term="golang" />
-    
-  
-
-  
-    <summary>
-      
-
-
-
-
-
-      了解Golang通道的内部工作原理
-
-
-
-goroutine(协程)和通道
-
-goroutine是一个轻量级的用户空间线程，由Go运行时管理。它同时执行任务，可能是并行的。
-
-通道是用于goroutine之间的通信。
-
-在这篇文章中，我们将深入了解通道的内部运作和它的发送/接收操作。
-
-缓冲通道
-
-我们先创建一个缓冲通道用于下面的解释。
-
-ch := make(chan int, 3)      
-
-
-上面的语句创建了一个缓冲通道，最多可以容纳 3 个 int 类型的值。
-
-在底层，make函数 在堆上分配了一个 hchan 结构并返回一个指向它的指针。
-以下是 hchan 结构的一些字段及其解释。
-
-![img](./( ../../assets/img/1*wprFXP6zyl8FPC1PhvslsQ.png)
-
-some fields of hchan struct
-
-type...
     </summary>
   
 

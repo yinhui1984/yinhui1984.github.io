@@ -42,25 +42,25 @@
   
     <!-- Begin Jekyll SEO tag v2.8.0 -->
 <meta name="generator" content="Jekyll v4.2.2" />
-<meta property="og:title" content="使用delve对go代码进行调试" />
+<meta property="og:title" content="两台服务器之间的文件挂载" />
 <meta name="author" content="yinhui ZHOU" />
 <meta property="og:locale" content="en" />
-<meta name="description" content="delve就是go语言的gdb,虽然 gdb也可以调试go程序 (https://go.dev/doc/gdb). 但是, 用gdb调试go程序有这些已知问题:" />
-<meta property="og:description" content="delve就是go语言的gdb,虽然 gdb也可以调试go程序 (https://go.dev/doc/gdb). 但是, 用gdb调试go程序有这些已知问题:" />
-<link rel="canonical" href="http://localhost:4000/posts/%E4%BD%BF%E7%94%A8delve%E5%AF%B9go%E4%BB%A3%E7%A0%81%E8%BF%9B%E8%A1%8C%E8%B0%83%E8%AF%95/" />
-<meta property="og:url" content="http://localhost:4000/posts/%E4%BD%BF%E7%94%A8delve%E5%AF%B9go%E4%BB%A3%E7%A0%81%E8%BF%9B%E8%A1%8C%E8%B0%83%E8%AF%95/" />
+<meta name="description" content="在开发过程中,经常会遇到将一台服务器的文件或目录挂载到另外一台服务器上." />
+<meta property="og:description" content="在开发过程中,经常会遇到将一台服务器的文件或目录挂载到另外一台服务器上." />
+<link rel="canonical" href="http://localhost:4000/posts/%E4%B8%A4%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B9%8B%E9%97%B4%E7%9A%84%E6%96%87%E4%BB%B6%E6%8C%82%E8%BD%BD/" />
+<meta property="og:url" content="http://localhost:4000/posts/%E4%B8%A4%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B9%8B%E9%97%B4%E7%9A%84%E6%96%87%E4%BB%B6%E6%8C%82%E8%BD%BD/" />
 <meta property="og:site_name" content="Yinhui" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2022-06-21T00:00:00+08:00" />
+<meta property="article:published_time" content="2022-06-24T00:00:00+08:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="使用delve对go代码进行调试" />
+<meta property="twitter:title" content="两台服务器之间的文件挂载" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"yinhui ZHOU","url":"https://github.com/yinhui1984/"},"dateModified":"2022-06-21T00:00:00+08:00","datePublished":"2022-06-21T00:00:00+08:00","description":"delve就是go语言的gdb,虽然 gdb也可以调试go程序 (https://go.dev/doc/gdb). 但是, 用gdb调试go程序有这些已知问题:","headline":"使用delve对go代码进行调试","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/%E4%BD%BF%E7%94%A8delve%E5%AF%B9go%E4%BB%A3%E7%A0%81%E8%BF%9B%E8%A1%8C%E8%B0%83%E8%AF%95/"},"url":"http://localhost:4000/posts/%E4%BD%BF%E7%94%A8delve%E5%AF%B9go%E4%BB%A3%E7%A0%81%E8%BF%9B%E8%A1%8C%E8%B0%83%E8%AF%95/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"yinhui ZHOU","url":"https://github.com/yinhui1984/"},"dateModified":"2022-06-24T00:00:00+08:00","datePublished":"2022-06-24T00:00:00+08:00","description":"在开发过程中,经常会遇到将一台服务器的文件或目录挂载到另外一台服务器上.","headline":"两台服务器之间的文件挂载","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/posts/%E4%B8%A4%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B9%8B%E9%97%B4%E7%9A%84%E6%96%87%E4%BB%B6%E6%8C%82%E8%BD%BD/"},"url":"http://localhost:4000/posts/%E4%B8%A4%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B9%8B%E9%97%B4%E7%9A%84%E6%96%87%E4%BB%B6%E6%8C%82%E8%BD%BD/"}</script>
 <!-- End Jekyll SEO tag -->
 
   
 
-  <title>使用delve对go代码进行调试 | Yinhui
+  <title>两台服务器之间的文件挂载 | Yinhui
   </title>
 
   <!--
@@ -417,7 +417,7 @@
         
 
           
-            <span>使用delve对go代码进行调试</span>
+            <span>两台服务器之间的文件挂载</span>
           
 
         
@@ -546,6 +546,58 @@
       
 
     
+
+    
+
+  
+
+  
+  
+
+  
+    
+    
+
+    
+      
+        
+        
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+
+    
       
 
       
@@ -560,11 +612,6 @@
     
 
     
-
-  
-
-  
-  
 
   
 
@@ -595,7 +642,7 @@
 
 
 
-<h1 data-toc-skip>使用delve对go代码进行调试</h1>
+<h1 data-toc-skip>两台服务器之间的文件挂载</h1>
 
 <div class="post-meta text-muted">
     <!-- published date -->
@@ -611,10 +658,10 @@
 
 
 <em class=""
-    data-ts="1655740800"
+    data-ts="1656000000"
     data-df="ll"
     data-toggle="tooltip" data-placement="bottom">
-  Jun 21, 2022
+  Jun 24, 2022
 </em>
 
     </span>
@@ -665,8 +712,8 @@
 
 <!-- return element -->
 <span class="readtime" data-toggle="tooltip" data-placement="bottom"
-  title="585 words">
-  <em>3 min</em> read</span>
+  title="731 words">
+  <em>4 min</em> read</span>
 
     </div>
 
@@ -675,76 +722,160 @@
 </div> <!-- .post-meta -->
 
 <div class="post-content">
-  <p><code class="language-plaintext highlighter-rouge">delve</code>就是go语言的<code class="language-plaintext highlighter-rouge">gdb</code>,虽然 <code class="language-plaintext highlighter-rouge">gdb</code>也可以调试go程序 (https://go.dev/doc/gdb). 但是, 用<code class="language-plaintext highlighter-rouge">gdb</code>调试go程序有这些已知问题:</p>
+  <p>在开发过程中,经常会遇到将一台服务器的文件或目录挂载到另外一台服务器上.</p>
 
-<p><strong>已知问题</strong></p>
+<p>下面说说我经常使用的两种方式.</p>
+
+<h2 id="先举例一个简单的应用场景"><span class="mr-2">先举例一个简单的应用场景</span><a href="#先举例一个简单的应用场景" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>我的工作环境经常是这样的</p>
 
 <ul>
-  <li>字符串pretty printing 只对字符串类型触发，而不是对其派生类型。</li>
-  <li>运行库的 C 部分缺少类型信息。</li>
-  <li>GDB 不理解 Go 的名称资格，并将 “fmt.Print “视为带有”. “的非结构化字面，需要加以引号。它对pkg.(*MyType).Meth形式的方法名反对得更厉害。</li>
-  <li>从Go 1.11开始，调试信息默认是压缩的。旧版本的gdb，例如MacOS上默认提供的版本，并不理解压缩。你可以使用go build -ldflags=-compressdwarf=false来生成未压缩的调试信息。(为了方便，你可以把-ldflags选项放在GOFLAGS环境变量中，这样你就不必每次都指定它)。</li>
+  <li>编译服务器: 编译环境, 有编译工具链, 需要将代码编译成x86, arm, powerpc等多种格式, 所以没办法在自己笔记本电脑上编译.</li>
+  <li>自己的笔记本电脑: 用VSCode编辑代码, 上网查资料</li>
+  <li>调试服务器, 调试时需要调用其它软件提供的提供的接口, 甚至底层软件提供的数据, 调试服务器还可能经常重装系统, 所以调试服务器和编译服务器不能在一台机器上.</li>
 </ul>
 
-<p>使用 <code class="language-plaintext highlighter-rouge">delve</code>  https://github.com/go-delve/delve 更简单舒适</p>
+<div class="language-plaintext highlighter-rouge"><div class="code-header">
+        <span data-label-text="Plaintext"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+</pre></td><td class="rouge-code"><pre>┌──────────────────────────┐         ┌──────────────────────────┐
+│      compile server      │         │ running and debug server │
+│                          │         │                          │
+│                          │◀───────▶│                          │
+│ /workspace/mySourceCode/ │         │                          │
+└──────────────────────────┘         └──────────────────────────┘
+              ▲                                    ▲
+              │                                    │
+              │                                    │
+              └────────────────┬───────────────────┘
+                               │
+                               │
+                               │
+                 ┌──────────────────────────┐
+                 │        my MacBook        │
+                 │                          │
+                 │     coding with IDE      │
+                 │                          │
+                 └──────────────────────────┘
+</pre></td></tr></tbody></table></code></div></div>
 
-<h2 id="首次安装"><span class="mr-2">首次安装</span><a href="#首次安装" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<p>所以我的方案:</p>
+
+<p>1, 代码放在编译服务器上</p>
+
+<p>2, 笔记本电脑使用vscode remote打开放在编译服务器上的代码, 在vscode中编辑和编译</p>
+
+<p>3, 将编译服务器上/workspace/mySourceCode/挂载到调试服务器的/workspace/mySourceCode/目录下, 使用vscode remote 在调试服务器上进行断点调试工作. (vscode断点调试时是需要源代码的, 而源代码直接从编译服务器挂载过来, 免去了拷贝操作)</p>
+
+<h2 id="方式1-sshfs"><span class="mr-2">方式1, sshfs</span><a href="#方式1-sshfs" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>如果调试服务器方便安装软件的话, 可以安装sshfs</p>
+
+<p>(如果调试服务器没有网络, 可以将笔记本电脑作为网络代理)</p>
+
+<p>以<code class="language-plaintext highlighter-rouge">centos</code>为为例</p>
+
+<h3 id="直接安装"><span class="mr-2">直接安装</span><a href="#直接安装" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <div class="language-shell highlighter-rouge"><div class="code-header">
         <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
       <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>go <span class="nb">install </span>github.com/go-delve/delve/cmd/dlv@latest
+</pre></td><td class="rouge-code"><pre> yum <span class="nb">install </span>fuse-sshfs 
 </pre></td></tr></tbody></table></code></div></div>
 
-<h2 id="基本使用"><span class="mr-2">基本使用</span><a href="#基本使用" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<h3 id="源码安装"><span class="mr-2">源码安装</span><a href="#源码安装" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<ul>
-  <li>如果是调试主程序, <code class="language-plaintext highlighter-rouge">cd</code>到<code class="language-plaintext highlighter-rouge">main.go</code>所在目录, 运行 <code class="language-plaintext highlighter-rouge">dlv debug</code></li>
-  <li>如果是调试测试代码,  <code class="language-plaintext highlighter-rouge">cd</code>到<code class="language-plaintext highlighter-rouge">*_test.go</code>所在目录, 运行 <code class="language-plaintext highlighter-rouge">dlv test</code></li>
-</ul>
+<div class="language-shell highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>wget https://github.com/libfuse/sshfs/releases/download/sshfs_2.8/sshfs-2.8.tar.gz
+</pre></td></tr></tbody></table></code></div></div>
 
-<p>然后 和 <code class="language-plaintext highlighter-rouge">gdb</code>用法类似</p>
+<div class="language-shell highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="nb">tar </span>xvf sshfs-2.8.tar.gz
+<span class="nb">cd </span>sshfs-2.8
+./configure 
+ make <span class="o">&amp;&amp;</span> make <span class="nb">install</span>
+</pre></td></tr></tbody></table></code></div></div>
 
-<ol>
-  <li><code class="language-plaintext highlighter-rouge">break</code>: 打断点 <code class="language-plaintext highlighter-rouge">b packageName.functionName</code>  或 <code class="language-plaintext highlighter-rouge">b fileName:lineNumber</code>
-比如 <code class="language-plaintext highlighter-rouge">b main.Add</code>,  <code class="language-plaintext highlighter-rouge">b main.main</code></li>
-  <li><code class="language-plaintext highlighter-rouge">continue</code>: 开始执行或继续执行 <code class="language-plaintext highlighter-rouge">c</code>   (开始执行也用<code class="language-plaintext highlighter-rouge">c</code>)</li>
-  <li><code class="language-plaintext highlighter-rouge">next</code> :执行下一行 <code class="language-plaintext highlighter-rouge">n</code></li>
-  <li><code class="language-plaintext highlighter-rouge">step</code>: 单步进入 <code class="language-plaintext highlighter-rouge">s</code></li>
-  <li><code class="language-plaintext highlighter-rouge">stepout</code>: 单步退出<code class="language-plaintext highlighter-rouge">so</code></li>
-  <li><code class="language-plaintext highlighter-rouge">print</code>:打印 <code class="language-plaintext highlighter-rouge">p thevar </code></li>
-  <li><code class="language-plaintext highlighter-rouge">quit</code>退出调试 <code class="language-plaintext highlighter-rouge">q</code></li>
-</ol>
+<h3 id="使用"><span class="mr-2">使用</span><a href="#使用" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p>更多的  https://github.com/go-delve/delve/blob/master/Documentation/cli/README.md</p>
+<div class="language-sh highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c">#sshfs remote local</span>
+sshfs root@192.168.0.10:/shareFolder /var/mnt/
 
-<h2 id="高级使用"><span class="mr-2">高级使用</span><a href="#高级使用" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+<span class="c">#un-mount</span>
+<span class="c"># umount /var/tmp </span>
+</pre></td></tr></tbody></table></code></div></div>
 
-<p><a href="https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_attach.md">dlv attach</a> - 附加到正在运行的进程并开始调试。</p>
+<h3 id="方式2-exportfs"><span class="mr-2">方式2, exportfs</span><a href="#方式2-exportfs" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
-<p><a href="">dlv connect</a> - 用终端客户端连接到headless debug server。</p>
+<p>这种方式的好处的免安装.</p>
 
-<p><a href="https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_core.md">dlv core</a> - 检查一个核心转储。</p>
+<p>首先在需要将文件夹共享出去的机器上, (比如上面例子中的放有源代码的编译服务器)</p>
 
-<p><a href="https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md">dlv dap</a> - 启动一个通过调试适配器协议（DAP）通信的无头TCP服务器。</p>
+<div class="language-shell highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="c">#启用 nfs服务</span>
+sysctl <span class="nb">enable </span>nfs
 
-<p><a href="https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_debug.md">dlv debug</a> - 编译并开始调试当前目录下的主包，或指定的包。</p>
+<span class="c">#将共享目录导出, -o是选项, ro只读,rw读写, 后面的ip是需要挂载该共享目录的机器(比如上面例子中的调试服务器)</span>
+exportfs <span class="nt">-o</span> ro 172.17.1.1:/workspace
 
-<p><a href="https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_exec.md">dlv exec</a> - 执行一个预编译的二进制文件，并开始一个调试会话。</p>
+<span class="c">##取消导出</span>
+<span class="c">#exportfs -u 172.17.1.1:/workspace</span>
+</pre></td></tr></tbody></table></code></div></div>
 
-<p><a href="https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_replay.md">dlv replay</a> - 回放一个rr跟踪。</p>
+<p>然后 到使用共享目录的机器(比如上面例子中的调试服务器)中进行挂载:</p>
 
-<p>dlv run - 废弃的命令。使用’debug’代替。</p>
+<div class="language-sh highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="c">#ip是共享目录所在的IP, 比如上面例子中的编译服务器</span>
+mount 172.17.1.134:/workspace /workspace
+<span class="c">## umount /workspace</span>
+</pre></td></tr></tbody></table></code></div></div>
 
-<p><a href="https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_test.md">dlv test</a> - 编译测试二进制文件并开始调试程序。</p>
-
-<p><a href="https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_trace.md">dlv trace</a> - 编译并开始追踪程序。</p>
-
-<p>dlv version - 打印版本。</p>
-
-<p><a href="https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_log.md">dlv log</a> - 关于记录标记的帮助</p>
-
-<p><a href="https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_backend.md">dlv backend</a> -  <code class="language-plaintext highlighter-rouge">--backend</code> flag的帮助</p>
 
 </div>
 
@@ -755,8 +886,7 @@
   <div class="post-meta mb-3">
     <i class="far fa-folder-open fa-fw mr-1"></i>
     
-      <a href='/categories/blockchain/'>BlockChain</a>,
-      <a href='/categories/golang/'>golang</a>
+      <a href='/categories/linux/'>linux</a>
   </div>
   
 
@@ -765,11 +895,8 @@
   <div class="post-tags">
     <i class="fa fa-tags fa-fw mr-1"></i>
       
-      <a href="/tags/delve/"
-          class="post-tag no-text-decoration" >delve</a>
-      
-      <a href="/tags/debug/"
-          class="post-tag no-text-decoration" >debug</a>
+      <a href="/tags/skills/"
+          class="post-tag no-text-decoration" >skills</a>
       
   </div>
   
@@ -804,19 +931,19 @@
 
     
       
-        <a href="https://twitter.com/intent/tweet?text=%E4%BD%BF%E7%94%A8delve%E5%AF%B9go%E4%BB%A3%E7%A0%81%E8%BF%9B%E8%A1%8C%E8%B0%83%E8%AF%95+-+Yinhui&url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2F%25E4%25BD%25BF%25E7%2594%25A8delve%25E5%25AF%25B9go%25E4%25BB%25A3%25E7%25A0%2581%25E8%25BF%259B%25E8%25A1%258C%25E8%25B0%2583%25E8%25AF%2595%2F" data-toggle="tooltip" data-placement="top"
+        <a href="https://twitter.com/intent/tweet?text=%E4%B8%A4%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B9%8B%E9%97%B4%E7%9A%84%E6%96%87%E4%BB%B6%E6%8C%82%E8%BD%BD+-+Yinhui&url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2F%25E4%25B8%25A4%25E5%258F%25B0%25E6%259C%258D%25E5%258A%25A1%25E5%2599%25A8%25E4%25B9%258B%25E9%2597%25B4%25E7%259A%2584%25E6%2596%2587%25E4%25BB%25B6%25E6%258C%2582%25E8%25BD%25BD%2F" data-toggle="tooltip" data-placement="top"
           title="Twitter" target="_blank" rel="noopener" aria-label="Twitter">
           <i class="fa-fw fab fa-twitter"></i>
         </a>
     
       
-        <a href="https://www.facebook.com/sharer/sharer.php?title=%E4%BD%BF%E7%94%A8delve%E5%AF%B9go%E4%BB%A3%E7%A0%81%E8%BF%9B%E8%A1%8C%E8%B0%83%E8%AF%95+-+Yinhui&u=http%3A%2F%2Flocalhost%3A4000%2Fposts%2F%25E4%25BD%25BF%25E7%2594%25A8delve%25E5%25AF%25B9go%25E4%25BB%25A3%25E7%25A0%2581%25E8%25BF%259B%25E8%25A1%258C%25E8%25B0%2583%25E8%25AF%2595%2F" data-toggle="tooltip" data-placement="top"
+        <a href="https://www.facebook.com/sharer/sharer.php?title=%E4%B8%A4%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B9%8B%E9%97%B4%E7%9A%84%E6%96%87%E4%BB%B6%E6%8C%82%E8%BD%BD+-+Yinhui&u=http%3A%2F%2Flocalhost%3A4000%2Fposts%2F%25E4%25B8%25A4%25E5%258F%25B0%25E6%259C%258D%25E5%258A%25A1%25E5%2599%25A8%25E4%25B9%258B%25E9%2597%25B4%25E7%259A%2584%25E6%2596%2587%25E4%25BB%25B6%25E6%258C%2582%25E8%25BD%25BD%2F" data-toggle="tooltip" data-placement="top"
           title="Facebook" target="_blank" rel="noopener" aria-label="Facebook">
           <i class="fa-fw fab fa-facebook-square"></i>
         </a>
     
       
-        <a href="https://t.me/share/url?url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2F%25E4%25BD%25BF%25E7%2594%25A8delve%25E5%25AF%25B9go%25E4%25BB%25A3%25E7%25A0%2581%25E8%25BF%259B%25E8%25A1%258C%25E8%25B0%2583%25E8%25AF%2595%2F&text=%E4%BD%BF%E7%94%A8delve%E5%AF%B9go%E4%BB%A3%E7%A0%81%E8%BF%9B%E8%A1%8C%E8%B0%83%E8%AF%95+-+Yinhui" data-toggle="tooltip" data-placement="top"
+        <a href="https://t.me/share/url?url=http%3A%2F%2Flocalhost%3A4000%2Fposts%2F%25E4%25B8%25A4%25E5%258F%25B0%25E6%259C%258D%25E5%258A%25A1%25E5%2599%25A8%25E4%25B9%258B%25E9%2597%25B4%25E7%259A%2584%25E6%2596%2587%25E4%25BB%25B6%25E6%258C%2582%25E8%25BD%25BD%2F&text=%E4%B8%A4%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B9%8B%E9%97%B4%E7%9A%84%E6%96%87%E4%BB%B6%E6%8C%82%E8%BD%BD+-+Yinhui" data-toggle="tooltip" data-placement="top"
           title="Telegram" target="_blank" rel="noopener" aria-label="Telegram">
           <i class="fa-fw fab fa-telegram"></i>
         </a>
@@ -1317,46 +1444,46 @@
   
 
   
-
-  
-
-  
-
-  
-
-  
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-
-  
-
-  
     
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
   
 
   
@@ -1419,6 +1546,39 @@
 
 
 
+  
+    
+    
+  
+    
+    
+      
+      
+        
+        
+        
+      
+    
+  
+    
+    
+      
+      
+        
+        
+        
+      
+    
+  
+    
+    
+      
+      
+        
+        
+        
+          
+
 
 
   <div id="related-posts" class="mt-5 mb-2 mb-sm-4">
@@ -1429,7 +1589,7 @@
       
       
       <div class="card">
-        <a href="/posts/%E8%81%8A%E8%81%8Ago%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84sync/">
+        <a href="/posts/golang-gethashcode/">
           <div class="card-body">
             <!--
   Date format snippet
@@ -1441,13 +1601,13 @@
 
 
 <em class="small"
-    data-ts="1654963200"
+    data-ts="1655913600"
     data-df="ll"
     >
-  Jun 12, 2022
+  Jun 23, 2022
 </em>
 
-            <h3 class="pt-0 mt-1 mb-3" data-toc-skip>聊聊go语言中的sync</h3>
+            <h3 class="pt-0 mt-1 mb-3" data-toc-skip>golang GetHashCode</h3>
             <div class="text-muted small">
               <p>
                 
@@ -1456,76 +1616,22 @@
 
 
 
-                我们将用些简单的例子来尝试golang中sync包的各种有趣的情况
+                一个简单的helper函数
 
-一个简单的DEMO
-
-package main
-
-import &quot;fmt&quot;
-
-var (
-	sharedCounter = 0
-)
-
-func add(count int) {
-	for i := 0; i &amp;lt; count; i++ {
-		sharedCounter++
-	}
-}
-
-func sub(count i...
-              </p>
-            </div>
-          </div>
-        </a>
-      </div>
-    
-      
-      
-      <div class="card">
-        <a href="/posts/golang_http_server/">
-          <div class="card-body">
-            <!--
-  Date format snippet
-  See: ${JS_ROOT}/utils/locale-dateime.js
--->
-
-
-
-
-
-<em class="small"
-    data-ts="1655049600"
-    data-df="ll"
-    >
-  Jun 13, 2022
-</em>
-
-            <h3 class="pt-0 mt-1 mb-3" data-toc-skip>golang http server</h3>
-            <div class="text-muted small">
-              <p>
-                
-
-
-
-
-
-                golang 中http server 基础知识.
-
-简单的文件服务器
-
-package main
+package helpers
 
 import (
-	&quot;log&quot;
-	&quot;net/http&quot;
+	&quot;crypto/sha256&quot;
+	&quot;encoding/hex&quot;
+	&quot;encoding/json&quot;
 )
 
-func main() {
-	err := http.ListenAndServe(&quot;:8080&quot;, http.FileServer(http.Dir(&quot;.&quot;)))
-	if err != nil {
-		log.Fatal(err...
+func GetHashCode(i interface{}) string {
+	s := GetHashCodeHex(i)
+	return hex.EncodeToString(s[:])
+}
+
+fu...
               </p>
             </div>
           </div>
@@ -1535,7 +1641,7 @@ func main() {
       
       
       <div class="card">
-        <a href="/posts/go%E8%AF%AD%E8%A8%80%E4%B8%ADchannel%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84/">
+        <a href="/posts/golang1.18%E4%BB%A5%E5%90%8Eslice%E6%89%A9%E5%AE%B9%E7%AD%96%E7%95%A5%E5%8F%98%E5%8C%96/">
           <div class="card-body">
             <!--
   Date format snippet
@@ -1547,13 +1653,13 @@ func main() {
 
 
 <em class="small"
-    data-ts="1655049600"
+    data-ts="1655827200"
     data-df="ll"
     >
-  Jun 13, 2022
+  Jun 22, 2022
 </em>
 
-            <h3 class="pt-0 mt-1 mb-3" data-toc-skip>go语言中Channel是如何工作的</h3>
+            <h3 class="pt-0 mt-1 mb-3" data-toc-skip>golang1.18以后slice扩容策略变化</h3>
             <div class="text-muted small">
               <p>
                 
@@ -1562,23 +1668,60 @@ func main() {
 
 
 
-                了解Golang通道的内部工作原理
+                golang1.18版本以前, 扩容策略:
+
+
+  当原 slice 容量小于 1024 的时候，新 slice 容量变成原来的 2 倍；原 slice 容量超过 1024，新 slice 容量变成原来的1.25倍。
+
+
+在1.18版本更新之后，slice的扩容策略变为了:
+
+
+  当原slice容量小于256的时候，新slice容量为原来的2倍；原slice容量超过256，新slice容量...
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    
+      
+      
+      <div class="card">
+        <a href="/posts/%E4%BD%BF%E7%94%A8delve%E5%AF%B9go%E4%BB%A3%E7%A0%81%E8%BF%9B%E8%A1%8C%E8%B0%83%E8%AF%95/">
+          <div class="card-body">
+            <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
 
 
 
-goroutine(协程)和通道
 
-goroutine是一个轻量级的用户空间线程，由Go运行时管理。它同时执行任务，可能是并行的。
 
-通道是用于goroutine之间的通信。
+<em class="small"
+    data-ts="1655740800"
+    data-df="ll"
+    >
+  Jun 21, 2022
+</em>
 
-在这篇文章中，我们将深入了解通道的内部运作和它的发送/接收操作。
+            <h3 class="pt-0 mt-1 mb-3" data-toc-skip>使用delve对go代码进行调试</h3>
+            <div class="text-muted small">
+              <p>
+                
 
-缓冲通道
 
-我们先创建一个缓冲通道用于下面的解释。
 
-ch := make(chan int, 3)   ...
+
+
+                delve就是go语言的gdb,虽然 gdb也可以调试go程序 (https://go.dev/doc/gdb). 但是, 用gdb调试go程序有这些已知问题:
+
+已知问题
+
+
+  字符串pretty printing 只对字符串类型触发，而不是对其派生类型。
+  运行库的 C 部分缺少类型信息。
+  GDB 不理解 Go 的名称资格，并将 “fmt.Print “视为带有”. “的非结构化...
               </p>
             </div>
           </div>
@@ -1597,17 +1740,17 @@ ch := make(chan int, 3)   ...
 
 <div class="post-navigation d-flex justify-content-between">
   
-  <a href="/posts/golang%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F/" class="btn btn-outline-primary"
+  <a href="/posts/golang-gethashcode/" class="btn btn-outline-primary"
     prompt="Older">
-    <p>golang实现一个简单的事件处理程序</p>
+    <p>golang GetHashCode</p>
   </a>
   
 
   
-  <a href="/posts/golang1.18%E4%BB%A5%E5%90%8Eslice%E6%89%A9%E5%AE%B9%E7%AD%96%E7%95%A5%E5%8F%98%E5%8C%96/" class="btn btn-outline-primary"
+  <div class="btn btn-outline-primary disabled"
     prompt="Newer">
-    <p>golang1.18以后slice扩容策略变化</p>
-  </a>
+    <p>-</p>
+  </div>
   
 
 </div>
@@ -2063,6 +2206,65 @@ ch := make(chan int, 3)   ...
     </div> <!-- #main-wrapper -->
 
     
+      <!--
+  mermaid-js loader
+-->
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js"></script>
+
+<script>
+  $(function() {
+    function updateMermaid(event) {
+      if (event.source === window && event.data &&
+            event.data.direction === ModeToggle.ID) {
+
+        const mode = event.data.message;
+
+        if (typeof mermaid === "undefined") {
+          return;
+        }
+
+        let expectedTheme = (mode === ModeToggle.DARK_MODE? "dark" : "default");
+        let config = { theme: expectedTheme };
+
+        /* Re-render the SVG › <https://github.com/mermaid-js/mermaid/issues/311#issuecomment-332557344> */
+        $(".mermaid").each(function() {
+          let svgCode = $(this).prev().children().html();
+          $(this).removeAttr("data-processed");
+          $(this).html(svgCode);
+        });
+
+        mermaid.initialize(config);
+        mermaid.init(undefined, ".mermaid");
+      }
+    }
+
+    let initTheme = "default";
+
+    if ($("html[data-mode=dark]").length > 0
+      || ($("html[data-mode]").length == 0
+        && window.matchMedia("(prefers-color-scheme: dark)").matches ) ) {
+      initTheme = "dark";
+    }
+
+    let mermaidConf = {
+      theme: initTheme  /* <default|dark|forest|neutral> */
+    };
+
+    /* Markdown converts to HTML */
+    $("pre").has("code.language-mermaid").each(function() {
+      let svgCode = $(this).children().html();
+      $(this).addClass("unloaded");
+      $(this).after(`<div class=\"mermaid\">${svgCode}</div>`);
+    });
+
+    mermaid.initialize(mermaidConf);
+
+    window.addEventListener("message", updateMermaid);
+  });
+</script>
+
+    
 
     <div id="mask"></div>
 
@@ -2244,6 +2446,26 @@ SimpleJekyllSearch({
 
 <script defer src="/assets/js/dist/post.min.js"></script>
 
+
+  <!-- MathJax -->
+  <script>
+  /* see: <https://docs.mathjax.org/en/latest/options/input/tex.html#tex-options> */
+  MathJax = {
+    tex: {
+      inlineMath: [              /* start/end delimiter pairs for in-line math */
+        ['$','$'],
+        ['\\(','\\)']
+      ],
+      displayMath: [             /* start/end delimiter pairs for display math */
+        ['$$', '$$'],
+        ['\\[', '\\]']
+      ]
+    }
+  };
+  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+  </script>
 
 
 <!-- commons -->

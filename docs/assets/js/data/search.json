@@ -1,6 +1,21 @@
 [
   
   {
+    "title": "两台服务器之间的文件挂载",
+    "url": "/posts/%E4%B8%A4%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B9%8B%E9%97%B4%E7%9A%84%E6%96%87%E4%BB%B6%E6%8C%82%E8%BD%BD/",
+    "categories": "linux",
+    "tags": "skills",
+    "date": "2022-06-24 00:00:00 +0800",
+    
+
+
+
+
+
+    "snippet": "在开发过程中,经常会遇到将一台服务器的文件或目录挂载到另外一台服务器上.下面说说我经常使用的两种方式.先举例一个简单的应用场景我的工作环境经常是这样的  编译服务器: 编译环境, 有编译工具链, 需要将代码编译成x86, arm, powerpc等多种格式, 所以没办法在自己笔记本电脑上编译.  自己的笔记本电脑: 用VSCode编辑代码, 上网查资料  调试服务器, 调试时需要调用其它软件提供的提供的接口, 甚至底层软件提供的数据, 调试服务器还可能经常重装系统, 所以调试服务器和编译服务器不能在一台机器上.┌──────────────────────────┐         ┌──────────────────────────┐│      compile server      │         │ running and debug server ││                          │         │                          ││                          │◀───────▶│                          ││ /workspace/mySourceCode/ │         │                          │└──────────────────────────┘         └──────────────────────────┘              ▲                                    ▲              │                                    │              │                                    │              └────────────────┬───────────────────┘                               │                               │                               │                 ┌──────────────────────────┐                 │        my MacBook        │                 │                          │                 │     coding with IDE      │                 │                          │                 └──────────────────────────┘所以我的方案:1, 代码放在编译服务器上2, 笔记本电脑使用vscode remote打开放在编译服务器上的代码, 在vscode中编辑和编译3, 将编译服务器上/workspace/mySourceCode/挂载到调试服务器的/workspace/mySourceCode/目录下, 使用vscode remote 在调试服务器上进行断点调试工作. (vscode断点调试时是需要源代码的, 而源代码直接从编译服务器挂载过来, 免去了拷贝操作)方式1, sshfs如果调试服务器方便安装软件的话, 可以安装sshfs(如果调试服务器没有网络, 可以将笔记本电脑作为网络代理)以centos为为例直接安装 yum install fuse-sshfs 源码安装wget https://github.com/libfuse/sshfs/releases/download/sshfs_2.8/sshfs-2.8.tar.gztar xvf sshfs-2.8.tar.gzcd sshfs-2.8./configure  make &amp;&amp; make install使用#sshfs remote localsshfs root@192.168.0.10:/shareFolder /var/mnt/#un-mount# umount /var/tmp 方式2, exportfs这种方式的好处的免安装.首先在需要将文件夹共享出去的机器上, (比如上面例子中的放有源代码的编译服务器)#启用 nfs服务sysctl enable nfs#将共享目录导出, -o是选项, ro只读,rw读写, 后面的ip是需要挂载该共享目录的机器(比如上面例子中的调试服务器)exportfs -o ro 172.17.1.1:/workspace##取消导出#exportfs -u 172.17.1.1:/workspace然后 到使用共享目录的机器(比如上面例子中的调试服务器)中进行挂载:#ip是共享目录所在的IP, 比如上面例子中的编译服务器mount 172.17.1.134:/workspace /workspace## umount /workspace"
+  },
+  
+  {
     "title": "golang GetHashCode",
     "url": "/posts/golang-gethashcode/",
     "categories": "BlockChain, golang",
