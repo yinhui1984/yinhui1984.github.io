@@ -22,7 +22,7 @@ node -v
 
 ### 2. 安装truffle和Ganache
 
-`truffle`是一套智能合约的开发测试环境 `Ganache`用于创建测试链(可以创建`ETH` `FILECOIN`等测试链), 用来跑自己创建的合约.
+`truffle`是一套智能合约的开发测试环境 `Ganache`用于创建测试链(可以创建`ETH` `FILECOIN`等测试链), 用来跑自己创建的合约. 
 
 https://trufflesuite.com  
 
