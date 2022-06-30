@@ -1,6 +1,7 @@
 ---
 title: "聊聊go语言中的sync"
 date: 2022-06-12T16:41:41+08:00
+author: yinhui
 categories: [golang]
 tags: [go, sync]  
 draft: false
