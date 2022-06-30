@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title> - 我的全新 Hugo 网站</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="" />
+<meta property="og:description" content="了解Golang通道的内部工作原理 goroutine(协程)和通道 goroutine是一个轻量级的用户空间线程，由Go运行时管理。它同时执行" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/golang_how_channel_works/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+
+<meta property="og:site_name" content="我的网站" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="了解Golang通道的内部工作原理 goroutine(协程)和通道 goroutine是一个轻量级的用户空间线程，由Go运行时管理。它同时执行"/>
+<meta name="application-name" content="我的网站">
+<meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/golang_how_channel_works/" /><link rel="next" href="http://example.org/welcome/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/golang_how_channel_works\/"
+        },"genre": "posts","wordcount":  1301 ,
+        "url": "http:\/\/example.org\/golang_how_channel_works\/","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "xxxx"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="我的全新 Hugo 网站"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="我的全新 Hugo 网站"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX"></h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>xxxx</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="0001-01-01">0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1301 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="true">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#了解golang通道的内部工作原理">了解Golang通道的内部工作原理</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="了解golang通道的内部工作原理">了解Golang通道的内部工作原理</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./golang_how_channel_works.assets/1*TwLvjm5ivaQKtYA3HbdmMw.png"
+        data-srcset="./golang_how_channel_works.assets/1*TwLvjm5ivaQKtYA3HbdmMw.png, ./golang_how_channel_works.assets/1*TwLvjm5ivaQKtYA3HbdmMw.png 1.5x, ./golang_how_channel_works.assets/1*TwLvjm5ivaQKtYA3HbdmMw.png 2x"
+        data-sizes="auto"
+        alt="./golang_how_channel_works.assets/1*TwLvjm5ivaQKtYA3HbdmMw.png"
+        title="img" /></p>
+<p>goroutine(协程)和通道</p>
+<p><code>goroutine</code>是一个轻量级的用户空间线程，由Go运行时管理。它同时执行任务，可能是并行的。</p>
+<p>通道是用于<code>goroutine</code>之间的通信。</p>
+<p>在这篇文章中，我们将深入了解通道的内部运作和它的发送/接收操作。</p>
+<h1 id="缓冲通道">缓冲通道</h1>
+<p>我们先创建一个缓冲通道用于下面的解释。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ch := make(chan int, 3)      
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面的语句创建了一个缓冲通道，最多可以容纳 3 个<code>int</code>类型的值。</p>
+<p>在底层，make函数 在堆上分配了一个 hchan 结构并返回一个指向它的指针。
+以下是 hchan 结构的一些字段及其解释。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../golang_how_channel_works.assets/1*wprFXP6zyl8FPC1PhvslsQ.png"
+        data-srcset="../golang_how_channel_works.assets/1*wprFXP6zyl8FPC1PhvslsQ.png, ../golang_how_channel_works.assets/1*wprFXP6zyl8FPC1PhvslsQ.png 1.5x, ../golang_how_channel_works.assets/1*wprFXP6zyl8FPC1PhvslsQ.png 2x"
+        data-sizes="auto"
+        alt="../golang_how_channel_works.assets/1*wprFXP6zyl8FPC1PhvslsQ.png"
+        title="img" /></p>
+<p>some fields of <code>hchan</code> struct</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">type hchan struct { buf      unsafe.Pointer
+</span></span><span class="line"><span class="cl"> sendx    uint
+</span></span><span class="line"><span class="cl"> recvx    uint
+</span></span><span class="line"><span class="cl"> lock     mutex
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"> ...   // other fields}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>buf</code> 是一个指向数组的指针，它维护着一个<strong>循环队列</strong>。</li>
+<li><code>sendx</code> 是数组中发送元素的索引</li>
+<li><code>recvx</code> 是收到的元素在数组中的索引</li>
+<li><code>lock</code> 确保通道的读写是一个原子性的操作</li>
+</ul>
+<h1 id="非阻塞的发送和接收">非阻塞的发送和接收</h1>
+<p>当通道未满时，我们可以在循环队列的后面插入元素，而不会有阻塞。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">// G1 sends three elements into the channel, capicity = 3ch &lt;- elem1
+</span></span><span class="line"><span class="cl">ch &lt;- elem2
+</span></span><span class="line"><span class="cl">ch &lt;- elem3
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./golang_how_channel_works.assets/1*MiGvGXqdwFYIvJG04oXc8A.gif"
+        data-srcset="./golang_how_channel_works.assets/1*MiGvGXqdwFYIvJG04oXc8A.gif, ./golang_how_channel_works.assets/1*MiGvGXqdwFYIvJG04oXc8A.gif 1.5x, ./golang_how_channel_works.assets/1*MiGvGXqdwFYIvJG04oXc8A.gif 2x"
+        data-sizes="auto"
+        alt="./golang_how_channel_works.assets/1*MiGvGXqdwFYIvJG04oXc8A.gif"
+        title="img" /></p>
+<p>​</p>
+<p>当通道不是空的时候，我们可以从循环队列的前面接收元素，而不会有阻塞。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">// G2 receive three elements from the channel, capicity = 3&lt;- ch
+</span></span><span class="line"><span class="cl">&lt;- ch
+</span></span><span class="line"><span class="cl">&lt;- ch
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../golang_how_channel_works.assets/1*79LgSQLrvrMQSAvy0R7cmw.gif"
+        data-srcset="../golang_how_channel_works.assets/1*79LgSQLrvrMQSAvy0R7cmw.gif, ../golang_how_channel_works.assets/1*79LgSQLrvrMQSAvy0R7cmw.gif 1.5x, ../golang_how_channel_works.assets/1*79LgSQLrvrMQSAvy0R7cmw.gif 2x"
+        data-sizes="auto"
+        alt="../golang_how_channel_works.assets/1*79LgSQLrvrMQSAvy0R7cmw.gif"
+        title="img" /></p>
+<p>​</p>
+<h1 id="阻塞">阻塞</h1>
+<p>在处理goroutine之间的阻塞时，其他字段也很重要。让我们看一下。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./golang_how_channel_works.assets/1*P1TfF2N2KyAYjd5ZPsXOMA.jpeg"
+        data-srcset="./golang_how_channel_works.assets/1*P1TfF2N2KyAYjd5ZPsXOMA.jpeg, ./golang_how_channel_works.assets/1*P1TfF2N2KyAYjd5ZPsXOMA.jpeg 1.5x, ./golang_how_channel_works.assets/1*P1TfF2N2KyAYjd5ZPsXOMA.jpeg 2x"
+        data-sizes="auto"
+        alt="./golang_how_channel_works.assets/1*P1TfF2N2KyAYjd5ZPsXOMA.jpeg"
+        title="img" /></p>
+<p>some fields of <code>hchan</code> struct</p>
+<ul>
+<li><code>recvq</code> (链表)存储试图在通道上读取数据时被阻塞的goroutines。</li>
+<li><code>sendq</code>(链表) 存储试图从通道发送数据时被阻塞的goroutines。</li>
+</ul>
+<blockquote>
+<p>Remember that Both of <code>recq</code> and <code>sendq</code> are linked list.</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">type hchan struct { buf      unsafe.Pointer
+</span></span><span class="line"><span class="cl"> sendx    uint
+</span></span><span class="line"><span class="cl"> recvx    uint
+</span></span><span class="line"><span class="cl"> lock     mutex
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"> sendq    waitq   
+</span></span><span class="line"><span class="cl"> recvq    waitq  ...   // more fields}type waitq struct {
+</span></span><span class="line"><span class="cl">  first *sudog      
+</span></span><span class="line"><span class="cl">  last  *sudog
+</span></span><span class="line"><span class="cl">}// pseudo goroutine
+</span></span><span class="line"><span class="cl">type sudog struct {
+</span></span><span class="line"><span class="cl">  g     *g
+</span></span><span class="line"><span class="cl">  elem  unsafe.Pointer 
+</span></span><span class="line"><span class="cl">  next  *sudog      
+</span></span><span class="line"><span class="cl">  prev  *sudog
+</span></span><span class="line"><span class="cl">  ...  c     *hchan}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="从空信道进行接收">从空信道进行接收</h1>
+<p>当通道为空时，一个接收操作会导致当前的协程被阻塞。所有被阻塞的协程都存储在recvq队列中。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./golang_how_channel_works.assets/1*pisoQBZZpXjFxwXuSfIWuA.gif"
+        data-srcset="./golang_how_channel_works.assets/1*pisoQBZZpXjFxwXuSfIWuA.gif, ./golang_how_channel_works.assets/1*pisoQBZZpXjFxwXuSfIWuA.gif 1.5x, ./golang_how_channel_works.assets/1*pisoQBZZpXjFxwXuSfIWuA.gif 2x"
+        data-sizes="auto"
+        alt="./golang_how_channel_works.assets/1*pisoQBZZpXjFxwXuSfIWuA.gif"
+        title="img" /></p>
+<blockquote>
+<p>阻塞的是goroutines，但不是OS线程。</p>
+</blockquote>
+<p>那么，被阻塞的goroutine何时会被恢复呢？</p>
+<p>答案是当一个新的goroutine在通道上执行发送操作时。</p>
+<p>下面是详细情况。</p>
+<ol>
+<li>一个新的goroutine将新数据直接复制到第一个等待的goroutine的元素中</li>
+<li>第一个等待的goroutine从<code>recvq</code>中弹出。</li>
+<li>运行时调度器设置被弹出的<code>goroutine</code>为可运行状态，并将其放在 &ldquo;运行队列 &ldquo;中。然后，被阻塞的程序被触发并准备再次运行。</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./golang_how_channel_works.assets/1*Njsb290vyPAx0o6Qc1udTw.gif"
+        data-srcset="./golang_how_channel_works.assets/1*Njsb290vyPAx0o6Qc1udTw.gif, ./golang_how_channel_works.assets/1*Njsb290vyPAx0o6Qc1udTw.gif 1.5x, ./golang_how_channel_works.assets/1*Njsb290vyPAx0o6Qc1udTw.gif 2x"
+        data-sizes="auto"
+        alt="./golang_how_channel_works.assets/1*Njsb290vyPAx0o6Qc1udTw.gif"
+        title="img" /></p>
+<h1 id="在满通道上进行发送">在&quot;满&quot;通道上进行发送</h1>
+<p>当通道满了，接下来的发送操作会阻塞各自的goroutine。所有被阻塞的goroutines都存储在<code>sendq</code>队列中。</p>
+<p>(没有缓冲区或者说缓冲区大小为0的通道, 和缓冲区满了的通道情况一样)</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="../golang_how_channel_works.assets/1*cVt3pF8FcBtF3q1oVc3fHg.gif"
+        data-srcset="../golang_how_channel_works.assets/1*cVt3pF8FcBtF3q1oVc3fHg.gif, ../golang_how_channel_works.assets/1*cVt3pF8FcBtF3q1oVc3fHg.gif 1.5x, ../golang_how_channel_works.assets/1*cVt3pF8FcBtF3q1oVc3fHg.gif 2x"
+        data-sizes="auto"
+        alt="../golang_how_channel_works.assets/1*cVt3pF8FcBtF3q1oVc3fHg.gif"
+        title="img" /></p>
+<p>直到另一个goroutine的接收，被阻塞的goroutine被恢复。下面是详细情况。</p>
+<ol>
+<li>当一个新的goroutine在通道上执行接收操作时，缓冲区的第一个元素被移除</li>
+<li>第一个等待的goroutine从<code>sendq</code>弹出。</li>
+<li>弹出的goroutine的元素被复制到缓冲区中</li>
+<li>运行时调度器设置被弹出的goroutine为可运行状态，并将其放在 &ldquo;运行队列 &ldquo;中。然后，被阻塞的程序被触发并准备再次运行。</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./golang_how_channel_works.assets/1*PuE69Rxr70vr7b0FLKNnKQ.gif"
+        data-srcset="./golang_how_channel_works.assets/1*PuE69Rxr70vr7b0FLKNnKQ.gif, ./golang_how_channel_works.assets/1*PuE69Rxr70vr7b0FLKNnKQ.gif 1.5x, ./golang_how_channel_works.assets/1*PuE69Rxr70vr7b0FLKNnKQ.gif 2x"
+        data-sizes="auto"
+        alt="./golang_how_channel_works.assets/1*PuE69Rxr70vr7b0FLKNnKQ.gif"
+        title="img" /></p>
+<p>通道是go中一个非常强大和有趣的机制。希望这篇文章能够解释围棋中通道的基本工作原理。</p>
+<p>参考文章</p>
+<ul>
+<li><a href="https://codeburst.io/diving-deep-into-the-golang-channels-549fd4ed21a8" target="_blank" rel="noopener noreffer ">Diving Deep Into The Golang Channels</a></li>
+<li><a href="https://medium.com/@tilaklodha/concurrency-and-parallelism-in-golang-5333e9a4ba64" target="_blank" rel="noopener noreffer ">Concurrency And Parallelism in Golang</a></li>
+<li><a href="https://medium.com/swlh/go-a-tale-of-concurrency-a-beginners-guide-b8976b26feb" target="_blank" rel="noopener noreffer ">Go a Tale of Concurrency a Beginners Guide</a></li>
+</ul>
+<p>另外, 这篇文章也不错  <a href="https://draveness.me/golang/docs/part3-runtime/ch06-concurrency/golang-channel/" target="_blank" rel="noopener noreffer ">https://draveness.me/golang/docs/part3-runtime/ch06-concurrency/golang-channel/</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 0001-01-01</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/golang_how_channel_works/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://example.org/golang_how_channel_works/" data-title="" data-via="xxxx"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://example.org/golang_how_channel_works/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://example.org/golang_how_channel_works/" data-title=""><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://example.org/golang_how_channel_works/" data-title=""><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://example.org/golang_how_channel_works/" data-title=""><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+            <a href="/welcome/" class="next" rel="next" title="Welcome">Welcome<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.95.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">xxxx</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,40 +1,29 @@
-
-# #新建一个站点
-# ##how to use:
-# # make newsite site=myblog
-# newsite:
-# 	jekyll new $(site)
-
-newpost:
-	 go run newPost.go "$(title)"
-
-run:
-	-killall -9 ruby
-	cd jekyllContent/myblog && bundle exec jekyll serve --trace  &
-	sleep 2
-	open http://localhost:4000/
-
-##https://jekyllthemes.io/free
-##hwo to use: make theme theme=theme-name
-#theme:
-#	./setTheme.sh $(theme)
-#	make run
-
-stop:
-	-killall -9 ruby
-	#cd jekyllContent/myblog && bundle exec jekyll stop
-
-install:
-	cd jekyllContent/myblog && bundle install
-
-release:
-	git pull && cp -aRvf ./jekyllContent/myblog/_site/* ./docs/ && git add . && git commit -m "auto updated by script" && git push
-
-help:
-	open https://chirpy.cotes.page
-	open https://docs.github.com/cn/pages/quickstart
-
-actions:
-	open https://github.com/yinhui1984/yinhui1984.github.io/actions
-
+all:
+	hugo -D
 	
+test:
+# To ignore errors in a command line, 
+# write a - at the beginning of the line's text (after the initial tab). 
+# The - is discarded before the command is passed to the shell for execution
+	-killall -9 hugo
+	#hugo server -D &
+	hugo server --disableFastRender
+	sleep 2
+	open http://localhost:1313/
+
+#pull:
+#	cd ../ChainBlog/ && git pull && cd -
+	
+	
+release:
+	hugo -D
+	cp -rf ./public/  ../docs/
+	git add . && git commit -m "auto updated by script" && git push
+
+#
+#
+###how to use:
+## make new file=this_is_one_article.md
+#new:pull
+#	hugo new posts/$(file)
+#	open ./content/posts/$(file) &

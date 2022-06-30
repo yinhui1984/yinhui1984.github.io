@@ -1,0 +1,148 @@
+
+#https://github.com/adityatelange/hugo-PaperMod/wiki/Features#regular-mode-default-mode
+
+
+#baseURL = "http://localhost:1313/"   #不要加这一行 否则部署到IPFS时链接可能会被写死成这个URL开头的
+relativeURLS=true
+title = "Zhouyinhui's Space"
+paginate = 5
+theme = "PaperMod"
+enableRobotsTXT = true
+buildDrafts = false
+buildFuture = false
+buildExpired = false
+# googleAnalytics = "UA-123-45"
+
+[minify]
+disableXML = true
+minifyOutput = true
+
+[params]
+env = "production"
+title = "zhouyinhui's blog"
+description = "..."
+keywords = [ "Blog"]
+author = "zhouyinhui"
+images = [ "<link or path of image for opengraph, twitter-cards>" ]
+DateFormat = "January 2, 2006"
+defaultTheme = "auto"
+disableThemeToggle = false
+ShowReadingTime = false
+ShowShareButtons = false
+ShowPostNavLinks = true
+ShowBreadCrumbs = true
+ShowCodeCopyButtons = false
+disableSpecial1stPost = false
+disableScrollToTop = false
+comments = false
+hidemeta = false
+hideSummary = false
+showtoc = false
+tocopen = false
+
+  [params.assets]
+  favicon = "<link / abs url>"
+  favicon16x16 = "<link / abs url>"
+  favicon32x32 = "<link / abs url>"
+  apple_touch_icon = "<link / abs url>"
+  safari_pinned_tab = "<link / abs url>"
+
+  # [params.label]
+  # text = "Home"
+  # #icon = "/apple-touch-icon.png"
+  # iconHeight = 35
+
+  # [params.profileMode]
+  # enabled = false
+  # title = "ExampleSite"
+  # subtitle = "This is subtitle"
+  # imageUrl = "<img location>"
+  # imageWidth = 120
+  # imageHeight = 120
+  # imageTitle = "my image"
+
+  #   [[params.profileMode.buttons]]
+  #   name = "Posts"
+  #   url = "posts"
+
+  #   [[params.profileMode.buttons]]
+  #   name = "Tags"
+  #   url = "tags"
+
+  [params.homeInfoParams]
+  Title = "Hi there 👋"
+  Content = "Welcome to my blog"
+
+  [[params.socialIcons]]
+  name = "github"
+  url = "https://github.com/jack0x001/ChainBlog"
+
+# [params.analytics.google]
+# SiteVerificationTag = "XYZabc"
+
+# [params.analytics.bing]
+# SiteVerificationTag = "XYZabc"
+
+# [params.analytics.yandex]
+# SiteVerificationTag = "XYZabc"
+
+  [params.cover]
+  hidden = true
+  hiddenInList = true
+  hiddenInSingle = true
+
+  # [params.editPost]
+  # URL = "https://github.com/<path_to_repo>/content"
+  # Text = "Suggest Changes"
+  # appendFilePath = true
+
+  [params.fuseOpts]
+  isCaseSensitive = false
+  shouldSort = true
+  location = 0
+  distance = 1_000
+  threshold = 0.4
+  minMatchCharLength = 0
+  keys = [ "title", "permalink", "summary", "content" ]
+
+# [[menu.main]]
+# identifier = "categories"
+# name = "categories"
+# url = "/categories/"
+# weight = 10
+
+[[menu.main]]
+identifier = "Home"
+name = "home"
+url = "/"
+weight = 10
+
+
+[[menu.main]]
+identifier = "tags"
+name = "tags"
+url = "/tags/"
+weight = 20
+
+
+[[menu.main]]
+identifier = "archives"
+name = "archives"
+url = "/archives/"
+weight = 30
+
+[[menu.main]]
+identifier = "search"
+name = "🔍search"
+url = "/search/"
+weight = 30
+
+# [[menu.main]]
+# identifier = "example"
+# name = "example.org"
+# url = "https://example.org"
+# weight = 30
+
+[outputs]
+home = [ "HTML", "RSS", "JSON" ]
+

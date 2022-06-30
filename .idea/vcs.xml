@@ -2,5 +2,14 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/themes/LoveIt" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/themes/PaperMod" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/themes/even" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/themes/hugo-theme-bootstrap" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/themes/hugo-theme-minos" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/themes/hugo-theme-next" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/themes/hugo-theme-nix" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/themes/mainroad" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/themes/terminal" vcs="Git" />
   </component>
 </project>
