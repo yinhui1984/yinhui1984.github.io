@@ -11,6 +11,9 @@ test:
 	sleep 2
 	open http://localhost:1313/
 
+stop:
+	killall -9 hugo
+
 #pull:
 #	cd ../ChainBlog/ && git pull && cd -
 	
