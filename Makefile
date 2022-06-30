@@ -6,7 +6,7 @@ test:
 # write a - at the beginning of the line's text (after the initial tab). 
 # The - is discarded before the command is passed to the shell for execution
 	-killall -9 hugo
-	#hugo server -D &
+	hugo -D
 	hugo server --disableFastRender
 	sleep 2
 	open http://localhost:1313/

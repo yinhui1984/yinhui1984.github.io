@@ -5,7 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>从零开始编写智能合约-使用traffle套件 - YINHUI&#39;s BLOG</title><meta name="Description" content="银辉的博客"><meta property="og:title" content="从零开始编写智能合约-使用traffle套件" />
-<meta property="og:description" content="这篇文章将带你使用traffle套件从零开始搭建环境, 编写、部署、测试和调用智能合约。" />
+<meta property="og:description" content="这篇文章将带你使用traffle套件从零开始搭建环境, 编写、部署、测试和调用智能合约。
+配套代码在 https://github.com/yinhui1984/HelloTruffle" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://yinhui1984.github.io/2022-06-29-%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E4%BD%BF%E7%94%A8traffle%E5%A5%97%E4%BB%B6/" /><meta property="og:image" content="https://yinhui1984.github.io/avatar.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-06-29T00:00:00+00:00" />
@@ -15,7 +16,8 @@
 <meta name="twitter:image" content="https://yinhui1984.github.io/avatar.png"/>
 
 <meta name="twitter:title" content="从零开始编写智能合约-使用traffle套件"/>
-<meta name="twitter:description" content="这篇文章将带你使用traffle套件从零开始搭建环境, 编写、部署、测试和调用智能合约。"/>
+<meta name="twitter:description" content="这篇文章将带你使用traffle套件从零开始搭建环境, 编写、部署、测试和调用智能合约。
+配套代码在 https://github.com/yinhui1984/HelloTruffle"/>
 <meta name="application-name" content="YINHUI&#39;s BLOG">
 <meta name="apple-mobile-web-app-title" content="YINHUI&#39;s BLOG"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -30,7 +32,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/yinhui1984.github.io\/2022-06-29-%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E4%BD%BF%E7%94%A8traffle%E5%A5%97%E4%BB%B6\/"
-        },"genre": "posts","keywords": "solidity, truffle, ganache","wordcount":  2917 ,
+        },"genre": "posts","keywords": "solidity, truffle, ganache","wordcount":  2994 ,
         "url": "https:\/\/yinhui1984.github.io\/2022-06-29-%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E4%BD%BF%E7%94%A8traffle%E5%A5%97%E4%BB%B6\/","datePublished": "2022-06-29T00:00:00+00:00","dateModified": "2022-06-29T00:00:00+00:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -105,7 +107,7 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">从零开始编写智能合约-使用traffle套件</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/yinhui1984" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>yinhui</a></span>&nbsp;<span class="post-category">included in <a href="/categories/blockchain/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>BlockChain</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-06-29">2022-06-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2917 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-06-29">2022-06-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2994 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;6 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -150,6 +152,7 @@
   </ul>
 </nav></div>
             </div><div class="content" id="content"><p>这篇文章将带你使用traffle套件从零开始搭建环境, 编写、部署、测试和调用智能合约。</p>
+<p>配套代码在 <a href="https://github.com/yinhui1984/HelloTruffle" target="_blank" rel="noopener noreffer ">https://github.com/yinhui1984/HelloTruffle</a></p>
 <h2 id="使用traffle套件">使用traffle套件</h2>
 <h3 id="1-安装nodejs">1. 安装node.js</h3>
 <p><a href="https://nodejs.org/en/" target="_blank" rel="noopener noreffer ">https://nodejs.org/en/</a></p>
@@ -815,11 +818,15 @@
 </span><span class="lnt">64
 </span><span class="lnt">65
 </span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">Web3</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;web3&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">web3</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Web3</span><span class="p">(</span><span class="k">new</span> <span class="nx">Web3</span><span class="p">.</span><span class="nx">providers</span><span class="p">.</span><span class="nx">HttpProvider</span><span class="p">(</span><span class="s2">&#34;http://localhost:8545&#34;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//注意，这里有个坑， 有时候http://localhost:8545 用localhost可以，有时候连接不上
+</span></span></span><span class="line"><span class="cl"><span class="c1">//最好用127.0.0.1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">web3</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Web3</span><span class="p">(</span><span class="k">new</span> <span class="nx">Web3</span><span class="p">.</span><span class="nx">providers</span><span class="p">.</span><span class="nx">HttpProvider</span><span class="p">(</span><span class="s2">&#34;http://127.0.0.1:8545&#34;</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//web3.eth.getAccounts().then(console.log)
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>

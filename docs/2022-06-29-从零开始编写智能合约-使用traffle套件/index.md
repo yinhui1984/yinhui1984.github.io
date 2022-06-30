@@ -5,6 +5,8 @@
 
 这篇文章将带你使用traffle套件从零开始搭建环境, 编写、部署、测试和调用智能合约。
 
+配套代码在 https://github.com/yinhui1984/HelloTruffle
+
 <!--more-->
 
 ## 使用traffle套件
@@ -394,7 +396,9 @@ npm install web3
 ```js
 
 const Web3 = require('web3');
-const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+//注意，这里有个坑， 有时候http://localhost:8545 用localhost可以，有时候连接不上
+//最好用127.0.0.1
+const web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:8545"));
 
 //web3.eth.getAccounts().then(console.log)
 
