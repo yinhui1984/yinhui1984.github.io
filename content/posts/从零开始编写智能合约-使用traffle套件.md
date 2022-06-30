@@ -212,6 +212,12 @@ OSX MP16 ~/Downloads/truffleTest ❯ tree
     },
 ```
 
+{{< admonition >}}
+请保持ganache在后台运行, 后面的代码都需要访问测试链
+{{< /admonition >}}
+
+
+
 #### 添加部署代码
 
 ```shell
