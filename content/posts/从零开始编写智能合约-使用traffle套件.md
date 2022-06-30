@@ -82,7 +82,7 @@ truffle version
 新建一个目录, 比如`~/Downloads/truffleTest` 到这个目录下
 
 ```shell
-OSX MP16 ~/Downloads/truffleTest ❯ truffle init                                           
+OSX MP16 ~/Downloads/truffleTest ❯ truffle init 
 
 Starting init...
 ================
@@ -101,7 +101,7 @@ http://trufflesuite.com/docs
 其新建了这些文件
 
 ```shell
-OSX MP16 ~/Downloads/truffleTest ❯ tree                                                   15:15:55
+OSX MP16 ~/Downloads/truffleTest ❯ tree 
 .
 ├── contracts
 │   └── Migrations.sol
@@ -160,7 +160,7 @@ truffle compile
 ```
 
 ```shell
-OSX MP16 ~/Downloads/truffleTest ❯ truffle compile                                   
+OSX MP16 ~/Downloads/truffleTest ❯ truffle compile
 
 Compiling your contracts...
 ===========================
@@ -175,7 +175,7 @@ Compiling your contracts...
 编译完成后, 会将结果放到`build`目录下: 我们这里关心的是`Calculator.json`
 
 ```shell
-OSX MP16 ~/Downloads/truffleTest ❯ tree                                                   
+OSX MP16 ~/Downloads/truffleTest ❯ tree
 .
 ├── build
 │   └── contracts
@@ -241,8 +241,7 @@ module.exports = function(deployer) {
 运行 `truffle migrate` 命令进行部署
 
 ```shell
-OSX MP16 ~/Downloads/truffleTest ❯ truffle migrate                                        16:12:30
-
+OSX MP16 ~/Downloads/truffleTest ❯ truffle migrate 
 Compiling your contracts...
 ===========================
 > Everything is up to date, there is nothing to compile.
@@ -362,7 +361,8 @@ contract("Calculator", accounts => {
 运行 `truffle test` 跑测试
 
 ```shell
-OSX MP16 ~/Downloads/truffleTest ❯ truffle test                                   6s 17:05:09
+OSX MP16 ~/Downloads/truffleTest ❯ truffle test 
+
 Using network 'development'.
 
 
@@ -516,7 +516,7 @@ contract.methods.subtract(3,2).call().then(console.log);
 运行app
 
 ```shell
-OSX MP16 ~/Downloads/truffleTest/demo/jsApp ❯ node index.js                                            
+OSX MP16 ~/Downloads/truffleTest/demo/jsApp ❯ node index.js 
 6
 1
 ```
@@ -557,7 +557,7 @@ abigen --pkg contracts --sol ../../contracts/Calculator.sol --out  ./contracts/c
 生成完成后, goApp的目录结构如下:
 
 ```shell
-tree ~/Downloads/truffleTest/demo/goApp                 
+tree ~/Downloads/truffleTest/demo/goApp 
 /Users/zhouyinhui/Downloads/truffleTest/demo/goApp
 ├── contracts
 │   └── calculatorContract.go
@@ -628,7 +628,7 @@ func main() {
 运行
 
 ```shell
-OSX MP16 ~/Downloads/truffleTest/demo/goApp ❯ go run .  
+OSX MP16 ~/Downloads/truffleTest/demo/goApp ❯ go run . 
 add result: 3
 subtract result: -1
 
