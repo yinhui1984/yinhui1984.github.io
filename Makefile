@@ -16,8 +16,7 @@ test:
 	
 	
 release:
-	hugo -D
-	cp -aRf ./public/*  ../docs/
+	cp -aRf ./public/* ./docs
 	git add . && git commit -m "auto updated by script" && git push
 
 #
