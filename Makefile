@@ -7,15 +7,15 @@ test:
 # The - is discarded before the command is passed to the shell for execution
 	-killall -9 hugo
 	hugo -D
-	hugo server --disableFastRender
-	sleep 2
 	open http://localhost:1313/
+	hugo server --disableFastRender
+
 
 stop:
 	killall -9 hugo
 
 #pull:
-#	cd ../ChainBlog/ && git pull && cd -
+#	 git pull
 	
 	
 release:
