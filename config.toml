@@ -201,7 +201,7 @@ hasCJKLanguage = true
 
   # 作者的社交信息设置
   [params.social]
-    GitHub = "https://github.com/yinhui1984"
+    GitHub = "yinhui1984"
 #     Linkedin = ""
 #     Twitter = "xxxx"
 #     Instagram = "xxxx"

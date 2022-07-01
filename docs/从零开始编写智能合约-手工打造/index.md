@@ -322,14 +322,14 @@ const bytecode = fs.readFileSync('../build/Calculator.bin').toString();
 const abi = JSON.parse(fs.readFileSync('../build/Calculator.abi').toString());
 
 (async function () {
-    const ganacheAccounts = await web3.eth.getAccounts();
+    const accounts = await web3.eth.getAccounts();
 
     const calculator = new web3.eth.Contract(abi);
 
     calculator.deploy({
         data: bytecode
     }).send({
-        from: ganacheAccounts[0],
+        from: accounts[0],
     }).then((deployment) => {
         console.log('Contract was deployed at the following address:');
         console.log(deployment.options.address);
