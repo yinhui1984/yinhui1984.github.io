@@ -3,6 +3,8 @@
 
 前面在 [从零开始编写智能合约-使用traffle套件](https://yinhui1984.github.io/从零开始编写智能合约-使用traffle套件/) 中 使用 `truffle`套件从零开始搭建环境, 编写、部署、测试和调用智能合约, 这次我们只使用一些命令行工具来进行"手工打造"
 
+配套代码: https://github.com/yinhui1984/stepByStepSmartContract
+
 
 
 <!--more-->
