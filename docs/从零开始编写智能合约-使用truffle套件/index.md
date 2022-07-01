@@ -152,7 +152,7 @@ truffle compile
 ```
 
 ```shell
-OSX MP16 ~/Downloads/truffleTest ❯ truffle compile                                   
+OSX MP16 ~/Downloads/truffleTest ❯ truffle compile
 
 Compiling your contracts...
 ===========================
@@ -167,7 +167,7 @@ Compiling your contracts...
 编译完成后, 会将结果放到`build`目录下: 我们这里关心的是`Calculator.json`
 
 ```shell
-OSX MP16 ~/Downloads/truffleTest ❯ tree                                                   
+OSX MP16 ~/Downloads/truffleTest ❯ tree
 .
 ├── build
 │   └── contracts
@@ -508,7 +508,7 @@ contract.methods.subtract(3,2).call().then(console.log);
 运行app
 
 ```shell
-OSX MP16 ~/Downloads/truffleTest/demo/jsApp ❯ node index.js                                            
+OSX MP16 ~/Downloads/truffleTest/demo/jsApp ❯ node index.js 
 6
 1
 ```

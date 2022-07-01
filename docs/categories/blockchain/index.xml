@@ -3,12 +3,20 @@
         <title>BlockChain - Category - YINHUI&#39;s BLOG</title>
         <link>https://yinhui1984.github.io/categories/blockchain/</link>
         <description>BlockChain - Category - YINHUI&#39;s BLOG</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 29 Jun 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://yinhui1984.github.io/categories/blockchain/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 01 Jul 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://yinhui1984.github.io/categories/blockchain/" rel="self" type="application/rss+xml" /><item>
+    <title>从零开始编写智能合约-手工打造</title>
+    <link>https://yinhui1984.github.io/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E6%89%8B%E5%B7%A5%E6%89%93%E9%80%A0/</link>
+    <pubDate>Fri, 01 Jul 2022 00:00:00 &#43;0000</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E6%89%8B%E5%B7%A5%E6%89%93%E9%80%A0/</guid>
+    <description><![CDATA[<p>前面在 <a href="https://yinhui1984.github.io/%e4%bb%8e%e9%9b%b6%e5%bc%80%e5%a7%8b%e7%bc%96%e5%86%99%e6%99%ba%e8%83%bd%e5%90%88%e7%ba%a6-%e4%bd%bf%e7%94%a8traffle%e5%a5%97%e4%bb%b6/" target="_blank" rel="noopener noreffer ">从零开始编写智能合约-使用traffle套件</a> 中 使用 <code>truffle</code>套件从零开始搭建环境, 编写、部署、测试和调用智能合约, 这次我们只使用一些命令行工具来进行&quot;手工打造&quot;</p>]]></description>
+</item>
+<item>
     <title>从零开始编写智能合约-使用traffle套件</title>
-    <link>https://yinhui1984.github.io/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E4%BD%BF%E7%94%A8traffle%E5%A5%97%E4%BB%B6/</link>
+    <link>https://yinhui1984.github.io/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E4%BD%BF%E7%94%A8truffle%E5%A5%97%E4%BB%B6/</link>
     <pubDate>Wed, 29 Jun 2022 00:00:00 &#43;0000</pubDate>
     <author>yinhui</author>
-    <guid>https://yinhui1984.github.io/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E4%BD%BF%E7%94%A8traffle%E5%A5%97%E4%BB%B6/</guid>
+    <guid>https://yinhui1984.github.io/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E4%BD%BF%E7%94%A8truffle%E5%A5%97%E4%BB%B6/</guid>
     <description><![CDATA[<p>这篇文章将带你使用traffle套件从零开始搭建环境, 编写、部署、测试和调用智能合约。</p>
 <p>配套代码在 <a href="https://github.com/yinhui1984/HelloTruffle" target="_blank" rel="noopener noreffer ">https://github.com/yinhui1984/HelloTruffle</a></p>]]></description>
 </item>

@@ -14,6 +14,8 @@ test:
 stop:
 	killall -9 hugo
 
+list:
+	ls -al ./content/posts/
 #pull:
 #	 git pull
 	
