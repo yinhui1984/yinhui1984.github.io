@@ -630,5 +630,6 @@ subtract result: -1
 
 ## 手工撸
 
-Coming Soon....
+这里: [https://yinhui1984.github.io/从零开始编写智能合约-手工打造/](https://yinhui1984.github.io/从零开始编写智能合约-手工打造/)
+
 
