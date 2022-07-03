@@ -42,6 +42,7 @@ from web3 import Web3  # pip3 install web3
 
 # 按需挖矿
 
+#使用前请先修改provide
 w3 = Web3(Web3.IPCProvider('../mychain/data/geth.ipc'))
 num_threads = os.cpu_count()
 
