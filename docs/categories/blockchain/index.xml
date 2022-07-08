@@ -3,7 +3,15 @@
         <title>BlockChain - Category - YINHUI&#39;s BLOG</title>
         <link>https://yinhui1984.github.io/categories/blockchain/</link>
         <description>BlockChain - Category - YINHUI&#39;s BLOG</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 04 Jul 2022 13:10:51 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/categories/blockchain/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 06 Jul 2022 10:53:24 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/categories/blockchain/" rel="self" type="application/rss+xml" /><item>
+    <title>genesis.json</title>
+    <link>https://yinhui1984.github.io/genesis.json/</link>
+    <pubDate>Wed, 06 Jul 2022 10:53:24 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/genesis.json/</guid>
+    <description><![CDATA[<p>对<code>创世文件</code>的介绍</p>]]></description>
+</item>
+<item>
     <title>对智能合约的读方法和写方法的调用</title>
     <link>https://yinhui1984.github.io/%E5%AF%B9%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E7%9A%84%E8%AF%BB%E6%96%B9%E6%B3%95%E5%92%8C%E5%86%99%E6%96%B9%E6%B3%95%E7%9A%84%E8%B0%83%E7%94%A8/</link>
     <pubDate>Mon, 04 Jul 2022 13:10:51 &#43;0800</pubDate>

@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>genesis.json - Tag - YINHUI&#39;s BLOG</title>
+        <link>https://yinhui1984.github.io/tags/genesis.json/</link>
+        <description>genesis.json - Tag - YINHUI&#39;s BLOG</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 06 Jul 2022 10:53:24 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/tags/genesis.json/" rel="self" type="application/rss+xml" /><item>
+    <title>genesis.json</title>
+    <link>https://yinhui1984.github.io/genesis.json/</link>
+    <pubDate>Wed, 06 Jul 2022 10:53:24 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/genesis.json/</guid>
+    <description><![CDATA[<p>对<code>创世文件</code>的介绍</p>]]></description>
+</item>
+</channel>
+</rss>
