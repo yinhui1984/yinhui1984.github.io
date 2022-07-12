@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>vc&#43;&#43; - Tag - YINHUI&#39;s BLOG</title>
+        <link>https://yinhui1984.github.io/tags/vc&#43;&#43;/</link>
+        <description>vc&#43;&#43; - Tag - YINHUI&#39;s BLOG</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 12 Jul 2022 20:30:29 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/tags/vc&#43;&#43;/" rel="self" type="application/rss+xml" /><item>
+    <title>Error : WINDOWS.H Already Included</title>
+    <link>https://yinhui1984.github.io/error--windows.h-already-included/</link>
+    <pubDate>Tue, 12 Jul 2022 20:30:29 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/error--windows.h-already-included/</guid>
+    <description><![CDATA[<p>关于编译Windows  MFC 项目遇到的<code>Error : WINDOWS.H Already Included</code>的解决方法</p>]]></description>
+</item>
+</channel>
+</rss>

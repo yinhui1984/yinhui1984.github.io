@@ -3,7 +3,34 @@
         <title>All Posts - YINHUI&#39;s BLOG</title>
         <link>https://yinhui1984.github.io/posts/</link>
         <description>All Posts | YINHUI&#39;s BLOG</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 06 Jul 2022 10:53:24 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 12 Jul 2022 20:30:29 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Error : WINDOWS.H Already Included</title>
+    <link>https://yinhui1984.github.io/error--windows.h-already-included/</link>
+    <pubDate>Tue, 12 Jul 2022 20:30:29 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/error--windows.h-already-included/</guid>
+    <description><![CDATA[<p>关于编译Windows  MFC 项目遇到的<code>Error : WINDOWS.H Already Included</code>的解决方法</p>]]></description>
+</item>
+<item>
+    <title>ARINC-429</title>
+    <link>https://yinhui1984.github.io/arinc429/</link>
+    <pubDate>Tue, 12 Jul 2022 11:30:58 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/arinc429/</guid>
+    <description><![CDATA[<p><code>ARINC-429</code> 定义了商用飞机航空电子系统之间数字数据传输的标准要求和协议。设备制造商遵循这些标准，从而实现航空电子设备的互换性.</p>]]></description>
+</item>
+<item>
+    <title>PoW</title>
+    <link>https://yinhui1984.github.io/pow/</link>
+    <pubDate>Fri, 08 Jul 2022 19:45:30 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/pow/</guid>
+    <description><![CDATA[<p>&ldquo;如何达成共识&quot;是分布式系统的一个最基本的问题. 区块链作为一个分布式系统, 这也是最核心的问题.</p>
+<p>共识算法很多, <code>PoW</code>、 <code>BFT</code> 、<code>POS</code> .. 以及的变体, 比如<code>PBFT</code>、 <code>IBFT</code>、<code>Tendermint</code>、<code>DPoS</code>、 <code>HotStuff</code> 等.</p>
+<p>但作为区块链的鼻祖的BTC和元老的ETH都使用的<code>PoW</code>, ETH正在过度到<code>PoS</code>, 另外有一些区块链采用了<code>PoS</code>的一个变体<code>DPoS</code>.我们主要关注这几种.</p>
+<p>今天先说说<code>PoW</code></p>]]></description>
+</item>
+<item>
     <title>genesis.json</title>
     <link>https://yinhui1984.github.io/genesis.json/</link>
     <pubDate>Wed, 06 Jul 2022 10:53:24 &#43;0800</pubDate>
