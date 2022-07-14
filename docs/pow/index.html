@@ -36,7 +36,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/yinhui1984.github.io\/pow\/"
-        },"genre": "posts","keywords": "pow, consensus","wordcount":  196 ,
+        },"genre": "posts","keywords": "pow, consensus","wordcount":  1566 ,
         "url": "https:\/\/yinhui1984.github.io\/pow\/","datePublished": "2022-07-08T19:45:30+08:00","dateModified": "2022-07-08T19:45:30+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -111,19 +111,303 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">PoW</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/yinhui1984" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>yinhui</a></span>&nbsp;<span class="post-category">included in <a href="/categories/blockchain/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>BlockChain</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-07-08">2022-07-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;196 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;One minute&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-07-08">2022-07-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1566 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
                     <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#原理">原理</a></li>
+    <li><a href="#hash">Hash</a></li>
+    <li><a href="#hash解密游戏">Hash解密游戏</a></li>
+    <li><a href="#pow">PoW</a></li>
+    <li><a href="#go-etherum">go-etherum</a></li>
+  </ul>
+</nav></div>
             </div><div class="content" id="content"><p>&ldquo;如何达成共识&quot;是分布式系统的一个最基本的问题. 区块链作为一个分布式系统, 这也是最核心的问题.</p>
 <p>共识算法很多, <code>PoW</code>、 <code>BFT</code> 、<code>POS</code> .. 以及的变体, 比如<code>PBFT</code>、 <code>IBFT</code>、<code>Tendermint</code>、<code>DPoS</code>、 <code>HotStuff</code> 等.</p>
 <p>但作为区块链的鼻祖的BTC和元老的ETH都使用的<code>PoW</code>, ETH正在过度到<code>PoS</code>, 另外有一些区块链采用了<code>PoS</code>的一个变体<code>DPoS</code>.我们主要关注这几种.</p>
 <p>今天先说说<code>PoW</code></p>
-<p>coming soon&hellip;</p></div><div class="post-footer" id="post-footer">
+<h2 id="原理">原理</h2>
+<p><code>PoW</code>  Proof of Work 工作量证明  在挖矿的时候通过作出&quot;一定的工作量&quot;来增加作恶成本.</p>
+<p>其基本原理是通过一个简单但又费力的数学计算来体现工作量. 这样的数学计算有很多, 比如质因数分解, 计算hash等.</p>
+<h2 id="hash">Hash</h2>
+<p>哈希函数用于为任意长的输入字符串创建固定长度的摘要,有各种系列的哈希函数，如MD、SHA1、SHA-2、SHA-3、RIPEMD和Whirlpool</p>
+<p>特点:</p>
+<ul>
+<li>哈希函数必须能够接受任何长度的输入文本，并输出一个固定长度的压缩信息.</li>
+<li>哈希函数的计算速度非常快。如果消息太大，效率可能会下降，但该函数仍应足够快，以满足实际使用</li>
+<li>哈希函数的输出必须的稳定的, 输入不变时输出也不会发生变化</li>
+<li>哈希不能反向推导.  也就是说很难通过哈希值反向计算出原始值. 这也叫<code>抗碰撞性</code></li>
+<li>不同的信息要得到不同的哈希值. 实际上, 输入信息稍加改变, 输出的哈希值将会有很大的差异. 这叫 <code>雪崩效应</code></li>
+<li>我们一般使用的是 <code>SHA-256</code></li>
+</ul>
+<p>举例</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">OSX MP16 ~ ❯ <span class="nb">echo</span> <span class="s2">&#34;this is a test&#34;</span> <span class="p">|</span> openssl dgst -sha256
+</span></span><span class="line"><span class="cl">91751cee0a1ab8414400238a761411daa29643ab4b8243e9a91649e25be53ada
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">OSX MP16 ~ ❯ <span class="nb">echo</span> <span class="s2">&#34;this is A test&#34;</span> <span class="p">|</span> openssl dgst -sha256
+</span></span><span class="line"><span class="cl">215ec5072f0ae6f05d9576d42c1a3fb5794aa51199cb44e7d087e679ff000d1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="hash解密游戏">Hash解密游戏</h2>
+<p>假设有这个一个游戏:</p>
+<p>给定一个常量字符串<code>str</code>,  再加上一个可变数字<code>num</code> 得到 <code>str+num</code>,</p>
+<p>通过不断变化<code>num</code>的值, 使得 <code>hash(str+num)</code>得到的哈希值满足一定的条件 就算成功.</p>
+<p>假设我们需要满足的条件是: 哈希值以<code>0000</code>开头</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">str</span> <span class="o">:=</span> <span class="s">&#34;this is a test string&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">num</span> <span class="o">:=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="kc">true</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">tempStr</span> <span class="o">:=</span> <span class="nx">str</span> <span class="o">+</span> <span class="nx">strconv</span><span class="p">.</span><span class="nf">Itoa</span><span class="p">(</span><span class="nx">num</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">h</span> <span class="o">:=</span> <span class="nx">sha256</span><span class="p">.</span><span class="nf">New</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">h</span><span class="p">.</span><span class="nf">Write</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">tempStr</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">sum</span> <span class="o">:=</span> <span class="nx">h</span><span class="p">.</span><span class="nf">Sum</span><span class="p">(</span><span class="kc">nil</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">s</span> <span class="o">:=</span> <span class="nx">hex</span><span class="p">.</span><span class="nf">EncodeToString</span><span class="p">(</span><span class="nx">sum</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;try:&#34;</span> <span class="o">+</span> <span class="nx">s</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">s</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#34;0000&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;找到num: &#34;</span><span class="p">,</span> <span class="nx">num</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;找到hash: &#34;</span><span class="p">,</span> <span class="nx">s</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="k">break</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">num</span><span class="o">++</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>运行结果:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">try:2717e2d84df58353433bdef467f5f12766710aedc7114d409d04d6712b670edb
+</span></span><span class="line"><span class="cl">try:a13b43128c8961d36d9f7aca7fd82018497d713e5305e86f1ba6c900e7870e61
+</span></span><span class="line"><span class="cl">try:5a968dcad3ab8564046abedff836a91242d77207b758f079865680b96e9e9b3a
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">找到num:  <span class="m">7521</span>
+</span></span><span class="line"><span class="cl">找到hash:  0000e87f07402bc7592d63fc8876fc4685eb52649ceefa78915b33d7792be1f0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>经过七千多次尝试, 找到了当<code>num</code>为7521时, 满足条件</p>
+<h2 id="pow">PoW</h2>
+<p>上面游戏中的<code>给定字符串</code>就算挖矿是的区块&quot;密封前&quot;的哈希值 ,包含前面的区块的哈希值和交易数据以及其它信息计算出来的哈希值, 但还没有成功挖矿,所以还没包含本区块的<code>nonce</code>等. 挖矿成功后, 会进行密封(<code>Seal</code>). 这里说的<code>nonce</code>也就是上面游戏中的<code>num</code></p>
+<p>游戏中还提到 <code>一定的条件</code> ,  在Pow中, 一定的条件就是找到的哈希值小于指定的 <code>target</code> ,  <code>target</code>是根据 <code>难度</code> 计算出来的.</p>
+<p>所以我们可以得到这样一个简化版本的 PoW过程</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;crypto/sha256&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;math/big&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;strconv&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;time&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">getTarget</span><span class="p">()</span> <span class="o">*</span><span class="nx">big</span><span class="p">.</span><span class="nx">Int</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">//假设当前难度值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">difficulty</span> <span class="o">:=</span> <span class="mi">22341680</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">two256</span> <span class="o">:=</span> <span class="nb">new</span><span class="p">(</span><span class="nx">big</span><span class="p">.</span><span class="nx">Int</span><span class="p">).</span><span class="nf">Exp</span><span class="p">(</span><span class="nx">big</span><span class="p">.</span><span class="nf">NewInt</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="nx">big</span><span class="p">.</span><span class="nf">NewInt</span><span class="p">(</span><span class="mi">256</span><span class="p">),</span> <span class="nx">big</span><span class="p">.</span><span class="nf">NewInt</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nb">new</span><span class="p">(</span><span class="nx">big</span><span class="p">.</span><span class="nx">Int</span><span class="p">).</span><span class="nf">Div</span><span class="p">(</span><span class="nx">two256</span><span class="p">,</span> <span class="nx">big</span><span class="p">.</span><span class="nf">NewInt</span><span class="p">(</span><span class="nb">int64</span><span class="p">(</span><span class="nx">difficulty</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// getBlockHashBeforeSeal 获取区块在&#34;密封前&#34;的哈希值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">getBlockHashBeforeSeal</span><span class="p">()</span> <span class="p">[]</span><span class="kt">byte</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">str</span> <span class="o">:=</span> <span class="s">&#34;1312af178c253f84028d480a6adc1e25e81caa44c749ec81976192e2ec934c64&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//convert to bytes[]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">b</span> <span class="o">:=</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">b</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">hash</span><span class="p">(</span><span class="nx">s</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">[]</span><span class="kt">byte</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//使用sha256哈希函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">h</span> <span class="o">:=</span> <span class="nx">sha256</span><span class="p">.</span><span class="nf">New</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">h</span><span class="p">.</span><span class="nf">Write</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">sum</span> <span class="o">:=</span> <span class="nx">h</span><span class="p">.</span><span class="nf">Sum</span><span class="p">(</span><span class="kc">nil</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">sum</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">mine</span><span class="p">()</span> <span class="kt">uint64</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">nonce</span> <span class="o">:=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">target</span> <span class="o">:=</span> <span class="nf">getTarget</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;target: &#34;</span><span class="p">,</span> <span class="nx">target</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">powBuffer</span> <span class="o">:=</span> <span class="nb">new</span><span class="p">(</span><span class="nx">big</span><span class="p">.</span><span class="nx">Int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//旷工挖矿，需要进行暴力遍历
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//通过不停地改变nonce以便让hash值变化，然后找到刚好满足一定条件的值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">for</span> <span class="kc">true</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="kd">var</span> <span class="nx">bytes</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nf">getBlockHashBeforeSeal</span><span class="p">(),</span> <span class="nx">strconv</span><span class="p">.</span><span class="nf">Itoa</span><span class="p">(</span><span class="nx">nonce</span><span class="p">)</span><span class="o">...</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">sum</span> <span class="o">:=</span> <span class="nf">hash</span><span class="p">(</span><span class="nx">bytes</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">powBuffer</span><span class="p">.</span><span class="nf">SetBytes</span><span class="p">(</span><span class="nx">sum</span><span class="p">).</span><span class="nf">Cmp</span><span class="p">(</span><span class="nx">target</span><span class="p">)</span> <span class="p">&lt;</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;找到nonce: &#34;</span><span class="p">,</span> <span class="nx">nonce</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="k">break</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="nx">nonce</span><span class="o">++</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nb">uint64</span><span class="p">(</span><span class="nx">nonce</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">verify</span><span class="p">(</span><span class="nx">nonce</span> <span class="kt">uint64</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//对旷工挖矿得到的结果进行验证
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//验证只需要进行一次计算
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">powBuffer</span> <span class="o">:=</span> <span class="nb">new</span><span class="p">(</span><span class="nx">big</span><span class="p">.</span><span class="nx">Int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">target</span> <span class="o">:=</span> <span class="nf">getTarget</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">bytes</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nf">getBlockHashBeforeSeal</span><span class="p">(),</span> <span class="nx">strconv</span><span class="p">.</span><span class="nf">Itoa</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nx">nonce</span><span class="p">))</span><span class="o">...</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">sum</span> <span class="o">:=</span> <span class="nf">hash</span><span class="p">(</span><span class="nx">bytes</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">powBuffer</span><span class="p">.</span><span class="nf">SetBytes</span><span class="p">(</span><span class="nx">sum</span><span class="p">).</span><span class="nf">Cmp</span><span class="p">(</span><span class="nx">target</span><span class="p">)</span> <span class="p">&lt;</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">startTime</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">nonce</span> <span class="o">:=</span> <span class="nf">mine</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;计算耗时: &#34;</span><span class="p">,</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">().</span><span class="nf">Sub</span><span class="p">(</span><span class="nx">startTime</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">ok</span> <span class="o">:=</span> <span class="nf">verify</span><span class="p">(</span><span class="nx">nonce</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;验证结果: &#34;</span><span class="p">,</span> <span class="nx">ok</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="go-etherum">go-etherum</h2>
+<p>go-etherum的<code>PoW</code>用到的算法名称叫 <code>Ethash</code></p>
+<p>其挖矿逻辑在  go-ethereum-1.10.20/consensus/ethash/sealer.go 中的 <code>mine</code> 方法</p></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
@@ -161,5 +445,5 @@
             </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
                 <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":200},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>
