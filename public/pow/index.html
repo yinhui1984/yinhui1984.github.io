@@ -36,7 +36,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/yinhui1984.github.io\/pow\/"
-        },"genre": "posts","keywords": "pow, consensus","wordcount":  1566 ,
+        },"genre": "posts","keywords": "pow, consensus","wordcount":  1579 ,
         "url": "https:\/\/yinhui1984.github.io\/pow\/","datePublished": "2022-07-08T19:45:30+08:00","dateModified": "2022-07-08T19:45:30+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -111,7 +111,7 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">PoW</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/yinhui1984" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>yinhui</a></span>&nbsp;<span class="post-category">included in <a href="/categories/blockchain/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>BlockChain</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-07-08">2022-07-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1566 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-07-08">2022-07-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1579 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -141,8 +141,9 @@
 <li>哈希函数必须能够接受任何长度的输入文本，并输出一个固定长度的压缩信息.</li>
 <li>哈希函数的计算速度非常快。如果消息太大，效率可能会下降，但该函数仍应足够快，以满足实际使用</li>
 <li>哈希函数的输出必须的稳定的, 输入不变时输出也不会发生变化</li>
-<li>哈希不能反向推导.  也就是说很难通过哈希值反向计算出原始值. 这也叫<code>抗碰撞性</code></li>
-<li>不同的信息要得到不同的哈希值. 实际上, 输入信息稍加改变, 输出的哈希值将会有很大的差异. 这叫 <code>雪崩效应</code></li>
+<li>哈希不能反向推导.  也就是说很难通过哈希值反向计算出原始值.  这个叫<code>原像防御</code>或者叫<code>单向属性</code></li>
+<li>不同的信息要得到不同的哈希值.  这叫<code>抗碰撞性</code></li>
+<li>实际上, 输入信息稍加改变, 输出的哈希值将会有很大的差异. 这叫 <code>雪崩效应</code></li>
 <li>我们一般使用的是 <code>SHA-256</code></li>
 </ul>
 <p>举例</p>
@@ -163,7 +164,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="hash解密游戏">Hash解密游戏</h2>
-<p>假设有这个一个游戏:</p>
+<p>假设有这样一个游戏:</p>
 <p>给定一个常量字符串<code>str</code>,  再加上一个可变数字<code>num</code> 得到 <code>str+num</code>,</p>
 <p>通过不断变化<code>num</code>的值, 使得 <code>hash(str+num)</code>得到的哈希值满足一定的条件 就算成功.</p>
 <p>假设我们需要满足的条件是: 哈希值以<code>0000</code>开头</p>
