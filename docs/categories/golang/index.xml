@@ -3,7 +3,15 @@
         <title>golang - Category - YINHUI&#39;s BLOG</title>
         <link>https://yinhui1984.github.io/categories/golang/</link>
         <description>golang - Category - YINHUI&#39;s BLOG</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 22 Jul 2022 20:16:58 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/categories/golang/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 22 Jul 2022 20:20:38 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/categories/golang/" rel="self" type="application/rss+xml" /><item>
+    <title>使用delve对go代码进行调试</title>
+    <link>https://yinhui1984.github.io/%E4%BD%BF%E7%94%A8delve%E5%AF%B9go%E4%BB%A3%E7%A0%81%E8%BF%9B%E8%A1%8C%E8%B0%83%E8%AF%95/</link>
+    <pubDate>Fri, 22 Jul 2022 20:20:38 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/%E4%BD%BF%E7%94%A8delve%E5%AF%B9go%E4%BB%A3%E7%A0%81%E8%BF%9B%E8%A1%8C%E8%B0%83%E8%AF%95/</guid>
+    <description><![CDATA[<p><code>delve</code>就是go语言的<code>gdb</code></p>]]></description>
+</item>
+<item>
     <title>Golang实现一个简单的事件处理程序</title>
     <link>https://yinhui1984.github.io/golang%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F/</link>
     <pubDate>Fri, 22 Jul 2022 20:16:58 &#43;0800</pubDate>
