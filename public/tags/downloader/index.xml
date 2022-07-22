@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>downloader - Tag - YINHUI&#39;s BLOG</title>
+        <link>https://yinhui1984.github.io/tags/downloader/</link>
+        <description>downloader - Tag - YINHUI&#39;s BLOG</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 22 Jul 2022 20:54:37 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/tags/downloader/" rel="self" type="application/rss+xml" /><item>
+    <title>Golang文件下载</title>
+    <link>https://yinhui1984.github.io/golang%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/</link>
+    <pubDate>Fri, 22 Jul 2022 20:54:37 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/golang%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/</guid>
+    <description><![CDATA[<p>go语言写的一个文件下载脚本</p>
+<p>晚上想听点有声小说, 要两毛一集, 算了一下,一本书要几百块, 囊中羞涩, 于是拿出电脑搞个脚本</p>]]></description>
+</item>
+</channel>
+</rss>

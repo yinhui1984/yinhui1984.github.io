@@ -3,7 +3,16 @@
         <title>All Posts - YINHUI&#39;s BLOG</title>
         <link>https://yinhui1984.github.io/posts/</link>
         <description>All Posts | YINHUI&#39;s BLOG</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 22 Jul 2022 20:20:38 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 22 Jul 2022 20:54:37 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Golang文件下载</title>
+    <link>https://yinhui1984.github.io/golang%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/</link>
+    <pubDate>Fri, 22 Jul 2022 20:54:37 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/golang%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/</guid>
+    <description><![CDATA[<p>go语言写的一个文件下载脚本</p>
+<p>晚上想听点有声小说, 要两毛一集, 算了一下,一本书要几百块, 囊中羞涩, 于是拿出电脑搞个脚本</p>]]></description>
+</item>
+<item>
     <title>使用delve对go代码进行调试</title>
     <link>https://yinhui1984.github.io/%E4%BD%BF%E7%94%A8delve%E5%AF%B9go%E4%BB%A3%E7%A0%81%E8%BF%9B%E8%A1%8C%E8%B0%83%E8%AF%95/</link>
     <pubDate>Fri, 22 Jul 2022 20:20:38 &#43;0800</pubDate>
@@ -77,15 +86,6 @@
     <author>yinhui</author>
     <guid>https://yinhui1984.github.io/%E4%BD%BF%E7%94%A8web3.py%E5%AE%9E%E7%8E%B0%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8C%89%E9%9C%80%E6%8C%96%E7%9F%BF/</guid>
     <description><![CDATA[<p>让自己使用<code>geth</code>运行的区块链像<code>Ganche</code>一样可以<code>AUTOMINING</code></p>]]></description>
-</item>
-<item>
-    <title>从零开始编写智能合约-手工打造</title>
-    <link>https://yinhui1984.github.io/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E6%89%8B%E5%B7%A5%E6%89%93%E9%80%A0/</link>
-    <pubDate>Fri, 01 Jul 2022 00:00:00 &#43;0000</pubDate>
-    <author>yinhui</author>
-    <guid>https://yinhui1984.github.io/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E6%89%8B%E5%B7%A5%E6%89%93%E9%80%A0/</guid>
-    <description><![CDATA[<p>前面在 <a href="https://yinhui1984.github.io/%e4%bb%8e%e9%9b%b6%e5%bc%80%e5%a7%8b%e7%bc%96%e5%86%99%e6%99%ba%e8%83%bd%e5%90%88%e7%ba%a6-%e4%bd%bf%e7%94%a8traffle%e5%a5%97%e4%bb%b6/" target="_blank" rel="noopener noreffer ">从零开始编写智能合约-使用traffle套件</a> 中 使用 <code>truffle</code>套件从零开始搭建环境, 编写、部署、测试和调用智能合约, 这次我们只使用一些命令行工具来进行&quot;手工打造&quot;</p>
-<p>配套代码: <a href="https://github.com/yinhui1984/stepByStepSmartContract" target="_blank" rel="noopener noreffer ">https://github.com/yinhui1984/stepByStepSmartContract</a></p>]]></description>
 </item>
 </channel>
 </rss>
