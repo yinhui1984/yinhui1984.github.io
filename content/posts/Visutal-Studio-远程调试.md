@@ -1,5 +1,5 @@
 ---
-title: "Visutal Studio VC++ 远程调试"
+title: "Visual Studio VC++ 远程调试"
 date: 2022-07-27T09:32:00+08:00
 draft: false
 author: yinhui
