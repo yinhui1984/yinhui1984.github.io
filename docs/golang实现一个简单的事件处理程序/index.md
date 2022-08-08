@@ -11,15 +11,12 @@
 
 demo目录结构
 
-```
+```shell
 .
 ├── events
-│   └── event.go
+│   └── event.go
 ├── go.mod
-├── main.go
-└── user
-    └── login.go
-
+└── main.go
 ```
 
 
@@ -31,48 +28,49 @@ demo目录结构
 ```go
 package events
 
-import "sync"
-
-type EventHandler func(event Event, arg interface{})
-
-var lock sync.Mutex
+type EventHandler func(event Event)
 
 type Event interface {
-	Name() string
-	Register(EventHandler) error
-	Trigger(arg interface{}) error
+	GetName() string
+	GetData() interface{}
 }
 
-type SimpleEvent struct {
-	name     string
-	handlers []EventHandler
+type EventBus struct {
+	handlers map[string]EventHandler
 }
 
-func (e SimpleEvent) Name() string {
-	return e.name
-}
-
-//事件注册
-func (e *SimpleEvent) Register(h EventHandler) error {
-	lock.Lock()
-	e.handlers = append(e.handlers, h)
-	lock.Unlock()
-	return nil
-}
-
-//事件触发
-func (e *SimpleEvent) Trigger(arg interface{}) error {
-	lock.Lock()
-	for _, h := range e.handlers {
-		go h(e, arg)
+func NewEventBus() *EventBus {
+	return &EventBus{
+		handlers: make(map[string]EventHandler),
 	}
-	lock.Unlock()
-	return nil
 }
 
-func NewSimpleEvent(name string) Event {
-	return &SimpleEvent{name: name}
+func (bus *EventBus) Register(name string, handler EventHandler) {
+	bus.handlers[name] = handler
 }
+
+func (bus *EventBus) Dispatch(event Event) {
+	if handler, ok := bus.handlers[event.GetName()]; ok {
+		handler(event)
+	}
+}
+
+func (bus *EventBus) DispatchAsync(event Event) {
+	go bus.Dispatch(event)
+}
+
+var defaultEventBus *EventBus = nil
+
+func init() {
+	if defaultEventBus == nil {
+		defaultEventBus = NewEventBus()
+	}
+}
+
+func DefaultEventBus() *EventBus {
+	return defaultEventBus
+}
+
 ```
 
 
@@ -83,42 +81,21 @@ func NewSimpleEvent(name string) Event {
 
 ### login.go
 
-模拟登录登出的时候,发送事件
+一个ticker事件
 
 ```go
-package user
+const TickEventName = "TickerEvent"
 
-import (
-	"goplayground/events"
-	"time"
-)
-
-var (
-	LoginEvent  = events.NewSimpleEvent("user.login")
-	LogoutEvent = events.NewSimpleEvent("user.logout")
-)
-
-type LoginArg struct {
-	Username string
-	Password string
-	Time     time.Time
+type TickerEvent struct {
 }
 
-type LogoutArg struct {
-	Username string
-	Time     time.Time
+func (e TickerEvent) GetName() string {
+	return TickEventName
 }
 
-func Login(username, password string) (bool, error) {
-	_ = LoginEvent.Trigger(LoginArg{username, password, time.Now()})
-	return true, nil
+func (e TickerEvent) GetData() interface{} {
+	return time.Now()
 }
-
-func Logout(username string) error {
-	_ = LogoutEvent.Trigger(LogoutArg{username, time.Now()})
-	return nil
-}
-
 ```
 
 
@@ -130,31 +107,57 @@ package main
 
 import (
 	"fmt"
-	"goplayground/events"
-	"goplayground/user"
+	"simpleEvent/events"
 	"time"
 )
 
-func main() {
+const TickEventName = "TickerEvent"
 
-	//事件处理程序 注册
-	user.LoginEvent.Register(func(event events.Event, arg interface{}) {
-		a := arg.(user.LoginArg)
-		fmt.Printf("%q: %q %q %q\n", event.Name(), a.Username, a.Password, a.Time)
-	})
-
-	user.LogoutEvent.Register(func(event events.Event, arg interface{}) {
-		a := arg.(user.LogoutArg)
-		fmt.Printf("%q: %q %q\n", event.Name(), a.Username, a.Time)
-	})
-
-	//模拟
-	user.Login("admin", "admin")
-	time.Sleep(time.Second)
-	user.Logout("admin")
-	time.Sleep(time.Second)
-
+type TickerEvent struct {
 }
 
+func (e TickerEvent) GetName() string {
+	return TickEventName
+}
+
+func (e TickerEvent) GetData() interface{} {
+	return time.Now()
+}
+
+func makeEvents() {
+	ticker := time.NewTicker(time.Second * 1)
+	for true {
+		<-ticker.C
+		//触发事件
+		events.DefaultEventBus().DispatchAsync(TickerEvent{})
+	}
+}
+
+func main() {
+	go makeEvents()
+
+	//监听事件
+	events.DefaultEventBus().Register(TickEventName, func(e events.Event) {
+		fmt.Println("event received:", e.GetData())
+	})
+
+	for true {
+		time.Sleep(time.Second * 10)
+	}
+}
 ```
+
+
+
+输出:
+
+```
+event received: 2022-08-08 11:22:48.61607 +0800 CST m=+1.000275696
+event received: 2022-08-08 11:22:49.616192 +0800 CST m=+2.000391077
+event received: 2022-08-08 11:22:50.616163 +0800 CST m=+3.000355464
+event received: 2022-08-08 11:22:51.616159 +0800 CST m=+4.000344450
+event received: 2022-08-08 11:22:52.616195 +0800 CST m=+5.000373565
+...
+```
+
 

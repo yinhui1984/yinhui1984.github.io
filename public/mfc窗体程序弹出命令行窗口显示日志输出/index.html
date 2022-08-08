@@ -30,7 +30,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/yinhui1984.github.io\/mfc%E7%AA%97%E4%BD%93%E7%A8%8B%E5%BA%8F%E5%BC%B9%E5%87%BA%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%AA%97%E5%8F%A3%E6%98%BE%E7%A4%BA%E6%97%A5%E5%BF%97%E8%BE%93%E5%87%BA\/"
-        },"genre": "posts","keywords": "vc\u002b\u002b","wordcount":  356 ,
+        },"genre": "posts","keywords": "vc\u002b\u002b","wordcount":  472 ,
         "url": "https:\/\/yinhui1984.github.io\/mfc%E7%AA%97%E4%BD%93%E7%A8%8B%E5%BA%8F%E5%BC%B9%E5%87%BA%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%AA%97%E5%8F%A3%E6%98%BE%E7%A4%BA%E6%97%A5%E5%BF%97%E8%BE%93%E5%87%BA\/","datePublished": "2022-07-13T17:38:13+08:00","dateModified": "2022-07-13T17:38:13+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -105,7 +105,7 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">MFC窗体程序弹出命令行窗口显示日志输出</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/yinhui1984" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>yinhui</a></span>&nbsp;<span class="post-category">included in <a href="/categories/windows/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>windows</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-07-13">2022-07-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;356 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-07-13">2022-07-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;472 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;One minute&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -117,6 +117,7 @@
     <li><a href="#弹出命令行窗口">弹出命令行窗口</a></li>
     <li><a href="#打印日志含文件名-代码行号">打印日志(含文件名, 代码行号)</a></li>
     <li><a href="#使用">使用</a></li>
+    <li><a href="#使用printf">使用printf</a></li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><p>如何让MFC窗体程序弹出命令行窗口并打印日志输出</p>
@@ -201,6 +202,42 @@
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">LOG2CONSOLE</span><span class="p">(</span><span class="s">&#34;[Clicked] my button clicked. the xxx value is:&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">something</span><span class="p">);</span>
 </span></span></code></pre></td></tr></table>
 </div>
+</div><h2 id="使用printf">使用printf</h2>
+<p>上面的宏中使用的是 <code>_cprintf</code>, 我发现在某些时候, 即便输出的是ascii字符, 也会出现乱码. 改成<code>printf</code>又打印不出来, 为了让<code>printf</code>能打印出来,</p>
+<p>修改:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#ifdef _DEBUG
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">AllocConsole</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">		<span class="n">AfxMessageBox</span><span class="p">(</span><span class="s">&#34;Failed to create the console!&#34;</span><span class="p">,</span> <span class="n">MB_ICONEXCLAMATION</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#endif
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>为</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#ifdef _DEBUG
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>	<span class="n">AllocConsole</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//freopen(&#34;CONIN$&#34;, &#34;r&#34;, stdin);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">freopen</span><span class="p">(</span><span class="s">&#34;CONOUT$&#34;</span><span class="p">,</span> <span class="s">&#34;w&#34;</span><span class="p">,</span> <span class="n">stdout</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">freopen</span><span class="p">(</span><span class="s">&#34;CONOUT$&#34;</span><span class="p">,</span> <span class="s">&#34;w&#34;</span><span class="p">,</span> <span class="n">stderr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#endif
+</span></span></span></code></pre></td></tr></table>
+</div>
 </div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
@@ -229,7 +266,7 @@
 </div>
 </article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.95.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
                 </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/yinhui1984" target="_blank">zhouyinhui</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>

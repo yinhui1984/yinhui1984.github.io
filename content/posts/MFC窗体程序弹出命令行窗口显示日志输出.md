@@ -76,3 +76,33 @@ tags: [vc++]
 LOG2CONSOLE("[Clicked] my button clicked. the xxx value is:" << something);
 ```
 
+
+
+
+
+## 使用printf
+
+上面的宏中使用的是 `_cprintf`, 我发现在某些时候, 即便输出的是ascii字符, 也会出现乱码. 改成`printf`又打印不出来, 为了让`printf`能打印出来, 
+
+修改:
+
+```c
+#ifdef _DEBUG
+	if (!AllocConsole())
+		AfxMessageBox("Failed to create the console!", MB_ICONEXCLAMATION);
+#endif
+```
+
+为
+
+```c++
+#ifdef _DEBUG
+	AllocConsole();
+	//freopen("CONIN$", "r", stdin);
+	freopen("CONOUT$", "w", stdout);
+	freopen("CONOUT$", "w", stderr);
+#endif
+```
+
+
+
