@@ -3,7 +3,15 @@
         <title>solidity - Tag - YINHUI&#39;s BLOG</title>
         <link>https://yinhui1984.github.io/tags/solidity/</link>
         <description>solidity - Tag - YINHUI&#39;s BLOG</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 01 Jul 2022 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://yinhui1984.github.io/tags/solidity/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 10 Aug 2022 08:44:36 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/tags/solidity/" rel="self" type="application/rss+xml" /><item>
+    <title>[Solidity by Example]Ex001HelloWorld</title>
+    <link>https://yinhui1984.github.io/solidity-by-exampleex001helloworld/</link>
+    <pubDate>Wed, 10 Aug 2022 08:44:36 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/solidity-by-exampleex001helloworld/</guid>
+    <description><![CDATA[<p><a href="https://solidity-by-example.org" target="_blank" rel="noopener noreffer ">https://solidity-by-example.org</a> 中的练习, 并添加了注释</p>]]></description>
+</item>
+<item>
     <title>从零开始编写智能合约-手工打造</title>
     <link>https://yinhui1984.github.io/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E6%89%8B%E5%B7%A5%E6%89%93%E9%80%A0/</link>
     <pubDate>Fri, 01 Jul 2022 00:00:00 &#43;0000</pubDate>

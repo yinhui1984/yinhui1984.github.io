@@ -3,9 +3,17 @@
         <title>YINHUI&#39;s BLOG</title>
         <link>https://yinhui1984.github.io/</link>
         <description>银辉的博客</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 27 Jul 2022 09:32:00 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 10 Aug 2022 08:44:36 &#43;0800</lastBuildDate>
             <atom:link href="https://yinhui1984.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>[Solidity by Example]Ex001HelloWorld</title>
+    <link>https://yinhui1984.github.io/solidity-by-exampleex001helloworld/</link>
+    <pubDate>Wed, 10 Aug 2022 08:44:36 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/solidity-by-exampleex001helloworld/</guid>
+    <description><![CDATA[<p><a href="https://solidity-by-example.org" target="_blank" rel="noopener noreffer ">https://solidity-by-example.org</a> 中的练习, 并添加了注释</p>]]></description>
+</item>
+<item>
     <title>Visual Studio VC&#43;&#43; 远程调试</title>
     <link>https://yinhui1984.github.io/visutal-studio-%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95/</link>
     <pubDate>Wed, 27 Jul 2022 09:32:00 &#43;0800</pubDate>
@@ -80,14 +88,6 @@
     <author>yinhui</author>
     <guid>https://yinhui1984.github.io/genesis.json/</guid>
     <description><![CDATA[<p>对<code>创世文件</code>的介绍</p>]]></description>
-</item>
-<item>
-    <title>对智能合约的读方法和写方法的调用</title>
-    <link>https://yinhui1984.github.io/%E5%AF%B9%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E7%9A%84%E8%AF%BB%E6%96%B9%E6%B3%95%E5%92%8C%E5%86%99%E6%96%B9%E6%B3%95%E7%9A%84%E8%B0%83%E7%94%A8/</link>
-    <pubDate>Mon, 04 Jul 2022 13:10:51 &#43;0800</pubDate>
-    <author>yinhui</author>
-    <guid>https://yinhui1984.github.io/%E5%AF%B9%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E7%9A%84%E8%AF%BB%E6%96%B9%E6%B3%95%E5%92%8C%E5%86%99%E6%96%B9%E6%B3%95%E7%9A%84%E8%B0%83%E7%94%A8/</guid>
-    <description><![CDATA[<p>介绍了调用智能合约中&quot;读方法&quot;与&quot;写方法&quot;的区别</p>]]></description>
 </item>
 </channel>
 </rss>
