@@ -3,13 +3,21 @@
         <title>BlockChain - Category - YINHUI&#39;s BLOG</title>
         <link>https://yinhui1984.github.io/categories/blockchain/</link>
         <description>BlockChain - Category - YINHUI&#39;s BLOG</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 10 Aug 2022 08:44:36 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/categories/blockchain/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 10 Aug 2022 14:14:38 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/categories/blockchain/" rel="self" type="application/rss+xml" /><item>
+    <title>[Solidity by Example]Ex002FirstApplication</title>
+    <link>https://yinhui1984.github.io/solidity-by-exampleex002firstapplication/</link>
+    <pubDate>Wed, 10 Aug 2022 14:14:38 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/solidity-by-exampleex002firstapplication/</guid>
+    <description><![CDATA[<p><a href="https://solidity-by-example.org" target="_blank" rel="noopener noreffer ">https://solidity-by-example.org</a> 中的第二个练习, 并添加了注释</p>]]></description>
+</item>
+<item>
     <title>[Solidity by Example]Ex001HelloWorld</title>
     <link>https://yinhui1984.github.io/solidity-by-exampleex001helloworld/</link>
     <pubDate>Wed, 10 Aug 2022 08:44:36 &#43;0800</pubDate>
     <author>yinhui</author>
     <guid>https://yinhui1984.github.io/solidity-by-exampleex001helloworld/</guid>
-    <description><![CDATA[<p><a href="https://solidity-by-example.org" target="_blank" rel="noopener noreffer ">https://solidity-by-example.org</a> 中的练习, 并添加了注释</p>]]></description>
+    <description><![CDATA[<p><a href="https://solidity-by-example.org" target="_blank" rel="noopener noreffer ">https://solidity-by-example.org</a> 中的第一个练习, 并添加了注释</p>]]></description>
 </item>
 <item>
     <title>PoW</title>

@@ -9,7 +9,7 @@ tags: [solidity]
 
 
 
-https://solidity-by-example.org 中的练习, 并添加了注释
+https://solidity-by-example.org 中的第一个练习, 并添加了注释
 
 
 
