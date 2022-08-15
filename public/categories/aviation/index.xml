@@ -3,13 +3,14 @@
         <title>aviation - Category - YINHUI&#39;s BLOG</title>
         <link>https://yinhui1984.github.io/categories/aviation/</link>
         <description>aviation - Category - YINHUI&#39;s BLOG</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 12 Jul 2022 11:30:58 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/categories/aviation/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 12 Aug 2022 11:30:58 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/categories/aviation/" rel="self" type="application/rss+xml" /><item>
     <title>ARINC-429</title>
     <link>https://yinhui1984.github.io/arinc429/</link>
-    <pubDate>Tue, 12 Jul 2022 11:30:58 &#43;0800</pubDate>
+    <pubDate>Fri, 12 Aug 2022 11:30:58 &#43;0800</pubDate>
     <author>yinhui</author>
     <guid>https://yinhui1984.github.io/arinc429/</guid>
-    <description><![CDATA[<p><code>ARINC-429</code> 定义了商用飞机航空电子系统之间数字数据传输的标准要求和协议。设备制造商遵循这些标准，从而实现航空电子设备的互换性.</p>]]></description>
+    <description><![CDATA[<p><code>ARINC-429</code> 定义了商用飞机航空电子系统之间(局域网)数字数据传输的标准要求和协议。设备制造商遵循这些标准，从而实现航空电子设备的互换性.</p>
+<p>ARINC 429 也称为 Mark 33 数字信息传输系统 (DITS) 总线。虽然主要用于航空电子领域，但这些总线也用于地面车辆、武器系统和其他商业和军事设备领域。</p>]]></description>
 </item>
 </channel>
 </rss>
