@@ -30,7 +30,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/yinhui1984.github.io\/golang%E8%8E%B7%E5%BE%97%E5%8A%A8%E6%80%81%E7%BD%91%E9%A1%B5%E5%86%85%E5%AE%B9\/"
-        },"genre": "posts","keywords": "http, crawler","wordcount":  691 ,
+        },"genre": "posts","keywords": "http, crawler","wordcount":  502 ,
         "url": "https:\/\/yinhui1984.github.io\/golang%E8%8E%B7%E5%BE%97%E5%8A%A8%E6%80%81%E7%BD%91%E9%A1%B5%E5%86%85%E5%AE%B9\/","datePublished": "2022-08-18T10:07:22+08:00","dateModified": "2022-08-18T10:07:22+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -105,17 +105,22 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Golang获得动态网页内容</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/yinhui1984" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>yinhui</a></span>&nbsp;<span class="post-category">included in <a href="/categories/golang/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>golang</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-08-18">2022-08-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;691 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-08-18">2022-08-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;502 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
                     <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#举例">举例</a></li>
+    <li><a href="#更详细的">更详细的</a></li>
+  </ul>
+</nav></div>
             </div><div class="content" id="content"><p>golang中用get()或httpClient 进行get时得到的静态页面, 如果页面中的内容是获取到本地后动态生成的话, 应该如何得到呢</p>
-<p>比如这个链接<code>https://search.censys.io/search?resource=hosts&amp;virtual_hosts=EXCLUDE&amp;q=%28services.http.response.headers.location%3A+account.jetbrains.com%2Ffls-auth%29+and+services.port%3D%6080%60</code></p>
-<p>你通过<code>http.get</code>方法只能得到网页的一个框架, 其中并没有实质的查询结果, 和你通过浏览器直接访问得到的html是不一样的.</p>
+<h2 id="举例">举例</h2>
+<p>有一些连接你通过<code>http.get</code>方法只能得到网页的一个框架, 其中并没有实质的查询结果, 和你通过浏览器直接访问得到的html是不一样的.</p>
 <p>使用<code>chromedp</code>:  <a href="https://github.com/chromedp/chromedp" target="_blank" rel="noopener noreffer ">https://github.com/chromedp/chromedp</a></p>
 <p>通过<code>chromedp.WaitVisible(selector),</code>来等待动态生成的内容出现</p>
 <p>其中 <code>selector</code>字符串通过浏览器的开发者控制台, 右击html, 选择 <code>copy selector</code>来得到</p>
@@ -215,7 +220,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>更详细的, 参考这个文章:</p>
+</div><h2 id="更详细的">更详细的</h2>
+<p>参考这个文章:</p>
 <p><a href="https://segmentfault.com/a/1190000039349417" target="_blank" rel="noopener noreffer ">https://segmentfault.com/a/1190000039349417</a></p></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
