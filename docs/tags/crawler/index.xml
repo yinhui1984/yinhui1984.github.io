@@ -1,9 +1,9 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>http - Tag - YINHUI&#39;s BLOG</title>
-        <link>https://yinhui1984.github.io/tags/http/</link>
-        <description>http - Tag - YINHUI&#39;s BLOG</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 18 Aug 2022 10:07:22 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/tags/http/" rel="self" type="application/rss+xml" /><item>
+        <title>crawler - Tag - YINHUI&#39;s BLOG</title>
+        <link>https://yinhui1984.github.io/tags/crawler/</link>
+        <description>crawler - Tag - YINHUI&#39;s BLOG</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 18 Aug 2022 10:07:22 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/tags/crawler/" rel="self" type="application/rss+xml" /><item>
     <title>Golang获得动态网页内容</title>
     <link>https://yinhui1984.github.io/golang%E8%8E%B7%E5%BE%97%E5%8A%A8%E6%80%81%E7%BD%91%E9%A1%B5%E5%86%85%E5%AE%B9/</link>
     <pubDate>Thu, 18 Aug 2022 10:07:22 &#43;0800</pubDate>
@@ -19,14 +19,6 @@
     <guid>https://yinhui1984.github.io/golang%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/</guid>
     <description><![CDATA[<p>go语言写的一个文件下载脚本</p>
 <p>晚上想听点有声小说, 要两毛一集, 算了一下,一本书要几百块, 囊中羞涩, 于是拿出电脑搞个脚本</p>]]></description>
-</item>
-<item>
-    <title>Go语言中的http服务器</title>
-    <link>https://yinhui1984.github.io/go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84http%E6%9C%8D%E5%8A%A1%E5%99%A8/</link>
-    <pubDate>Mon, 06 Jun 2022 00:00:00 &#43;0000</pubDate>
-    <author>yinhui</author>
-    <guid>https://yinhui1984.github.io/go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84http%E6%9C%8D%E5%8A%A1%E5%99%A8/</guid>
-    <description><![CDATA[<p>go语言中<code>net/http</code>包对<code>http</code>服务与请求的处理</p>]]></description>
 </item>
 </channel>
 </rss>

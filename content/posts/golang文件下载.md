@@ -3,7 +3,7 @@ title: "Golang文件下载"
 date: 2022-07-22T20:54:37+08:00
 author: yinhui
 categories: [golang]
-tags: [http, downloader]  
+tags: [http, crawler]  
 draft: false
 ---
 
