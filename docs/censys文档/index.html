@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Censys文档 - YINHUI&#39;s BLOG</title><meta name="Description" content="银辉的博客"><meta property="og:title" content="Censys文档" />
+<meta property="og:description" content="censys https://search.censys.io 堪称神器, 翻译了一下帮助文档" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://yinhui1984.github.io/censys%E6%96%87%E6%A1%A3/" /><meta property="og:image" content="https://yinhui1984.github.io/avatar.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-08-19T21:18:09+08:00" />
+<meta property="article:modified_time" content="2022-08-19T21:18:09+08:00" /><meta property="og:site_name" content="YINHUI&#39;s BLOG" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://yinhui1984.github.io/avatar.png"/>
+
+<meta name="twitter:title" content="Censys文档"/>
+<meta name="twitter:description" content="censys https://search.censys.io 堪称神器, 翻译了一下帮助文档"/>
+<meta name="application-name" content="YINHUI&#39;s BLOG">
+<meta name="apple-mobile-web-app-title" content="YINHUI&#39;s BLOG"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://yinhui1984.github.io/censys%E6%96%87%E6%A1%A3/" /><link rel="prev" href="https://yinhui1984.github.io/golang%E8%8E%B7%E5%BE%97%E5%8A%A8%E6%80%81%E7%BD%91%E9%A1%B5%E5%86%85%E5%AE%B9/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Censys文档",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/yinhui1984.github.io\/censys%E6%96%87%E6%A1%A3\/"
+        },"genre": "posts","keywords": "censys","wordcount":  2751 ,
+        "url": "https:\/\/yinhui1984.github.io\/censys%E6%96%87%E6%A1%A3\/","datePublished": "2022-08-19T21:18:09+08:00","dateModified": "2022-08-19T21:18:09+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "yinhui"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="YINHUI&#39;s BLOG"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/"> 首页 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="YINHUI&#39;s BLOG"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/" title="">首页</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Censys文档</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/yinhui1984" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>yinhui</a></span>&nbsp;<span class="post-category">included in <a href="/categories/tools/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>tools</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-08-19">2022-08-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2751 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;6 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#search-language">Search Language</a>
+      <ul>
+        <li><a href="#全文搜索">全文搜索</a></li>
+        <li><a href="#指定字段和值">指定字段和值</a></li>
+        <li><a href="#wildcards-通配符">Wildcards 通配符</a></li>
+        <li><a href="#网络协议和端口">网络协议和端口</a></li>
+        <li><a href="#用布尔逻辑组合搜索条件">用布尔逻辑组合搜索条件</a></li>
+        <li><a href="#范围">范围</a></li>
+        <li><a href="#正则表达式">正则表达式</a></li>
+        <li><a href="#保留字符">保留字符</a></li>
+      </ul>
+    </li>
+    <li><a href="#例子">例子</a>
+      <ul>
+        <li><a href="#在该范围内的主机-230008-or-888024">在该范围内的主机 23.0.0.0/8 or 8.8.8.0/24:</a></li>
+        <li><a href="#在德国运行-ftp-或-telnet-的主机">在德国运行 FTP 或 Telnet 的主机:</a></li>
+        <li><a href="#http-正文中带有-powershellexe-的主机">HTTP 正文中带有 powershell.exe 的主机:</a></li>
+        <li><a href="#sitting-on-the-dock-of-the-bay的准确-snmp-位置值">“Sitting on the Dock of the Bay”的准确 SNMP 位置值:</a></li>
+        <li><a href="#带有短语schneider-electric或-dell-在-23200014-范围内的主机">带有短语“Schneider Electric”或 Dell 在 23.20.0.0/14 范围内的主机：</a></li>
+        <li><a href="#打开以下任何一个端口的主机22232425">打开以下任何一个端口的主机：22、23、24、25:</a></li>
+        <li><a href="#没有运行-http-服务的主机">没有运行 HTTP 服务的主机:</a></li>
+        <li><a href="#主机出示任何证书">主机出示任何证书:</a></li>
+        <li><a href="#呈现字符串-hello-的主机由任何值继承正则表达式">呈现字符串 &ldquo;hello &ldquo;的主机由任何值继承（正则表达式）。</a></li>
+        <li><a href="#提出名称为foo1-foo2-foo3foo100的主机由任何数值常规表达式继承">提出名称为foo1, foo2, foo3&hellip;foo100的主机，由任何数值（常规表达式）继承。</a></li>
+        <li><a href="#指定范围内的主机">指定范围内的主机：</a></li>
+        <li><a href="#在端口-22-和-2222-以外的端口上运行-ssh-服务的主机">在端口 22 和 2222 以外的端口上运行 SSH 服务的主机：</a></li>
+        <li><a href="#在端口-443-上运行-elasticsearch-的主机">在端口 443 上运行 elasticsearch 的主机：</a></li>
+        <li><a href="#有服务的主机最后一次被ntt-isp内的censys扫描器扫描过的">有服务的主机，最后一次被NTT ISP内的Censys扫描器扫描过的。</a></li>
+        <li><a href="#在ntt或telia-isp内具有censys扫描器最后扫描的服务的主机">在NTT或TELIA ISP内，具有Censys扫描器最后扫描的服务的主机。</a>
+          <ul>
+            <li><a href="#在http服务上有一个包含-dashboard-一词的页面标题的主机">在HTTP服务上有一个包含 &ldquo;dashboard &ldquo;一词的页面标题的主机。</a></li>
+          </ul>
+        </li>
+        <li><a href="#具有响应服务器错误状态代码的-http-服务的主机">具有响应服务器错误状态代码的 HTTP 服务的主机：</a></li>
+        <li><a href="#具有特定-http-标头-值对的-http-服务的主机">具有特定 HTTP 标头-值对的 HTTP 服务的主机：</a></li>
+        <li><a href="#具有提供证书的-rdp-服务的主机">具有提供证书的 RDP 服务的主机：</a></li>
+        <li><a href="#具有任何运行sslv3的服务的主机">具有任何运行SSLv3的服务的主机。</a></li>
+        <li><a href="#具有在-subject_dn-中提供带有字符串localhost的-tls-证书的服务的主机">具有在 subject_dn 中提供带有字符串“localhost”的 TLS 证书的服务的主机：</a></li>
+        <li><a href="#具有运行微软iis-75的服务的主机">具有运行微软IIS 7.5的服务的主机。</a></li>
+        <li><a href="#具有呈现操作系统和应用软件特定组合的服务的主机">具有呈现操作系统和应用软件特定组合的服务的主机:</a></li>
+        <li><a href="#运行-raspberry-pi-产品的主机">运行 Raspberry Pi 产品的主机:</a></li>
+        <li><a href="#包含单词-university-的-ases-中的主机">包含单词 University 的 ASes 中的主机：</a></li>
+      </ul>
+    </li>
+    <li><a href="#字段定义">字段定义</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><code>censys</code> <a href="https://search.censys.io" target="_blank" rel="noopener noreffer ">https://search.censys.io</a> 堪称神器, 翻译了一下帮助文档</p>
+<h2 id="search-language">Search Language</h2>
+<h3 id="全文搜索">全文搜索</h3>
+<p>当没有指定字段时，Censys会尝试对所有字段进行全文搜索。</p>
+<p>例如，搜索<code>Dell</code>将返回<code>location.city</code>为 &ldquo;Dell Rapids &ldquo;的主机，以及<code>service.software.vendor</code>为 &ldquo;Dell &ldquo;的主机。如果你对戴尔制造的设备感兴趣，你会希望指定存储该信息的字段。</p>
+<h3 id="指定字段和值">指定字段和值</h3>
+<p>有效的搜索将指定一个属性所存储的字段。为此，你需要知道你要搜索的数据集中的字段。</p>
+<p>在<strong>数据定义</strong>标签下查看字段及其价值类型的完整列表，或者选择在详情页上查看<strong>原始数据</strong>，例如谷歌公共DNS的[主机表视图]（https://search.censys.io/hosts/8.8.8.8/data/table）。</p>
+<p>一个典型的搜索至少提供一个字段&ndash;它反映了使用点符号的JSON模式的嵌套（例如，<code>services.http.response.headers.server.headers</code>） &mdash; 和一个值。如果值的类型是<em>文本</em>，将返回一个模糊匹配的结果；如果值的类型是<em>关键词</em>，只返回一个精确的匹配。</p>
+<p>例如，你可以通过指定字段和值来搜索所有有HTTP服务返回HTTP状态码的主机。<a href="https://search.censys.io/search?q=services.http.response.status_code%3A&#43;500&amp;resource=hosts" target="_blank" rel="noopener noreffer "><code>services.http.response.status_code: 500</code></a> .</p>
+<h3 id="wildcards-通配符">Wildcards 通配符</h3>
+<p>默认情况下，Censys搜索的是完整的值。例如，搜索 &ldquo;Del &ldquo;不会返回包含 &ldquo;Dell &ldquo;的记录。通配符可以用来扩大搜索范围，以便在结果中包括部分匹配。</p>
+<p>有两个通配符。</p>
+<ul>
+<li><code>?</code> - 这个通配符表示一个字符。</li>
+<li><code>*</code> - 这个通配符表示零个或多个字符。</li>
+</ul>
+<p>组合通配符也是非常有用的。</p>
+<p>下面的查询利用CPE软件格式的知识，搜索运行微软IIS webservers的服务，其主要版本&lt;10（因为? 只代表一个字符）和确定的次要版本（因为存在句号）。*通配符占CPE格式的其余部分：</p>
+<p><code>services.software.uniform_resource_identifier: cpe:2.3:a:microsoft:iis:?.*</code></p>
+<p><code>*</code>通配符的另一个用途是检查一个字段是否存在，这对服务未知的主机很有帮助。例如，这个查询将返回至少有一个服务已经与Censys完成TLS握手的主机：<code>services.tls: *</code></p>
+<h3 id="网络协议和端口">网络协议和端口</h3>
+<p>使用CIDR符号搜索IP地址块（例如，ip：<code>23.20.0.0/14</code>）或通过提供一个范围：<code>ip：[23.20.0.0 to 23.20.5.34/]</code>。通过搜索服务名称字段来搜索运行特定协议的主机： <code>services.service_name: S7 </code>。通过搜索端口字段来搜索具有特定端口的主机：<code>services.port: 3389</code></p>
+<h3 id="用布尔逻辑组合搜索条件">用布尔逻辑组合搜索条件</h3>
+<p>使用 &ldquo;AND&rdquo;、&ldquo;OR&rdquo;、&ldquo;NOT &ldquo;和括号来组合多个搜索条件。布尔是不区分大小写的。</p>
+<p>默认情况下，由布尔表达式组合的条件是针对主机整体进行评估的。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">AND
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>搜索<a href="https://search.censys.io/search?q=services.port%3A&#43;8880&#43;and&#43;services.service_name%3A&#43;HTTP&amp;resource=hosts" target="_blank" rel="noopener noreffer "><code>services.port: 8880 and services.service_name: HTTP</code></a>将返回打开8880端口的主机（上面运行着任何服务）和运行在任何端口的HTTP服务。</p>
+<p>要搜索运行在8880端口的HTTP服务，请使用<code>same_service()</code>函数。<a href="https://search.censys.io/search?q=same_service%28services.port%3A&#43;8880&#43;and&#43;services.service_name%3A&#43;HTTP%29&amp;resource=hosts" target="_blank" rel="noopener noreffer "><code>same_service(services.port: 8880 and services.service_name: HTTP)</code></a> .</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">OR
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>搜索<a href="" rel=""><code>services.port: 21 or services.service_name: FTP</code></a>将返回任何打开21号端口（在其上运行任何服务）和在任何端口运行FTP服务的主机。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">NOT
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>搜索<a href="https://search.censys.io/search?q=not&#43;same_service%28service_name%3A&#43;HTTP&#43;and&#43;port%3A&#43;443%29&amp;resource=hosts" target="_blank" rel="noopener noreffer "><code>not same_service(service_name: HTTP and port: 443)</code></a>将返回那些没有在443上运行HTTP的主机。</p>
+<p>搜索[<code>same_service(service_name: &quot;HTTP&quot; and not port:443)</code>](<a href="https://search.censys.io/search?q=same_service%28service_name%3A&#43;%22HTTP" target="_blank" rel="noopener noreffer ">https://search.censys.io/search?q=same_service(service_name%3A+"HTTP</a> &ldquo;+and+not+port%3A443)&amp;resource=hosts)将返回任何有HTTP服务但不在443端口运行的主机。这<em>可以</em>包括在443上有HTTP的主机，只要有一个不同端口号的其他HTTP服务。</p>
+<h3 id="范围">范围</h3>
+<p>搜索数字的范围，用<code>[</code> 和 <code>]</code>表示包容范围，用<code>{</code>和<code>}</code>表示排他范围。例如，<code>services.http.response.status_code:[500 to 503] </code>。日期应使用以下语法进行格式化<code>[2012-01-01 to 2012-12-31]</code>。也可以指定单边限制<code>[2012-01-01 to *]</code>  .  to操作符不区分大小写。</p>
+<h3 id="正则表达式">正则表达式</h3>
+<blockquote>
+<p>正则表达式<strong>仅限于付费客户使用</strong>。完整的重新编码语法是<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/regexp-syntax.html" target="_blank" rel="noopener noreffer ">可在此获得</a>。</p>
+</blockquote>
+<p><strong>注意</strong> Censys的正则搜索是不区分大小写的，除非使用精确匹配操作符<code>=</code>。</p>
+<p>例如，<code>services.software.vendor:/De[l]+/</code>将返回该词大写或小写的结果，而<code>services.software.vendor=/De[l]+/</code>将只返回大写词的结果。</p>
+<p>###Unicode 转义序列</p>
+<p>以下序列将被解释为unicode转义序列，以使用户能够在它们经常出现的地方搜索这些特殊字符，如服务标语和HTTP正文。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Escape Sequence</th>
+<th style="text-align:left">Character Represented</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>\a</code></td>
+<td style="text-align:left">Alert</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>\b</code></td>
+<td style="text-align:left">Backspace</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>\e</code></td>
+<td style="text-align:left">Escape character</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>\f</code></td>
+<td style="text-align:left">Formfeed / Page break</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>\n</code></td>
+<td style="text-align:left">Newline</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>\r</code></td>
+<td style="text-align:left">Carriage return</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>\t</code></td>
+<td style="text-align:left">Horizontal tab</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>\v</code></td>
+<td style="text-align:left">Vertical tab</td>
+</tr>
+</tbody>
+</table>
+<p>例如，<code>services.banner=&quot;Hello\nWorld&quot;</code>将把<code>\n</code>解释为换行，而不是转义的<code>n</code>。</p>
+<h3 id="保留字符">保留字符</h3>
+<p>以下字符将被解释为控制字符，除非它们被反斜杠转义（即前面）或被封装在一个由反斜杠包围的字符串中。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">= &gt; &lt; ) } ] &#34; * ? : \ /
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>例如，星号在CPE软件标识符中很常见，而转义每个星号是很繁琐的，所以URI周围的反引``号将转义其中所有的星号。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">(services.software.uniform_resource_identifier: `cpe:2.3:a:cloudflare:cloudflare_load_balancer:*:*:*:*:*:*:*:*`)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="例子">例子</h2>
+<h3 id="在该范围内的主机-230008-or-888024">在该范围内的主机 23.0.0.0/8 or 8.8.8.0/24:</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ip: {&#34;23.0.0.0/8&#34;, &#34;8.8.8.0/24&#34;}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="在德国运行-ftp-或-telnet-的主机">在德国运行 FTP 或 Telnet 的主机:</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">location.country_code: DE and services.service_name: {&#34;FTP&#34;, &#34;Telnet&#34;}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="http-正文中带有-powershellexe-的主机">HTTP 正文中带有 powershell.exe 的主机:</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">services.http.response.body: powershell.exe
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="sitting-on-the-dock-of-the-bay的准确-snmp-位置值">“Sitting on the Dock of the Bay”的准确 SNMP 位置值:</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">services.snmp.oid_system.location = &#34;Sitting on the Dock of the Bay&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="带有短语schneider-electric或-dell-在-23200014-范围内的主机">带有短语“Schneider Electric”或 Dell 在 23.20.0.0/14 范围内的主机：</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">(&#34;Schneider Electric&#34; OR Dell) AND ip:23.20.0.0/14
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="打开以下任何一个端口的主机22232425">打开以下任何一个端口的主机：22、23、24、25:</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">services.port: {22, 23, 24, 25}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="没有运行-http-服务的主机">没有运行 HTTP 服务的主机:</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">NOT services.service_name: HTTP
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="主机出示任何证书">主机出示任何证书:</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">services.tls.certificates.leaf_fp_sha_256: *
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="呈现字符串-hello-的主机由任何值继承正则表达式">呈现字符串 &ldquo;hello &ldquo;的主机由任何值继承（正则表达式）。</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">/hello.*/
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="提出名称为foo1-foo2-foo3foo100的主机由任何数值常规表达式继承">提出名称为foo1, foo2, foo3&hellip;foo100的主机，由任何数值（常规表达式）继承。</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">services.tls.certificates.leaf_data.names=/foo&lt;1-100&gt;.*/
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="指定范围内的主机">指定范围内的主机：</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ip: [1.12.0.0 TO 1.15.255.255]
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="在端口-22-和-2222-以外的端口上运行-ssh-服务的主机">在端口 22 和 2222 以外的端口上运行 SSH 服务的主机：</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">same_service(services.service_name: &#34;SSH&#34; AND NOT (services.port: 22 OR services.port: 2222))
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="在端口-443-上运行-elasticsearch-的主机">在端口 443 上运行 elasticsearch 的主机：</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">same_service(services.service_name: &#34;ELASTICSEARCH&#34; AND services.port: 443)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="有服务的主机最后一次被ntt-isp内的censys扫描器扫描过的">有服务的主机，最后一次被NTT ISP内的Censys扫描器扫描过的。</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">services.perspective_id: &#34;PERSPECTIVE_NTT&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="在ntt或telia-isp内具有censys扫描器最后扫描的服务的主机">在NTT或TELIA ISP内，具有Censys扫描器最后扫描的服务的主机。</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">services.perspective_id: &#34;PERSPECTIVE_NTT&#34; OR services.perspective_id: &#34;PERSPECTIVE_TELIA&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="在http服务上有一个包含-dashboard-一词的页面标题的主机">在HTTP服务上有一个包含 &ldquo;dashboard &ldquo;一词的页面标题的主机。</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">services.http.response.html_title: dashboard
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="具有响应服务器错误状态代码的-http-服务的主机">具有响应服务器错误状态代码的 HTTP 服务的主机：</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">services.http.response.status_code: 500
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="具有特定-http-标头-值对的-http-服务的主机">具有特定 HTTP 标头-值对的 HTTP 服务的主机：</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">services.http.response.headers.connection: close AND services.http.response.headers.content_type: text/plain
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="具有提供证书的-rdp-服务的主机">具有提供证书的 RDP 服务的主机：</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">same_service(services.service_name: RDP AND services.certificate: *)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="具有任何运行sslv3的服务的主机">具有任何运行SSLv3的服务的主机。</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">services.tls.version_selected: SSLv3
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="具有在-subject_dn-中提供带有字符串localhost的-tls-证书的服务的主机">具有在 subject_dn 中提供带有字符串“localhost”的 TLS 证书的服务的主机：</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">services.tls.certificates.leaf_data.subject_dn: &#34;localhost&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="具有运行微软iis-75的服务的主机">具有运行微软IIS 7.5的服务的主机。</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">services.software.product: IIS AND services.software.vendor: Microsoft AND services.software.version: 7.5
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="具有呈现操作系统和应用软件特定组合的服务的主机">具有呈现操作系统和应用软件特定组合的服务的主机:</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">same_service(services.software.uniform_resource_identifier: `cpe:2.3:o:canonical:ubuntu_linux:18.04:*:*:*:*:*:*:*` AND services.software.uniform_resource_identifier: `cpe:2.3:a:openbsd:openssh:7.6p1:*:*:*:*:*:*:*`)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="运行-raspberry-pi-产品的主机">运行 Raspberry Pi 产品的主机:</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">services.software.product: &#34;Raspberry Pi&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="包含单词-university-的-ases-中的主机">包含单词 University 的 ASes 中的主机：</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">autonomous_system.description: University
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="字段定义">字段定义</h2>
+<p><a href="https://search.censys.io/search/definitions?resource=hosts" target="_blank" rel="noopener noreffer ">https://search.censys.io/search/definitions?resource=hosts</a></p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2022-08-19</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/censys%E6%96%87%E6%A1%A3/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://yinhui1984.github.io/censys%E6%96%87%E6%A1%A3/" data-title="Censys文档" data-hashtags="censys"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://yinhui1984.github.io/censys%E6%96%87%E6%A1%A3/" data-hashtag="censys"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://yinhui1984.github.io/censys%E6%96%87%E6%A1%A3/" data-title="Censys文档"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://yinhui1984.github.io/censys%E6%96%87%E6%A1%A3/" data-title="Censys文档"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://yinhui1984.github.io/censys%E6%96%87%E6%A1%A3/" data-title="Censys文档"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/censys/">censys</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/golang%E8%8E%B7%E5%BE%97%E5%8A%A8%E6%80%81%E7%BD%91%E9%A1%B5%E5%86%85%E5%AE%B9/" class="prev" rel="prev" title="Golang获得动态网页内容"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Golang获得动态网页内容</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/yinhui1984" target="_blank">zhouyinhui</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":200},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

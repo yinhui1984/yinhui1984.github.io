@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>censys - Tag - YINHUI&#39;s BLOG</title>
+        <link>https://yinhui1984.github.io/tags/censys/</link>
+        <description>censys - Tag - YINHUI&#39;s BLOG</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 19 Aug 2022 21:18:09 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/tags/censys/" rel="self" type="application/rss+xml" /><item>
+    <title>Censys文档</title>
+    <link>https://yinhui1984.github.io/censys%E6%96%87%E6%A1%A3/</link>
+    <pubDate>Fri, 19 Aug 2022 21:18:09 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/censys%E6%96%87%E6%A1%A3/</guid>
+    <description><![CDATA[<p><code>censys</code> <a href="https://search.censys.io" target="_blank" rel="noopener noreffer ">https://search.censys.io</a> 堪称神器, 翻译了一下帮助文档</p>]]></description>
+</item>
+</channel>
+</rss>
