@@ -3,7 +3,7 @@ title: "[Solidity by Example]Ex001HelloWorld"
 date: 2022-08-10T08:44:36+08:00
 draft: false
 author: yinhui
-categories: [BlockChain]
+categories: [Blockchain]
 tags: [solidity] 
 ---
 

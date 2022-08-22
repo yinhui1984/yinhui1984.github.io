@@ -3,7 +3,7 @@ title: "PoW"
 date: 2022-07-08T19:45:30+08:00
 draft: false
 author: yinhui
-categories: [BlockChain]
+categories: [Blockchain]
 tags: [pow, consensus] 
 ---
 

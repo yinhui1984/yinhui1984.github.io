@@ -3,9 +3,17 @@
         <title>YINHUI&#39;s BLOG</title>
         <link>https://yinhui1984.github.io/</link>
         <description>银辉的博客</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 19 Aug 2022 21:18:09 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 22 Aug 2022 13:39:54 &#43;0800</lastBuildDate>
             <atom:link href="https://yinhui1984.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>零知识证明</title>
+    <link>https://yinhui1984.github.io/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E/</link>
+    <pubDate>Mon, 22 Aug 2022 13:39:54 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E/</guid>
+    <description><![CDATA[<p>关于零知识证明的若干知识</p>]]></description>
+</item>
+<item>
     <title>Censys文档</title>
     <link>https://yinhui1984.github.io/censys%E6%96%87%E6%A1%A3/</link>
     <pubDate>Fri, 19 Aug 2022 21:18:09 &#43;0800</pubDate>
@@ -78,14 +86,6 @@
     <author>yinhui</author>
     <guid>https://yinhui1984.github.io/golang%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F/</guid>
     <description><![CDATA[<p>一个简单的事件处理程序</p>]]></description>
-</item>
-<item>
-    <title>MFC窗体程序弹出命令行窗口显示日志输出</title>
-    <link>https://yinhui1984.github.io/mfc%E7%AA%97%E4%BD%93%E7%A8%8B%E5%BA%8F%E5%BC%B9%E5%87%BA%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%AA%97%E5%8F%A3%E6%98%BE%E7%A4%BA%E6%97%A5%E5%BF%97%E8%BE%93%E5%87%BA/</link>
-    <pubDate>Wed, 13 Jul 2022 17:38:13 &#43;0800</pubDate>
-    <author>yinhui</author>
-    <guid>https://yinhui1984.github.io/mfc%E7%AA%97%E4%BD%93%E7%A8%8B%E5%BA%8F%E5%BC%B9%E5%87%BA%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%AA%97%E5%8F%A3%E6%98%BE%E7%A4%BA%E6%97%A5%E5%BF%97%E8%BE%93%E5%87%BA/</guid>
-    <description><![CDATA[<p>如何让MFC窗体程序弹出命令行窗口并打印日志输出</p>]]></description>
 </item>
 </channel>
 </rss>

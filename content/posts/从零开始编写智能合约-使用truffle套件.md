@@ -2,7 +2,7 @@
 title: 从零开始编写智能合约-使用traffle套件
 author: yinhui
 date: 2022-06-29
-categories: [BlockChain]
+categories: [Blockchain]
 tags: [solidity, truffle, ganache, ethereum, go-ethereum]     # TAG names should always be lowercase
 math: false
 mermaid: false

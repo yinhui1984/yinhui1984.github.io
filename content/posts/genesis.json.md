@@ -3,7 +3,7 @@ title: "genesis.json"
 date: 2022-07-06T10:53:24+08:00
 draft: false
 author: yinhui
-categories: [BlockChain]
+categories: [Blockchain]
 tags: [genesis.json] 
 ---
 

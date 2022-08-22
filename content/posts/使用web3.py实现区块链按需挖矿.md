@@ -3,7 +3,7 @@ title: "使用web3.py实现区块链按需挖矿"
 date: 2022-07-03T13:10:58+08:00
 draft: false
 author: yinhui
-categories: [BlockChain]
+categories: [Blockchain]
 tags: [web3.py, python] 
 ---
 
