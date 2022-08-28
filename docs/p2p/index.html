@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>P2P - YINHUI&#39;s BLOG</title><meta name="Description" content="银辉的博客"><meta property="og:title" content="P2P" />
+<meta property="og:description" content="来自 HASEEB QURESHI 的三篇关于P2P网络的博客的翻译" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://yinhui1984.github.io/p2p/" /><meta property="og:image" content="https://yinhui1984.github.io/avatar.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-08-23T12:09:22+08:00" />
+<meta property="article:modified_time" content="2022-08-23T12:09:22+08:00" /><meta property="og:site_name" content="YINHUI&#39;s BLOG" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://yinhui1984.github.io/avatar.png"/>
+
+<meta name="twitter:title" content="P2P"/>
+<meta name="twitter:description" content="来自 HASEEB QURESHI 的三篇关于P2P网络的博客的翻译"/>
+<meta name="application-name" content="YINHUI&#39;s BLOG">
+<meta name="apple-mobile-web-app-title" content="YINHUI&#39;s BLOG"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://yinhui1984.github.io/p2p/" /><link rel="prev" href="https://yinhui1984.github.io/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "P2P",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/yinhui1984.github.io\/p2p\/"
+        },"genre": "posts","keywords": "p2p, L0, Web3.0","wordcount":  9902 ,
+        "url": "https:\/\/yinhui1984.github.io\/p2p\/","datePublished": "2022-08-23T12:09:22+08:00","dateModified": "2022-08-23T12:09:22+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "yinhui"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="YINHUI&#39;s BLOG"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/"> 首页 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="YINHUI&#39;s BLOG"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/" title="">首页</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">P2P</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/yinhui1984" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>yinhui</a></span>&nbsp;<span class="post-category">included in <a href="/categories/blockchain/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Blockchain</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-08-23">2022-08-23</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;9902 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;20 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#p2p-networking">P2P Networking</a>
+      <ul>
+        <li><a href="#网络架构">网络架构</a></li>
+        <li><a href="#p2p-协议简史">P2P 协议简史</a></li>
+        <li><a href="#napster公司的教训">Napster公司的教训</a></li>
+        <li><a href="#后naspter世界">后Naspter世界</a></li>
+        <li><a href="#p2p架构的权衡因素是什么">P2P架构的权衡因素是什么？</a></li>
+      </ul>
+    </li>
+    <li><a href="#gnutella-an-intro-to-gossip">Gnutella: an Intro to Gossip</a>
+      <ul>
+        <li><a href="#多播multicast-组播问题">多播(multicast, 组播)问题</a></li>
+        <li><a href="#进入gossip协议">进入gossip协议</a></li>
+        <li><a href="#gnutella协议">Gnutella协议</a></li>
+        <li><a href="#协议简述">协议简述</a></li>
+        <li><a href="#路由查询命中">路由查询命中</a></li>
+        <li><a href="#gnutella的一些问题">Gnutella的一些问题</a></li>
+        <li><a href="#作业">作业</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>来自 <a href="https://nakamoto.com/author/haseeb/" target="_blank" rel="noopener noreffer ">HASEEB QURESHI</a> 的三篇关于P2P网络的博客的翻译</p>
+<p>来自这三篇博客</p>
+<p><a href="https://nakamoto.com/p2p-networking/" target="_blank" rel="noopener noreffer ">https://nakamoto.com/p2p-networking/</a></p>
+<p><a href="https://nakamoto.com/gnutella/" target="_blank" rel="noopener noreffer ">https://nakamoto.com/gnutella/</a></p>
+<p><a href="https://nakamoto.com/bitcoins-p2p-network/" target="_blank" rel="noopener noreffer ">https://nakamoto.com/bitcoins-p2p-network/</a></p>
+<h2 id="p2p-networking">P2P Networking</h2>
+<p>如果我们想从根本上了解加密货币是如何工作的，我们的工具包里需要的不仅仅是密码学。为了让加密货币发挥作用，它需要的不仅仅是密码学上的安全&ndash;它还需要去中心化。中本聪从21世纪初的点对点（P2P）网络历史中学到了很多东西。这些经验为比特币的网络层设计提供了参考。</p>
+<p>在本模块中，我们将探讨比特币的网络模型，以及它如何实现其两个主要目标：<strong>去中心化和抗审查</strong>。</p>
+<h3 id="网络架构">网络架构</h3>
+<p>传统的网络服务是以集中的客<code>户端-服务器模式</code>进行架构的。一个中央服务器提供服务，每个客户端从这个中央服务器请求数据或工作。你在网络上使用的几乎所有应用程序都是这样的结构&ndash;Facebook、Google、Wordpress。今天，&ldquo;中央服务器 &ldquo;通常是在负载平衡器后面的一个服务器群，但在高层次上，他们从根本上是相同的架构。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://nakamoto.com/content/images/2020/01/image-90.png"
+        data-srcset="https://nakamoto.com/content/images/2020/01/image-90.png, https://nakamoto.com/content/images/2020/01/image-90.png 1.5x, https://nakamoto.com/content/images/2020/01/image-90.png 2x"
+        data-sizes="auto"
+        alt="https://nakamoto.com/content/images/2020/01/image-90.png"
+        title="客户端-服务器架构" /></p>
+<p>客户端/服务器架构从根本上说是集中式的，并依赖于单一的一方。如果中央服务器关闭，该服务就会暂停（如发生在<code>DigiCash</code>的情况）。</p>
+<p>P2P网络是一种分布式的网络模式，其中没有中央服务器。相反，每个对等体承担着网络的部分负荷。这意味着每个对等体可以向网络进行查询，但也必须对查询作出回应。你可以把P2P网络想象成一个 &ldquo;群(swarm)&quot;，它融合了客户和服务器的角色。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://nakamoto.com/content/images/2020/01/image-91.png"
+        data-srcset="https://nakamoto.com/content/images/2020/01/image-91.png, https://nakamoto.com/content/images/2020/01/image-91.png 1.5x, https://nakamoto.com/content/images/2020/01/image-91.png 2x"
+        data-sizes="auto"
+        alt="https://nakamoto.com/content/images/2020/01/image-91.png"
+        title="p2p架构" /></p>
+<p>P2P网络是引人注目的，因为它允许我们实现去中心化。一个去中心化的网络是一个不依赖任何单一节点的网络，因此对任何单一节点的关闭或离开网络都具有弹性。</p>
+<p>因此，去中心化是很酷的，<strong>但是实质性的问题是&ndash;去中心化究竟是如何使一个系统变得更好？</strong></p>
+<p><strong>去中心化给我们带来两个理想的属性：</strong></p>
+<ul>
+<li>第一个属性是<strong>崩溃容错</strong>。崩溃容错意味着你能够承受单个节点的故障或失效&ndash;即使一个节点死了，系统仍然可以运行。这对可扩展性至关重要，因为大型网络一直都有节点故障。</li>
+</ul>
+<blockquote>
+<p>译者注: 平时所说的容错算法, 主要指2种, 崩溃容错 和 拜占庭容错</p>
+<ul>
+<li>崩溃容错 CFT: 有节点故障了, 整个系统还能继续正确运行</li>
+<li>拜占庭容错 BFT: 有节点数据错误(说谎), 整个系统还能正确运行(达成一致性)</li>
+</ul>
+</blockquote>
+<ul>
+<li>去中心化给我们的第二个属性是<strong>抗审查</strong>。如果一个节点被审查，但整个网络是去中心化的，那么没有关系&ndash;系统的其他部分继续运行。为了使审查制度有效，通常每个节点都必须串通起来执行审查制度，而这在一个大型网络中是很难做到的。如果我在一个去中心化的网络中搜索文件，只要有一个节点愿意为我的查询提供回应，整个事情还是可以的。</li>
+</ul>
+<p>我们为什么要关心这些资产，这可能并不明显。毕竟，谁在破坏或审查这些网络？简单回顾一下P2P协议的历史，就会明白为什么中本聪重视比特币的这些特性。</p>
+<h3 id="p2p-协议简史">P2P 协议简史</h3>
+<p>在90年代，在大型分布式系统中协调大规模的计算任务是相当罕见的。当时<a href="https://en.wikipedia.org/wiki/MapReduce" target="_blank" rel="noopener noreffer ">MapReduce</a>或<a href="https://hadoop.apache.org/docs/r1.2.1/hdfs_design.html" target="_blank" rel="noopener noreffer ">HDFS</a>还没有被发明出来，所以大规模的分布式计算是罕见的，也是昂贵的。P2P协议是第一个在计算机数量上达到大规模的分布式系统（除了互联网本身）。</p>
+<p>Napster不是第一个P2P协议，但它是第一个展示P2P模式力量的主流公共成功。</p>
+<p>Napster公司由两名大学生Sean Parker和Shawn Fanning于1999年创立。它提供了一个简单的价值主张：它让你从Napster网络中的任何用户那里下载MP3文件。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://nakamoto.com/content/images/2020/01/image-67.png"
+        data-srcset="https://nakamoto.com/content/images/2020/01/image-67.png, https://nakamoto.com/content/images/2020/01/image-67.png 1.5x, https://nakamoto.com/content/images/2020/01/image-67.png 2x"
+        data-sizes="auto"
+        alt="https://nakamoto.com/content/images/2020/01/image-67.png"
+        title="Napster" /></p>
+<p>Napster的架构很简单。有一个中央Napster服务，这主要是一个巨大的搜索索引，保持跟踪所有的同行和他们的共享内容。它将内容元数据存储为以下三元组: <code>文件名、IP地址、端口号</code>。</p>
+<p>每当一个对等体(peer)加入Napster网络时，对等体就会向中央服务器发送一份它愿意分享的文件清单。然后，服务器将更新其搜索索引，以包括这些新共享的文件。</p>
+<p>每当用户搜索一个文件时，服务器将查询其搜索索引，并向用户展示所有相关的点击。由于这些点击代表了其他对等体的文件，用户将ping每个相关对等体的IP，以确定他们的下载延迟和线路速度。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://nakamoto.com/content/images/2020/01/napster-optimized-2.gif"
+        data-srcset="https://nakamoto.com/content/images/2020/01/napster-optimized-2.gif, https://nakamoto.com/content/images/2020/01/napster-optimized-2.gif 1.5x, https://nakamoto.com/content/images/2020/01/napster-optimized-2.gif 2x"
+        data-sizes="auto"
+        alt="https://nakamoto.com/content/images/2020/01/napster-optimized-2.gif"
+        title="napster架构" /></p>
+<p>一旦用户选择了要下载的文件，他们的客户端将直接从与该文件相对应的IP上获取该文件。所有的文件传输都直接发生在对等体之间。在这一点上，Napster服务器本身已不再参与。</p>
+<p>从某种意义上说，Napster是客户/服务器模式和P2P模式之间的交叉。服务器基本上是作为MP3下载者的一个匹配引擎。而事实证明，有一大批人想下载MP3。</p>
+<p>在推出后不久，Napster就像野火一样起飞了。在其高峰期，该服务有超过8000万用户。2001年，它经常使大学宿舍的高速网络过载，并很快在许多大学被禁止使用。</p>
+<p>2000年，Napster被Metallica、Dr.Dre起诉，随后又被A&amp;M唱片公司起诉侵犯版权。这些诉讼成功地为Napster公司带来了更多的新闻报道和宣传。但是，当法官对Napster公司发出禁令，停止受版权保护的音乐交易时，这场演出终于结束了。</p>
+<h3 id="napster公司的教训">Napster公司的教训</h3>
+<p>虽然我们称Napster为P2P网络，但在文件发现方面，<strong>Napster的设计是传统的客户-服务器模式。只有文件传输实际上是P2P。这给他们的架构带来了单点故障，并意味着网络在Napster公司关闭后消失了</strong>。</p>
+<p>在Napster中，也很少考虑安全问题。所有的信息和请求都是以明文形式发送的，所有的IP都是公开的，这使得该系统几乎没有隐私可言。</p>
+<p>但最终，Napster公司棺材里的钉子是法律上的，而不是技术上的&ndash;Napster公司被认为对其用户的版权侵犯负有法律责任。尽管Napster公司没有直接侵犯任何版权，但法官裁定，Napster公司诱使其用户侵犯版权，因此 &ldquo;替代性地侵犯 &ldquo;了版权人的权利。</p>
+<p>法院要求Napster公司遏制所有版权侵权行为。Napster公司声称，它可以实施一个解决方案，以阻止99.4%的侵权行为，但法院认为这还不够，除非他们能100%地阻止。</p>
+<h3 id="后naspter世界">后Naspter世界</h3>
+<p>Napster公司最终申请了破产。它的资产将被收购并重新命名为Rhapsody。但是，Napster公司的消亡将掀起一场巨大的风暴，以至于掩盖了它的渊源。LimeWire和KaZaA等网络接替了Napster，建立了性能更强、去中心化的P2P协议，比前者的限制更少。</p>
+<p>随着时间的推移，<strong>所有这些协议最终都将被BitTorrent所取代</strong>。到2009年，P2P文件共享&ndash;主要是BitTorrent&ndash;占了所有互联网流量的70%。快进到今天，BitTorrent是世界上最大的单一P2P网络，也是大多数国家最大的上游流量来源。</p>
+<p>值得停下来反思的是：为什么BitTorrent能够成功，而其他大多数协议却逐渐消失？</p>
+<p>首先，BitTorrent的带宽共享是以牙还牙的模式，这意味着对等者会给那些对他们慷慨的人提供更多的带宽。这种互惠的系统不鼓励搭便车，鼓励付出。(在现实中，以牙还牙的模式并不特别好用，但与以前的文件共享协议相比，它还是一个进步。） 当涉及到带宽消耗时，BitTorrent也恰好是非常有效的，特别是对于那些需求量大的文件。</p>
+<p>但在许多方面，BitTorrent成功的核心真正归结于他们无可挑剔的信息传递。该协议的开发者从未主张将版权文件共享作为该服务的合法用途。他们把BitTorrent说成是 &ldquo;为你的网站提供更好的服务&rdquo;，他们的网站只提到无害的使用案例，如Linux发行版和下载魔兽世界的更新。</p>
+<p>即使你想这样做，也没有集中的BitTorrent服务可以使用。只有一个由私人经营的BitTorrent追踪器组成的联合网络。因此，当其他P2P网络被执法部门关闭时，BitTorrent只能对个别追踪者采取行动。由于BitTorrent的<a href="https://en.wikipedia.org/wiki/Mainline_DHT" target="_blank" rel="noopener noreffer ">DHT</a>模式，许多torrents甚至可以在任何单个跟踪器被查封后存活。因此，针对BitTorrent的审查企图往往会演变成一场 &ldquo;打地鼠 &ldquo;游戏。</p>
+<blockquote>
+<p>译者注:</p>
+<p>DHT: 分布式哈希表, 参考文章:</p>
+<p><a href="https://luyuhuang.tech/2020/03/06/dht-and-p2p.html#23-%e5%88%86%e5%b8%83%e5%bc%8f%e5%93%88%e5%b8%8c%e8%a1%a8" target="_blank" rel="noopener noreffer ">https://luyuhuang.tech/2020/03/06/dht-and-p2p.html#23-分布式哈希表</a></p>
+<p><a href="https://colobu.com/2018/03/26/distributed-hash-table/" target="_blank" rel="noopener noreffer ">https://colobu.com/2018/03/26/distributed-hash-table/</a></p>
+<p>举例:</p>
+<ul>
+<li>在区块链中, 区块链本身的存储是不适合进行大量数据存储的, 所以其利用了DHT来进行大量数据存储, 比如IPFS</li>
+<li>以太坊节点发现是基于<code>Kademlia</code>协议的, <code>Kademlia</code>是一个基于UDP的分布式哈希表协议</li>
+</ul>
+</blockquote>
+<p>文件共享革命对我们与技术和媒体的关系产生了深刻的社会影响。但它的影响并没有结束&ndash;它还引发了对P2P协议的工程兴趣的复苏。这导致了许多学术项目，如Folding@home和SETI@home，个人可以将其计算能力借给世界规模的P2P科学计算项目。甚至还有像Skype这样成功的初创公司，最初也是建立在P2P架构之上。</p>
+<p>但随着执法和法律斗争的加剧，P2P协议在公众心目中逐渐成为 &ldquo;非法文件共享 &ldquo;的同义词。在经历了足够多的负面头条新闻后，学术界的热情也随之枯竭。同时，分布式系统的改进使工程师能够建立更大规模的集中式系统，使P2P架构在大多数商业应用中没有必要。</p>
+<p>此外，事实证明很难围绕P2P协议建立可持续的商业模式。大多数内容业务需要一个中央经纪人或DRM来跟踪使用情况并收取费用。几乎根据定义，P2P协议很难实现集中跟踪。uTorrent的前CEO丹尼尔-艾克（Daniel Ek）放弃了BitTorrent的世界，共同创建了音乐公司Spotify，这就是典型的例子。所有这些因素大体上促成了对P2P协议兴趣的下降。</p>
+<p>这就是为什么到了2009年，P2P协议在很大程度上已经落伍了。在文件共享网络之外，采用大规模P2P系统的新应用不多。</p>
+<p>尽管如此，中本聪明白，P2P架构是创建一个有弹性的、去中心化的货币协议的唯一可行的方法。中本聪写道: 政府善于砍掉像Napster这样的中央控制网络的脑袋，但像Gnutella和Tor这样的纯P2P网络似乎在坚持自己的观点。</p>
+<h3 id="p2p架构的权衡因素是什么">P2P架构的权衡因素是什么？</h3>
+<p>去中心化并不是免费的。当中本聪为比特币选择P2P架构时，有三个大的障碍不得不接受。</p>
+<ul>
+<li>第一个障碍是：在集中式架构中，你通常可以得到全局状态的一个连贯的快照（也就是说，你可以清楚地观察正在发生的一切）。<strong>但在P2P协议中，通常不可能得到这种全球快照</strong>。P2P节点只存储自己的本地知识，要把网络中正在发生的事情拼凑成一个一致的画面是相当有挑战性的。
+例如，在IP路由中就是如此。在IP路由中，没有一个路由器拥有整个互联网的路由表。路由器将数据包传递给他们所知道的下一个最近的节点，相信拥有更多本地信息的节点能够将数据包更接近其目的地。 因此，呈现互联网中活动的全球快照被证明是相当具有挑战性的。</li>
+<li>P2P协议的第二个缺点是，随着用户的上线和下线，它们的流失率往往很高。<strong>这意味着任何P2P协议必须具有高度的容错性才能使用</strong>。集中式架构通常不需要像P2P系统那样的容错程度。</li>
+<li>但是，<strong>P2P协议所面临的最大障碍可能是它们不能轻易地实施质量控制</strong>。因为P2P的成员资格通常是完全开放的，任何恶意行为者都可以自由地加入网络并引起骚乱。在一个中心化的服务中，阻止这样的不良行为者是很直接的。但在一个去中心化的P2P网络中，谁来决定谁是坏人，谁是好人？一个设计不良的节制功能可能会让坏的行为者阻止好的用户。这意味着任何P2P网络都必须被精心设计，以便即使有恶意用户存在，网络也无法被颠覆。</li>
+</ul>
+<p>尽管有这些权衡，对中本聪来说，P2P网络的特性对去中心化的货币来说是必要的。</p>
+<p>至此，我们对P2P协议的历史概述结束。在下一节中，我们将深入研究一个著名但简单的P2P协议，Gnutella。Gnutella将为我们提供一个八卦协议的蓝图，最终将帮助我们理清比特币自己的网络模型。</p>
+<h2 id="gnutella-an-intro-to-gossip">Gnutella: an Intro to Gossip</h2>
+<p><code>Gnutella</code> (/nʊˈtɛlə/) 努特拉 是Napster死后出现的第一批分散式文件共享协议之一。它在文件共享应用程序<a href="https://limewire.com" target="_blank" rel="noopener noreffer ">LimeWire</a>中得到了最广泛的实施。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://nakamoto.com/content/images/2020/01/image-72.png"
+        data-srcset="https://nakamoto.com/content/images/2020/01/image-72.png, https://nakamoto.com/content/images/2020/01/image-72.png 1.5x, https://nakamoto.com/content/images/2020/01/image-72.png 2x"
+        data-sizes="auto"
+        alt="https://nakamoto.com/content/images/2020/01/image-72.png"
+        title="https://nakamoto.com/content/images/2020/01/image-72.png" /></p>
+<blockquote>
+<p>译者注:  LimeWire重新上线后改为搞NFT了</p>
+</blockquote>
+<p>作为一个相当简单的基于 <code>gossip</code> [/&lsquo;gɒsɪp/] 的 P2P 协议，<strong>Gnutella 的网络设计是理解比特币的一个很好的蓝图</strong>。在本课中，我们将从深入研究 gossip 协议的理论开始。然后我们将介绍 Gnutella 的设计。然后，在作业中，您将构建自己的 Gnutella 式协议。
+Gnutella 是 gossip 的一个很好的入口点，因为它是生产中使用的最简单的 gossip 协议之一。但是gossip协议自 90 年代就已经存在，并已用于许多系统，例如无线网络、传感器，当然还有互联网路由。今天，许多分布式数据库，如 Cassandra、Riak 和 Voldemort，都使用 gossip 来传播内部状态更新。
+那么为什么选择gossip呢？它有什么作用？
+提炼其本质，gossip只是一种进行分散消息传播的方式。</p>
+<h3 id="多播multicast-组播问题">多播(multicast, 组播)问题</h3>
+<p>你可能很熟悉广播(<strong>broadcast</strong>)这个词。<strong>广播是向网络中的每个节点发送消息</strong>。<strong>多播是指你想向许多方面发送消息，但不是整个网络中的每个人</strong>。如果你想在P2P文件共享网络中进行搜索查询，你实际上并不想把它发送给网络中的每个人&ndash;如果你这样做，网络会很快过载。只有网络中的一个子集需要对我们的查询做出实际回应。</p>
+<p>那么，什么是执行这种多播的最佳方式呢？</p>
+<p>你首先想到的可能是遍历你想联系的每个人，然后向他们发送一个点对点的消息。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">simple_multicast</span><span class="p">(</span><span class="n">recipients</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">recipient</span> <span class="ow">in</span> <span class="n">recipients</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">recipient</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://nakamoto.com/content/images/2020/03/multicast-optimized-1.gif"
+        data-srcset="https://nakamoto.com/content/images/2020/03/multicast-optimized-1.gif, https://nakamoto.com/content/images/2020/03/multicast-optimized-1.gif 1.5x, https://nakamoto.com/content/images/2020/03/multicast-optimized-1.gif 2x"
+        data-sizes="auto"
+        alt="https://nakamoto.com/content/images/2020/03/multicast-optimized-1.gif"
+        title="multicast" /></p>
+<p>这很有效，但效率不高。它需要 O(N)时间来执行完整的组播。这也是不现实的：它要求网络中的每个人都要维护网络中每个其他节点的列表。在一个P2P系统中，这个列表可能是巨大的，并且会因为节点的流失而一直变化。(另外，如果发送者在这个长的组播过程中失败了，整个操作就会失败）。</p>
+<p>那么，我们如何才能在此基础上进行改进呢？</p>
+<p>优化信息传播的一个方法是建立一个最小生成树。生成树是一棵覆盖图中每个节点的树。最小生成树是可能的最小生成树&ndash;换句话说，是用最少的边数（或最小的总边权重）建立的生成树。</p>
+<p>下面是这个图的最小生成树。如果我们试图从绿色节点广播一条信息，那么我们所有的信息都将沿着这棵树被传送。（有多个高度为2的生成树，这只是其中之一）。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://nakamoto.com/content/images/2020/01/minimum-spanning-tree-optimized.gif"
+        data-srcset="https://nakamoto.com/content/images/2020/01/minimum-spanning-tree-optimized.gif, https://nakamoto.com/content/images/2020/01/minimum-spanning-tree-optimized.gif 1.5x, https://nakamoto.com/content/images/2020/01/minimum-spanning-tree-optimized.gif 2x"
+        data-sizes="auto"
+        alt="https://nakamoto.com/content/images/2020/01/minimum-spanning-tree-optimized.gif"
+        title="https://nakamoto.com/content/images/2020/01/minimum-spanning-tree-optimized.gif" /></p>
+<p>这应该是实现了一个广播在只有 O(logN) 跳，因为消息的传播时间将与树的深度成正比。此外，每个节点在该广播中只需要执行少量的操作，而不是由发送者执行一个大规模的 O(N)操作（这对一个大型网络来说是不可行的）。</p>
+<p>这很好! 事实上，它是如此之好，以至于在理论上是最优的。最小生成树为我们提供了最大效率的路由，特别是如果生成树是在考虑到基础网络拓扑结构的情况下构建的。</p>
+<p>但是生成树有一个很大的问题：<strong>它们非常脆弱</strong>。如果哪怕只有一个节点发生故障或退出网络，整个树的动脉就会被击断，变得无法到达。在P2P环境中，我们必须假设节点会崩溃，数据包会被丢弃，网络拓扑结构会随着时间而改变。<strong>当网络是静态的时候，生成树是很好的，但在P2P网络中(网络节点是动态的)，它是一个不可能的事情。</strong></p>
+<blockquote>
+<p>译者注:</p>
+<p>最小生成树:  <a href="https://zh.wikipedia.org/wiki/%e6%9c%80%e5%b0%8f%e7%94%9f%e6%88%90%e6%a0%91" target="_blank" rel="noopener noreffer ">https://zh.wikipedia.org/wiki/最小生成树</a></p>
+</blockquote>
+<h3 id="进入gossip协议">进入gossip协议</h3>
+<p>[/&lsquo;gɒsɪp/]   “流言算法”、“八卦算法”、“瘟疫算法”</p>
+<p>如果我们想要生成树的可扩展性，而又没有脆性，我们要使用gossip。gossip协议的原理很简单，你可能已经有了它们如何工作的直觉。</p>
+<p>在传统的gossip协议中，每个节点定期向K个随机目标&quot;传染&rdquo;。这个K被称为感染因子（作为对流行病学的一个点子）。一旦这些  K 目标收到消息后，他们会随机选择另一个 K 的目标进行闲聊。这种情况一直持续到所有可到达的节点都收到消息，或者消息过期。</p>
+<p>下图中k=3 (忽略重复)</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://nakamoto.com/content/images/2020/01/gossip-propagation.gif"
+        data-srcset="https://nakamoto.com/content/images/2020/01/gossip-propagation.gif, https://nakamoto.com/content/images/2020/01/gossip-propagation.gif 1.5x, https://nakamoto.com/content/images/2020/01/gossip-propagation.gif 2x"
+        data-sizes="auto"
+        alt="https://nakamoto.com/content/images/2020/01/gossip-propagation.gif"
+        title="https://nakamoto.com/content/images/2020/01/gossip-propagation.gif" /></p>
+<p>感染因子越强，信息传播的速度越快，越彻底。另一方面，感染因子越高，网络中产生的噪音就越多，每条消息消耗的带宽就越多。</p>
+<p>如果一个节点向他们所有的同伴传递消息，这就被称为泛滥(<strong>flooding</strong>)。比特币执行的是泛滥而不是随机感染。</p>
+<p>像许多随机协议一样，gossip是不完美的，但它最终近似于最小生成树的属性（有很高的概率）。同时，它提供了更高的容错性。</p>
+<p><strong>gossip协议对P2P网络来说有几个理想的特性。</strong></p>
+<ul>
+<li>可靠性: 只有一小部分目标收件人无法收到你的广播。</li>
+<li>低延时: O(logN)</li>
+<li>非常高的容错率</li>
+</ul>
+<p>这使得gossip成为像比特币这样的系统中信息传播的主要候选人。</p>
+<p>所以，在我们掌握了一点gossip理论后，让我们看看Gnutella是如何工作的。</p>
+<blockquote>
+<p>更多的,参考这里</p>
+<p><a href="https://managementfromscratch.wordpress.com/2016/04/01/introduction-to-gossip/" target="_blank" rel="noopener noreffer ">https://managementfromscratch.wordpress.com/2016/04/01/introduction-to-gossip/</a></p>
+</blockquote>
+<h3 id="gnutella协议">Gnutella协议</h3>
+<p>/nʊˈtɛlə/   努特拉</p>
+<p>Gnutella的设计始于一个简单的想法：让我们采用一个像Napster一样的文件共享系统，但去掉中央服务器。</p>
+<p>你会记得，Napster有一个中央服务器（或一组服务器），作为所有可用文件的搜索引擎运行，并允许对等者找到彼此。在Gnutella中，P2P群组将自己处理搜索请求和对等体的发现。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://nakamoto.com/content/images/2020/01/gnutella-optimized-1.gif"
+        data-srcset="https://nakamoto.com/content/images/2020/01/gnutella-optimized-1.gif, https://nakamoto.com/content/images/2020/01/gnutella-optimized-1.gif 1.5x, https://nakamoto.com/content/images/2020/01/gnutella-optimized-1.gif 2x"
+        data-sizes="auto"
+        alt="https://nakamoto.com/content/images/2020/01/gnutella-optimized-1.gif"
+        title="https://nakamoto.com/content/images/2020/01/gnutella-optimized-1.gif" /></p>
+<p>在Gnutella中，每个客户都同时作为客户和服务器（Gnutella称他们为 &ldquo;服务者&rdquo;）。客户端通过P2P叠加图(P2P overlay graph)直接连接到对方。</p>
+<p>overlay graph是 &ldquo;覆盖 &ldquo;在实际基础网络之上的P2P网络。在这种情况下，底层网络是IP本身&ndash;这就是节点必须向对方发送数据包的方式。在底层网络中（也称为 &ldquo;底层&rdquo;），共享一个大前缀的两个IP将在物理上相互靠近。但P2P overlay graph不一定尊重基础距离。叠加图中的邻近同伴在物理世界中可能很远，而现实世界中的邻居在P2P图中可能很远。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://nakamoto.com/content/images/2020/01/p2p-overlay-optimized.gif"
+        data-srcset="https://nakamoto.com/content/images/2020/01/p2p-overlay-optimized.gif, https://nakamoto.com/content/images/2020/01/p2p-overlay-optimized.gif 1.5x, https://nakamoto.com/content/images/2020/01/p2p-overlay-optimized.gif 2x"
+        data-sizes="auto"
+        alt="https://nakamoto.com/content/images/2020/01/p2p-overlay-optimized.gif"
+        title="https://nakamoto.com/content/images/2020/01/p2p-overlay-optimized.gif" /></p>
+<p>只要覆盖网络对底层网络拓扑不敏感，你就会得到次优的路由，因为信息不是走现实世界的最短路径。更先进的P2P系统试图使用更聪明的路由模型，将底层网络考虑在内，但最简单的方法是建立一个非结构化的网络，它产生自己的随机拓扑结构，并在信息路由时遵循该结构。Gnutella是一个非结构化的网络，比特币也是如此（有一些注意事项我们将在后面讨论）。</p>
+<h3 id="协议简述">协议简述</h3>
+<p>现在你已经对Gnutella的工作原理有了一个高层次的概念。让我们深入了解一下更多的细节。</p>
+<p><strong>在Gnutella中，每个节点都跟踪一个对等体的列表（为简单起见，让我们说每个对等体不超过5个）。每个节点都会定期对其对等体进行ping，以确保它们仍然在线。如果一个节点注意到它的任何一个对等体已经消失了很久，该节点将取消与他们的对等体，并找到其他的对等体。</strong></p>
+<p>在Gnutella协议中，有五种消息类型。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Message type</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>Query</code></td>
+<td style="text-align:left">搜索某个文件名</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>QueryHit</code></td>
+<td style="text-align:left">对搜索的肯定回复，说明“嘿，我有一个与该查询匹配的文件”</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Ping</code></td>
+<td style="text-align:left">探查peer以查看他们是否还活着</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Pong</code></td>
+<td style="text-align:left">A reply to a <code>Ping</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Push</code></td>
+<td style="text-align:left">要求向请求者发送一个文件（如果文件所有者在防火墙后面，阻止了传入的连接）。</td>
+</tr>
+</tbody>
+</table>
+<p>这就是全部。仅仅是这五种信息类型，你就可以做很多事情了!</p>
+<p>Ping和Pong是用来发现对等人和心跳的，所以我们现在先不考虑这些。</p>
+<p>Push消息只用于协调文件所有者在防火墙后面的文件下载，所以也忽略它。</p>
+<p>该协议的主要内容发生在Query和QueryHit消息中。</p>
+<p>比方说，你在寻找一首Metallica的歌曲，所以你构建了一个Query消息。你想广泛地传播你的查询，所以你向随机的3个对等体gossip这个查询。这些同伴中的每一个人也会向他们的同伴中的随机3人gossip这个查询，以此类推。</p>
+<p><strong>请注意，如果这个转发过程无限期地继续下去，我们就会有一个问题：你的信息会在网络中永远循环。节点A会向B发送，B会向C发送，C会向A发送，以此类推。这显然不是我们想要的&ndash;我们需要某种形式的内存，这样一个节点就可以丢弃它已经看过的信息。</strong></p>
+<p>为了解决这个问题，我们将给每个消息一个UUID。通过简单地跟踪你已经转发的UUID，你可以忽略重复的消息，从而防止任何无限的消息循环。</p>
+<p><strong>但仍有一个问题：每条信息都会在P2P网络中传播，直到它实际上到达每个人手中。如果你想这样做，这很好，但对于文件共享来说，这就太过分了。这将迅速成为一个可扩展性瓶颈（每个节点都必须处理整个网络中的每一个搜索）。</strong></p>
+<p>为了解决这个问题，我们可以在每个消息上添加一个TTL（生存时间）。TTL是一个整数，每次转发消息时都会递减，一旦TTL为0，消息就会被丢弃。这意味着每条信息在消失之前只会传播这么远，就像一个衰落的波浪。</p>
+<p>有了这些东西的实现，我们应该得到一些很好的类似gossip的消息传播，并在网络内进行搜索。</p>
+<p>下图为 TTL 为 4 的gossip传播</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://nakamoto.com/content/images/2020/01/gossip-propagation.gif"
+        data-srcset="https://nakamoto.com/content/images/2020/01/gossip-propagation.gif, https://nakamoto.com/content/images/2020/01/gossip-propagation.gif 1.5x, https://nakamoto.com/content/images/2020/01/gossip-propagation.gif 2x"
+        data-sizes="auto"
+        alt="https://nakamoto.com/content/images/2020/01/gossip-propagation.gif"
+        title="https://nakamoto.com/content/images/2020/01/gossip-propagation.gif" /></p>
+<h3 id="路由查询命中">路由查询命中</h3>
+<p>现在让我们来看看另一面：假设我们收到一个关于metallica的查询，我们有一个匹配的文件。我们想给他们返回一个QueryHit响应。我们应该如何将响应传回给原发件人？</p>
+<p><strong>最明显的做法是让搜索者在他们的查询中包括他们的IP</strong>，这样我们就可以直接响应他们，有点像一个返回地址。这有什么错呢？(真的想一想吧）。<strong>问题是这让被动的观察者知道到底是哪个IP在请求哪个文件。这将是一个巨大的隐私泄漏!</strong> 我们应该努力做得更谨慎一些，而不是仅仅公布每次搜索的源IP。</p>
+<p>也许回应者可以把他们的IP说出来，这将有望让发件人知道应该联系谁。但是，这将侵犯响应者的隐私！这将导致网络中出现许多不必要的噪音。这也会导致网络中出现许多不必要的噪音，因为其他人都要八卦回响应者的IP，尽管只有发送者真正关心。</p>
+<p><strong>Gnutella使用的解决方案是相当巧妙的：递归地路由响应</strong>。</p>
+<p>假设你有一个文件符合 &ldquo;metallica &ldquo;的查询。你向转发该信息的人发回一个QueryHit响应，并指定你所响应的UUID。节点C看到该UUID的QueryHit后，会将其发回给转发该查询的人，即节点B，然后节点B会将其发回给节点A，即原发件人。通过简单地让每个节点记住谁转发了他们的每个消息，QueryHits可以被递归地送回发件人。这最大限度地减少了网络中的隐私泄漏和不必要的噪音。</p>
+<p>Query和QueryHit消息之间的这种功能是Gnutella文件发现的核心。然后通过直接的HTTP连接进行实际的下载。</p>
+<p>正如你所看到的，Gnutella是一个优雅、简单的文件共享协议，在没有中心方的情况下工作。</p>
+<h3 id="gnutella的一些问题">Gnutella的一些问题</h3>
+<p>尽管有其独创性，Gnutella也有其问题。第一个问题是带宽：<strong>Gnutella产生了大量的网络流量，其中大约50%是ping</strong>。有些问题可以通过积极的缓存和整合ping信息来缓解，但该协议的早期版本是非常耗费带宽的。</p>
+<p>第二个问题是，<strong>70%的Gnutella用户是自由职业者，他们只下载文件，从不上传自己的文件。这使得下载者和上传者之间形成了不健康的平衡</strong>。</p>
+<p>最后，<strong>Gnutella实际上不是这种基于gossip的网络设计的最佳人选。在Gnutella中，一半以上的网络收到每一个查询。这对文件共享来说是矫枉过正的，你不需要那么大一部分网络来接收每个消息&ndash;大多数搜索都是针对常见的文件，许多附近的节点都可以为你服务。</strong></p>
+<p>另一方面，比特币要求每个节点都知道每个区块，而交易是为了传播给每个人。可以说，这使得比特币比Gnutella更适合于基于gossip的协议。</p>
+<p>这些问题由于Gnutella的扁平结构而变得更加复杂，它在网络拓扑结构中把每个节点都视为平等。但是，当涉及到带宽时，节点并不都是平等的&ndash;一些节点更稳定地保持在线，并有更多的带宽可以提供。如果一个系统绕过脆弱的节点并围绕高可靠性的节点进行自我组织，那么它的性能就会立即变得更强。</p>
+<p>后来的文件共享客户端，如<code>KaZaA</code>或<code>eMule</code>，将使用更多的分层拓扑结构和更智能的路由。在这些系统中，表现良好的节点最终会成为 &ldquo;超级节点&rdquo;，在系统中承担更多的负载。相对于像Gnutella这样的扁平结构，这大大提高了它们的整体性能。</p>
+<p>在下一课中，我们将看看gossip在比特币本身中是如何运作的，我们还将挖掘隐私在其网络层中的作用。</p>
+<h3 id="作业">作业</h3>
+<p>在这项作业中，你将实现一个简单的P2P协议 这项作业相当复杂，但也是对你推理P2P协议在实践中如何运作的能力的一次大考验。
+<a href="https://repl.it/@nakamoto/p2passignment" target="_blank" rel="noopener noreffer ">前往repl.it上的作业</a>，查看README.md。一旦你读完它，fork工作区，开始工作。这个任务没有测试套件；你只需要建立系统，直到协议正常工作。</p>
+<p>一旦你完成了（而且只有在你完成之后！），你可以对照解决方案检查你的工作，你可以在<a href="https://github.com/Haseeb-Qureshi/p2p_assignment" target="_blank" rel="noopener noreffer ">Github repo</a>的一个单独的分支中找到。一旦你完成了这项任务，你就可以继续前进了。</p>
+<p>TODO: 第三篇</p>
+<p>TODO:</p>
+<p><a href="https://libp2p.io" target="_blank" rel="noopener noreffer ">https://libp2p.io</a></p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2022-08-23</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/p2p/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://yinhui1984.github.io/p2p/" data-title="P2P" data-hashtags="p2p,L0,Web3.0"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://yinhui1984.github.io/p2p/" data-hashtag="p2p"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://yinhui1984.github.io/p2p/" data-title="P2P"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://yinhui1984.github.io/p2p/" data-title="P2P"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://yinhui1984.github.io/p2p/" data-title="P2P"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/p2p/">p2p</a>,&nbsp;<a href="/tags/l0/">L0</a>,&nbsp;<a href="/tags/web3.0/">Web3.0</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E/" class="prev" rel="prev" title="零知识证明"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>零知识证明</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/yinhui1984" target="_blank">zhouyinhui</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":200},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,5 +1,5 @@
 ---
-title: 从零开始编写智能合约-使用traffle套件
+title: 从零开始编写智能合约-使用trtffle套件
 author: yinhui
 date: 2022-06-29
 categories: [Blockchain]
@@ -11,7 +11,7 @@ toc: true
 
 
 
-这篇文章将带你使用traffle套件从零开始搭建环境, 编写、部署、测试和调用智能合约。
+这篇文章将带你使用truffle套件从零开始搭建环境, 编写、部署、测试和调用智能合约。
 
 配套代码在 https://github.com/yinhui1984/HelloTruffle
 
@@ -19,7 +19,7 @@ toc: true
 
 <!--more-->
 
-## 使用traffle套件
+## 使用truffle套件
 
 ### 1. 安装node.js
 

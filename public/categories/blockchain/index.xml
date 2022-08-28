@@ -3,7 +3,15 @@
         <title>Blockchain - Category - YINHUI&#39;s BLOG</title>
         <link>https://yinhui1984.github.io/categories/blockchain/</link>
         <description>Blockchain - Category - YINHUI&#39;s BLOG</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 22 Aug 2022 13:39:54 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/categories/blockchain/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 23 Aug 2022 12:09:22 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/categories/blockchain/" rel="self" type="application/rss+xml" /><item>
+    <title>P2P</title>
+    <link>https://yinhui1984.github.io/p2p/</link>
+    <pubDate>Tue, 23 Aug 2022 12:09:22 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/p2p/</guid>
+    <description><![CDATA[<p>来自 <a href="https://nakamoto.com/author/haseeb/" target="_blank" rel="noopener noreffer ">HASEEB QURESHI</a> 的三篇关于P2P网络的博客的翻译</p>]]></description>
+</item>
+<item>
     <title>零知识证明</title>
     <link>https://yinhui1984.github.io/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E/</link>
     <pubDate>Mon, 22 Aug 2022 13:39:54 &#43;0800</pubDate>
@@ -72,12 +80,12 @@
 <p>配套代码: <a href="https://github.com/yinhui1984/stepByStepSmartContract" target="_blank" rel="noopener noreffer ">https://github.com/yinhui1984/stepByStepSmartContract</a></p>]]></description>
 </item>
 <item>
-    <title>从零开始编写智能合约-使用traffle套件</title>
+    <title>从零开始编写智能合约-使用trtffle套件</title>
     <link>https://yinhui1984.github.io/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E4%BD%BF%E7%94%A8truffle%E5%A5%97%E4%BB%B6/</link>
     <pubDate>Wed, 29 Jun 2022 00:00:00 &#43;0000</pubDate>
     <author>yinhui</author>
     <guid>https://yinhui1984.github.io/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E4%BD%BF%E7%94%A8truffle%E5%A5%97%E4%BB%B6/</guid>
-    <description><![CDATA[<p>这篇文章将带你使用traffle套件从零开始搭建环境, 编写、部署、测试和调用智能合约。</p>
+    <description><![CDATA[<p>这篇文章将带你使用truffle套件从零开始搭建环境, 编写、部署、测试和调用智能合约。</p>
 <p>配套代码在 <a href="https://github.com/yinhui1984/HelloTruffle" target="_blank" rel="noopener noreffer ">https://github.com/yinhui1984/HelloTruffle</a></p>]]></description>
 </item>
 </channel>

@@ -13,12 +13,12 @@
 <p>配套代码: <a href="https://github.com/yinhui1984/stepByStepSmartContract" target="_blank" rel="noopener noreffer ">https://github.com/yinhui1984/stepByStepSmartContract</a></p>]]></description>
 </item>
 <item>
-    <title>从零开始编写智能合约-使用traffle套件</title>
+    <title>从零开始编写智能合约-使用trtffle套件</title>
     <link>https://yinhui1984.github.io/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E4%BD%BF%E7%94%A8truffle%E5%A5%97%E4%BB%B6/</link>
     <pubDate>Wed, 29 Jun 2022 00:00:00 &#43;0000</pubDate>
     <author>yinhui</author>
     <guid>https://yinhui1984.github.io/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E4%BD%BF%E7%94%A8truffle%E5%A5%97%E4%BB%B6/</guid>
-    <description><![CDATA[<p>这篇文章将带你使用traffle套件从零开始搭建环境, 编写、部署、测试和调用智能合约。</p>
+    <description><![CDATA[<p>这篇文章将带你使用truffle套件从零开始搭建环境, 编写、部署、测试和调用智能合约。</p>
 <p>配套代码在 <a href="https://github.com/yinhui1984/HelloTruffle" target="_blank" rel="noopener noreffer ">https://github.com/yinhui1984/HelloTruffle</a></p>]]></description>
 </item>
 </channel>
