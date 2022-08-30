@@ -3,7 +3,15 @@
         <title>All Posts - YINHUI&#39;s BLOG</title>
         <link>https://yinhui1984.github.io/posts/</link>
         <description>All Posts | YINHUI&#39;s BLOG</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 23 Aug 2022 12:09:22 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 30 Aug 2022 16:20:50 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Git Master恢复</title>
+    <link>https://yinhui1984.github.io/git-master%E6%81%A2%E5%A4%8D/</link>
+    <pubDate>Tue, 30 Aug 2022 16:20:50 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/git-master%E6%81%A2%E5%A4%8D/</guid>
+    <description><![CDATA[删库跑路, 如何恢复 给代码打tag的时候, 发现 fatal: 'xxx/myproject.git' does not appear to be a git repository 服务器上一看, 被人删了, NB-PLUS 首先本地机的clone中查看远程路径 1 2 3 &gt; git remote -v]]></description>
+</item>
+<item>
     <title>P2P</title>
     <link>https://yinhui1984.github.io/p2p/</link>
     <pubDate>Tue, 23 Aug 2022 12:09:22 &#43;0800</pubDate>
@@ -76,14 +84,6 @@
     <guid>https://yinhui1984.github.io/golang%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/</guid>
     <description><![CDATA[<p>go语言写的一个文件下载脚本</p>
 <p>晚上想听点有声小说, 要两毛一集, 算了一下,一本书要几百块, 囊中羞涩, 于是拿出电脑搞个脚本</p>]]></description>
-</item>
-<item>
-    <title>使用delve对go代码进行调试</title>
-    <link>https://yinhui1984.github.io/%E4%BD%BF%E7%94%A8delve%E5%AF%B9go%E4%BB%A3%E7%A0%81%E8%BF%9B%E8%A1%8C%E8%B0%83%E8%AF%95/</link>
-    <pubDate>Fri, 22 Jul 2022 20:20:38 &#43;0800</pubDate>
-    <author>yinhui</author>
-    <guid>https://yinhui1984.github.io/%E4%BD%BF%E7%94%A8delve%E5%AF%B9go%E4%BB%A3%E7%A0%81%E8%BF%9B%E8%A1%8C%E8%B0%83%E8%AF%95/</guid>
-    <description><![CDATA[<p><code>delve</code>就是go语言的<code>gdb</code></p>]]></description>
 </item>
 </channel>
 </rss>

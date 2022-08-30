@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>devops - Category - YINHUI&#39;s BLOG</title>
+        <link>https://yinhui1984.github.io/categories/devops/</link>
+        <description>devops - Category - YINHUI&#39;s BLOG</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 30 Aug 2022 16:20:50 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/categories/devops/" rel="self" type="application/rss+xml" /><item>
+    <title>Git Master恢复</title>
+    <link>https://yinhui1984.github.io/git-master%E6%81%A2%E5%A4%8D/</link>
+    <pubDate>Tue, 30 Aug 2022 16:20:50 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/git-master%E6%81%A2%E5%A4%8D/</guid>
+    <description><![CDATA[删库跑路, 如何恢复 给代码打tag的时候, 发现 fatal: 'xxx/myproject.git' does not appear to be a git repository 服务器上一看, 被人删了, NB-PLUS 首先本地机的clone中查看远程路径 1 2 3 &gt; git remote -v]]></description>
+</item>
+</channel>
+</rss>
