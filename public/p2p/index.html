@@ -30,7 +30,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/yinhui1984.github.io\/p2p\/"
-        },"genre": "posts","keywords": "p2p, L0, Web3.0","wordcount":  9902 ,
+        },"genre": "posts","keywords": "p2p, L0, Web3.0","wordcount":  13290 ,
         "url": "https:\/\/yinhui1984.github.io\/p2p\/","datePublished": "2022-08-23T12:09:22+08:00","dateModified": "2022-08-23T12:09:22+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -105,8 +105,8 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">P2P</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/yinhui1984" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>yinhui</a></span>&nbsp;<span class="post-category">included in <a href="/categories/blockchain/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Blockchain</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-08-23">2022-08-23</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;9902 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;20 minutes&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-08-23">2022-08-23</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;13290 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;27 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
@@ -132,6 +132,15 @@
         <li><a href="#路由查询命中">路由查询命中</a></li>
         <li><a href="#gnutella的一些问题">Gnutella的一些问题</a></li>
         <li><a href="#作业">作业</a></li>
+      </ul>
+    </li>
+    <li><a href="#比特币的p2p网络">比特币的P2P网络</a>
+      <ul>
+        <li><a href="#进入网络">进入网络</a></li>
+        <li><a href="#比特币的垃圾信息保护">比特币的垃圾信息保护</a></li>
+        <li><a href="#网络层面的隐私">网络层面的隐私</a></li>
+        <li><a href="#p2p网络中的生活">P2P网络中的生活</a></li>
+        <li><a href="#附加阅读">附加阅读</a></li>
       </ul>
     </li>
   </ul>
@@ -430,9 +439,234 @@ Gnutella 是 gossip 的一个很好的入口点，因为它是生产中使用的
 <p>在这项作业中，你将实现一个简单的P2P协议 这项作业相当复杂，但也是对你推理P2P协议在实践中如何运作的能力的一次大考验。
 <a href="https://repl.it/@nakamoto/p2passignment" target="_blank" rel="noopener noreffer ">前往repl.it上的作业</a>，查看README.md。一旦你读完它，fork工作区，开始工作。这个任务没有测试套件；你只需要建立系统，直到协议正常工作。</p>
 <p>一旦你完成了（而且只有在你完成之后！），你可以对照解决方案检查你的工作，你可以在<a href="https://github.com/Haseeb-Qureshi/p2p_assignment" target="_blank" rel="noopener noreffer ">Github repo</a>的一个单独的分支中找到。一旦你完成了这项任务，你就可以继续前进了。</p>
-<p>TODO: 第三篇</p>
-<p>TODO:</p>
-<p><a href="https://libp2p.io" target="_blank" rel="noopener noreffer ">https://libp2p.io</a></p></div><div class="post-footer" id="post-footer">
+<h2 id="比特币的p2p网络">比特币的P2P网络</h2>
+<p>我们已经抽象地看了gossip协议。现在是时候将这些抽象概念应用于比特币自己的P2P网络了。</p>
+<p>在高层次上，几乎所有的加密货币都从比特币继承了相同的P2P网络设计。有了Gnutella作为背景，你现在应该完全有能力理解比特币的网络层。它与Gnutella真的很相似，只是在本课中我们会讲到一些增强的部分。</p>
+<h3 id="进入网络">进入网络</h3>
+<p>到目前为止，我们已经分析了稳定状态下的gossip网络。但是，一个人实际上是如何加入一个八卦网络的呢？你只是在互联网上随机查询节点，直到找到运行正确软件的人吗？(谢天谢地，不是的）。</p>
+<p><strong>每个P2P协议都需要一个<code>引导节点</code>来引导你进入网络，并帮助你初始化你的同伴列表。这个引导节点是你进入P2P网络的入口，然后你可以从这里有机地找到新的对等人</strong>。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://nakamoto.com/content/images/2020/01/introducer-optimized-1.gif"
+        data-srcset="https://nakamoto.com/content/images/2020/01/introducer-optimized-1.gif, https://nakamoto.com/content/images/2020/01/introducer-optimized-1.gif 1.5x, https://nakamoto.com/content/images/2020/01/introducer-optimized-1.gif 2x"
+        data-sizes="auto"
+        alt="https://nakamoto.com/content/images/2020/01/introducer-optimized-1.gif"
+        title="https://nakamoto.com/content/images/2020/01/introducer-optimized-1.gif" /></p>
+<p>当然，引导节点的危险在于，如果它没有经过认证，它可能是恶意的，并执行<a href="https://en.wikipedia.org/wiki/Man-in-the-middle_attack" target="_blank" rel="noopener noreffer ">中间人</a>或<a href="https://www.usenix.org/system/files/conference/usenixsecurity15/sec15-paper-heilman.pdf" target="_blank" rel="noopener noreffer ">eclipse attack</a>(日蚀攻击)。</p>
+<p>在Bitcoin Core，即典型的比特币实现中，这些<strong>引导节点被硬编码为可信的DNS服务器，由核心开发者维护</strong>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">// From: https://github.com/bitcoin/bitcoin/blob/master/src/chainparams.cpp
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="n">vSeeds</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="s">&#34;seed.bitcoin.sipa.be&#34;</span><span class="p">);</span> <span class="c1">// Pieter Wuille, only supports x1, x5, x9, and xd
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">vSeeds</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="s">&#34;dnsseed.bluematt.me&#34;</span><span class="p">);</span> <span class="c1">// Matt Corallo, only supports x9
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">vSeeds</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="s">&#34;dnsseed.bitcoin.dashjr.org&#34;</span><span class="p">);</span> <span class="c1">// Luke Dashjr
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">vSeeds</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="s">&#34;seed.bitcoinstats.com&#34;</span><span class="p">);</span> <span class="c1">// Christian Decker, supports x1 - xf
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">vSeeds</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="s">&#34;seed.bitcoin.jonasschnelli.ch&#34;</span><span class="p">);</span> <span class="c1">// Jonas Schnelli, only supports x1, x5, x9, and xd
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">vSeeds</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="s">&#34;seed.btc.petertodd.org&#34;</span><span class="p">);</span> <span class="c1">// Peter Todd, only supports x1, x5, x9, and xd
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">vSeeds</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="s">&#34;seed.bitcoin.sprovoost.nl&#34;</span><span class="p">);</span> <span class="c1">// Sjors Provoost
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">vSeeds</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="s">&#34;dnsseed.emzy.de&#34;</span><span class="p">);</span> <span class="c1">// Stephan Oeste
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>你可以通过UNIX命令行使用<code>dig</code>命令对这些引导节点之一进行DNS查询，从而自己检索到一个初始对等体列表。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># dig seed.bitcoin.sipa.be                                            32s</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">;</span> &lt;&lt;&gt;&gt; DiG 9.10.6 &lt;&lt;&gt;&gt; seed.bitcoin.sipa.be
+</span></span><span class="line"><span class="cl"><span class="p">;;</span> global options: +cmd
+</span></span><span class="line"><span class="cl"><span class="p">;;</span> Got answer:
+</span></span><span class="line"><span class="cl"><span class="p">;;</span> -&gt;&gt;HEADER<span class="s">&lt;&lt;- opco</span>de: QUERY, status: NOERROR, id: <span class="m">47846</span>
+</span></span><span class="line"><span class="cl"><span class="p">;;</span> flags: qr rd ra<span class="p">;</span> QUERY: 1, ANSWER: 25, AUTHORITY: 0, ADDITIONAL: <span class="m">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">;;</span> OPT PSEUDOSECTION:
+</span></span><span class="line"><span class="cl"><span class="p">;</span> EDNS: version: 0, flags:<span class="p">;</span> udp: <span class="m">4096</span>
+</span></span><span class="line"><span class="cl"><span class="p">;;</span> QUESTION SECTION:
+</span></span><span class="line"><span class="cl"><span class="p">;</span>seed.bitcoin.sipa.be.		IN	A
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">;;</span> ANSWER SECTION:
+</span></span><span class="line"><span class="cl">seed.bitcoin.sipa.be.	4502	IN	A	173.249.18.129
+</span></span><span class="line"><span class="cl">seed.bitcoin.sipa.be.	4502	IN	A	46.6.8.230
+</span></span><span class="line"><span class="cl">seed.bitcoin.sipa.be.	4502	IN	A	18.134.242.0
+</span></span><span class="line"><span class="cl">seed.bitcoin.sipa.be.	4502	IN	A	52.59.216.190
+</span></span><span class="line"><span class="cl">seed.bitcoin.sipa.be.	4502	IN	A	37.59.68.8
+</span></span><span class="line"><span class="cl">seed.bitcoin.sipa.be.	4502	IN	A	220.133.39.61
+</span></span><span class="line"><span class="cl">seed.bitcoin.sipa.be.	4502	IN	A	50.53.190.92
+</span></span><span class="line"><span class="cl">seed.bitcoin.sipa.be.	4502	IN	A	135.181.109.135
+</span></span><span class="line"><span class="cl">seed.bitcoin.sipa.be.	4502	IN	A	72.82.9.98
+</span></span><span class="line"><span class="cl">seed.bitcoin.sipa.be.	4502	IN	A	71.204.231.91
+</span></span><span class="line"><span class="cl">seed.bitcoin.sipa.be.	4502	IN	A	47.54.186.223
+</span></span><span class="line"><span class="cl">seed.bitcoin.sipa.be.	4502	IN	A	3.37.231.206
+</span></span><span class="line"><span class="cl">seed.bitcoin.sipa.be.	4502	IN	A	104.233.207.37
+</span></span><span class="line"><span class="cl">seed.bitcoin.sipa.be.	4502	IN	A	162.250.191.222
+</span></span><span class="line"><span class="cl">seed.bitcoin.sipa.be.	4502	IN	A	162.227.162.49
+</span></span><span class="line"><span class="cl">seed.bitcoin.sipa.be.	4502	IN	A	136.32.173.8
+</span></span><span class="line"><span class="cl">seed.bitcoin.sipa.be.	4502	IN	A	88.198.7.110
+</span></span><span class="line"><span class="cl">seed.bitcoin.sipa.be.	4502	IN	A	124.176.25.123
+</span></span><span class="line"><span class="cl">seed.bitcoin.sipa.be.	4502	IN	A	23.93.18.185
+</span></span><span class="line"><span class="cl">seed.bitcoin.sipa.be.	4502	IN	A	85.10.206.119
+</span></span><span class="line"><span class="cl">seed.bitcoin.sipa.be.	4502	IN	A	18.191.42.193
+</span></span><span class="line"><span class="cl">seed.bitcoin.sipa.be.	4502	IN	A	194.118.88.162
+</span></span><span class="line"><span class="cl">seed.bitcoin.sipa.be.	4502	IN	A	15.161.99.250
+</span></span><span class="line"><span class="cl">seed.bitcoin.sipa.be.	4502	IN	A	168.119.104.7
+</span></span><span class="line"><span class="cl">seed.bitcoin.sipa.be.	4502	IN	A	72.10.171.42
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">;;</span> Query time: <span class="m">1834</span> msec
+</span></span><span class="line"><span class="cl"><span class="p">;;</span> SERVER: fe80::5c70:17ff:fe74:3a64%19#53<span class="o">(</span>fe80::5c70:17ff:fe74:3a64%19<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">;;</span> WHEN: Tue Aug <span class="m">30</span> 09:41:24 CST <span class="m">2022</span>
+</span></span><span class="line"><span class="cl"><span class="p">;;</span> MSG SIZE  rcvd: <span class="m">449</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>作为一个有趣的历史点，第一个版本的比特币通过IRC频道寻找对等者来引导其对等者名单。每个比特币节点都捆绑了一个小的IRC客户端，在第一次启动时，它会加入bitcoin00和bitcoin99之间的一个随机频道。如果它在这些频道中发现了其他IP，它就会尝试连接它们，直到填满它的初始对等体列表。</p>
+<p>在IRC服务器（LFNet）关闭后，这种形式的引导最终被放弃了，这使比特币的对等体发现程序暂时失效。从那时起，比特币一直依赖这个基于DNS的系统来引导。</p>
+<p>最初的对等体发现是所有P2P网络的一个固有的阻塞点。但在这个阶段之后，一个节点可以自由地用它选择的任何对等体来填充它的对等体表。</p>
+<h3 id="比特币的垃圾信息保护">比特币的垃圾信息保护</h3>
+<p>你会记得，P2P协议的一个弱点是质量控制。你如何阻止坏的行为者把网络上的垃圾信息搞死？我们早些时候对这个问题做了手脚。原来，比特币使用一个信誉系统来处理这个问题，由Gavin Andresen在2011年实施。</p>
+<p>假设你是一个比特币节点，你刚刚启动了你的peer列表。你开始给你的每个对等人分配一个0分的垃圾信息。想想看，这就像一个P2P犯罪记录&ndash;在没有中央司法系统的情况下，网络中的每个人都必须对其他人的行为保持警惕。</p>
+<p>小的违规行为，如在初始握手时没有发送版本信息，将使你的分数增加1分。更严重的DoS企图，如在INV（inventory）消息中发送超过50,000个ID，将使你被扣20分。</p>
+<p>一旦一个peer积累了100分，你的客户端就会自动对他们进行24小时的影子禁言(shadowbans)，并停止对他们的gossip。这些垃圾信息的分数实际上没有在协议中跨对等体传播。(为什么你认为它们不是呢？)但即使如此，这个系统也是对行为不端的节点的一种适当的防御。</p>
+<h3 id="网络层面的隐私">网络层面的隐私</h3>
+<p>P2P网络有其内在的隐私权衡。想一想：网络中的每条信息都是公开喊出来的，任何人都可以自由地观察所有经过的信息。对于像比特币这样的金融网络，这种缺乏隐私的情况并不理想。</p>
+<p>比特币由于其假名性，提供了一些金融隐私。如果全世界都知道账户1G9HFbCRikgPpQboURsdqszy9HbKtvceZ5在一家简陋的海外药店花了0.25BTC，也许我就没事。但是，如果有人能找出最初发送签名交易的我的IP，突然间我的隐私就被泄露了。</p>
+<p>这很糟糕。<strong>P2P网络对审查制度有抵抗力，但对监视却一点也不抵抗</strong>。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://nakamoto.com/content/images/2020/01/image-94.png"
+        data-srcset="https://nakamoto.com/content/images/2020/01/image-94.png, https://nakamoto.com/content/images/2020/01/image-94.png 1.5x, https://nakamoto.com/content/images/2020/01/image-94.png 2x"
+        data-sizes="auto"
+        alt="https://nakamoto.com/content/images/2020/01/image-94.png"
+        title="https://nakamoto.com/content/images/2020/01/image-94.png" /></p>
+<p>让我们勾勒出一个复杂的窃听者如何监视网络的过程。</p>
+<p>默认情况下，一个正常的比特币节点会与其他对等体建立8个出站连接。然而，比特币客户端是开源的，所以任何人都可以自由地修改他们的客户端，以连接到他们想要的更多对等体。现在比特币网络中大约有10,000个实时对等体，原则上，一个人可以连接到所有的对等体。这将使你成为一个超级节点。</p>
+<p>有了超级节点，你就可以跟踪网络中任何地方发送的每一条信息，并从上帝的视角重建所有信息的历史。这基本上可以让你弄清楚哪些地址对应哪些IP，并对比特币交易进行匿名化处理。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://nakamoto.com/content/images/2020/01/gossip-propagation-1.gif"
+        data-srcset="https://nakamoto.com/content/images/2020/01/gossip-propagation-1.gif, https://nakamoto.com/content/images/2020/01/gossip-propagation-1.gif 1.5x, https://nakamoto.com/content/images/2020/01/gossip-propagation-1.gif 2x"
+        data-sizes="auto"
+        alt="https://nakamoto.com/content/images/2020/01/gossip-propagation-1.gif"
+        title="https://nakamoto.com/content/images/2020/01/gossip-propagation-1.gif" /></p>
+<p>gossip传播的设计不是为了维护隐私。请记住，在收到消息后的那一刻，每个节点都会立即将其淹没到所有的出站peer。这就留下了每个消息开始的明显痕迹。即使一个被动的观察者只连接到网络的50%，他们也会清楚地看到从发件人那里发出的 &ldquo;信息波&rdquo;。</p>
+<p>2015年，比特币改变了它传播gossip信息的方式，以实现更好的隐私。它现在使用一种叫做扩散(<strong>diffusion</strong>)的方法。在扩散过程中，客户端不是立即向每个对等体泛滥，而是在向每个对等体说闲话之前等待一个随机指数延迟。这有掩盖P2P消息图的作用，使人们更难观察到 &ldquo;消息波(message wave) &ldquo;的来源。</p>
+<p>你可以用这样的代码来勾勒它。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">gossip</span><span class="p">(</span><span class="n">msg</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="n">peer</span> <span class="ow">in</span> <span class="n">peers</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="n">schedule_send</span><span class="p">(</span><span class="n">peer</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">wait</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">exponential</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">theta</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://nakamoto.com/content/images/2020/01/diffusion-optimized-1.gif"
+        data-srcset="https://nakamoto.com/content/images/2020/01/diffusion-optimized-1.gif, https://nakamoto.com/content/images/2020/01/diffusion-optimized-1.gif 1.5x, https://nakamoto.com/content/images/2020/01/diffusion-optimized-1.gif 2x"
+        data-sizes="auto"
+        alt="https://nakamoto.com/content/images/2020/01/diffusion-optimized-1.gif"
+        title="https://nakamoto.com/content/images/2020/01/diffusion-optimized-1.gif" /></p>
+<p><strong>然而，即使如此，比特币网络层的隐私也远非完美。扩散(diffusion)仍然向被动的对手泄露了相当多的信息。此外，P2P信息不是双边加密的，所以被动的数据包嗅探器可以很容易地窥探到任何比特币流量的明文。</strong></p>
+<p>在改善比特币的网络级隐私方面，还有很多工作要做。一些有隐私意识的用户更喜欢比特币而不是Tor的网络隐私，但即使这样也有<a href="https://arxiv.org/abs/1410.6079" target="_blank" rel="noopener noreffer ">问题</a>。</p>
+<p>最近，CMU的研究人员想出了一个比扩散(diffusion)更完善的方案，称为<code>蒲公英协议</code>(<strong>Dandelion Protocol</strong>)，提供了更好的网络级隐私保证。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://nakamoto.com/content/images/2020/03/dandelion.gif"
+        data-srcset="https://nakamoto.com/content/images/2020/03/dandelion.gif, https://nakamoto.com/content/images/2020/03/dandelion.gif 1.5x, https://nakamoto.com/content/images/2020/03/dandelion.gif 2x"
+        data-sizes="auto"
+        alt="https://nakamoto.com/content/images/2020/03/dandelion.gif"
+        title="https://nakamoto.com/content/images/2020/03/dandelion.gif" /></p>
+<p>在蒲公英协议中，每一个交易广播都是从一个秘密的电话游戏开始的。发起人会把他们的交易悄悄告诉一个对等人，后者再把它悄悄告诉另一个对等人，如此循环。经过随机数的跳转，最后一个对等体将会像比特币一样把交易说出来。但这个对等体与发起人相距甚远，对于任何观察者来说，都不可能分辨出这条链是从谁开始的。</p>
+<p>这对于混淆发起人的IP更为有效，但它的代价是消息的传播速度更慢。蒲公英现在被认为是对比特币gossip机制的一种可能的增强，并且已经在其他加密货币中实施。我们在补充阅读中提供了更多关于蒲公英的资源。</p>
+<h3 id="p2p网络中的生活">P2P网络中的生活</h3>
+<p>你现在应该对信息在加密货币网络中的传播方式有一个更好的心理模型。由于其gossip架构，加密货币是
+&ldquo;最终一致&rdquo;&ndash;它们不提供任何关于你的消息何时会被网络的其他部分看到的硬性保证。此外，并非所有节点都会在同一时间看到相同的状态。</p>
+<p>下图: 50%（橙色）或 90%（蓝色）的网络需要多长时间才能收到最新的比特币区块</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://nakamoto.com/content/images/2020/01/image-96.png"
+        data-srcset="https://nakamoto.com/content/images/2020/01/image-96.png, https://nakamoto.com/content/images/2020/01/image-96.png 1.5x, https://nakamoto.com/content/images/2020/01/image-96.png 2x"
+        data-sizes="auto"
+        alt="https://nakamoto.com/content/images/2020/01/image-96.png"
+        title="https://nakamoto.com/content/images/2020/01/image-96.png" /></p>
+<p>当这些网络达到一定规模时，信息的传播速度会相当缓慢。对于比特币来说，过去90%的网络需要30多秒才能收到最新的区块！现在，只需要几秒钟就能让整个网络同步到最新的区块。今天，它需要几秒钟，直到整个网络同步到最新的区块上。(矿工看到新区块的速度要快得多，这一点我们将在后面探讨比特币采矿时讨论）。</p>
+<p>我们对比特币网络层的探索到此结束。现在你应该对流言协议的工作原理有了直观的认识，以及是什么让它们在规模上如此强大。你也应该明白为什么中本聪选择用P2P架构设计比特币网络。</p>
+<p>有了这个基础，在下一个模块中，我们将探索共识&ndash;首先，我们将研究它的经典起源，导致中本聪的基本突破，使比特币成为可能。</p>
+<h3 id="附加阅读">附加阅读</h3>
+<ul>
+<li><a href="https://docs.libp2p.io/introduction/" target="_blank" rel="noopener noreffer ">https://docs.libp2p.io/introduction/</a>   LIBP2P库</li>
+</ul>
+<ul>
+<li><a href="https://en.bitcoin.it/wiki/Bitcoin_Core_0.11_%28ch_4%29:_P2P_Network" target="_blank" rel="noopener noreffer ">Bitcoin Core 0.11: P2P Network</a>, a Bitcoin Wiki walkthrough of Bitcoin Core&rsquo;s P2P networking stack (2018)</li>
+<li><a href="https://arxiv.org/pdf/1703.08761.pdf" target="_blank" rel="noopener noreffer ">Anonymity Properties of the Bitcoin P2P Network</a>, showing how passive observers can use statistical techniques to deanonymize Bitcoin transactions by monitoring P2P traffic, by Giulia Fanti and Pramod Viswanath (2017)</li>
+<li><a href="https://www.youtube.com/watch?v=SrE6KdBgI1o" target="_blank" rel="noopener noreffer ">The Dandelion Protocol</a> (video), a message propagation technique with stronger anonymity properties, presented by Giulia Fanti (2018)</li>
+</ul></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
