@@ -3,7 +3,15 @@
         <title>All Posts - YINHUI&#39;s BLOG</title>
         <link>https://yinhui1984.github.io/posts/</link>
         <description>All Posts | YINHUI&#39;s BLOG</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 30 Aug 2022 16:20:50 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 31 Aug 2022 11:13:36 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>UTXO</title>
+    <link>https://yinhui1984.github.io/utxo/</link>
+    <pubDate>Wed, 31 Aug 2022 11:13:36 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/utxo/</guid>
+    <description><![CDATA[<p>一些关于<code>UTXO</code>的理解</p>]]></description>
+</item>
+<item>
     <title>Git Master恢复</title>
     <link>https://yinhui1984.github.io/git-master%E6%81%A2%E5%A4%8D/</link>
     <pubDate>Tue, 30 Aug 2022 16:20:50 &#43;0800</pubDate>
@@ -75,15 +83,6 @@
     <author>yinhui</author>
     <guid>https://yinhui1984.github.io/visutal-studio-%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95/</guid>
     <description><![CDATA[<p>如何使用Visual Studio进行C++项目远程调试</p>]]></description>
-</item>
-<item>
-    <title>Golang文件下载</title>
-    <link>https://yinhui1984.github.io/golang%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/</link>
-    <pubDate>Fri, 22 Jul 2022 20:54:37 &#43;0800</pubDate>
-    <author>yinhui</author>
-    <guid>https://yinhui1984.github.io/golang%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/</guid>
-    <description><![CDATA[<p>go语言写的一个文件下载脚本</p>
-<p>晚上想听点有声小说, 要两毛一集, 算了一下,一本书要几百块, 囊中羞涩, 于是拿出电脑搞个脚本</p>]]></description>
 </item>
 </channel>
 </rss>
