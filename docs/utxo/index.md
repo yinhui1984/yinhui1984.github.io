@@ -28,11 +28,7 @@
 
 
 
-## 看懂一个交易
-
-看这里:
-
-https://www.blockchain.com/btc/tx/d28ca5a59b2239864eac1c96d3fd1c23b747f0ded8f5af0161bae8a616b56a1d
+## TX构成
 
 
 

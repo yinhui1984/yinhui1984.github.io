@@ -30,7 +30,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/yinhui1984.github.io\/utxo\/"
-        },"genre": "posts","keywords": "UTXO, L0, Web3.0","wordcount":  1909 ,
+        },"genre": "posts","keywords": "UTXO, L0, Web3.0","wordcount":  1902 ,
         "url": "https:\/\/yinhui1984.github.io\/utxo\/","datePublished": "2022-08-31T11:13:36+08:00","dateModified": "2022-08-31T11:13:36+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -105,7 +105,7 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">UTXO</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/yinhui1984" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>yinhui</a></span>&nbsp;<span class="post-category">included in <a href="/categories/blockchain/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Blockchain</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-08-31">2022-08-31</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1909 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-08-31">2022-08-31</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1902 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -115,7 +115,7 @@
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#什么utxo">什么UTXO</a></li>
-    <li><a href="#看懂一个交易">看懂一个交易</a></li>
+    <li><a href="#tx构成">TX构成</a></li>
     <li><a href="#看懂一次交易">看懂一次交易</a></li>
     <li><a href="#utxos集">UTXOs集</a></li>
     <li><a href="#扩展的utxo--eutxo">扩展的UTXO  (EUTXO)</a></li>
@@ -133,9 +133,7 @@
 <li>情况举例1: 交易需要花掉0.1BTC, 这个时候发现0.2BTC这个UTXO就够花了, 所以交易会使用0.2BTC作为input, 当这个交易完成时,这个0.2BTC就不再试UTXO, 其会被分解成2个0.1BTC的UTXO (我们这里先忽略旷工费), 其中一个0.1BTC的UTXO发送到了对方账户, 另外一个0.1BTC返还给我们自己. 这个时候我们账户上还存在2个UXTO, 一个0.1BTC, 一个0.4BTC</li>
 <li>情况举例2: 交易需要花掉0.5BTC, 这个时候我们返回0.2和0.4这两个UTXO都不足以完成该次交易, 但0.2+0.4是足够的, 所以需要将他们同时作为该次交易的input,并生成2个UTXO, 一个0.5BTC到对方账户, 另外一个0.1BTC返还到自己账户.</li>
 </ul>
-<h2 id="看懂一个交易">看懂一个交易</h2>
-<p>看这里:</p>
-<p><a href="https://www.blockchain.com/btc/tx/d28ca5a59b2239864eac1c96d3fd1c23b747f0ded8f5af0161bae8a616b56a1d" target="_blank" rel="noopener noreffer ">https://www.blockchain.com/btc/tx/d28ca5a59b2239864eac1c96d3fd1c23b747f0ded8f5af0161bae8a616b56a1d</a></p>
+<h2 id="tx构成">TX构成</h2>
 <p>一个交易(TX)由如下这些字段组成</p>
 <table>
 <thead>
