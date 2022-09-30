@@ -92,4 +92,12 @@ C:\Program Files\Microsoft Visual Studio xxx\Common7\IDE\Remote Debugger
 
 
 
+> 如果出现:
+>
+> ---------------------------
+> 无法启动程序xxx。
+>
+> 被调用的对象已与其客户端断开连接。
+>
+> 则重启VS.
 
