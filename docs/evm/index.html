@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>EVM - YINHUI&#39;s BLOG</title><meta name="Description" content="银辉的博客"><meta property="og:title" content="EVM" />
+<meta property="og:description" content="一些关于EVM的学习笔记" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://yinhui1984.github.io/evm/" /><meta property="og:image" content="https://yinhui1984.github.io/avatar.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-10-06T09:14:06+08:00" />
+<meta property="article:modified_time" content="2022-10-06T09:14:06+08:00" /><meta property="og:site_name" content="YINHUI&#39;s BLOG" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://yinhui1984.github.io/avatar.png"/>
+
+<meta name="twitter:title" content="EVM"/>
+<meta name="twitter:description" content="一些关于EVM的学习笔记"/>
+<meta name="application-name" content="YINHUI&#39;s BLOG">
+<meta name="apple-mobile-web-app-title" content="YINHUI&#39;s BLOG"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://yinhui1984.github.io/evm/" /><link rel="prev" href="https://yinhui1984.github.io/utxo/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "EVM",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/yinhui1984.github.io\/evm\/"
+        },"genre": "posts","keywords": "EVM, L0, Web3.0","wordcount":  3543 ,
+        "url": "https:\/\/yinhui1984.github.io\/evm\/","datePublished": "2022-10-06T09:14:06+08:00","dateModified": "2022-10-06T09:14:06+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "yinhui"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="YINHUI&#39;s BLOG"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/"> 首页 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="YINHUI&#39;s BLOG"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/" title="">首页</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">EVM</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/yinhui1984" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>yinhui</a></span>&nbsp;<span class="post-category">included in <a href="/categories/blockchain/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Blockchain</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-10-06">2022-10-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3543 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;8 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#什么是evm">什么是EVM</a></li>
+    <li><a href="#evm的主要功能">EVM的主要功能</a>
+      <ul>
+        <li><a href="#分布式数据库">分布式数据库</a></li>
+        <li><a href="#分布式状态机">分布式状态机</a></li>
+        <li><a href="#世界计算机">世界计算机</a>
+          <ul>
+            <li><a href="#solidity-与-opcodes">Solidity 与 Opcodes</a></li>
+            <li><a href="#gas">gas</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#evm的主要问题">EVM的主要问题</a></li>
+    <li><a href="#趋势">趋势</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>一些关于EVM的学习笔记</p>
+<h2 id="什么是evm">什么是EVM</h2>
+<p>在<code>web3</code>的的L0中, 涉及到一个概念 <code>Platform neutral language</code> (有些地方也写做 <code>Platform-neutral computation description language </code>) 平台中立的计算描述语言, 指一种在不同物理平台（架构、操作系统等）上执行相同程序的方法。</p>
+<p>我们知道, 任何一个区块链都需要N个节点按照一定的规则来执行相同的运算, 可以想象成一个平台, 这个平台和硬件以及编程语言都不是强相关的, 在以太坊中, 其采用了虚拟机的形式. 它和我们平时用的VMware有些类似, 但又不同, 因为EVM是分布式的. 另外, 我们很多时候讨论EVM更多的是说的一套规则, 而不是某个具体的EVM实现, EVM的具体实现有很多, 比如golang实现的<a href="https://github.com/ethereum/go-ethereum" target="_blank" rel="noopener noreffer ">go-ethereum</a> , c++实现的<a href="https://github.com/ethereum/cpp-ethereum" target="_blank" rel="noopener noreffer ">cpp-ethereum</a>  等等, 更多的参考这里: <a href="https://github.com/pirapira/awesome-ethereum-virtual-machine" target="_blank" rel="noopener noreffer ">https://github.com/pirapira/awesome-ethereum-virtual-machine</a></p>
+<p>简言之, EVM提供了一个虚拟的沙盒环境, 为以太坊区块链提供了 一系列的功能</p>
+<h2 id="evm的主要功能">EVM的主要功能</h2>
+<h3 id="分布式数据库">分布式数据库</h3>
+<p>在其最基本的形式中，以太坊虚拟机是一个大型的分布式数据库，</p>
+<ol>
+<li>用于保存以太坊的所有账户和余额 .</li>
+</ol>
+<blockquote>
+<p>注: 以太坊使用的账户/余额模型,  而不是BTC的<a href="https://yinhui1984.github.io/utxo/" target="_blank" rel="noopener noreffer ">UTXO</a></p>
+</blockquote>
+<p>基于账户的交易模式将资产表示为账户内的余额，类似于银行账户。以太坊使用这种交易模式。有两种不同类型的账户:</p>
+<ul>
+<li>私钥控制的用户账户</li>
+<li>合约代码控制的账户。</li>
+</ul>
+<p>当你创建一个以太币钱包并收到你的第一笔交易时，一个私钥控制的账户被添加到全局状态并存储在网络上的所有节点。部署一个智能合约会导致创建一个代码控制的账户。智能合约可以自己持有资金，它们可以根据合约逻辑中定义的条件重新分配。以太坊的每个账户都有一个余额、存储空间，以及用于调用其他账户或地址的代码空间。</p>
+<p>基于账户的模型中的交易会触发节点减少发送方账户的余额，增加接收方账户的余额。为了防止重放攻击，账户模型中的每笔交易都附有一个非授权码。重放攻击是指受款人广播一个欺诈性的交易，他们在其中获得第二次付款。如果欺诈性交易成功，该交易将被第二次执行&ndash;它被重放&ndash;并且发送者将被收取两倍于他们想要转移的金额。</p>
+<p>为了打击这种行为，以太坊的每个账户都有一个公开的可查看的nonce，该nonce在每笔流出的交易中都会被递增1。这可以防止同一交易被多次提交给网络。</p>
+<p>在账户模型中，交易费用的工作方式也有所不同。它们是根据完成状态转换所需的计算次数来计算的。以太坊的出发点是成为一个世界计算机。因此，他们决定，费用应该基于消耗的计算资源数量，而不是所占用的存储容量。</p>
+<p>账户模型将所有余额作为一个全局状态进行跟踪。这个状态可以理解为所有账户、私钥和合约代码的数据库，以及他们在网络上不同资产的当前余额的控制。</p>
+<ol start="2">
+<li>用于保存智能合约</li>
+</ol>
+<p>以太坊在链上有合约（称为智能合约），即代码被编译成字节码，产生的字节在交易中被发送，以坚持到以太坊区块链上。这在你部署智能合约时完成一次。在这之后，人们可以与智能合约与其他交易互动。</p>
+<blockquote>
+<p>注: 关于数据存储, 以太坊区块链上并不适合大量数据存储, 参考这篇论文:</p>
+<p><a href="https://arxiv.org/pdf/2105.10520.pdf" target="_blank" rel="noopener noreffer ">Exploring Ethereum’s Data Stores: A Cost and Performance Comparison</a></p>
+</blockquote>
+<h3 id="分布式状态机">分布式状态机</h3>
+<p>从基本层面上而言, ETH区块链是一个由交易和共识驱动的状态机, 状态需要永久地存储在区块链上.</p>
+<p>随着交易的进行, 区块链会不断更新状态, 这里的状态有两种:</p>
+<ol>
+<li>世界状态(World State): 以太坊地址和账户状态的映射</li>
+<li>账户状态(Account State): 由4个字段组成
+<ul>
+<li>Nonce: 一个值, 每次从该地址发送交易时都会递增</li>
+<li>余额:  这个值代表weis的数量，weis是以太坊中最小的货币单位（wei），由给定地址持有</li>
+<li>Storage root : 这个字段代表一个MPT的根节点，编码账户的存储内容</li>
+<li>Code hash:  这是一个不可变的字段，包含与账户相关的智能合约代码的哈希值。 在普通账户的情况下，这个字段包含空字符串的Keccak 256位哈希值</li>
+</ul>
+</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://github.com/yinhui1984/imagehosting/blob/main/images/1665023633967943000-B15726_11_09.png?raw=true"
+        data-srcset="https://github.com/yinhui1984/imagehosting/blob/main/images/1665023633967943000-B15726_11_09.png?raw=true, https://github.com/yinhui1984/imagehosting/blob/main/images/1665023633967943000-B15726_11_09.png?raw=true 1.5x, https://github.com/yinhui1984/imagehosting/blob/main/images/1665023633967943000-B15726_11_09.png?raw=true 2x"
+        data-sizes="auto"
+        alt="https://github.com/yinhui1984/imagehosting/blob/main/images/1665023633967943000-B15726_11_09.png?raw=true"
+        title="image" /></p>
+<blockquote>
+<p>平时区分一个操作是否会改变区块链的状态, 可以简单地看改操作是否花费gas, 如果不花费gas则其不会改变. 对应到代码层面则参考: <a href="https://yinhui1984.github.io/%e5%af%b9%e6%99%ba%e8%83%bd%e5%90%88%e7%ba%a6%e7%9a%84%e8%af%bb%e6%96%b9%e6%b3%95%e5%92%8c%e5%86%99%e6%96%b9%e6%b3%95%e7%9a%84%e8%b0%83%e7%94%a8/" target="_blank" rel="noopener noreffer ">https://yinhui1984.github.io/对智能合约的读方法和写方法的调用/</a></p>
+</blockquote>
+<h3 id="世界计算机">世界计算机</h3>
+<p>ETH最大的创新点是智能合约. 也就是我们可以编写程序代码来交给每个采矿节点上的EVM进行执行.</p>
+<p>编写代码所使用的编程语言可以是 <a href="https://github.com/ethereum/solidity" target="_blank" rel="noopener noreffer ">Solidity</a>  <a href="https://github.com/mmalvarez/eth-isabelle/blob/master/example/LLLL.thy" target="_blank" rel="noopener noreffer ">LLLL</a> 等, 参考:</p>
+<p><a href="https://github.com/pirapira/awesome-ethereum-virtual-machine#programming-languages-that-compile-into-evm" target="_blank" rel="noopener noreffer ">https://github.com/pirapira/awesome-ethereum-virtual-machine#programming-languages-that-compile-into-evm</a></p>
+<p>但一般指的都是 <a href="https://github.com/ethereum/solidity" target="_blank" rel="noopener noreffer ">Solidity</a>, EVM并不能直接执行Solidity，首先必须将代码编译成较低级别的机器指令，称为操作码(Opcodes)</p>
+<h4 id="solidity-与-opcodes">Solidity 与 Opcodes</h4>
+<p>EVM被广泛地标记为<a href="https://en.wikipedia.org/wiki/Turing_completeness#:~:text=%e5%9c%a8%e5%8f%a3%e8%af%ad%e5%8c%96%e7%9a%84%e7%94%a8%e6%b3%95%e4%b8%ad%2C%e7%9a%84%e6%9c%af%e8%af%ad,%e7%9b%ae%e7%9a%84%e8%ae%a1%e7%ae%97%e6%9c%ba%e6%88%96%e8%ae%a1%e7%ae%97%e6%9c%ba%e8%af%ad%e8%a8%80%e3%80%82" target="_blank" rel="noopener noreffer ">图灵完备</a>或更准确地说是准图灵完备。这意味着，EVM在理论上可以解决任何计算问题。这是通过执行称为EVM操作码的机器级指令来实现的。</p>
+<p>EVM操作码协助EVM完成智能合约或交易的具体任务。目前，EVM大约有150个操作码可以执行。它们涵盖了一系列的操作，包括：算术、停止、记录、复制、推送、内存、比较和交换。以及用于检索块和环境信息。你可以找到一个操作代码的列表<a href="https://ethereum.org/en/developers/docs/evm/opcodes/" target="_blank" rel="noopener noreffer ">这里</a>。</p>
+<p>举一个HelloWorld的例子</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// SPDX-License-Identifier: MIT
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">Ex001HelloWorld</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">string</span> <span class="k">public</span> <span class="n">greet</span> <span class="o">=</span> <span class="s">&#34;Hello World!&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用<code>solc</code>进行编译:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">solc --bin --abi --optimize --overwrite -o ./output ./hello.sol
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>我们得到的*.abi和*.bin文件, 其中 bin只是编译后的字节码的紧凑二进制表示。操作码不是由PUSH、PULL或DELEGATECALL引用的，而是它们的二进制表示，用文本编辑器读取时看起来像随机数字。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">cat Ex001HelloWorld.bin
+</span></span><span class="line"><span class="cl">60c0604052600c60809081526b48656c6c6f20576f726c642160a01b60a05260009061002b90826100dd565b5034801561003857600080fd5b5061019c565b634e487b7160e01b600052604160045260246000fd5b600181811c9082168061006857607f821691505b60208210810361008857634e487b7160e01b600052602260045260246000fd5b50919050565b601f8211156100d857600081815260208120601f850160051c810160208610156100b55750805b601f850160051c820191505b818110156100d4578281556001016100c1565b5050505b505050565b81516001600160401b038111156100f6576100f661003e565b61010a816101048454610054565b8461008e565b602080601f83116001811461013f57600084156101275750858301515b600019600386901b1c1916600185901b1785556100d4565b600085815260208120601f198616915b8281101561016e5788860151825594840194600190910190840161014f565b508582101561018c5787850151600019600388901b60f8161c191681555b5050505050600190811b01905550565b61019a806101ab6000396000f3fe608060405234801561001057600080fd5b506004361061002b5760003560e01c8063cfae321714610030575b600080fd5b61003861004e565b60405161004591906100dc565b60405180910390f35b6000805461005b9061012a565b80601f01602080910402602001604051908101604052809291908181526020018280546100879061012a565b80156100d45780601f106100a9576101008083540402835291602001916100d4565b820191906000526020600020905b8154815290600101906020018083116100b757829003601f168201915b505050505081565b600060208083528351808285015260005b81811015610109578581018301518582016040015282016100ed565b506000604082860101526040601f19601f8301168501019250505092915050565b600181811c9082168061013e57607f821691505b60208210810361015e57634e487b7160e01b600052602260045260246000fd5b5091905056fea26469706673582212208a0be23ced512b2079cbbc853392d671d17da38eaa87497f70ad2b7ef259ae1b64736f6c63430008110033
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果我们使用<code>evm</code>来反汇编, 就可以看到</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">evm disasm Ex001HelloWorld.bin
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">evm disasm Ex001HelloWorld.bin
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">00000: PUSH1 0xc0
+</span></span><span class="line"><span class="cl">00002: PUSH1 0x40
+</span></span><span class="line"><span class="cl">00004: MSTORE
+</span></span><span class="line"><span class="cl">00005: PUSH1 0x0c
+</span></span><span class="line"><span class="cl">00007: PUSH1 0x80
+</span></span><span class="line"><span class="cl">00009: SWAP1
+</span></span><span class="line"><span class="cl">0000a: DUP2
+</span></span><span class="line"><span class="cl">0000b: MSTORE
+</span></span><span class="line"><span class="cl">0000c: PUSH12 0x48656c6c6f20576f726c6421
+</span></span><span class="line"><span class="cl">00019: PUSH1 0xa0
+</span></span><span class="line"><span class="cl">0001b: SHL
+</span></span><span class="line"><span class="cl">0001c: PUSH1 0xa0
+</span></span><span class="line"><span class="cl">0001e: MSTORE
+</span></span><span class="line"><span class="cl">0001f: PUSH1 0x00
+</span></span><span class="line"><span class="cl">00021: SWAP1
+</span></span><span class="line"><span class="cl">00022: PUSH2 0x002b
+</span></span><span class="line"><span class="cl">00025: SWAP1
+</span></span><span class="line"><span class="cl">...
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>其中的<code>0x48656c6c6f20576f726c6421</code> 就是 <code>Hello World!</code>字符串</p>
+<p>部署合约:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="ch">#!/usr/bin/env python3</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">web3</span> <span class="kn">import</span> <span class="n">Web3</span>  <span class="c1"># pip3 install web3</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">solcx</span>  <span class="c1"># pip3 install py-solc-x</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">w3</span> <span class="o">=</span> <span class="n">Web3</span><span class="p">(</span><span class="n">Web3</span><span class="o">.</span><span class="n">IPCProvider</span><span class="p">(</span><span class="s1">&#39;../mychain/data/geth.ipc&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Connected to Ethereum client: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">w3</span><span class="o">.</span><span class="n">clientVersion</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">src</span> <span class="o">=</span> <span class="s1">&#39;../contracts/Ex001HelloWorld.sol&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">contract_src</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">src</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">contract_src</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">compiled_sol</span> <span class="o">=</span> <span class="n">solcx</span><span class="o">.</span><span class="n">compile_source</span><span class="p">(</span><span class="n">contract_src</span><span class="p">,</span> <span class="n">output_values</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;bin&#39;</span><span class="p">,</span> <span class="s1">&#39;abi&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">contract_interface</span> <span class="o">=</span> <span class="n">compiled_sol</span><span class="p">[</span><span class="s1">&#39;&lt;stdin&gt;:Ex001HelloWorld&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Ex001HelloWorld</span> <span class="o">=</span> <span class="n">w3</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">contract</span><span class="p">(</span><span class="n">abi</span><span class="o">=</span><span class="n">contract_interface</span><span class="p">[</span><span class="s1">&#39;abi&#39;</span><span class="p">],</span> <span class="n">bytecode</span><span class="o">=</span><span class="n">contract_interface</span><span class="p">[</span><span class="s1">&#39;bin&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">w3</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">default_account</span> <span class="o">=</span> <span class="n">w3</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">accounts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">tx_hash</span> <span class="o">=</span> <span class="n">Ex001HelloWorld</span><span class="o">.</span><span class="n">constructor</span><span class="p">()</span><span class="o">.</span><span class="n">transact</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">tx_receipt</span> <span class="o">=</span> <span class="n">w3</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">waitForTransactionReceipt</span><span class="p">(</span><span class="n">tx_hash</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;tx_receipt:</span><span class="se">\n</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="n">tx_receipt</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;-----------------------------------------------------&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;合约地址:&#34;</span> <span class="o">+</span> <span class="n">tx_receipt</span><span class="o">.</span><span class="n">contractAddress</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># write the contract address to a file</span>
+</span></span><span class="line"><span class="cl"><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;../contracts/Ex001HelloWorld.address&#34;</span><span class="p">,</span> <span class="s2">&#34;w&#34;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">tx_receipt</span><span class="o">.</span><span class="n">contractAddress</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>调用合约</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">Web3</span> <span class="nx">from</span> <span class="s2">&#34;web3&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">net</span> <span class="nx">from</span> <span class="s2">&#34;net&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="o">*</span> <span class="nx">as</span> <span class="nx">fs</span> <span class="nx">from</span> <span class="s2">&#34;fs&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">web3</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Web3</span><span class="p">(</span><span class="k">new</span> <span class="nx">Web3</span><span class="p">.</span><span class="nx">providers</span><span class="p">.</span><span class="nx">IpcProvider</span><span class="p">(</span><span class="s2">&#34;../mychain/data/geth.ipc&#34;</span><span class="p">,</span> <span class="nx">net</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">contractName</span> <span class="o">=</span> <span class="s2">&#34;Ex001HelloWorld&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// read the contract abi from the file
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">let</span> <span class="nx">abi</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span><span class="p">(</span><span class="s2">&#34;../contracts/build/&#34;</span><span class="o">+</span><span class="nx">contractName</span><span class="o">+</span><span class="s2">&#34;.abi&#34;</span><span class="p">).</span><span class="nx">toString</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// read the contract address from the file
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">address</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span><span class="p">(</span><span class="s2">&#34;../contracts/&#34;</span><span class="o">+</span><span class="nx">contractName</span><span class="o">+</span><span class="s2">&#34;.address&#34;</span><span class="p">).</span><span class="nx">toString</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// create the contract object
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">contract</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">Contract</span><span class="p">(</span><span class="nx">abi</span><span class="p">,</span> <span class="nx">address</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// get the value of  the field &#34;greet&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">contract</span><span class="p">.</span><span class="nx">methods</span><span class="p">.</span><span class="nx">greet</span><span class="p">.</span><span class="nx">call</span><span class="p">().</span><span class="nx">call</span><span class="p">().</span><span class="nx">then</span><span class="p">((</span><span class="nx">e</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>大体流程可以用下图表示:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://github.com/yinhui1984/imagehosting/blob/main/images/1665026182729146000-62200da42c402a5326990b36_rEl7cW1Opu3_7T91NDwUH81oWJJY6M9ksop7shhO_BMVGQ2emHYaAeqL5SKVbvXPDSjpyAziiE40F7smnSF0uw1rIbKGxeq8L2m8T_E7adHoxE7z9wNIxdkTwQuFVY-xmArgqKU.jpeg?raw=true"
+        data-srcset="https://github.com/yinhui1984/imagehosting/blob/main/images/1665026182729146000-62200da42c402a5326990b36_rEl7cW1Opu3_7T91NDwUH81oWJJY6M9ksop7shhO_BMVGQ2emHYaAeqL5SKVbvXPDSjpyAziiE40F7smnSF0uw1rIbKGxeq8L2m8T_E7adHoxE7z9wNIxdkTwQuFVY-xmArgqKU.jpeg?raw=true, https://github.com/yinhui1984/imagehosting/blob/main/images/1665026182729146000-62200da42c402a5326990b36_rEl7cW1Opu3_7T91NDwUH81oWJJY6M9ksop7shhO_BMVGQ2emHYaAeqL5SKVbvXPDSjpyAziiE40F7smnSF0uw1rIbKGxeq8L2m8T_E7adHoxE7z9wNIxdkTwQuFVY-xmArgqKU.jpeg?raw=true 1.5x, https://github.com/yinhui1984/imagehosting/blob/main/images/1665026182729146000-62200da42c402a5326990b36_rEl7cW1Opu3_7T91NDwUH81oWJJY6M9ksop7shhO_BMVGQ2emHYaAeqL5SKVbvXPDSjpyAziiE40F7smnSF0uw1rIbKGxeq8L2m8T_E7adHoxE7z9wNIxdkTwQuFVY-xmArgqKU.jpeg?raw=true 2x"
+        data-sizes="auto"
+        alt="https://github.com/yinhui1984/imagehosting/blob/main/images/1665026182729146000-62200da42c402a5326990b36_rEl7cW1Opu3_7T91NDwUH81oWJJY6M9ksop7shhO_BMVGQ2emHYaAeqL5SKVbvXPDSjpyAziiE40F7smnSF0uw1rIbKGxeq8L2m8T_E7adHoxE7z9wNIxdkTwQuFVY-xmArgqKU.jpeg?raw=true"
+        title="image" /></p>
+<h4 id="gas">gas</h4>
+<p>gas的目的是作为每个以太坊节点所做的智能合约的计算操作的费用。需要有计算费用，以防止攻击者通过部署大量需要长时间计算的复杂合约，使网络陷入停顿。这种类型的DDoS攻击的运行成本很高(需要很多gas).</p>
+<p>每个操作码都有一个gas成本分配给它，更复杂的操作码有更高的成本。例如，简单的加法需要3个gas，每笔交易的成本为21,000个gas.</p>
+<p>关于gas成本计算: 参考这里  <a href="https://github.com/wolflo/evm-opcodes/blob/main/gas.md" target="_blank" rel="noopener noreffer ">https://github.com/wolflo/evm-opcodes/blob/main/gas.md</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">gas费 = 消耗的gas总量 x gas价格 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>gas费是为了补偿验证人，验证人负责确保交易中的信息是有效的，没有来自EVM的错误/例外，并且发送方确实有必要的资金来支付计算。当一个发件人设置了一个高的gas限制，它表明操作是复杂的，这激励验证者为获得高额回报而拾取交易</p>
+<p>当网络活动较多时，验证者可以简单地从具有较高gas限额的待定交易池中选择。因此，gas费受到供求关系的影响。好的是，任何未消耗的gas都会退还给发送者。</p>
+<p>如果达到了预付的gas限额，验证人的工作仍会得到补偿，但交易不会完成。这也就是为啥说EVM是准图灵完备的，因为它能完成的计算被限制在发件人愿意支付的金额</p>
+<h2 id="evm的主要问题">EVM的主要问题</h2>
+<p>EVM是区块链行业的一项突破性创新，因为它使我们所知的dApps成为可能。同时，一些专家注意到它的<a href="https://medium.com/hackernoon/the-evm-is-fundamentally-unsafe-d69f2e3b908b" target="_blank" rel="noopener noreffer ">设计缺陷</a>。</p>
+<ol>
+<li>
+<p>字节码不是人类可以阅读的。这使得开发人员和独立观察员很难分析和验证智能合约代码。</p>
+</li>
+<li>
+<p>难以调试。这是上一点的直接后果：你必须将字节码反编译成人类可读的形式，以了解dApp出了什么问题。</p>
+</li>
+<li>
+<p>它的速度很慢，而且要收取大量的gas。<strong>注意，<a href="https://ethresear.ch/t/evm-performance/2791" target="_blank" rel="noopener noreffer ">EVM的速度</a>是指每秒处理的操作码数量，所以它与以太坊区块链处理交易的能力不一样</strong>&ndash;以太坊区块链的速度也很慢，每秒15笔交易。</p>
+</li>
+<li>
+<p>它不够安全。EVM应该保护区块链和dApps免受 &ldquo;坏 &ldquo;代码的影响。然而，我们不断看到新的智能合约漏洞。特别危险的是重入式攻击，当黑客重复调用提款函数以耗尽合约的资金时。</p>
+</li>
+<li>
+<p>合约是不可升级的。一旦你发现什么地方出了问题，你就无法修复它，因为以太坊智能合约在部署后不能被改变。你必须从头开始，部署一个新的合约，迁移用户等等。</p>
+</li>
+<li>
+<p>EVM不支持本地库。库是一组与虚拟机一起分发的标准合约。开发人员可以使用库中的现成项目，而不是从头开始编写所有的代码，从而节省大量的时间。对于智能合约，使用库也可以节省gas&ndash;也就是节省金钱。但由于EVM默认不包括任何标准库（例如，不像Move VM），编写和部署智能合约变得非常昂贵。</p>
+</li>
+</ol>
+<h2 id="趋势">趋势</h2>
+<p>WebAssembly</p>
+<p>使用<code>WebAssembly</code>(ETH的WebAssembly叫eWASM)代替<code>EVM</code></p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2022-10-06</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/evm/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://yinhui1984.github.io/evm/" data-title="EVM" data-hashtags="EVM,L0,Web3.0"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://yinhui1984.github.io/evm/" data-hashtag="EVM"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://yinhui1984.github.io/evm/" data-title="EVM"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://yinhui1984.github.io/evm/" data-title="EVM"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://yinhui1984.github.io/evm/" data-title="EVM"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/evm/">EVM</a>,&nbsp;<a href="/tags/l0/">L0</a>,&nbsp;<a href="/tags/web3.0/">Web3.0</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/utxo/" class="prev" rel="prev" title="UTXO"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>UTXO</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.104.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/yinhui1984" target="_blank">zhouyinhui</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":200},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
