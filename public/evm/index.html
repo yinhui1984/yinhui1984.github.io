@@ -30,7 +30,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/yinhui1984.github.io\/evm\/"
-        },"genre": "posts","keywords": "EVM, L0, Web3.0","wordcount":  3543 ,
+        },"genre": "posts","keywords": "EVM, L0, Web3.0","wordcount":  4039 ,
         "url": "https:\/\/yinhui1984.github.io\/evm\/","datePublished": "2022-10-06T09:14:06+08:00","dateModified": "2022-10-06T09:14:06+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -105,8 +105,8 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">EVM</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/yinhui1984" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>yinhui</a></span>&nbsp;<span class="post-category">included in <a href="/categories/blockchain/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Blockchain</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-10-06">2022-10-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3543 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;8 minutes&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-10-06">2022-10-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;4039 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;9 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
@@ -125,6 +125,13 @@
             <li><a href="#gas">gas</a></li>
           </ul>
         </li>
+      </ul>
+    </li>
+    <li><a href="#evm的特点">EVM的特点</a>
+      <ul>
+        <li><a href="#确定的">确定的</a></li>
+        <li><a href="#可终止的">可终止的</a></li>
+        <li><a href="#孤立的">孤立的</a></li>
       </ul>
     </li>
     <li><a href="#evm的主要问题">EVM的主要问题</a></li>
@@ -425,6 +432,19 @@
 </div><p>gas费是为了补偿验证人，验证人负责确保交易中的信息是有效的，没有来自EVM的错误/例外，并且发送方确实有必要的资金来支付计算。当一个发件人设置了一个高的gas限制，它表明操作是复杂的，这激励验证者为获得高额回报而拾取交易</p>
 <p>当网络活动较多时，验证者可以简单地从具有较高gas限额的待定交易池中选择。因此，gas费受到供求关系的影响。好的是，任何未消耗的gas都会退还给发送者。</p>
 <p>如果达到了预付的gas限额，验证人的工作仍会得到补偿，但交易不会完成。这也就是为啥说EVM是准图灵完备的，因为它能完成的计算被限制在发件人愿意支付的金额</p>
+<h2 id="evm的特点">EVM的特点</h2>
+<h3 id="确定的">确定的</h3>
+<p>如果一个程序对同一组输入给出相同的输出，无论执行多少次代码，它都是确定性的。确定性函数的一个完美例子是经典的数学运算。例如，假设所有的数字都是以10为基数，无论你重复多少次这个操作, 1+4总是5。</p>
+<blockquote>
+<p>一个相反的例子的浮点数, <a href="https://www.sohu.com/a/116680763_466876" target="_blank" rel="noopener noreffer ">用C或者C++随意写关于浮点数计算的代码并且期望它们能够在不同的编译器或者不同架构的机器上得到完全一致的结果是非常非常天真的。</a> EVM上的Solidity也用同样的问题, 所以其干脆是<a href="https://ethereum.stackexchange.com/questions/52962/usage-of-float-numbers-in-smart-contract/58751#58751" target="_blank" rel="noopener noreffer ">不支持浮点数</a>的.</p>
+</blockquote>
+<h3 id="可终止的">可终止的</h3>
+<p>以太坊智能合约是图灵完备的。如果有足够的时间和资源，智能合约应该能够解决任何问题。然而，无法判断一个合约是否能在给定的时间限制内完成所有操作。这就是为什么智能合约应该有一个终止机制。以太坊智能合约使用 &ldquo;gas &ldquo;来定义&quot;寿命&rdquo;。当一个执行合约的gas限制过后，它就会停止所有操作。</p>
+<blockquote>
+<p>关于图灵完备, 有些地方也说的是其为&quot;准图灵完备&rdquo;, 因为不可能无gas限制地运行一个智能合约.</p>
+</blockquote>
+<h3 id="孤立的">孤立的</h3>
+<p>EVM运行智能合约时, 智能合约应该在一个完全隔离的环境中运行。如果改智能合约发生了一些错误，它不应该影响底层协议的其他部分.</p>
 <h2 id="evm的主要问题">EVM的主要问题</h2>
 <p>EVM是区块链行业的一项突破性创新，因为它使我们所知的dApps成为可能。同时，一些专家注意到它的<a href="https://medium.com/hackernoon/the-evm-is-fundamentally-unsafe-d69f2e3b908b" target="_blank" rel="noopener noreffer ">设计缺陷</a>。</p>
 <ol>
