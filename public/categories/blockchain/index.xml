@@ -3,7 +3,15 @@
         <title>Blockchain - Category - YINHUI&#39;s BLOG</title>
         <link>https://yinhui1984.github.io/categories/blockchain/</link>
         <description>Blockchain - Category - YINHUI&#39;s BLOG</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 06 Oct 2022 09:14:06 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/categories/blockchain/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 11 Oct 2022 13:55:14 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/categories/blockchain/" rel="self" type="application/rss+xml" /><item>
+    <title>WebAssembly</title>
+    <link>https://yinhui1984.github.io/webassembly/</link>
+    <pubDate>Tue, 11 Oct 2022 13:55:14 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/webassembly/</guid>
+    <description><![CDATA[<p>WebAssembly 相关</p>]]></description>
+</item>
+<item>
     <title>EVM</title>
     <link>https://yinhui1984.github.io/evm/</link>
     <pubDate>Thu, 06 Oct 2022 09:14:06 &#43;0800</pubDate>
@@ -77,14 +85,6 @@
     <author>yinhui</author>
     <guid>https://yinhui1984.github.io/%E5%AF%B9%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E7%9A%84%E8%AF%BB%E6%96%B9%E6%B3%95%E5%92%8C%E5%86%99%E6%96%B9%E6%B3%95%E7%9A%84%E8%B0%83%E7%94%A8/</guid>
     <description><![CDATA[<p>介绍了调用智能合约中&quot;读方法&quot;与&quot;写方法&quot;的区别</p>]]></description>
-</item>
-<item>
-    <title>使用web3.py实现区块链按需挖矿</title>
-    <link>https://yinhui1984.github.io/%E4%BD%BF%E7%94%A8web3.py%E5%AE%9E%E7%8E%B0%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8C%89%E9%9C%80%E6%8C%96%E7%9F%BF/</link>
-    <pubDate>Sun, 03 Jul 2022 13:10:58 &#43;0800</pubDate>
-    <author>yinhui</author>
-    <guid>https://yinhui1984.github.io/%E4%BD%BF%E7%94%A8web3.py%E5%AE%9E%E7%8E%B0%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8C%89%E9%9C%80%E6%8C%96%E7%9F%BF/</guid>
-    <description><![CDATA[<p>让自己使用<code>geth</code>运行的区块链像<code>Ganche</code>一样可以<code>AUTOMINING</code></p>]]></description>
 </item>
 </channel>
 </rss>
