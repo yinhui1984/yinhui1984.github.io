@@ -36,22 +36,22 @@ WebAssembly 相关
 
 来自(https://developer.mozilla.org/en-US/docs/WebAssembly/Concepts#webassembly_goals):https://webassembly.github.io/spec/core/intro/introduction.html
 
-+ The design goals of WebAssembly are the following:
-  - Fast, safe, and portable *semantics*:
-    - **Fast**: executes with near native code performance, taking advantage of capabilities common to all contemporary hardware.
-    - **Safe**: code is validated and executes in a memory-safe [2](https://webassembly.github.io/spec/core/intro/introduction.html?highlight=jit#memorysafe), sandboxed environment preventing data corruption or security breaches.
-    - **Well-defined**: fully and precisely defines valid programs and their behavior in a way that is easy to reason about informally and formally.
-    - **Hardware-independent**: can be compiled on all modern architectures, desktop or mobile devices and embedded systems alike.
-    - **Language-independent**: does not privilege any particular language, programming model, or object model.
-    - **Platform-independent**: can be embedded in browsers, run as a stand-alone VM, or integrated in other environments.
-    - **Open**: programs can interoperate with their environment in a simple and universal manner.
-  - Efficient and portable *representation*:
-    - **Compact**: has a binary format that is fast to transmit by being smaller than typical text or native code formats.
-    - **Modular**: programs can be split up in smaller parts that can be transmitted, cached, and consumed separately.
-    - **Efficient**: can be decoded, validated, and compiled in a fast single pass, equally with either just-in-time (JIT) or ahead-of-time (AOT) compilation.
-    - **Streamable**: allows decoding, validation, and compilation to begin as soon as possible, before all data has been seen.
-    - **Parallelizable**: allows decoding, validation, and compilation to be split into many independent parallel tasks.
-    - **Portable**: makes no architectural assumptions that are not broadly supported across modern hardware.
++ WebAssembly的设计目标如下
+  - 快速、安全、便携:
+    - **Fast**: 以接近原生代码的性能执行，利用所有当代硬件的共同能力。
+    - **Safe**: 代码被验证并在内存安全[2](https://webassembly.github.io/spec/core/intro/introduction.html?highlight=jit#memorysafe)、沙盒环境中执行，防止数据损坏或安全漏洞。
+    - **Well-defined**: 以一种易于非正式和正式推理的方式，充分而精确地定义了有效的程序及其行为。
+    - **Hardware-independent**: 可以在所有现代架构、桌面或移动设备以及嵌入式系统上编译。
+    - **Language-independent**: 不对任何特定的语言、编程模型或对象模型给予特权。
+    - **Platform-independent**: 可以嵌入到浏览器中，作为一个独立的虚拟机运行，或集成到其他环境中。
+    - **Open**: 程序能以简单和通用的方式与环境互操作。
+  - 高效和便携的*代表*:
+    - **Compact**: 有一种二进制格式，比典型的文本或本地代码格式更小，所以传输速度快。
+    - **Modular**: 程序可以被分割成较小的部分，可以分别进行传输、缓存和消费。
+    - **Efficient**: 可以在一个快速的单程中进行解码、验证和编译，同样也可以使用及时编译（JIT）或预先编译（AOT）。
+    - **Streamable**: 允许在所有数据被看到之前，尽快开始解码、验证和编译。
+    - **Parallelizable**: 允许将解码、验证和编译分割成许多独立的并行任务。
+    - **Portable**: 不做任何在现代硬件中不被广泛支持的架构假设。
 
 ## WebAssembly到底长啥样
 

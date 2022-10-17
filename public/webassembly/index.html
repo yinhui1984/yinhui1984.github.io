@@ -30,7 +30,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/yinhui1984.github.io\/webassembly\/"
-        },"genre": "posts","keywords": "wasm, L0, Web3.0","wordcount":  8104 ,
+        },"genre": "posts","keywords": "wasm, L0, Web3.0","wordcount":  8303 ,
         "url": "https:\/\/yinhui1984.github.io\/webassembly\/","datePublished": "2022-10-11T13:55:14+08:00","dateModified": "2022-10-11T13:55:14+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -105,7 +105,7 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">WebAssembly</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/yinhui1984" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>yinhui</a></span>&nbsp;<span class="post-category">included in <a href="/categories/blockchain/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Blockchain</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-10-11">2022-10-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;8104 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-10-11">2022-10-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;8303 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;17 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -182,27 +182,27 @@
 <h3 id="目标">目标</h3>
 <p>来自(<a href="https://developer.mozilla.org/en-US/docs/WebAssembly/Concepts#webassembly_goals%29:https://webassembly.github.io/spec/core/intro/introduction.html" target="_blank" rel="noopener noreffer ">https://developer.mozilla.org/en-US/docs/WebAssembly/Concepts#webassembly_goals):https://webassembly.github.io/spec/core/intro/introduction.html</a></p>
 <ul>
-<li>The design goals of WebAssembly are the following:
+<li>WebAssembly的设计目标如下
 <ul>
-<li>Fast, safe, and portable <em>semantics</em>:
+<li>快速、安全、便携:
 <ul>
-<li><strong>Fast</strong>: executes with near native code performance, taking advantage of capabilities common to all contemporary hardware.</li>
-<li><strong>Safe</strong>: code is validated and executes in a memory-safe <a href="https://webassembly.github.io/spec/core/intro/introduction.html?highlight=jit#memorysafe" target="_blank" rel="noopener noreffer ">2</a>, sandboxed environment preventing data corruption or security breaches.</li>
-<li><strong>Well-defined</strong>: fully and precisely defines valid programs and their behavior in a way that is easy to reason about informally and formally.</li>
-<li><strong>Hardware-independent</strong>: can be compiled on all modern architectures, desktop or mobile devices and embedded systems alike.</li>
-<li><strong>Language-independent</strong>: does not privilege any particular language, programming model, or object model.</li>
-<li><strong>Platform-independent</strong>: can be embedded in browsers, run as a stand-alone VM, or integrated in other environments.</li>
-<li><strong>Open</strong>: programs can interoperate with their environment in a simple and universal manner.</li>
+<li><strong>Fast</strong>: 以接近原生代码的性能执行，利用所有当代硬件的共同能力。</li>
+<li><strong>Safe</strong>: 代码被验证并在内存安全<a href="https://webassembly.github.io/spec/core/intro/introduction.html?highlight=jit#memorysafe" target="_blank" rel="noopener noreffer ">2</a>、沙盒环境中执行，防止数据损坏或安全漏洞。</li>
+<li><strong>Well-defined</strong>: 以一种易于非正式和正式推理的方式，充分而精确地定义了有效的程序及其行为。</li>
+<li><strong>Hardware-independent</strong>: 可以在所有现代架构、桌面或移动设备以及嵌入式系统上编译。</li>
+<li><strong>Language-independent</strong>: 不对任何特定的语言、编程模型或对象模型给予特权。</li>
+<li><strong>Platform-independent</strong>: 可以嵌入到浏览器中，作为一个独立的虚拟机运行，或集成到其他环境中。</li>
+<li><strong>Open</strong>: 程序能以简单和通用的方式与环境互操作。</li>
 </ul>
 </li>
-<li>Efficient and portable <em>representation</em>:
+<li>高效和便携的<em>代表</em>:
 <ul>
-<li><strong>Compact</strong>: has a binary format that is fast to transmit by being smaller than typical text or native code formats.</li>
-<li><strong>Modular</strong>: programs can be split up in smaller parts that can be transmitted, cached, and consumed separately.</li>
-<li><strong>Efficient</strong>: can be decoded, validated, and compiled in a fast single pass, equally with either just-in-time (JIT) or ahead-of-time (AOT) compilation.</li>
-<li><strong>Streamable</strong>: allows decoding, validation, and compilation to begin as soon as possible, before all data has been seen.</li>
-<li><strong>Parallelizable</strong>: allows decoding, validation, and compilation to be split into many independent parallel tasks.</li>
-<li><strong>Portable</strong>: makes no architectural assumptions that are not broadly supported across modern hardware.</li>
+<li><strong>Compact</strong>: 有一种二进制格式，比典型的文本或本地代码格式更小，所以传输速度快。</li>
+<li><strong>Modular</strong>: 程序可以被分割成较小的部分，可以分别进行传输、缓存和消费。</li>
+<li><strong>Efficient</strong>: 可以在一个快速的单程中进行解码、验证和编译，同样也可以使用及时编译（JIT）或预先编译（AOT）。</li>
+<li><strong>Streamable</strong>: 允许在所有数据被看到之前，尽快开始解码、验证和编译。</li>
+<li><strong>Parallelizable</strong>: 允许将解码、验证和编译分割成许多独立的并行任务。</li>
+<li><strong>Portable</strong>: 不做任何在现代硬件中不被广泛支持的架构假设。</li>
 </ul>
 </li>
 </ul>
