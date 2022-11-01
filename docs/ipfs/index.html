@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>IPFS - YINHUI&#39;s BLOG</title><meta name="Description" content="银辉的博客"><meta property="og:title" content="IPFS" />
+<meta property="og:description" content="IPFS 基础知识" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://yinhui1984.github.io/ipfs/" /><meta property="og:image" content="https://yinhui1984.github.io/avatar.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-10-24T09:17:22+08:00" />
+<meta property="article:modified_time" content="2022-10-24T09:17:22+08:00" /><meta property="og:site_name" content="YINHUI&#39;s BLOG" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://yinhui1984.github.io/avatar.png"/>
+
+<meta name="twitter:title" content="IPFS"/>
+<meta name="twitter:description" content="IPFS 基础知识"/>
+<meta name="application-name" content="YINHUI&#39;s BLOG">
+<meta name="apple-mobile-web-app-title" content="YINHUI&#39;s BLOG"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://yinhui1984.github.io/ipfs/" /><link rel="prev" href="https://yinhui1984.github.io/ipfs_friends/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "IPFS",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/yinhui1984.github.io\/ipfs\/"
+        },"genre": "posts","keywords": "IPFS, L1, Web3.0","wordcount":  2023 ,
+        "url": "https:\/\/yinhui1984.github.io\/ipfs\/","datePublished": "2022-10-24T09:17:22+08:00","dateModified": "2022-10-24T09:17:22+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "yinhui"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="YINHUI&#39;s BLOG"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/"> 首页 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="YINHUI&#39;s BLOG"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/" title="">首页</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">IPFS</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/yinhui1984" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>yinhui</a></span>&nbsp;<span class="post-category">included in <a href="/categories/blockchain/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Blockchain</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-10-24">2022-10-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2023 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#什么是ipfs">什么是IPFS</a></li>
+    <li><a href="#ipfs初识">IPFS初识</a>
+      <ul>
+        <li><a href="#安装与启动">安装与启动</a></li>
+        <li><a href="#上传一个文件">上传一个文件</a></li>
+      </ul>
+    </li>
+    <li><a href="#理论基础">理论基础</a>
+      <ul>
+        <li><a href="#hash">Hash</a>
+          <ul>
+            <li><a href="#mutihash-聚合哈希">mutihash (聚合哈希)</a>
+              <ul>
+                <li><a href="#举例">举例</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#cid">CID</a></li>
+        <li><a href="#默克尔有向无环图merkle-dag">默克尔有向无环图(Merkle DAG)</a></li>
+        <li><a href="#分布式哈希表-dht">分布式哈希表 DHT</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><code>IPFS</code> 基础知识</p>
+<h2 id="什么是ipfs">什么是IPFS</h2>
+<p>相比于以前的本地存储, 我们现在更喜欢使用云存储, 云存储是由云存储提供商提供的集中式存储, 其有很多优点, 比如用户使用起来简单,提供数据保护等, 但短板也很明显, 比如可访问性、保密性、信任、以及抗审查能力弱等问题。针对这些问题， 便出现了P2P数据网络，大家印象最深刻的便是BT下载。</p>
+<p>关于P2P数据网络， 参考这里 ：  <a href="https://yinhui1984.github.io/p2p/" target="_blank" rel="noopener noreffer ">https://yinhui1984.github.io/p2p/</a></p>
+<p><a href="https://ipfs.tech" target="_blank" rel="noopener noreffer ">IPFS</a>  属于新一代P2P数据网络之一（还有 Swarm、SAFE、Storj等等），采用<a href="https://docs.ipfs.tech/concepts/what-is-ipfs/#what-is-ipfs" target="_blank" rel="noopener noreffer ">官方的解释</a>是 “IPFS is a distributed system for storing and accessing files, websites, applications, and data.”</p>
+<p>另外， 从区块链的角度说， 将数据放在诸如ETH这样的链上代价是昂贵的，对应大型数据也是不现实的， 所以需要一个系统来解决Dapp的数据存储问题， 正如编写传统APP需要有数据库一样。</p>
+<h2 id="ipfs初识">IPFS初识</h2>
+<h3 id="安装与启动">安装与启动</h3>
+<blockquote>
+<p>首先安装IPFS Desktop 和 CLI：   <a href="https://docs.ipfs.tech/install/" target="_blank" rel="noopener noreffer ">https://docs.ipfs.tech/install/</a></p>
+</blockquote>
+<ul>
+<li>
+<p>命令行安装：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&gt;  wget  --no-check-certificate   https://dist.ipfs.tech/kubo/v0.16.0/kubo_v0.16.0_linux-amd64.tar.gz
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&gt; tar -xvzf kubo_v0.16.0_linux-amd64.tar.gz
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">&gt; cd kubo &amp;&amp; sudo bash install.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>初始化</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&gt; ipfs init
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>启动节点</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&gt; ipfs daemon
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>查看节点信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&gt; ipfs id  -f=&#34;&lt;id&gt;&#34;
+</span></span><span class="line"><span class="cl">12D3KooWJdT87m7RVHHwYmvTzhitNhuG9eVBJB5EiQeCGcR13aHE
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以在另外一台电脑或虚拟机上使用<code>ipfs ping &lt;id&gt;</code> 来尝试ping这个id</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">➜  ~ ipfs ping 12D3KooWJdT87m7RVHHwYmvTzhitNhuG9eVBJB5EiQeCGcR13aHE
+</span></span><span class="line"><span class="cl">PING 12D3KooWJdT87m7RVHHwYmvTzhitNhuG9eVBJB5EiQeCGcR13aHE.
+</span></span><span class="line"><span class="cl">Pong received: time=0.66 ms
+</span></span><span class="line"><span class="cl">...
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>尝试连接:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">➜  ~ ipfs swarm connect /ipfs/12D3KooWJdT87m7RVHHwYmvTzhitNhuG9eVBJB5EiQeCGcR13aHE
+</span></span><span class="line"><span class="cl">connect 12D3KooWJdT87m7RVHHwYmvTzhitNhuG9eVBJB5EiQeCGcR13aHE success
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h3 id="上传一个文件">上传一个文件</h3>
+<p>我们使用下面这个脚本生成一个大于256K的文件,然后上传到IPFS</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="cp">#!/usr/bin/env sh
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="nv">TEXTFILE</span><span class="o">=</span>./text.txt
+</span></span><span class="line"><span class="cl">TRUE &gt; <span class="nv">$TEXTFILE</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">counter</span><span class="o">=</span><span class="m">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># while size of text.txt &lt; 300k, write content into it</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># get size of text.txt</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># linux: stat -c%s &#34;$FILENAME&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># macos: stat -f%z &#34;$FILENAME&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">FILESIZE</span><span class="o">=</span><span class="k">$(</span>stat -f%z <span class="s2">&#34;</span><span class="nv">$TEXTFILE</span><span class="s2">&#34;</span><span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="nv">LINE</span><span class="o">=</span><span class="s2">&#34;########################################################&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$FILESIZE</span><span class="s2">&#34;</span> -lt <span class="m">307200</span> <span class="o">]</span><span class="p">;</span> <span class="k">do</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">echo</span> <span class="si">${</span><span class="nv">counter</span><span class="si">}</span><span class="nv">$LINE</span> &gt;&gt; ./text.txt
+</span></span><span class="line"><span class="cl">  <span class="nv">counter</span><span class="o">=</span><span class="k">$((</span>counter+1<span class="k">))</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">FILESIZE</span><span class="o">=</span><span class="k">$(</span>stat -f%z <span class="s2">&#34;</span><span class="nv">$TEXTFILE</span><span class="s2">&#34;</span><span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">OSX MP16 ~/Desktop/ipfs_demo ❯ ipfs add ./local_file/text.txt 
+</span></span><span class="line"><span class="cl">added QmPLXXaC81eGS3fNoCkvaqaRPFRu9pUCQMbKvajo9co1ND text.txt
+</span></span><span class="line"><span class="cl"> 300.04 KiB / 300.04 KiB [=========================] 100.00%
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上传完成后, 其会给出一个地址字符串, 叫着 <code>CID</code>  (conent id). 可以理解为该文件的hash值, 但不仅仅如此. 参考这里: <a href="https://docs.ipfs.tech/concepts/content-addressing/#cid-versions" target="_blank" rel="noopener noreffer ">https://docs.ipfs.tech/concepts/content-addressing/#cid-versions</a></p>
+<p>使用<code>ipfs cat</code> 命令可以将内容打印出来:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">➜  ~ ipfs cat QmPLXXaC81eGS3fNoCkvaqaRPFRu9pUCQMbKvajo9co1ND
+</span></span><span class="line"><span class="cl">0########################################################
+</span></span><span class="line"><span class="cl">1########################################################
+</span></span><span class="line"><span class="cl">2########################################################
+</span></span><span class="line"><span class="cl">3########################################################
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">5051########################################################
+</span></span><span class="line"><span class="cl">5052########################################################
+</span></span><span class="line"><span class="cl">5053########################################################
+</span></span><span class="line"><span class="cl">5054########################################################
+</span></span><span class="line"><span class="cl">➜  ~ 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用<code>ipfs ls</code>命令我们可以看到 这个CID又指向另外2个CID</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">OSX MP16 ~ ❯ ipfs ls -v QmPLXXaC81eGS3fNoCkvaqaRPFRu9pUCQMbKvajo9co1ND
+</span></span><span class="line"><span class="cl">Hash                                           Size   Name
+</span></span><span class="line"><span class="cl">QmaroDZbcMjim4a8nVyahnvb3hhCSSTsCZB2jCJEsrd3ZF 262144
+</span></span><span class="line"><span class="cl">QmU6xSMhb74oxAXRjLVRwqsJJgU4GH14FDVME5qys8uFZF 45101
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>分别<code>ipfs cat</code>出这两个CID, 看看其中的内容:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">OSX MP16 ~ ❯ ipfs cat QmaroDZbcMjim4a8nVyahnvb3hhCSSTsCZB2jCJEsrd3ZF                          
+</span></span><span class="line"><span class="cl">0########################################################
+</span></span><span class="line"><span class="cl">1########################################################
+</span></span><span class="line"><span class="cl">2########################################################
+</span></span><span class="line"><span class="cl">3########################################################
+</span></span><span class="line"><span class="cl">4########################################################
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">4312########################################################
+</span></span><span class="line"><span class="cl">4313########################################################
+</span></span><span class="line"><span class="cl">4314########################################################
+</span></span><span class="line"><span class="cl">4315###################################
+</span></span><span class="line"><span class="cl">OSX MP16 ~ ❯
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">OSX MP16 ~ ❯ ipfs cat QmU6xSMhb74oxAXRjLVRwqsJJgU4GH14FDVME5qys8uFZF
+</span></span><span class="line"><span class="cl">#####################
+</span></span><span class="line"><span class="cl">4316########################################################
+</span></span><span class="line"><span class="cl">4317########################################################
+</span></span><span class="line"><span class="cl">4318########################################################
+</span></span><span class="line"><span class="cl">4319########################################################
+</span></span><span class="line"><span class="cl">4320########################################################
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">5051########################################################
+</span></span><span class="line"><span class="cl">5052########################################################
+</span></span><span class="line"><span class="cl">5053########################################################
+</span></span><span class="line"><span class="cl">5054########################################################
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>很明显的, 我们上传的文件被分成了2个部分,分别存储了.</p>
+<p>这涉及到2个知识:</p>
+<ul>
+<li>IPFS的文件存储是分块(Block)存储的, 一个块最大容量是256KB</li>
+<li>IPFS使用的是默克尔树的形式来进行存储的</li>
+</ul>
+<p>到 IPFS Desktop上看就更形象了</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://github.com/yinhui1984/imagehosting/blob/main/images/1666772210052104000-Snipaste_2022-10-26_16-16-15.jpg?raw=true"
+        data-srcset="https://github.com/yinhui1984/imagehosting/blob/main/images/1666772210052104000-Snipaste_2022-10-26_16-16-15.jpg?raw=true, https://github.com/yinhui1984/imagehosting/blob/main/images/1666772210052104000-Snipaste_2022-10-26_16-16-15.jpg?raw=true 1.5x, https://github.com/yinhui1984/imagehosting/blob/main/images/1666772210052104000-Snipaste_2022-10-26_16-16-15.jpg?raw=true 2x"
+        data-sizes="auto"
+        alt="https://github.com/yinhui1984/imagehosting/blob/main/images/1666772210052104000-Snipaste_2022-10-26_16-16-15.jpg?raw=true"
+        title="image" /></p>
+<p>在公共网关上查看</p>
+<blockquote>
+<p>ipfs 内容能在本地看到, 但无法在公共网关上看到 ?</p>
+<p>添加配置:</p>
+<p><code>ipfs config --json Swarm.RelayClient.Enabled true</code></p>
+<p>重启ipfs</p>
+<p><code>ipfs shutdown</code></p>
+<p><code>ipfs daemon</code></p>
+</blockquote>
+<p><a href="https://ipfs.io/ipfs/QmPLXXaC81eGS3fNoCkvaqaRPFRu9pUCQMbKvajo9co1ND" target="_blank" rel="noopener noreffer ">https://ipfs.io/ipfs/QmPLXXaC81eGS3fNoCkvaqaRPFRu9pUCQMbKvajo9co1ND</a></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://github.com/yinhui1984/imagehosting/blob/main/images/1666772512478754000-Snipaste_2022-10-26_16-21-08.jpg?raw=true"
+        data-srcset="https://github.com/yinhui1984/imagehosting/blob/main/images/1666772512478754000-Snipaste_2022-10-26_16-21-08.jpg?raw=true, https://github.com/yinhui1984/imagehosting/blob/main/images/1666772512478754000-Snipaste_2022-10-26_16-21-08.jpg?raw=true 1.5x, https://github.com/yinhui1984/imagehosting/blob/main/images/1666772512478754000-Snipaste_2022-10-26_16-21-08.jpg?raw=true 2x"
+        data-sizes="auto"
+        alt="https://github.com/yinhui1984/imagehosting/blob/main/images/1666772512478754000-Snipaste_2022-10-26_16-21-08.jpg?raw=true"
+        title="image" /></p>
+<h2 id="理论基础">理论基础</h2>
+<h3 id="hash">Hash</h3>
+<p><code>Hash</code>函数在https://yinhui1984.github.io/pow/#hash 中说过. 但那里没有提及Hash面临的问题:</p>
+<ol>
+<li>哈希算法很多, 不同的软件可能采用不同的算法, 并且算法输出的哈希值长度也不一样</li>
+<li>随着时间的推移, 某一些哈希算法可能会被发现存在不安全因素而被弃用而采取其他的算法,或进行升级</li>
+</ol>
+<p>这就导致在编写哈希解码程序的时候, 一个程序会面对很多种算法, 这在兼容性和算法升级上是很痛苦的.</p>
+<h4 id="mutihash-聚合哈希">mutihash (聚合哈希)</h4>
+<p>针对上面的问题, 提出了<code>mutihash</code>  <a href="https://multiformats.io/multihash/" target="_blank" rel="noopener noreffer ">https://multiformats.io/multihash/</a></p>
+<p>基本原理就是在hash值前面加上<em>哈希算法类型</em>和<em>哈希值长度</em>这样两个前缀</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="n">hash</span><span class="o">-</span><span class="n">func</span><span class="o">-</span><span class="n">type</span><span class="o">&gt;&lt;</span><span class="n">digest</span><span class="o">-</span><span class="n">length</span><span class="o">&gt;&lt;</span><span class="n">digest</span><span class="o">-</span><span class="n">value</span><span class="o">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>完整类型列表在这里 :  <a href="https://github.com/multiformats/multicodec/blob/master/table.csv" target="_blank" rel="noopener noreffer ">https://github.com/multiformats/multicodec/blob/master/table.csv</a></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">name</th>
+<th style="text-align:left">tag</th>
+<th style="text-align:left">code</th>
+<th style="text-align:left">status</th>
+<th style="text-align:left">description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">&hellip;</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">sha2-256</td>
+<td style="text-align:left">multihash</td>
+<td style="text-align:left">0x12</td>
+<td style="text-align:left">permanent</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">&hellip;</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<p>比如</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="s">&#34;12200ED3911004C0EF2CC63ADCDC9E44CD8C2C831EEC0E4431402000F5325A7FE1AE&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>就表示类型是0x12, 也就是<code>sha2-256</code>,  长度为0x20 = 32Byte = 256bit , 哈希值为 0ED3911004C0EF2CC63ADCDC9E44CD8C2C831EEC0E4431402000F5325A7FE1AE</p>
+<h5 id="举例">举例</h5>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">OSX MP16 ~ ❯ cat ./hello.txt
+</span></span><span class="line"><span class="cl">helloworld
+</span></span><span class="line"><span class="cl">OSX MP16 ~ ❯ ipfs add ./hello.txt
+</span></span><span class="line"><span class="cl">added QmUU2HcUBVSXkfWPUc3WUSeCMrWWeEJTuAgR9uyWBhh9Nf hello.txt
+</span></span><span class="line"><span class="cl"> 11 B / 11 B [==============] 100.00
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>点击IPFS Desktop 文件 -&gt; 导入(来自IPFS路径) 按钮, 导入上面的CID, 然后在导入的题目上选择&quot;检查&quot;</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://github.com/yinhui1984/imagehosting/blob/main/images/1666923773240948000-Snipaste_2022-10-28_10-20-44.jpg?raw=true"
+        data-srcset="https://github.com/yinhui1984/imagehosting/blob/main/images/1666923773240948000-Snipaste_2022-10-28_10-20-44.jpg?raw=true, https://github.com/yinhui1984/imagehosting/blob/main/images/1666923773240948000-Snipaste_2022-10-28_10-20-44.jpg?raw=true 1.5x, https://github.com/yinhui1984/imagehosting/blob/main/images/1666923773240948000-Snipaste_2022-10-28_10-20-44.jpg?raw=true 2x"
+        data-sizes="auto"
+        alt="https://github.com/yinhui1984/imagehosting/blob/main/images/1666923773240948000-Snipaste_2022-10-28_10-20-44.jpg?raw=true"
+        title="image" /></p>
+<p>我们可以看到其采用的是sha2-256的哈希算法</p>
+<p>我们导出该数据块(block), 手动使用sha2-256来看看其hash值是否如此:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">~❯ ipfs block get QmUU2HcUBVSXkfWPUc3WUSeCMrWWeEJTuAgR9uyWBhh9Nf &gt; hello.block
+</span></span><span class="line"><span class="cl">~❯ sha256sum ./hello.block
+</span></span><span class="line"><span class="cl">5b0995ced69229d26009c53c185a62ea805a339383521edbed1028c496615448  ./hello.block
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>注意:</strong></p>
+<p>直接对./hello.txt 进行hash得到的值是不同的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">~❯ sha256sum ./hello.txt
+</span></span><span class="line"><span class="cl">8cd07f3a5ff98f2a78cfc366c13fb123eb8d29c1ca37c79df190425d5b9e424d  ./hello.txt
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>这是为什么?</strong></p>
+<p>这是因为IPFS在存储hello.txt中的内容时,还添加了其他信息, 其和数据信息一起作为&quot;块的内容&quot;被存储起来的</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://github.com/yinhui1984/imagehosting/blob/main/images/1666924911392066000.jpg?raw=true"
+        data-srcset="https://github.com/yinhui1984/imagehosting/blob/main/images/1666924911392066000.jpg?raw=true, https://github.com/yinhui1984/imagehosting/blob/main/images/1666924911392066000.jpg?raw=true 1.5x, https://github.com/yinhui1984/imagehosting/blob/main/images/1666924911392066000.jpg?raw=true 2x"
+        data-sizes="auto"
+        alt="https://github.com/yinhui1984/imagehosting/blob/main/images/1666924911392066000.jpg?raw=true"
+        title="image" /></p>
+<h3 id="cid">CID</h3>
+<p>关于CID的介绍参考这里 : <a href="https://docs.ipfs.tech/concepts/content-addressing/#what-is-a-cid" target="_blank" rel="noopener noreffer ">https://docs.ipfs.tech/concepts/content-addressing/#what-is-a-cid</a></p>
+<p>以及官方教程:  <a href="https://proto.school/anatomy-of-a-cid" target="_blank" rel="noopener noreffer ">https://proto.school/anatomy-of-a-cid</a></p>
+<p>我们这里以CID v0为例, 看看IPFS是如何生成CID的</p>
+<p>导出CID为 <code>QmUU2HcUBVSXkfWPUc3WUSeCMrWWeEJTuAgR9uyWBhh9Nf</code> 一个块:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">~ &gt; ipfs block get QmUU2HcUBVSXkfWPUc3WUSeCMrWWeEJTuAgR9uyWBhh9Nf &gt; hello.block
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>IPFS 生成CID v0的步骤 :</p>
+<p>1, 将块数据进行一次sha256 哈希, 得到H1</p>
+<p>2, 在H1前面追加哈希算法类型和H1哈希长度 得到 S</p>
+<p>3, 将S进行一次base58编码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;crypto/sha256&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;github.com/mr-tron/base58/base58&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;os&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">bytes</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">ReadFile</span><span class="p">(</span><span class="s">&#34;hello.block&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">s</span> <span class="o">:=</span> <span class="nx">sha256</span><span class="p">.</span><span class="nf">Sum256</span><span class="p">(</span><span class="nx">bytes</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">//0x12 表示 sha256
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">//https://github.com/multiformats/multicodec/blob/master/table.csv
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">//0x20 表示 32Byte
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">s1</span> <span class="o">:=</span> <span class="nb">append</span><span class="p">([]</span><span class="kt">byte</span><span class="p">{</span><span class="mh">0x12</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">},</span> <span class="nx">s</span><span class="p">[:]</span><span class="o">...</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">output</span> <span class="o">:=</span> <span class="nx">base58</span><span class="p">.</span><span class="nf">Encode</span><span class="p">(</span><span class="nx">s1</span><span class="p">[:])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;MY CID: &#34;</span><span class="p">,</span> <span class="nx">output</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">OSX MP16 ~/Desktop/ipfs_demo/cid_demo ❯ go run .
+</span></span><span class="line"><span class="cl">MY CID:  QmUU2HcUBVSXkfWPUc3WUSeCMrWWeEJTuAgR9uyWBhh9Nf
+</span></span><span class="line"><span class="cl">OSX MP16 ~/Desktop/ipfs_demo/cid_demo ❯ 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>一个在线的CID查看器:</strong></p>
+<p><a href="https://cid.ipfs.tech/#QmUU2HcUBVSXkfWPUc3WUSeCMrWWeEJTuAgR9uyWBhh9Nf" target="_blank" rel="noopener noreffer ">https://cid.ipfs.tech/#QmUU2HcUBVSXkfWPUc3WUSeCMrWWeEJTuAgR9uyWBhh9Nf</a></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://github.com/yinhui1984/imagehosting/blob/main/images/1667286451237651000.jpg?raw=true"
+        data-srcset="https://github.com/yinhui1984/imagehosting/blob/main/images/1667286451237651000.jpg?raw=true, https://github.com/yinhui1984/imagehosting/blob/main/images/1667286451237651000.jpg?raw=true 1.5x, https://github.com/yinhui1984/imagehosting/blob/main/images/1667286451237651000.jpg?raw=true 2x"
+        data-sizes="auto"
+        alt="https://github.com/yinhui1984/imagehosting/blob/main/images/1667286451237651000.jpg?raw=true"
+        title="image" /></p>
+<p>通用的生成CID的代码如下:</p>
+<p><a href="https://github.com/ipfs/go-cid" target="_blank" rel="noopener noreffer ">https://github.com/ipfs/go-cid</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;github.com/ipfs/go-cid&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">mc</span> <span class="s">&#34;github.com/multiformats/go-multicodec&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">mh</span> <span class="s">&#34;github.com/multiformats/go-multihash&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;os&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">bytes</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">ReadFile</span><span class="p">(</span><span class="s">&#34;hello.block&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">pref</span> <span class="o">:=</span> <span class="nx">cid</span><span class="p">.</span><span class="nx">Prefix</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//这里指定 CID version
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">Version</span><span class="p">:</span>  <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">Codec</span><span class="p">:</span>    <span class="nb">uint64</span><span class="p">(</span><span class="nx">mc</span><span class="p">.</span><span class="nx">Raw</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//这里指定哈希算法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">MhType</span><span class="p">:</span>   <span class="nx">mh</span><span class="p">.</span><span class="nx">SHA2_256</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">MhLength</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="c1">// default length
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">c</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">pref</span><span class="p">.</span><span class="nf">Sum</span><span class="p">(</span><span class="nx">bytes</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Created CID: &#34;</span><span class="p">,</span> <span class="nx">c</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>其他编程语言的CID实现在这里 : <a href="https://github.com/multiformats/cid#implementations" target="_blank" rel="noopener noreffer ">https://github.com/multiformats/cid#implementations</a></p>
+<h3 id="默克尔有向无环图merkle-dag">默克尔有向无环图(Merkle DAG)</h3>
+<p>参考这篇文章, 写得非常详细</p>
+<p><a href="https://developer.aliyun.com/article/842854" target="_blank" rel="noopener noreffer ">https://developer.aliyun.com/article/842854</a></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://github.com/yinhui1984/imagehosting/blob/main/images/1667270192324991000.jpg?raw=true"
+        data-srcset="https://github.com/yinhui1984/imagehosting/blob/main/images/1667270192324991000.jpg?raw=true, https://github.com/yinhui1984/imagehosting/blob/main/images/1667270192324991000.jpg?raw=true 1.5x, https://github.com/yinhui1984/imagehosting/blob/main/images/1667270192324991000.jpg?raw=true 2x"
+        data-sizes="auto"
+        alt="https://github.com/yinhui1984/imagehosting/blob/main/images/1667270192324991000.jpg?raw=true"
+        title="image" /></p>
+<h3 id="分布式哈希表-dht">分布式哈希表 DHT</h3>
+<p>Comming soon &hellip;</p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2022-10-24</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/ipfs/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://yinhui1984.github.io/ipfs/" data-title="IPFS" data-hashtags="IPFS,L1,Web3.0"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://yinhui1984.github.io/ipfs/" data-hashtag="IPFS"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://yinhui1984.github.io/ipfs/" data-title="IPFS"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://yinhui1984.github.io/ipfs/" data-title="IPFS"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://yinhui1984.github.io/ipfs/" data-title="IPFS"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/ipfs/">IPFS</a>,&nbsp;<a href="/tags/l1/">L1</a>,&nbsp;<a href="/tags/web3.0/">Web3.0</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/ipfs_friends/" class="prev" rel="prev" title="IPFS和朋友们"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>IPFS和朋友们</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.104.3">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/yinhui1984" target="_blank">zhouyinhui</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":200},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -3,7 +3,27 @@
         <title>Blockchain - Category - YINHUI&#39;s BLOG</title>
         <link>https://yinhui1984.github.io/categories/blockchain/</link>
         <description>Blockchain - Category - YINHUI&#39;s BLOG</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 11 Oct 2022 13:55:14 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/categories/blockchain/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 24 Oct 2022 09:17:22 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/categories/blockchain/" rel="self" type="application/rss+xml" /><item>
+    <title>IPFS</title>
+    <link>https://yinhui1984.github.io/ipfs/</link>
+    <pubDate>Mon, 24 Oct 2022 09:17:22 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/ipfs/</guid>
+    <description><![CDATA[<p><code>IPFS</code> 基础知识</p>]]></description>
+</item>
+<item>
+    <title>IPFS和朋友们</title>
+    <link>https://yinhui1984.github.io/ipfs_friends/</link>
+    <pubDate>Thu, 20 Oct 2022 16:28:32 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/ipfs_friends/</guid>
+    <description><![CDATA[<h1 id="ipfs和朋友们-下一代点对点数据网络的定性比较">IPFS和朋友们: 下一代点对点数据网络的定性比较</h1>
+<p>Erik Daniel and Florian Tschorsch</p>
+<p><a href="https://arxiv.org/pdf/2201.05286.pdf" target="_blank" rel="noopener noreffer ">https://arxiv.org/pdf/2201.05286.pdf</a></p>
+<p>摘要&ndash;分散的分布式存储为减少数据孤岛的影响提供了一种方法，因为集中式云存储往往会助长这种影响。虽然这种趋势的意图并不新鲜，但由于技术的进步，特别是区块链网络的发展，这个话题得到了牵引。因此，我们观察到，新一代的点对点数据网络出现了。因此，在这篇调查报告中，我们对下一代数据网络进行了技术概述。我们使用选定的数据网络来介绍一般概念，并强调新的发展。具体来说，我们提供了星际文件系统的更深入的概要，以及Swarm、Hypercore Protocol、SAFE、Storj和Arweave的总体概述。我们确定了共同的构建模块，并提供了一个定性的比较。从概述中，我们得出了有关数据网络的未来挑战和研究目标。
+索引词&ndash;数据网络，区块链网络，点对点网络，叠加网络</p>]]></description>
+</item>
+<item>
     <title>WebAssembly</title>
     <link>https://yinhui1984.github.io/webassembly/</link>
     <pubDate>Tue, 11 Oct 2022 13:55:14 &#43;0800</pubDate>
@@ -69,22 +89,6 @@
 <p>共识算法很多, <code>PoW</code>、 <code>BFT</code> 、<code>POS</code> .. 以及的变体, 比如<code>PBFT</code>、 <code>IBFT</code>、<code>Tendermint</code>、<code>DPoS</code>、 <code>HotStuff</code> 等.</p>
 <p>但作为区块链的鼻祖的BTC和元老的ETH都使用的<code>PoW</code>, ETH正在过度到<code>PoS</code>, 另外有一些区块链采用了<code>PoS</code>的一个变体<code>DPoS</code>.我们主要关注这几种.</p>
 <p>今天先说说<code>PoW</code></p>]]></description>
-</item>
-<item>
-    <title>genesis.json</title>
-    <link>https://yinhui1984.github.io/genesis.json/</link>
-    <pubDate>Wed, 06 Jul 2022 10:53:24 &#43;0800</pubDate>
-    <author>yinhui</author>
-    <guid>https://yinhui1984.github.io/genesis.json/</guid>
-    <description><![CDATA[<p>对<code>创世文件</code>的介绍</p>]]></description>
-</item>
-<item>
-    <title>对智能合约的读方法和写方法的调用</title>
-    <link>https://yinhui1984.github.io/%E5%AF%B9%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E7%9A%84%E8%AF%BB%E6%96%B9%E6%B3%95%E5%92%8C%E5%86%99%E6%96%B9%E6%B3%95%E7%9A%84%E8%B0%83%E7%94%A8/</link>
-    <pubDate>Mon, 04 Jul 2022 13:10:51 &#43;0800</pubDate>
-    <author>yinhui</author>
-    <guid>https://yinhui1984.github.io/%E5%AF%B9%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E7%9A%84%E8%AF%BB%E6%96%B9%E6%B3%95%E5%92%8C%E5%86%99%E6%96%B9%E6%B3%95%E7%9A%84%E8%B0%83%E7%94%A8/</guid>
-    <description><![CDATA[<p>介绍了调用智能合约中&quot;读方法&quot;与&quot;写方法&quot;的区别</p>]]></description>
 </item>
 </channel>
 </rss>

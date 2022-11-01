@@ -3,9 +3,29 @@
         <title>YINHUI&#39;s BLOG</title>
         <link>https://yinhui1984.github.io/</link>
         <description>银辉的博客</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 11 Oct 2022 13:55:14 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 24 Oct 2022 09:17:22 &#43;0800</lastBuildDate>
             <atom:link href="https://yinhui1984.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>IPFS</title>
+    <link>https://yinhui1984.github.io/ipfs/</link>
+    <pubDate>Mon, 24 Oct 2022 09:17:22 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/ipfs/</guid>
+    <description><![CDATA[<p><code>IPFS</code> 基础知识</p>]]></description>
+</item>
+<item>
+    <title>IPFS和朋友们</title>
+    <link>https://yinhui1984.github.io/ipfs_friends/</link>
+    <pubDate>Thu, 20 Oct 2022 16:28:32 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/ipfs_friends/</guid>
+    <description><![CDATA[<h1 id="ipfs和朋友们-下一代点对点数据网络的定性比较">IPFS和朋友们: 下一代点对点数据网络的定性比较</h1>
+<p>Erik Daniel and Florian Tschorsch</p>
+<p><a href="https://arxiv.org/pdf/2201.05286.pdf" target="_blank" rel="noopener noreffer ">https://arxiv.org/pdf/2201.05286.pdf</a></p>
+<p>摘要&ndash;分散的分布式存储为减少数据孤岛的影响提供了一种方法，因为集中式云存储往往会助长这种影响。虽然这种趋势的意图并不新鲜，但由于技术的进步，特别是区块链网络的发展，这个话题得到了牵引。因此，我们观察到，新一代的点对点数据网络出现了。因此，在这篇调查报告中，我们对下一代数据网络进行了技术概述。我们使用选定的数据网络来介绍一般概念，并强调新的发展。具体来说，我们提供了星际文件系统的更深入的概要，以及Swarm、Hypercore Protocol、SAFE、Storj和Arweave的总体概述。我们确定了共同的构建模块，并提供了一个定性的比较。从概述中，我们得出了有关数据网络的未来挑战和研究目标。
+索引词&ndash;数据网络，区块链网络，点对点网络，叠加网络</p>]]></description>
+</item>
+<item>
     <title>WebAssembly</title>
     <link>https://yinhui1984.github.io/webassembly/</link>
     <pubDate>Tue, 11 Oct 2022 13:55:14 &#43;0800</pubDate>
@@ -68,23 +88,6 @@
     <author>yinhui</author>
     <guid>https://yinhui1984.github.io/golang%E8%8E%B7%E5%BE%97%E5%8A%A8%E6%80%81%E7%BD%91%E9%A1%B5%E5%86%85%E5%AE%B9/</guid>
     <description><![CDATA[<p>golang中用get()或httpClient 进行get时得到的静态页面, 如果页面中的内容是获取到本地后动态生成的话, 应该如何得到呢</p>]]></description>
-</item>
-<item>
-    <title>ARINC-429</title>
-    <link>https://yinhui1984.github.io/arinc429/</link>
-    <pubDate>Fri, 12 Aug 2022 11:30:58 &#43;0800</pubDate>
-    <author>yinhui</author>
-    <guid>https://yinhui1984.github.io/arinc429/</guid>
-    <description><![CDATA[<p><code>ARINC-429</code> 定义了商用飞机航空电子系统之间(局域网)数字数据传输的标准要求和协议。设备制造商遵循这些标准，从而实现航空电子设备的互换性.</p>
-<p>ARINC 429 也称为 Mark 33 数字信息传输系统 (DITS) 总线。虽然主要用于航空电子领域，但这些总线也用于地面车辆、武器系统和其他商业和军事设备领域。</p>]]></description>
-</item>
-<item>
-    <title>[Solidity by Example]Ex002FirstApplication</title>
-    <link>https://yinhui1984.github.io/solidity-by-exampleex002firstapplication/</link>
-    <pubDate>Wed, 10 Aug 2022 14:14:38 &#43;0800</pubDate>
-    <author>yinhui</author>
-    <guid>https://yinhui1984.github.io/solidity-by-exampleex002firstapplication/</guid>
-    <description><![CDATA[<p><a href="https://solidity-by-example.org" target="_blank" rel="noopener noreffer ">https://solidity-by-example.org</a> 中的第二个练习, 并添加了注释</p>]]></description>
 </item>
 </channel>
 </rss>
