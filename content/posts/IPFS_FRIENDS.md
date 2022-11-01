@@ -11,7 +11,7 @@ tags: [IPFS, L1,Web3.0]
 
 
 
-# IPFS和朋友们: 下一代点对点数据网络的定性比较
+IPFS和朋友们: 下一代点对点数据网络的定性比较.
 
 Erik Daniel and Florian Tschorsch
 
