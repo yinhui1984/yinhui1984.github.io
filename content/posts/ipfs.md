@@ -423,7 +423,164 @@ https://developer.aliyun.com/article/842854
 
 ### 分布式哈希表 DHT
 
-Comming soon ...
+这个视频 https://www.bilibili.com/video/BV1bA411q73K/
+
+以及 https://learnblockchain.cn/article/3443
+
+
+
+## 消息服务(pubsub)
+
+提供消息发布和订阅服务
+
+在启动`ipfs deamon`是需要带上 `--enable-pubsub-experiment` 参数
+
+
+
+### demo
+
+订阅消息demo
+
+```go
+package main
+
+import (
+	ipfs "github.com/ipfs/go-ipfs-api"
+	"log"
+)
+
+func main() {
+	log.SetFlags(log.LstdFlags | log.Lshortfile)
+
+	shell := ipfs.NewShell("localhost:5001")
+
+	if shell == nil {
+		log.Fatal("Failed to connect to IPFS")
+	}
+
+	//Run daemon with --enable-pubsub-experiment to use.
+	subscribe, err := shell.PubSubSubscribe("topic_test")
+	if err != nil {
+		log.Fatal("Failed to subscribe topic, ", err)
+	}
+
+	for true {
+		msg, err := subscribe.Next()
+		if err != nil {
+			log.Println("error when get next message, ", err)
+			continue
+		}
+		log.Printf("got message:\n\t%v\n \tdata:%s\n\tfrom:%s\n", msg.TopicIDs, msg.Data, msg.From.String())
+	}
+
+}
+
+```
+
+
+
+发布消息demo:
+
+```go
+package main
+
+import (
+	ipfs "github.com/ipfs/go-ipfs-api"
+	"log"
+	"time"
+)
+
+func main() {
+	log.SetFlags(log.LstdFlags | log.Lshortfile)
+
+	shell := ipfs.NewShell("localhost:5001")
+
+	if shell == nil {
+		log.Fatal("Failed to connect to IPFS")
+	}
+
+	//Run daemon with --enable-pubsub-experiment to use.
+	for true {
+		msg := "hello,current time is:" + time.Now().String()
+		err := shell.PubSubPublish("topic_test", msg)
+		if err != nil {
+			log.Println("Error when publish message: ", err)
+		}
+		log.Println("sent msg: " + msg)
+		time.Sleep(time.Second)
+	}
+
+}
+
+```
+
+
+
+启动节点:
+
+```shell
+ipfs daemon --enable-pubsub-experiment
+```
+
+
+
+用两台电脑, 一个运行发布者另外一个运行订阅者:
+
+![image](https://github.com/yinhui1984/imagehosting/blob/main/images/1667371846359876000.jpg?raw=true)
+
+
+
+
+
+## API
+
+https://docs.ipfs.tech/reference/#api-cli-reference
+
+一个最基础的示例:
+
+```go
+package main
+
+import (
+   "fmt"
+   ipfs "github.com/ipfs/go-ipfs-api"
+   "io"
+   "log"
+   "strings"
+)
+
+func main() {
+   log.SetFlags(log.LstdFlags | log.Lshortfile)
+
+   shell := ipfs.NewShell("localhost:5001")
+
+   if shell == nil {
+      log.Fatal("Failed to connect to IPFS")
+   }
+   log.Println("IPS connected")
+
+   // 上传
+   //add的内容默认是被pin在本地的
+   cid, err := shell.Add(strings.NewReader("HELLO!!"))
+   if err != nil {
+      log.Fatal("Add error:", err)
+   }
+   log.Println("Success added in IPFS: ", cid)
+
+   //下载
+   log.Println("Getting content from IPFS")
+   reader, err := shell.Cat(cid)
+   if err != nil {
+      log.Fatal(err)
+   }
+   content, err := io.ReadAll(reader)
+   if err != nil {
+      log.Fatal(err)
+   }
+   fmt.Println(string(content))
+
+}
+```
 
 
 
