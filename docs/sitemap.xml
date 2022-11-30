@@ -2,21 +2,23 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://yinhui1984.github.io/categories/blockchain/</loc><lastmod>2022-10-24T09:17:22&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
-            <loc>https://yinhui1984.github.io/categories/</loc><lastmod>2022-10-24T09:17:22&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
-            <loc>https://yinhui1984.github.io/tags/ipfs/</loc><lastmod>2022-10-24T09:17:22&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
-            <loc>https://yinhui1984.github.io/ipfs/</loc><lastmod>2022-10-24T09:17:22&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
-            <loc>https://yinhui1984.github.io/tags/l1/</loc><lastmod>2022-10-24T09:17:22&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
-            <loc>https://yinhui1984.github.io/posts/</loc><lastmod>2022-10-24T09:17:22&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
-            <loc>https://yinhui1984.github.io/tags/</loc><lastmod>2022-10-24T09:17:22&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
-            <loc>https://yinhui1984.github.io/tags/web3.0/</loc><lastmod>2022-10-24T09:17:22&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
-            <loc>https://yinhui1984.github.io/</loc><lastmod>2022-10-24T09:17:22&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
-            <loc>https://yinhui1984.github.io/ipfs_friends/</loc><lastmod>2022-10-20T16:28:32&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
-            <loc>https://yinhui1984.github.io/tags/l0/</loc><lastmod>2022-10-11T13:55:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
-            <loc>https://yinhui1984.github.io/tags/wasm/</loc><lastmod>2022-10-11T13:55:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
-            <loc>https://yinhui1984.github.io/webassembly/</loc><lastmod>2022-10-11T13:55:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
-            <loc>https://yinhui1984.github.io/tags/evm/</loc><lastmod>2022-10-06T09:14:06&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
-            <loc>https://yinhui1984.github.io/evm/</loc><lastmod>2022-10-06T09:14:06&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
+            <loc>https://yinhui1984.github.io/categories/blockchain/</loc><lastmod>2022-11-30T09:25:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://yinhui1984.github.io/categories/</loc><lastmod>2022-11-30T09:25:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://yinhui1984.github.io/tags/l3/</loc><lastmod>2022-11-30T09:25:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://yinhui1984.github.io/posts/</loc><lastmod>2022-11-30T09:25:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://yinhui1984.github.io/tags/solidity/</loc><lastmod>2022-11-30T09:25:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://yinhui1984.github.io/solidity_fallback_receive_function/</loc><lastmod>2022-11-30T09:25:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://yinhui1984.github.io/tags/</loc><lastmod>2022-11-30T09:25:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://yinhui1984.github.io/tags/web3.0/</loc><lastmod>2022-11-30T09:25:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://yinhui1984.github.io/</loc><lastmod>2022-11-30T09:25:29&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://yinhui1984.github.io/tags/ipfs/</loc><lastmod>2022-10-24T09:17:22&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://yinhui1984.github.io/ipfs/</loc><lastmod>2022-10-24T09:17:22&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://yinhui1984.github.io/tags/l1/</loc><lastmod>2022-10-24T09:17:22&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://yinhui1984.github.io/tags/l0/</loc><lastmod>2022-10-11T13:55:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://yinhui1984.github.io/tags/wasm/</loc><lastmod>2022-10-11T13:55:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://yinhui1984.github.io/webassembly/</loc><lastmod>2022-10-11T13:55:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://yinhui1984.github.io/tags/evm/</loc><lastmod>2022-10-06T09:14:06&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://yinhui1984.github.io/evm/</loc><lastmod>2022-10-06T09:14:06&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://yinhui1984.github.io/tags/utxo/</loc><lastmod>2022-08-31T11:13:36&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://yinhui1984.github.io/utxo/</loc><lastmod>2022-08-31T11:13:36&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://yinhui1984.github.io/categories/devops/</loc><lastmod>2022-08-30T16:20:50&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
@@ -37,7 +39,6 @@
             <loc>https://yinhui1984.github.io/tags/arinc429/</loc><lastmod>2022-08-12T11:30:58&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://yinhui1984.github.io/categories/aviation/</loc><lastmod>2022-08-12T11:30:58&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://yinhui1984.github.io/solidity-by-exampleex002firstapplication/</loc><lastmod>2022-08-10T14:14:38&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://yinhui1984.github.io/tags/solidity/</loc><lastmod>2022-08-10T14:14:38&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://yinhui1984.github.io/solidity-by-exampleex001helloworld/</loc><lastmod>2022-08-10T08:44:36&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://yinhui1984.github.io/tags/vc&#43;&#43;/</loc><lastmod>2022-07-27T09:32:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://yinhui1984.github.io/visutal-studio-%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95/</loc><lastmod>2022-07-27T09:32:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>

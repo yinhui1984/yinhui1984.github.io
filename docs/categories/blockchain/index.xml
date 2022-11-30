@@ -3,25 +3,21 @@
         <title>Blockchain - Category - YINHUI&#39;s BLOG</title>
         <link>https://yinhui1984.github.io/categories/blockchain/</link>
         <description>Blockchain - Category - YINHUI&#39;s BLOG</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 24 Oct 2022 09:17:22 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/categories/blockchain/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 30 Nov 2022 09:25:29 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/categories/blockchain/" rel="self" type="application/rss+xml" /><item>
+    <title>Solidity中的fallback和receive函数</title>
+    <link>https://yinhui1984.github.io/solidity_fallback_receive_function/</link>
+    <pubDate>Wed, 30 Nov 2022 09:25:29 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/solidity_fallback_receive_function/</guid>
+    <description><![CDATA[Receiver 1 2 3 receive() external payable { //... } 基本作用 让合约地址可以以纯转账的方式接收以太, 直接当向合约地址发送以太的时候, receive函数将被调用 比如: 1 2 3 4 5]]></description>
+</item>
+<item>
     <title>IPFS</title>
     <link>https://yinhui1984.github.io/ipfs/</link>
     <pubDate>Mon, 24 Oct 2022 09:17:22 &#43;0800</pubDate>
     <author>yinhui</author>
     <guid>https://yinhui1984.github.io/ipfs/</guid>
     <description><![CDATA[<p><code>IPFS</code> 基础知识</p>]]></description>
-</item>
-<item>
-    <title>IPFS和朋友们</title>
-    <link>https://yinhui1984.github.io/ipfs_friends/</link>
-    <pubDate>Thu, 20 Oct 2022 16:28:32 &#43;0800</pubDate>
-    <author>yinhui</author>
-    <guid>https://yinhui1984.github.io/ipfs_friends/</guid>
-    <description><![CDATA[<p>IPFS和朋友们: 下一代点对点数据网络的定性比较.</p>
-<p>Erik Daniel and Florian Tschorsch</p>
-<p><a href="https://arxiv.org/pdf/2201.05286.pdf" target="_blank" rel="noopener noreffer ">https://arxiv.org/pdf/2201.05286.pdf</a></p>
-<p>摘要&ndash;分散的分布式存储为减少数据孤岛的影响提供了一种方法，因为集中式云存储往往会助长这种影响。虽然这种趋势的意图并不新鲜，但由于技术的进步，特别是区块链网络的发展，这个话题得到了牵引。因此，我们观察到，新一代的点对点数据网络出现了。因此，在这篇调查报告中，我们对下一代数据网络进行了技术概述。我们使用选定的数据网络来介绍一般概念，并强调新的发展。具体来说，我们提供了星际文件系统的更深入的概要，以及Swarm、Hypercore Protocol、SAFE、Storj和Arweave的总体概述。我们确定了共同的构建模块，并提供了一个定性的比较。从概述中，我们得出了有关数据网络的未来挑战和研究目标。
-索引词&ndash;数据网络，区块链网络，点对点网络，叠加网络</p>]]></description>
 </item>
 <item>
     <title>WebAssembly</title>
