@@ -3,9 +3,17 @@
         <title>YINHUI&#39;s BLOG</title>
         <link>https://yinhui1984.github.io/</link>
         <description>银辉的博客</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 30 Nov 2022 09:25:29 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 06 Dec 2022 13:21:41 &#43;0800</lastBuildDate>
             <atom:link href="https://yinhui1984.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Solidity中tx.origin和msg.sender</title>
+    <link>https://yinhui1984.github.io/solidity_tx_origin_msg_sender/</link>
+    <pubDate>Tue, 06 Dec 2022 13:21:41 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/solidity_tx_origin_msg_sender/</guid>
+    <description><![CDATA[基本含义: tx.origin: tx.origin 表示交易的发起者,这个值在执行交易时自动设置，用于表示这个交易是由哪个账户发起的. 使用 tx.origin 的原因是，在以太坊区块链中，交易可能会]]></description>
+</item>
+<item>
     <title>Solidity中的fallback和receive函数</title>
     <link>https://yinhui1984.github.io/solidity_fallback_receive_function/</link>
     <pubDate>Wed, 30 Nov 2022 09:25:29 &#43;0800</pubDate>
@@ -76,14 +84,6 @@
     <author>yinhui</author>
     <guid>https://yinhui1984.github.io/censys%E6%96%87%E6%A1%A3/</guid>
     <description><![CDATA[<p><code>censys</code> <a href="https://search.censys.io" target="_blank" rel="noopener noreffer ">https://search.censys.io</a> 堪称神器, 翻译了一下帮助文档</p>]]></description>
-</item>
-<item>
-    <title>Golang获得动态网页内容</title>
-    <link>https://yinhui1984.github.io/golang%E8%8E%B7%E5%BE%97%E5%8A%A8%E6%80%81%E7%BD%91%E9%A1%B5%E5%86%85%E5%AE%B9/</link>
-    <pubDate>Thu, 18 Aug 2022 10:07:22 &#43;0800</pubDate>
-    <author>yinhui</author>
-    <guid>https://yinhui1984.github.io/golang%E8%8E%B7%E5%BE%97%E5%8A%A8%E6%80%81%E7%BD%91%E9%A1%B5%E5%86%85%E5%AE%B9/</guid>
-    <description><![CDATA[<p>golang中用get()或httpClient 进行get时得到的静态页面, 如果页面中的内容是获取到本地后动态生成的话, 应该如何得到呢</p>]]></description>
 </item>
 </channel>
 </rss>

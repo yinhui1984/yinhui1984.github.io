@@ -3,7 +3,15 @@
         <title>solidity - Tag - YINHUI&#39;s BLOG</title>
         <link>https://yinhui1984.github.io/tags/solidity/</link>
         <description>solidity - Tag - YINHUI&#39;s BLOG</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 30 Nov 2022 09:25:29 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/tags/solidity/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 06 Dec 2022 13:21:41 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/tags/solidity/" rel="self" type="application/rss+xml" /><item>
+    <title>Solidity中tx.origin和msg.sender</title>
+    <link>https://yinhui1984.github.io/solidity_tx_origin_msg_sender/</link>
+    <pubDate>Tue, 06 Dec 2022 13:21:41 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/solidity_tx_origin_msg_sender/</guid>
+    <description><![CDATA[基本含义: tx.origin: tx.origin 表示交易的发起者,这个值在执行交易时自动设置，用于表示这个交易是由哪个账户发起的. 使用 tx.origin 的原因是，在以太坊区块链中，交易可能会]]></description>
+</item>
+<item>
     <title>Solidity中的fallback和receive函数</title>
     <link>https://yinhui1984.github.io/solidity_fallback_receive_function/</link>
     <pubDate>Wed, 30 Nov 2022 09:25:29 &#43;0800</pubDate>
