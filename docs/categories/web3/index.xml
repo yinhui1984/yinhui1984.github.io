@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>web3 - Category - YINHUI&#39;s BLOG</title>
+        <link>https://yinhui1984.github.io/categories/web3/</link>
+        <description>web3 - Category - YINHUI&#39;s BLOG</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 19 Jan 2023 20:06:53 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/categories/web3/" rel="self" type="application/rss+xml" /><item>
+    <title>Ethernaut 19 MagicNumber</title>
+    <link>https://yinhui1984.github.io/ethernaut_19_magicnumber/</link>
+    <pubDate>Thu, 19 Jan 2023 20:06:53 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/ethernaut_19_magicnumber/</guid>
+    <description><![CDATA[<h1 id="19-magic-number">19 Magic Number</h1>
+<p>ethernaut 挑战 第19题, 比较有意思, 记录一下</p>]]></description>
+</item>
+</channel>
+</rss>

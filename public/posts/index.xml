@@ -3,7 +3,16 @@
         <title>All Posts - YINHUI&#39;s BLOG</title>
         <link>https://yinhui1984.github.io/posts/</link>
         <description>All Posts | YINHUI&#39;s BLOG</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 06 Dec 2022 13:21:41 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 19 Jan 2023 20:06:53 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Ethernaut 19 MagicNumber</title>
+    <link>https://yinhui1984.github.io/ethernaut_19_magicnumber/</link>
+    <pubDate>Thu, 19 Jan 2023 20:06:53 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/ethernaut_19_magicnumber/</guid>
+    <description><![CDATA[<h1 id="19-magic-number">19 Magic Number</h1>
+<p>ethernaut 挑战 第19题, 比较有意思, 记录一下</p>]]></description>
+</item>
+<item>
     <title>Solidity中tx.origin和msg.sender</title>
     <link>https://yinhui1984.github.io/solidity_tx_origin_msg_sender/</link>
     <pubDate>Tue, 06 Dec 2022 13:21:41 &#43;0800</pubDate>
@@ -74,14 +83,6 @@
     <author>yinhui</author>
     <guid>https://yinhui1984.github.io/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E/</guid>
     <description><![CDATA[<p>关于零知识证明的若干知识</p>]]></description>
-</item>
-<item>
-    <title>Censys文档</title>
-    <link>https://yinhui1984.github.io/censys%E6%96%87%E6%A1%A3/</link>
-    <pubDate>Fri, 19 Aug 2022 21:18:09 &#43;0800</pubDate>
-    <author>yinhui</author>
-    <guid>https://yinhui1984.github.io/censys%E6%96%87%E6%A1%A3/</guid>
-    <description><![CDATA[<p><code>censys</code> <a href="https://search.censys.io" target="_blank" rel="noopener noreffer ">https://search.censys.io</a> 堪称神器, 翻译了一下帮助文档</p>]]></description>
 </item>
 </channel>
 </rss>
