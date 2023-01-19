@@ -9,8 +9,7 @@
     <pubDate>Thu, 19 Jan 2023 20:06:53 &#43;0800</pubDate>
     <author>yinhui</author>
     <guid>https://yinhui1984.github.io/ethernaut_19_magicnumber/</guid>
-    <description><![CDATA[<h1 id="19-magic-number">19 Magic Number</h1>
-<p>ethernaut 挑战 第19题, 比较有意思, 记录一下</p>]]></description>
+    <description><![CDATA[<p>ethernaut 挑战 第19题, 比较有意思, 记录一下</p>]]></description>
 </item>
 <item>
     <title>Solidity中tx.origin和msg.sender</title>

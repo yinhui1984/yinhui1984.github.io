@@ -1,8 +1,6 @@
 # Ethernaut 19 MagicNumber
 
 
-# 19 Magic Number
-
 ethernaut 挑战 第19题, 比较有意思, 记录一下
 
 <!--more-->
