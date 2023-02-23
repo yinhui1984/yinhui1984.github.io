@@ -3,7 +3,15 @@
         <title>All Posts - YINHUI&#39;s BLOG</title>
         <link>https://yinhui1984.github.io/posts/</link>
         <description>All Posts | YINHUI&#39;s BLOG</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 19 Jan 2023 20:06:53 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 23 Feb 2023 15:45:37 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>About docker</title>
+    <link>https://yinhui1984.github.io/about_docker/</link>
+    <pubDate>Thu, 23 Feb 2023 15:45:37 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/about_docker/</guid>
+    <description><![CDATA[<p>docker 学习总结</p>]]></description>
+</item>
+<item>
     <title>Ethernaut 19 MagicNumber</title>
     <link>https://yinhui1984.github.io/ethernaut_19_magicnumber/</link>
     <pubDate>Thu, 19 Jan 2023 20:06:53 &#43;0800</pubDate>
@@ -74,14 +82,6 @@
     <author>yinhui</author>
     <guid>https://yinhui1984.github.io/p2p/</guid>
     <description><![CDATA[<p>来自 <a href="https://nakamoto.com/author/haseeb/" target="_blank" rel="noopener noreffer ">HASEEB QURESHI</a> 的三篇关于P2P网络的博客的翻译</p>]]></description>
-</item>
-<item>
-    <title>零知识证明</title>
-    <link>https://yinhui1984.github.io/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E/</link>
-    <pubDate>Mon, 22 Aug 2022 13:39:54 &#43;0800</pubDate>
-    <author>yinhui</author>
-    <guid>https://yinhui1984.github.io/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E/</guid>
-    <description><![CDATA[<p>关于零知识证明的若干知识</p>]]></description>
 </item>
 </channel>
 </rss>
