@@ -3,7 +3,15 @@
         <title>L0 - Tag - YINHUI&#39;s BLOG</title>
         <link>https://yinhui1984.github.io/tags/l0/</link>
         <description>L0 - Tag - YINHUI&#39;s BLOG</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 11 Oct 2022 13:55:14 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/tags/l0/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 28 Feb 2023 20:03:46 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/tags/l0/" rel="self" type="application/rss+xml" /><item>
+    <title>Evm Puzzles</title>
+    <link>https://yinhui1984.github.io/evm-puzzles/</link>
+    <pubDate>Tue, 28 Feb 2023 20:03:46 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/evm-puzzles/</guid>
+    <description><![CDATA[<p>EVM Puzzles挑战完成记录</p>]]></description>
+</item>
+<item>
     <title>WebAssembly</title>
     <link>https://yinhui1984.github.io/webassembly/</link>
     <pubDate>Tue, 11 Oct 2022 13:55:14 &#43;0800</pubDate>
