@@ -3,9 +3,17 @@
         <title>YINHUI&#39;s BLOG</title>
         <link>https://yinhui1984.github.io/</link>
         <description>银辉的博客</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 23 Feb 2023 15:45:37 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 28 Feb 2023 19:54:46 &#43;0800</lastBuildDate>
             <atom:link href="https://yinhui1984.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Ethernaut</title>
+    <link>https://yinhui1984.github.io/ethernaut/</link>
+    <pubDate>Tue, 28 Feb 2023 19:54:46 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/ethernaut/</guid>
+    <description><![CDATA[<p>Ethernaut 挑战记录</p>]]></description>
+</item>
+<item>
     <title>About docker</title>
     <link>https://yinhui1984.github.io/about_docker/</link>
     <pubDate>Thu, 23 Feb 2023 15:45:37 &#43;0800</pubDate>
@@ -76,14 +84,6 @@
     <author>yinhui</author>
     <guid>https://yinhui1984.github.io/git-master%E6%81%A2%E5%A4%8D/</guid>
     <description><![CDATA[删库跑路, 如何恢复 给代码打tag的时候, 发现 fatal: 'xxx/myproject.git' does not appear to be a git repository 服务器上一看, 被人删了, NB-PLUS 首先本地机的clone中查看远程路径 1 2 3 &gt; git remote -v]]></description>
-</item>
-<item>
-    <title>P2P</title>
-    <link>https://yinhui1984.github.io/p2p/</link>
-    <pubDate>Tue, 23 Aug 2022 12:09:22 &#43;0800</pubDate>
-    <author>yinhui</author>
-    <guid>https://yinhui1984.github.io/p2p/</guid>
-    <description><![CDATA[<p>来自 <a href="https://nakamoto.com/author/haseeb/" target="_blank" rel="noopener noreffer ">HASEEB QURESHI</a> 的三篇关于P2P网络的博客的翻译</p>]]></description>
 </item>
 </channel>
 </rss>
