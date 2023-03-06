@@ -753,3 +753,21 @@ Test result: ok. 1 passed; 0 failed; finished in 666.79ms
 
 套现 14258 $ 
 
+
+
+## 相关
+
+###`Ethernaut`挑战
+
+在`Ethernaut`挑战中有一关和这个非常类似, 其是一个简化版本的交个操纵案例, 参考这里:
+
+https://github.com/yinhui1984/EthernautGameReferenceAnswers/blob/main/22_Shop.md 
+
+
+
+### 预言机安全性
+
+>预言机的安全性等同于其数据源。 如果一个去中心化应用程序使用 Uniswap 作为其以太币/DAI 价格的预言机，攻击者就可以在 Uniswap 上篡改价格，以操纵该去中心化应用程序对当前价格的理解。 如何对付这个隐患的示例包括[一种推送系统](https://developer.makerdao.com/feeds/)，如 MakerDAO 所使用的推送系统。它会将来自若干外部数据源的价格数据进行比对，而不是仅仅依靠单一来源。
+
+参考这里:  https://ethereum.org/zh/developers/docs/oracles/#security
+

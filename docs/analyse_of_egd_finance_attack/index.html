@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/yinhui1984.github.io\/analyse_of_egd_finance_attack\/"
-        },"genre": "posts","keywords": "defi","wordcount":  4185 ,
+        },"genre": "posts","keywords": "defi","wordcount":  4406 ,
         "url": "https:\/\/yinhui1984.github.io\/analyse_of_egd_finance_attack\/","datePublished": "2023-03-06T15:09:31+08:00","dateModified": "2023-03-06T15:09:31+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -104,7 +104,7 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">EGD Finance 价格操纵攻击事件分析</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/yinhui1984" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>yinhui</a></span>&nbsp;<span class="post-category">included in <a href="/categories/security/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>security</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-06">2023-03-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;4185 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-06">2023-03-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;4406 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;9 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -126,6 +126,11 @@
         <li><a href="#质押usdt获取egd奖励">质押USDT获取EGD奖励</a></li>
         <li><a href="#在操纵价格后获取egd奖励">在操纵价格后获取EGD奖励</a></li>
         <li><a href="#将获利兑换为usdt进行套现">将获利兑换为USDT进行套现</a></li>
+      </ul>
+    </li>
+    <li><a href="#相关">相关</a>
+      <ul>
+        <li><a href="#预言机安全性">预言机安全性</a></li>
       </ul>
     </li>
   </ul>
@@ -1441,6 +1446,15 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>套现 14258 $</p>
+<h2 id="相关">相关</h2>
+<p>###<code>Ethernaut</code>挑战</p>
+<p>在<code>Ethernaut</code>挑战中有一关和这个非常类似, 其是一个简化版本的交个操纵案例, 参考这里:</p>
+<p><a href="https://github.com/yinhui1984/EthernautGameReferenceAnswers/blob/main/22_Shop.md" target="_blank" rel="noopener noreffer ">https://github.com/yinhui1984/EthernautGameReferenceAnswers/blob/main/22_Shop.md</a></p>
+<h3 id="预言机安全性">预言机安全性</h3>
+<blockquote>
+<p>预言机的安全性等同于其数据源。 如果一个去中心化应用程序使用 Uniswap 作为其以太币/DAI 价格的预言机，攻击者就可以在 Uniswap 上篡改价格，以操纵该去中心化应用程序对当前价格的理解。 如何对付这个隐患的示例包括<a href="https://developer.makerdao.com/feeds/" target="_blank" rel="noopener noreffer ">一种推送系统</a>，如 MakerDAO 所使用的推送系统。它会将来自若干外部数据源的价格数据进行比对，而不是仅仅依靠单一来源。</p>
+</blockquote>
+<p>参考这里:  <a href="https://ethereum.org/zh/developers/docs/oracles/#security" target="_blank" rel="noopener noreffer ">https://ethereum.org/zh/developers/docs/oracles/#security</a></p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
