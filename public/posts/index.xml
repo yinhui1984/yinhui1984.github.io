@@ -3,7 +3,15 @@
         <title>All Posts - YINHUI&#39;s BLOG</title>
         <link>https://yinhui1984.github.io/posts/</link>
         <description>All Posts | YINHUI&#39;s BLOG</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 28 Feb 2023 20:03:46 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 06 Mar 2023 15:09:31 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>EGD Finance 价格操纵攻击事件分析</title>
+    <link>https://yinhui1984.github.io/analyse_of_egd_finance_attack/</link>
+    <pubDate>Mon, 06 Mar 2023 15:09:31 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/analyse_of_egd_finance_attack/</guid>
+    <description><![CDATA[背景介绍 攻击事件发生在 https://bscscan.com/tx/0x50da0b1b6e34bce59769157df769eb45fa11efc7d0e292900d6b0a86ae66a2b3 攻击者调用攻击合约对 EGD_Finance 进行了价格操纵攻击, 进而套现了不少USDT. 可以在这里看到攻击流程: https://phalcon.blocksec.com/tx/bsc/0x50da0b1b6e34bce59769157df769eb45fa11efc7d0e292900d6b0a86ae66a2b3 另外一篇关于该攻击的逆向]]></description>
+</item>
+<item>
     <title>Evm Puzzles</title>
     <link>https://yinhui1984.github.io/evm-puzzles/</link>
     <pubDate>Tue, 28 Feb 2023 20:03:46 &#43;0800</pubDate>
@@ -74,14 +82,6 @@
     <author>yinhui</author>
     <guid>https://yinhui1984.github.io/evm/</guid>
     <description><![CDATA[<p>一些关于EVM的学习笔记</p>]]></description>
-</item>
-<item>
-    <title>UTXO</title>
-    <link>https://yinhui1984.github.io/utxo/</link>
-    <pubDate>Wed, 31 Aug 2022 11:13:36 &#43;0800</pubDate>
-    <author>yinhui</author>
-    <guid>https://yinhui1984.github.io/utxo/</guid>
-    <description><![CDATA[<p>一些关于<code>UTXO</code>的理解</p>]]></description>
 </item>
 </channel>
 </rss>

