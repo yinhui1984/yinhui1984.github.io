@@ -148,7 +148,7 @@ rew += quota * 1e18 / getEGDPrice();
 
 ## 攻击过程
 
-### 操纵EDG/USDT的价格, 让EDG非常便宜
+### 操纵EGD/USDT的价格, 让EGD非常便宜
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -257,7 +257,7 @@ Logs:
 
 
 
-### 质押USDT获取EDG奖励
+### 质押USDT获取EGD奖励
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -372,7 +372,7 @@ Logs:
 
 
 
-### 在操纵价格后获取EDG奖励
+### 在操纵价格后获取EGD奖励
 
 ```solidity
 // SPDX-License-Identifier: MIT
