@@ -763,7 +763,7 @@ Test result: ok. 1 passed; 0 failed; finished in 666.79ms
 
 ## 相关
 
-###`Ethernaut`挑战
+### Ethernaut 挑战
 
 在`Ethernaut`挑战中有一关和这个非常类似, 其是一个简化版本的交个操纵案例, 参考这里:
 
