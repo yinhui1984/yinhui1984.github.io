@@ -727,7 +727,15 @@ contract HackTest2 is Test {
 
 ```
 
-
+> 注意: 
+>
+> ```solidity
+> //贷款（价格操纵）
+>         uint256 borrowUSDT = (IERC20(usdt).balanceOf(address(EGD_USDT_LPPool)) *
+>             99997600) / 100000000;
+> ```
+>
+> 在到底借款多少(这里的99.76%)需要微调, 防止最后获取的EDG的数量超过池子中的EDG总量而导致转账失败.
 
 输出:
 
