@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/yinhui1984.github.io\/analyse_of_egd_finance_attack\/"
-        },"genre": "posts","keywords": "defi","wordcount":  4395 ,
+        },"genre": "posts","keywords": "defi","wordcount":  4392 ,
         "url": "https:\/\/yinhui1984.github.io\/analyse_of_egd_finance_attack\/","datePublished": "2023-03-06T15:09:31+08:00","dateModified": "2023-03-06T15:09:31+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -104,7 +104,7 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">EGD Finance 价格操纵攻击事件分析</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/yinhui1984" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>yinhui</a></span>&nbsp;<span class="post-category">included in <a href="/categories/security/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>security</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-06">2023-03-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;4395 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-06">2023-03-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;4392 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;9 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -144,7 +144,7 @@
 <p>我这里从正向的角度, 一步步来回放本次攻击.</p>
 <h2 id="code-review">Code Review</h2>
 <h3 id="逻辑合约">逻辑合约</h3>
-<p>EGD_Finance 在 这里代理合约位置 : <a href="https://bscscan.com/address/0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370#code" target="_blank" rel="noopener noreffer ">https://bscscan.com/address/0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370#code</a></p>
+<p>EGD_Finance 代理合约位置 : <a href="https://bscscan.com/address/0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370#code" target="_blank" rel="noopener noreffer ">https://bscscan.com/address/0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370#code</a></p>
 <p>通过点击区块链浏览器上的&quot;Read as Proxy&quot; 按钮可以得到其逻辑合约为 &quot; <a href="https://bscscan.com/address/0x93c175439726797dcee24d08e4ac9164e88e7aee#code" target="_blank" rel="noopener noreffer ">0x93c175439726797dcee24d08e4ac9164e88e7aee</a>&quot;</p>
 <p>或者通过读取代理合约的<code>_IMPLEMENTATION_SLOT</code> 也可以得到当前使用的逻辑合约地址</p>
 <div class="highlight"><div class="chroma">
@@ -152,7 +152,7 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">bytes32 internal constant _IMPLEMENTATION_SLOT = 0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc;
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kt">bytes32</span> <span class="k">internal</span> <span class="k">constant</span> <span class="n">_IMPLEMENTATION_SLOT</span> <span class="o">=</span> <span class="mh">0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc</span><span class="p">;</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>在逻辑合约 <code>EGD_Finance</code>中我们可以看到其实现了一个&quot;质押USDT奖励EGD token&quot;的功能.</p>
@@ -1449,7 +1449,7 @@
 </div><p>套现 14258 $</p>
 <h2 id="相关">相关</h2>
 <h3 id="ethernaut-挑战">Ethernaut 挑战</h3>
-<p>在<code>Ethernaut</code>挑战中有一关和这个非常类似, 其是一个简化版本的交个操纵案例, 参考这里:</p>
+<p>在<code>Ethernaut</code>挑战中有一关和这个非常类似, 其是一个简化版本的价格操纵案例, 参考这里:</p>
 <p><a href="https://github.com/yinhui1984/EthernautGameReferenceAnswers/blob/main/22_Shop.md" target="_blank" rel="noopener noreffer ">https://github.com/yinhui1984/EthernautGameReferenceAnswers/blob/main/22_Shop.md</a></p>
 <h3 id="预言机安全性">预言机安全性</h3>
 <blockquote>

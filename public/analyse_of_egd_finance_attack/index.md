@@ -21,13 +21,13 @@
 
 ### 逻辑合约
 
-EGD_Finance 在 这里代理合约位置 : https://bscscan.com/address/0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370#code
+EGD_Finance 代理合约位置 : https://bscscan.com/address/0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370#code
 
 通过点击区块链浏览器上的"Read as Proxy" 按钮可以得到其逻辑合约为 " [0x93c175439726797dcee24d08e4ac9164e88e7aee](https://bscscan.com/address/0x93c175439726797dcee24d08e4ac9164e88e7aee#code)"
 
 或者通过读取代理合约的`_IMPLEMENTATION_SLOT` 也可以得到当前使用的逻辑合约地址
 
-```
+```solidity
 bytes32 internal constant _IMPLEMENTATION_SLOT = 0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc;
 ```
 
@@ -759,7 +759,7 @@ Test result: ok. 1 passed; 0 failed; finished in 666.79ms
 
 ### Ethernaut 挑战
 
-在`Ethernaut`挑战中有一关和这个非常类似, 其是一个简化版本的交个操纵案例, 参考这里:
+在`Ethernaut`挑战中有一关和这个非常类似, 其是一个简化版本的价格操纵案例, 参考这里:
 
 https://github.com/yinhui1984/EthernautGameReferenceAnswers/blob/main/22_Shop.md 
 
