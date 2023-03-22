@@ -3,7 +3,15 @@
         <title>security - Category - YINHUI&#39;s BLOG</title>
         <link>https://yinhui1984.github.io/categories/security/</link>
         <description>security - Category - YINHUI&#39;s BLOG</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 15 Mar 2023 14:50:48 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/categories/security/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 22 Mar 2023 14:33:05 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/categories/security/" rel="self" type="application/rss+xml" /><item>
+    <title>Euler Finance 黑客攻击分析</title>
+    <link>https://yinhui1984.github.io/euler-finance-attack/</link>
+    <pubDate>Wed, 22 Mar 2023 14:33:05 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/euler-finance-attack/</guid>
+    <description><![CDATA[<p>去中心化去审批化借贷平台Euler前端时间遭到最糟糕的一系列攻击。这里以以太坊主链<a href="https://etherscan.io/tx/0xc310a0affe2169d1f6feec1c63dbc7f7c62a887fa48795d327d4d2da2d6b111d" target="_blank" rel="noopener noreffer ">16817996高度的一次攻击</a>为例，看看这个黑客是如何利用其漏洞实施攻击并获利的</p>]]></description>
+</item>
+<item>
     <title>Phoenix 访问控制攻击分析</title>
     <link>https://yinhui1984.github.io/phoenix-access-control-attack/</link>
     <pubDate>Wed, 15 Mar 2023 14:50:48 &#43;0800</pubDate>
