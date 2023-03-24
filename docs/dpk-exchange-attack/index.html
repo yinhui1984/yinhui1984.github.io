@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/yinhui1984.github.io\/dpk-exchange-attack\/"
-        },"genre": "posts","keywords": "defi","wordcount":  2374 ,
+        },"genre": "posts","keywords": "defi","wordcount":  2497 ,
         "url": "https:\/\/yinhui1984.github.io\/dpk-exchange-attack\/","datePublished": "2023-03-24T20:16:27+08:00","dateModified": "2023-03-24T20:16:27+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -104,7 +104,7 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">DKP Exchange 攻击事件分析</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/yinhui1984" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>yinhui</a></span>&nbsp;<span class="post-category">included in <a href="/categories/security/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>security</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-24">2023-03-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2374 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-24">2023-03-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2497 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -399,7 +399,7 @@
 <p>这就给了黑客价格操纵的机会.</p>
 <h2 id="漏洞利用">漏洞利用</h2>
 <h3 id="价格操纵">价格操纵</h3>
-<p>日常操作, 利用闪电贷在<code>0x1201()</code>查询价格时用到的PAIR中借走绝大多数BUSD, 让DKP token价格异常便宜. 就可以用少量的BUSD进行大量买入.</p>
+<p>日常操作, 利用闪电贷在<code>0x1201()</code>查询价格时用到的PAIR中借走绝大多数BUSD, 由于<code>0x1201()</code>是按照PAIR中BUSD和DKP的余额比例来计算价格的, 这就可以让其计算出DKP token价格异常&quot;便宜&quot;(并不是让市场上的价格变便宜, 而是让<code>0x1201()</code>计算出一个错误的很便宜的价格), 然后攻击者就可以用少量的BUSD进行大量买入. 然后再到市场上以正常的价格卖出而获利.</p>
 <h3 id="绕过合约检查">绕过合约检查</h3>
 <p>由于<code>exchange</code>函数中  <code>require(msg.sender.code.size &lt;= 0, Error('no isContract'));</code> 条件的限制, 攻击合约是不能直接调用<code>exchange</code>函数的.</p>
 <p>但是, 使用代码size是否为0来作为调用是否来自合约的判断条件是有问题的. 合约在&quot;run time&quot;时代码size是大于0的,但在&quot;creation time&quot;,由于合约还正在部署过程中,所以其code size这时为0, 要在&quot;creation time&quot;执行代码逻辑,那自然就是合约的构造函数, 所以在合约的构造函数中调用<code>exchange</code>函数是可以绕过上面的条件检查的. 关于这个问题可以参考 <a href="https://github.com/yinhui1984/EthernautGameReferenceAnswers/blob/main/15_GatekepperTwo.md" target="_blank" rel="noopener noreffer ">Ethernaut第15个挑战题目</a></p>
