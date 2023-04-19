@@ -3,9 +3,17 @@
         <title>YINHUI&#39;s BLOG</title>
         <link>https://yinhui1984.github.io/</link>
         <description>银辉的博客</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 24 Mar 2023 20:16:27 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 19 Apr 2023 10:12:15 &#43;0800</lastBuildDate>
             <atom:link href="https://yinhui1984.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Swapos v2 attack 攻击分析</title>
+    <link>https://yinhui1984.github.io/analysis_of_swaposv2_attack/</link>
+    <pubDate>Wed, 19 Apr 2023 10:12:15 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/analysis_of_swaposv2_attack/</guid>
+    <description><![CDATA[<p>saving gas的锅</p>]]></description>
+</item>
+<item>
     <title>DKP Exchange 攻击事件分析</title>
     <link>https://yinhui1984.github.io/dpk-exchange-attack/</link>
     <pubDate>Fri, 24 Mar 2023 20:16:27 &#43;0800</pubDate>
@@ -76,14 +84,6 @@
     <author>yinhui</author>
     <guid>https://yinhui1984.github.io/ethernaut_19_magicnumber/</guid>
     <description><![CDATA[<p>ethernaut 挑战 第19题, 比较有意思, 记录一下</p>]]></description>
-</item>
-<item>
-    <title>Solidity中tx.origin和msg.sender</title>
-    <link>https://yinhui1984.github.io/solidity_tx_origin_msg_sender/</link>
-    <pubDate>Tue, 06 Dec 2022 13:21:41 &#43;0800</pubDate>
-    <author>yinhui</author>
-    <guid>https://yinhui1984.github.io/solidity_tx_origin_msg_sender/</guid>
-    <description><![CDATA[基本含义: tx.origin: tx.origin 表示交易的发起者,这个值在执行交易时自动设置，用于表示这个交易是由哪个账户发起的. 使用 tx.origin 的原因是，在以太坊区块链中，交易可能会]]></description>
 </item>
 </channel>
 </rss>
