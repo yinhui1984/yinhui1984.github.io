@@ -1,7 +1,7 @@
 ---
 title: "Solidity中的fallback和receive函数"
 date: 2022-11-30T09:25:29+08:00
-draft: false
+draft: true
 author: yinhui
 categories: [Blockchain]
 tags: [solidity, L3,Web3.0] 

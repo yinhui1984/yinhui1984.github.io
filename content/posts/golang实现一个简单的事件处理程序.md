@@ -1,7 +1,7 @@
 ---
 title: "Golang实现一个简单的事件处理程序"
 date: 2022-07-22T20:16:58+08:00
-draft: false
+draft: true
 author: yinhui
 categories: [golang]
 tags: [event]  

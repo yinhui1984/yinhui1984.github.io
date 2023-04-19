@@ -4,7 +4,7 @@ date: 2022-08-18T10:07:22+08:00
 author: yinhui
 categories: [golang]
 tags: [http, crawler]  
-draft: false
+draft: true
 ---
 
 golang中用get()或httpClient 进行get时得到的静态页面, 如果页面中的内容是获取到本地后动态生成的话, 应该如何得到呢

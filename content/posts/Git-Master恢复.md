@@ -1,7 +1,7 @@
 ---
 title: "Git Master恢复"
 date: 2022-08-30T16:20:50+08:00
-draft: false
+draft: true
 author: yinhui
 categories: [devops]
 tags: [git] 

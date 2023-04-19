@@ -1,7 +1,7 @@
 ---
 title: "MFC窗体程序弹出命令行窗口显示日志输出"
 date: 2022-07-13T17:38:13+08:00
-draft: false
+draft: true
 author: yinhui
 categories: [windows]
 tags: [vc++] 

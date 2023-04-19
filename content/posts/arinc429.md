@@ -1,7 +1,7 @@
 ---
 title: "ARINC-429"
 date: 2022-08-12T11:30:58+08:00
-draft: false
+draft: true
 author: yinhui
 categories: [aviation]
 tags: [arinc429] 
