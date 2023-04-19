@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/yinhui1984.github.io\/analysis_of_swaposv2_attack\/"
-        },"genre": "posts","keywords": "defi","wordcount":  2141 ,
+        },"genre": "posts","keywords": "defi","wordcount":  2143 ,
         "url": "https:\/\/yinhui1984.github.io\/analysis_of_swaposv2_attack\/","datePublished": "2023-04-19T10:12:15+08:00","dateModified": "2023-04-19T10:12:15+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -104,7 +104,7 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Swapos v2 attack 攻击分析</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/yinhui1984" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>yinhui</a></span>&nbsp;<span class="post-category">included in <a href="/categories/security/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>security</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-04-19">2023-04-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2141 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-04-19">2023-04-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2143 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -312,7 +312,7 @@
 <pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="n">SwaposV2</span><span class="p">.</span><span class="n">swap</span><span class="p">(</span><span class="o">&lt;</span><span class="mi">90</span><span class="o">%</span> <span class="kr">of</span> <span class="n">token0</span> <span class="k">in</span> <span class="n">the</span> <span class="n">pool</span><span class="o">&gt;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">&lt;</span><span class="kt">address</span> <span class="kr">of</span> <span class="n">attacker</span><span class="o">&gt;</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>那么攻击者看看能不能绕过这些<code>require</code></p>
+</div><p>那么攻击者我们能不能绕过这些<code>require</code></p>
 <h3 id="require-1">require 1</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -358,7 +358,7 @@
 <pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="nb">require</span><span class="p">(</span><span class="n">to</span> <span class="o">!=</span> <span class="n">_token0</span> <span class="o">&amp;&amp;</span> <span class="n">to</span> <span class="o">!=</span> <span class="n">_token1</span><span class="p">,</span> <span class="s">&#34;SwaposV2: INVALID_TO&#34;</span><span class="p">);</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>确保接收方不是token0或token1, 没问题, 是我</p>
+</div><p>确保接收方不是token0或token1, 没问题, 是攻击者</p>
 <h3 id="require-4">require 4</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">

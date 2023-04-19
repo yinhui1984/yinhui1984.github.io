@@ -120,7 +120,7 @@ https://twitter.com/CertiKAlert/status/1647530789947469825
 SwaposV2.swap(<90% of token0 in the pool>, 0, <address of attacker>, "")
 ```
 
-那么攻击者看看能不能绕过这些`require`
+那么攻击者我们能不能绕过这些`require`
 
 ### require 1
 
@@ -154,7 +154,7 @@ SwaposV2.swap(<90% of token0 in the pool>, 0, <address of attacker>, "")
 require(to != _token0 && to != _token1, "SwaposV2: INVALID_TO");
 ```
 
-确保接收方不是token0或token1, 没问题, 是我
+确保接收方不是token0或token1, 没问题, 是攻击者
 
 
 
