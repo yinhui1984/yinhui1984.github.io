@@ -3,7 +3,15 @@
         <title>security - Category - YINHUI&#39;s BLOG</title>
         <link>https://yinhui1984.github.io/categories/security/</link>
         <description>security - Category - YINHUI&#39;s BLOG</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 19 Apr 2023 10:12:15 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/categories/security/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 27 Apr 2023 09:04:23 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/categories/security/" rel="self" type="application/rss+xml" /><item>
+    <title>BondFixedExpiryTeller 攻击案例分析</title>
+    <link>https://yinhui1984.github.io/olympusdao-attack-analysis/</link>
+    <pubDate>Thu, 27 Apr 2023 09:04:23 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/olympusdao-attack-analysis/</guid>
+    <description><![CDATA[<p>OlympusDao BondFixedExpiryTeller 攻击案例分析</p>]]></description>
+</item>
+<item>
     <title>Swapos v2 attack 攻击分析</title>
     <link>https://yinhui1984.github.io/analysis_of_swaposv2_attack/</link>
     <pubDate>Wed, 19 Apr 2023 10:12:15 &#43;0800</pubDate>
