@@ -106,3 +106,15 @@ A-address: 0x8ff3801288a85ea261e4277d44e1131ea736f77b
 网上有很多关于对`tx.origin`授权导致的安全隐患的文章, 但使用时要区分你的代码到底是需要`tx.origin`还是`msg.sender`
 
 
+
+## 判断调用方是否是合约
+
+! 不要用 codesize 判断调用方是合约还是EOA
+
+使用 
+
+```solidity
+require(msg.sender == tx.origin, "caller can not be contract");
+```
+
+
