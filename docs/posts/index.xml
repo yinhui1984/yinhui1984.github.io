@@ -3,7 +3,15 @@
         <title>All Posts - YINHUI&#39;s BLOG</title>
         <link>https://yinhui1984.github.io/posts/</link>
         <description>All Posts | YINHUI&#39;s BLOG</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 28 Apr 2023 08:43:45 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 09 Jun 2023 13:35:50 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>在一个项目中同时使用Truffle和Foundry</title>
+    <link>https://yinhui1984.github.io/truffle_foundry_together/</link>
+    <pubDate>Fri, 09 Jun 2023 13:35:50 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/truffle_foundry_together/</guid>
+    <description><![CDATA[foundry套件有很棒的功能，比如一堆作弊码可以快速验证自己的想法，可以给地址打标签以及trace。truffle可以向GDB一样debu]]></description>
+</item>
+<item>
     <title>Binance BGEO Attack Analysis</title>
     <link>https://yinhui1984.github.io/binance-bgeo-attack-analysis/</link>
     <pubDate>Fri, 28 Apr 2023 08:43:45 &#43;0800</pubDate>
@@ -74,14 +82,6 @@
     <author>yinhui</author>
     <guid>https://yinhui1984.github.io/analyse_of_egd_finance_attack/</guid>
     <description><![CDATA[背景介绍 攻击事件发生在 https://bscscan.com/tx/0x50da0b1b6e34bce59769157df769eb45fa11efc7d0e292900d6b0a86ae66a2b3 攻击者调用攻击合约对 EGD_Finance 进行了价格操纵攻击, 进而套现了不少USDT. 可以在这里看到攻击流程: https://phalcon.blocksec.com/tx/bsc/0x50da0b1b6e34bce59769157df769eb45fa11efc7d0e292900d6b0a86ae66a2b3 另外一篇关于该攻击的逆向]]></description>
-</item>
-<item>
-    <title>Evm Puzzles</title>
-    <link>https://yinhui1984.github.io/evm-puzzles/</link>
-    <pubDate>Tue, 28 Feb 2023 20:03:46 &#43;0800</pubDate>
-    <author>yinhui</author>
-    <guid>https://yinhui1984.github.io/evm-puzzles/</guid>
-    <description><![CDATA[<p>EVM Puzzles挑战完成记录</p>]]></description>
 </item>
 </channel>
 </rss>

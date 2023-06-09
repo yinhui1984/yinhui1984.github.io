@@ -3,7 +3,15 @@
         <title>L3 - Tag - YINHUI&#39;s BLOG</title>
         <link>https://yinhui1984.github.io/tags/l3/</link>
         <description>L3 - Tag - YINHUI&#39;s BLOG</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 13 Mar 2023 09:53:56 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/tags/l3/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 09 Jun 2023 13:35:50 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/tags/l3/" rel="self" type="application/rss+xml" /><item>
+    <title>在一个项目中同时使用Truffle和Foundry</title>
+    <link>https://yinhui1984.github.io/truffle_foundry_together/</link>
+    <pubDate>Fri, 09 Jun 2023 13:35:50 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/truffle_foundry_together/</guid>
+    <description><![CDATA[foundry套件有很棒的功能，比如一堆作弊码可以快速验证自己的想法，可以给地址打标签以及trace。truffle可以向GDB一样debu]]></description>
+</item>
+<item>
     <title>Uniswap</title>
     <link>https://yinhui1984.github.io/uniswap/</link>
     <pubDate>Mon, 13 Mar 2023 09:53:56 &#43;0800</pubDate>

