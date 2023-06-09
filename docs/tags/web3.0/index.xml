@@ -9,7 +9,7 @@
     <pubDate>Fri, 09 Jun 2023 13:35:50 &#43;0800</pubDate>
     <author>yinhui</author>
     <guid>https://yinhui1984.github.io/truffle_foundry_together/</guid>
-    <description><![CDATA[foundry套件有很棒的功能，比如一堆作弊码可以快速验证自己的想法，可以给地址打标签以及trace。truffle可以向GDB一样debu]]></description>
+    <description><![CDATA[<p>foundry套件有很棒的功能，比如一堆作弊码可以快速验证自己的想法，可以给地址打标签以及trace。truffle可以向GDB一样debug源代码的功能又太爽了，所有想把两者融合在同一个项目中。</p>]]></description>
 </item>
 <item>
     <title>Uniswap</title>

@@ -9,6 +9,8 @@ tags: [L3,Web3.0]
 
 foundry套件有很棒的功能，比如一堆作弊码可以快速验证自己的想法，可以给地址打标签以及trace。truffle可以向GDB一样debug源代码的功能又太爽了，所有想把两者融合在同一个项目中。
 
+<!--more-->
+
 以编写[这个POC](https://yinhui1984.github.io/binance-bgeo-attack-analysis/)为例
 
 
