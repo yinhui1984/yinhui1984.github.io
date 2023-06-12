@@ -470,5 +470,6 @@ truffle test --debug
 
 ### 调试合约的只读方法
 
-TODO：
+ https://trufflesuite.com/docs/truffle/how-to/debug-test/use-the-truffle-debugger/#debugging-read-only-calls
+
 
