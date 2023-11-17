@@ -3,7 +3,15 @@
         <title>Categories - Category - YINHUI&#39;s BLOG</title>
         <link>https://yinhui1984.github.io/categories/</link>
         <description>Categories - Category - YINHUI&#39;s BLOG</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 09 Jun 2023 13:35:50 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/categories/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 17 Nov 2023 16:24:42 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/categories/" rel="self" type="application/rss+xml" /><item>
+    <title>golang</title>
+    <link>https://yinhui1984.github.io/categories/golang/</link>
+    <pubDate>Fri, 17 Nov 2023 16:24:42 &#43;0800</pubDate>
+    <author>zhouyinhui</author>
+    <guid>https://yinhui1984.github.io/categories/golang/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
     <title>Blockchain</title>
     <link>https://yinhui1984.github.io/categories/blockchain/</link>
     <pubDate>Fri, 09 Jun 2023 13:35:50 &#43;0800</pubDate>
@@ -41,14 +49,6 @@
     <pubDate>Tue, 30 Aug 2022 16:20:50 &#43;0800</pubDate>
     <author>zhouyinhui</author>
     <guid>https://yinhui1984.github.io/categories/devops/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>golang</title>
-    <link>https://yinhui1984.github.io/categories/golang/</link>
-    <pubDate>Thu, 18 Aug 2022 10:07:22 &#43;0800</pubDate>
-    <author>zhouyinhui</author>
-    <guid>https://yinhui1984.github.io/categories/golang/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>

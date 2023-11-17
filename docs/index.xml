@@ -3,9 +3,17 @@
         <title>YINHUI&#39;s BLOG</title>
         <link>https://yinhui1984.github.io/</link>
         <description>银辉的博客</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 09 Jun 2023 13:35:50 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 17 Nov 2023 16:24:42 &#43;0800</lastBuildDate>
             <atom:link href="https://yinhui1984.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Golang记录panic到日志</title>
+    <link>https://yinhui1984.github.io/golang%E8%AE%B0%E5%BD%95panic%E5%88%B0%E6%97%A5%E5%BF%97/</link>
+    <pubDate>Fri, 17 Nov 2023 16:24:42 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/golang%E8%AE%B0%E5%BD%95panic%E5%88%B0%E6%97%A5%E5%BF%97/</guid>
+    <description><![CDATA[<p>将panic记录下来可以使用recover函数, 但由于golang 的 recover 函数只能捕获同一个 goroutine 中的 panic, 所以就有了下面的一些辅助函数</p>]]></description>
+</item>
+<item>
     <title>在一个项目中同时使用Truffle和Foundry</title>
     <link>https://yinhui1984.github.io/truffle_foundry_together/</link>
     <pubDate>Fri, 09 Jun 2023 13:35:50 &#43;0800</pubDate>
@@ -76,14 +84,6 @@
     <author>yinhui</author>
     <guid>https://yinhui1984.github.io/uniswap/</guid>
     <description><![CDATA[<p>uniswap API 解释与举例</p>]]></description>
-</item>
-<item>
-    <title>EGD Finance 价格操纵攻击事件分析</title>
-    <link>https://yinhui1984.github.io/analyse_of_egd_finance_attack/</link>
-    <pubDate>Mon, 06 Mar 2023 15:09:31 &#43;0800</pubDate>
-    <author>yinhui</author>
-    <guid>https://yinhui1984.github.io/analyse_of_egd_finance_attack/</guid>
-    <description><![CDATA[背景介绍 攻击事件发生在 https://bscscan.com/tx/0x50da0b1b6e34bce59769157df769eb45fa11efc7d0e292900d6b0a86ae66a2b3 攻击者调用攻击合约对 EGD_Finance 进行了价格操纵攻击, 进而套现了不少USDT. 可以在这里看到攻击流程: https://phalcon.blocksec.com/tx/bsc/0x50da0b1b6e34bce59769157df769eb45fa11efc7d0e292900d6b0a86ae66a2b3 另外一篇关于该攻击的逆向]]></description>
 </item>
 </channel>
 </rss>

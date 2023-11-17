@@ -3,7 +3,15 @@
         <title>golang - Category - YINHUI&#39;s BLOG</title>
         <link>https://yinhui1984.github.io/categories/golang/</link>
         <description>golang - Category - YINHUI&#39;s BLOG</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 18 Aug 2022 10:07:22 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/categories/golang/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 17 Nov 2023 16:24:42 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/categories/golang/" rel="self" type="application/rss+xml" /><item>
+    <title>Golang记录panic到日志</title>
+    <link>https://yinhui1984.github.io/golang%E8%AE%B0%E5%BD%95panic%E5%88%B0%E6%97%A5%E5%BF%97/</link>
+    <pubDate>Fri, 17 Nov 2023 16:24:42 &#43;0800</pubDate>
+    <author>yinhui</author>
+    <guid>https://yinhui1984.github.io/golang%E8%AE%B0%E5%BD%95panic%E5%88%B0%E6%97%A5%E5%BF%97/</guid>
+    <description><![CDATA[<p>将panic记录下来可以使用recover函数, 但由于golang 的 recover 函数只能捕获同一个 goroutine 中的 panic, 所以就有了下面的一些辅助函数</p>]]></description>
+</item>
+<item>
     <title>Golang获得动态网页内容</title>
     <link>https://yinhui1984.github.io/golang%E8%8E%B7%E5%BE%97%E5%8A%A8%E6%80%81%E7%BD%91%E9%A1%B5%E5%86%85%E5%AE%B9/</link>
     <pubDate>Thu, 18 Aug 2022 10:07:22 &#43;0800</pubDate>
