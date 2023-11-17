@@ -28,6 +28,11 @@ func safeGo(fn interface{}, args ...interface{}) {
 		defer func() {
 			if r := recover(); r != nil {
 				fmt.Printf("Recovered in goroutine from panic: %v\n", r)
+				log.Println("STACK TRACE:")
+				log.Println(string(debug.Stack()))
+				//如果愿意，重启该 goroutine
+				//time.Sleep(1 * time.Second)
+				//go safeGo(fn, args...)
 			}
 		}()
 
