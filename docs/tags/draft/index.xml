@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Draft - 标签 - YINHUI&#39;s BLOG</title>
+    <link>http://localhost:1313/tags/draft/</link>
+    <description>银辉的技术博客 - 专注 Web3 安全、智能合约审计、区块链安全分析、Go语言开发</description>
+    <generator>Hugo 0.154.5 &amp; FixIt v0.4.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 20 Jan 2026 14:20:17 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/draft/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Test One</title>
+      <link>http://localhost:1313/test-one/</link>
+      <pubDate>Tue, 20 Jan 2026 14:20:17 +0800</pubDate>
+      <guid>http://localhost:1313/test-one/</guid>
+      <category domain="http://localhost:1313/categories/draft/">Draft</category>
+      <description>&lt;p&gt;&amp;lt;在这里编写摘要&amp;gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

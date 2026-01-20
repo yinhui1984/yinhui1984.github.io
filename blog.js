@@ -6,6 +6,8 @@ const { execSync, spawn } = require('child_process');
 const inquirer = require('inquirer');
 const chalk = require('chalk');
 const ora = require('ora');
+const boxen = require('boxen');
+const gradient = require('gradient-string');
 
 // 获取项目根目录
 const PROJECT_ROOT = __dirname;
@@ -28,26 +30,43 @@ function getPostsList() {
   }
   return fs.readdirSync(POSTS_DIR)
     .filter(file => file.endsWith('.md'))
-    .map(file => ({
-      name: file.replace('.md', ''),
-      value: file
-    }));
+    .map(file => {
+      const filePath = path.join(POSTS_DIR, file);
+      const stats = fs.statSync(filePath);
+      return {
+        name: file.replace('.md', ''),
+        value: file,
+        mtime: stats.mtime.getTime() // 最后修改时间（时间戳）
+      };
+    })
+    .sort((a, b) => b.mtime - a.mtime); // 按最后修改时间降序排序（最新的在前）
 }
 
 // 创建新文章
 async function createNewPost() {
-  console.log(chalk.cyan('\n📝 创建新文章\n'));
+  console.log();
+  const title = boxen(chalk.hex('#00FF88')('📝 创建新文章'), {
+    padding: { top: 0, bottom: 0, left: 2, right: 2 },
+    margin: { top: 1, bottom: 1 },
+    borderStyle: 'round',
+    borderColor: 'green',
+    textAlignment: 'center'
+  });
+  console.log(title);
+  console.log();
 
   const { articleName } = await inquirer.prompt([
     {
       type: 'input',
       name: 'articleName',
-      message: '请输入文章名称:',
+      message: chalk.hex('#00FF88')('请输入文章名称:'),
       validate: (input) => {
         if (!input.trim()) {
           return '文章名称不能为空';
         }
-        const fileName = `${input.trim()}.md`;
+        // 将空格替换为连字符，与创建逻辑保持一致
+        const sanitizedName = input.trim().replace(/\s+/g, '-');
+        const fileName = `${sanitizedName}.md`;
         const filePath = path.join(POSTS_DIR, fileName);
         if (fs.existsSync(filePath)) {
           return '文章已存在，请使用其他名称';
@@ -57,28 +76,35 @@ async function createNewPost() {
     }
   ]);
 
-  const fileName = `${articleName.trim()}.md`;
+  // 将空格替换为连字符，参考 new.sh 的做法
+  const sanitizedName = articleName.trim().replace(/\s+/g, '-');
+  const fileName = `${sanitizedName}.md`;
   const spinner = ora('正在创建文章...').start();
 
   try {
     if (!commandExists('hugo')) {
-      spinner.fail('错误: 未找到 hugo 命令，请先安装 Hugo');
+      spinner.fail(chalk.hex('#FF6B6B')('错误: 未找到 hugo 命令，请先安装 Hugo'));
       return;
     }
 
-    execSync(`hugo new posts/${fileName}`, { 
+    // 使用引号包裹文件名，确保正确处理特殊字符
+    execSync(`hugo new posts/"${fileName}"`, { 
       cwd: PROJECT_ROOT,
-      stdio: 'pipe' 
+      stdio: 'pipe',
+      shell: true
     });
 
     const filePath = path.join(POSTS_DIR, fileName);
     if (fs.existsSync(filePath)) {
-      spinner.succeed(chalk.green(`文章创建成功: ${fileName}`));
+      spinner.succeed(chalk.hex('#00FF88')(`文章创建成功: ${fileName}`));
+      console.log();
       
       // 在 macOS 上打开文件
       if (process.platform === 'darwin' && commandExists('open')) {
         execSync(`open "${filePath}"`, { stdio: 'ignore' });
-        console.log(chalk.blue('已自动打开文件'));
+        console.log(chalk.hex('#00D9FF')('  📂 已自动打开文件\n'));
+      } else {
+        console.log();
       }
     } else {
       spinner.fail('文章创建失败');
@@ -90,11 +116,20 @@ async function createNewPost() {
 
 // 删除文章
 async function deletePost() {
-  console.log(chalk.cyan('\n🗑️  删除文章\n'));
+  console.log();
+  const title = boxen(chalk.hex('#FF6B6B')('🗑️  删除文章'), {
+    padding: { top: 0, bottom: 0, left: 2, right: 2 },
+    margin: { top: 1, bottom: 1 },
+    borderStyle: 'round',
+    borderColor: 'red',
+    textAlignment: 'center'
+  });
+  console.log(title);
+  console.log();
 
   const posts = getPostsList();
   if (posts.length === 0) {
-    console.log(chalk.yellow('没有找到任何文章'));
+    console.log(chalk.hex('#FFE66D')('  ⚠️  没有找到任何文章\n'));
     return;
   }
 
@@ -102,11 +137,18 @@ async function deletePost() {
     {
       type: 'list',
       name: 'selectedPost',
-      message: '请选择要删除的文章:',
-      choices: posts.map(p => ({
-        name: p.name,
-        value: p.value
-      }))
+      message: chalk.hex('#FF6B6B')('请选择要删除的文章:'),
+      choices: posts.map((p, index) => {
+        const filePath = path.join(POSTS_DIR, p.value);
+        const stats = fs.statSync(filePath);
+        const date = stats.mtime.toLocaleDateString('zh-CN');
+        return {
+          name: `${chalk.white(p.name)} ${chalk.gray(`(${date})`)}`,
+          value: p.value,
+          short: p.name
+        };
+      }),
+      pageSize: 10
     }
   ]);
 
@@ -114,13 +156,13 @@ async function deletePost() {
     {
       type: 'confirm',
       name: 'confirm',
-      message: chalk.red(`确定要删除 "${selectedPost}" 吗？此操作不可恢复！`),
+      message: chalk.hex('#FF6B6B')(`⚠️  确定要删除 "${chalk.bold(selectedPost)}" 吗？此操作不可恢复！`),
       default: false
     }
   ]);
 
   if (!confirm) {
-    console.log(chalk.yellow('已取消删除'));
+    console.log(chalk.hex('#FFE66D')('  ✓ 已取消删除\n'));
     return;
   }
 
@@ -129,7 +171,8 @@ async function deletePost() {
 
   try {
     fs.unlinkSync(filePath);
-    spinner.succeed(chalk.green(`文章已删除: ${selectedPost}`));
+    spinner.succeed(chalk.hex('#00FF88')(`文章已删除: ${selectedPost}`));
+    console.log();
   } catch (error) {
     spinner.fail(`删除失败: ${error.message}`);
   }
@@ -137,10 +180,19 @@ async function deletePost() {
 
 // 本地测试
 async function testLocal() {
-  console.log(chalk.cyan('\n🚀 启动本地测试服务器\n'));
+  console.log();
+  const title = boxen(chalk.hex('#FFE66D')('🚀 启动本地测试服务器'), {
+    padding: { top: 0, bottom: 0, left: 2, right: 2 },
+    margin: { top: 1, bottom: 1 },
+    borderStyle: 'round',
+    borderColor: 'yellow',
+    textAlignment: 'center'
+  });
+  console.log(title);
+  console.log();
 
   if (!commandExists('hugo')) {
-    console.log(chalk.red('错误: 未找到 hugo 命令，请先安装 Hugo'));
+    console.log(chalk.hex('#FF6B6B')('  ✗ 错误: 未找到 hugo 命令，请先安装 Hugo\n'));
     return;
   }
 
@@ -169,11 +221,23 @@ async function testLocal() {
     }
 
     spinner.succeed(chalk.green('服务器启动成功！'));
-    console.log(chalk.blue('\n📍 访问地址: http://localhost:1313/'));
-    console.log(chalk.gray('按 Ctrl+C 停止服务器\n'));
+    console.log();
+    const infoBox = boxen(
+      chalk.hex('#00D9FF')('📍 访问地址: ') + chalk.white('http://localhost:1313/') + '\n' +
+      chalk.gray('按 Ctrl+C 停止服务器'),
+      {
+        padding: { top: 1, bottom: 1, left: 2, right: 2 },
+        margin: { top: 1, bottom: 1 },
+        borderStyle: 'round',
+        borderColor: 'blue',
+        backgroundColor: 'black'
+      }
+    );
+    console.log(infoBox);
+    console.log();
 
-    // 启动服务器（不阻塞）
-    const hugoServer = spawn('hugo', ['server', '--disableFastRender'], {
+    // 启动服务器（不阻塞），使用 -D 参数包含草稿文章
+    const hugoServer = spawn('hugo', ['server', '-D', '--disableFastRender'], {
       cwd: PROJECT_ROOT,
       stdio: 'inherit'
     });
@@ -196,15 +260,24 @@ async function testLocal() {
 
 // 发布到 GitHub
 async function publish() {
-  console.log(chalk.cyan('\n🚀 发布到 GitHub\n'));
+  console.log();
+  const title = boxen(chalk.hex('#95E1D3')('🌐 发布到 GitHub'), {
+    padding: { top: 0, bottom: 0, left: 2, right: 2 },
+    margin: { top: 1, bottom: 1 },
+    borderStyle: 'round',
+    borderColor: 'green',
+    textAlignment: 'center'
+  });
+  console.log(title);
+  console.log();
 
   if (!commandExists('hugo')) {
-    console.log(chalk.red('错误: 未找到 hugo 命令，请先安装 Hugo'));
+    console.log(chalk.hex('#FF6B6B')('  ✗ 错误: 未找到 hugo 命令，请先安装 Hugo\n'));
     return;
   }
 
   if (!commandExists('git')) {
-    console.log(chalk.red('错误: 未找到 git 命令'));
+    console.log(chalk.hex('#FF6B6B')('  ✗ 错误: 未找到 git 命令\n'));
     return;
   }
 
@@ -212,13 +285,13 @@ async function publish() {
     {
       type: 'confirm',
       name: 'confirm',
-      message: '确定要发布到 GitHub 吗？这将自动提交并推送所有更改。',
+      message: chalk.hex('#95E1D3')('确定要发布到 GitHub 吗？这将自动提交并推送所有更改。'),
       default: false
     }
   ]);
 
   if (!confirm) {
-    console.log(chalk.yellow('已取消发布'));
+    console.log(chalk.hex('#FFE66D')('  ✓ 已取消发布\n'));
     return;
   }
 
@@ -270,7 +343,20 @@ async function publish() {
     });
 
     spinner.succeed(chalk.green('发布成功！'));
-    console.log(chalk.blue('✨ 您的博客已更新到 GitHub\n'));
+    console.log();
+    const successBox = boxen(
+      chalk.hex('#00FF88')('✨ 您的博客已更新到 GitHub'),
+      {
+        padding: { top: 1, bottom: 1, left: 2, right: 2 },
+        margin: { top: 1, bottom: 1 },
+        borderStyle: 'round',
+        borderColor: 'green',
+        backgroundColor: 'black',
+        textAlignment: 'center'
+      }
+    );
+    console.log(successBox);
+    console.log();
 
   } catch (error) {
     spinner.fail(`发布失败: ${error.message}`);
@@ -280,50 +366,103 @@ async function publish() {
 
 // 查看文章列表
 async function listPosts() {
-  console.log(chalk.cyan('\n📚 文章列表\n'));
+  console.log();
+  const title = boxen(chalk.hex('#4ECDC4')('📚 文章列表'), {
+    padding: { top: 0, bottom: 0, left: 2, right: 2 },
+    margin: { top: 1, bottom: 1 },
+    borderStyle: 'round',
+    borderColor: 'cyan',
+    textAlignment: 'center'
+  });
+  console.log(title);
+  console.log();
 
   const posts = getPostsList();
   if (posts.length === 0) {
-    console.log(chalk.yellow('没有找到任何文章'));
+    console.log(chalk.yellow('  ⚠️  没有找到任何文章\n'));
     return;
   }
 
-  console.log(chalk.gray('─'.repeat(50)));
-  posts.forEach((post, index) => {
+  // 创建表格样式的列表
+  const tableContent = posts.map((post, index) => {
     const filePath = path.join(POSTS_DIR, post.value);
     const stats = fs.statSync(filePath);
     const size = (stats.size / 1024).toFixed(2);
     const date = stats.mtime.toLocaleDateString('zh-CN');
-    console.log(
-      chalk.cyan(`${(index + 1).toString().padStart(3)}. `) +
-      chalk.white(post.name) +
-      chalk.gray(` (${size} KB, ${date})`)
-    );
+    const num = chalk.hex('#00D9FF')(`${(index + 1).toString().padStart(3)}.`);
+    const name = chalk.white(post.name);
+    const info = chalk.gray(`(${size} KB · ${date})`);
+    return `  ${num} ${name} ${info}`;
+  }).join('\n');
+
+  const boxedList = boxen(tableContent, {
+    padding: { top: 1, bottom: 1, left: 2, right: 2 },
+    margin: { top: 0, bottom: 1 },
+    borderStyle: 'round',
+    borderColor: 'cyan',
+    backgroundColor: 'black'
   });
-  console.log(chalk.gray('─'.repeat(50)));
-  console.log(chalk.blue(`\n共 ${posts.length} 篇文章\n`));
+  
+  console.log(boxedList);
+  console.log(chalk.hex('#00D9FF')(`  ✨ 共 ${chalk.bold(posts.length)} 篇文章\n`));
 }
 
 // 主菜单
 async function showMainMenu() {
   console.clear();
-  console.log(chalk.bold.cyan('\n╔══════════════════════════════════════╗'));
-  console.log(chalk.bold.cyan('║        📝 Blog 管理工具               ║'));
-  console.log(chalk.bold.cyan('╚══════════════════════════════════════╝\n'));
+  
+  // 创建美观的标题
+  const title = gradient.rainbow('  📝 Blog 管理工具  ');
+  const boxedTitle = boxen(title, {
+    padding: { top: 1, bottom: 1, left: 3, right: 3 },
+    margin: { top: 1, bottom: 1 },
+    borderStyle: 'round',
+    borderColor: 'cyan',
+    backgroundColor: 'black',
+    textAlignment: 'center'
+  });
+  
+  console.log(boxedTitle);
+  console.log();
 
   const { action } = await inquirer.prompt([
     {
       type: 'list',
       name: 'action',
-      message: '请选择操作:',
+      message: chalk.hex('#00D9FF')('请选择操作:'),
       choices: [
-        { name: '📝  创建新文章', value: 'new' },
-        { name: '🗑️  删除文章', value: 'delete' },
-        { name: '📚  查看文章列表', value: 'list' },
-        { name: '🚀  本地测试', value: 'test' },
-        { name: '🌐  发布到 GitHub', value: 'publish' },
-        { name: '❌  退出', value: 'exit' }
-      ]
+        { 
+          name: chalk.hex('#00FF88')('📝  创建新文章'), 
+          value: 'new',
+          short: '创建新文章'
+        },
+        { 
+          name: chalk.hex('#FF6B6B')('🗑️  删除文章'), 
+          value: 'delete',
+          short: '删除文章'
+        },
+        { 
+          name: chalk.hex('#4ECDC4')('📚  查看文章列表'), 
+          value: 'list',
+          short: '查看文章列表'
+        },
+        { 
+          name: chalk.hex('#FFE66D')('🚀  本地测试'), 
+          value: 'test',
+          short: '本地测试'
+        },
+        { 
+          name: chalk.hex('#95E1D3')('🌐  发布到 GitHub'), 
+          value: 'publish',
+          short: '发布到 GitHub'
+        },
+        { 
+          name: chalk.gray('❌  退出'), 
+          value: 'exit',
+          short: '退出'
+        }
+      ],
+      pageSize: 6
     }
   ]);
 
@@ -344,7 +483,20 @@ async function showMainMenu() {
       await publish();
       break;
     case 'exit':
-      console.log(chalk.blue('\n👋 再见！\n'));
+      console.log();
+      const goodbyeBox = boxen(
+        gradient.rainbow('👋 再见！'),
+        {
+          padding: { top: 1, bottom: 1, left: 3, right: 3 },
+          margin: { top: 1, bottom: 1 },
+          borderStyle: 'round',
+          borderColor: 'cyan',
+          backgroundColor: 'black',
+          textAlignment: 'center'
+        }
+      );
+      console.log(goodbyeBox);
+      console.log();
       process.exit(0);
       return;
   }
@@ -354,7 +506,7 @@ async function showMainMenu() {
     {
       type: 'confirm',
       name: 'continueAction',
-      message: '是否继续？',
+      message: chalk.hex('#00D9FF')('是否继续？'),
       default: true
     }
   ]);
@@ -362,7 +514,20 @@ async function showMainMenu() {
   if (continueAction) {
     await showMainMenu();
   } else {
-    console.log(chalk.blue('\n👋 再见！\n'));
+    console.log();
+    const goodbyeBox = boxen(
+      gradient.rainbow('👋 再见！'),
+      {
+        padding: { top: 1, bottom: 1, left: 3, right: 3 },
+        margin: { top: 1, bottom: 1 },
+        borderStyle: 'round',
+        borderColor: 'cyan',
+        backgroundColor: 'black',
+        textAlignment: 'center'
+      }
+    );
+    console.log(goodbyeBox);
+    console.log();
   }
 }
 
