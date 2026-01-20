@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+# Blog 命令行工具包装器
+exec node "$(dirname "$0")/blog.js" "$@"
