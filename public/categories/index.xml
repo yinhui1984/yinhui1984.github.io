@@ -1,71 +1,54 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Categories - Category - YINHUI&#39;s BLOG</title>
-        <link>https://yinhui1984.github.io/categories/</link>
-        <description>Categories - Category - YINHUI&#39;s BLOG</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 17 Nov 2023 16:24:42 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/categories/" rel="self" type="application/rss+xml" /><item>
-    <title>golang</title>
-    <link>https://yinhui1984.github.io/categories/golang/</link>
-    <pubDate>Fri, 17 Nov 2023 16:24:42 &#43;0800</pubDate>
-    <author>zhouyinhui</author>
-    <guid>https://yinhui1984.github.io/categories/golang/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>Blockchain</title>
-    <link>https://yinhui1984.github.io/categories/blockchain/</link>
-    <pubDate>Fri, 09 Jun 2023 13:35:50 &#43;0800</pubDate>
-    <author>zhouyinhui</author>
-    <guid>https://yinhui1984.github.io/categories/blockchain/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>security</title>
-    <link>https://yinhui1984.github.io/categories/security/</link>
-    <pubDate>Fri, 28 Apr 2023 08:43:45 &#43;0800</pubDate>
-    <author>zhouyinhui</author>
-    <guid>https://yinhui1984.github.io/categories/security/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>web3</title>
-    <link>https://yinhui1984.github.io/categories/web3/</link>
-    <pubDate>Tue, 28 Feb 2023 19:54:46 &#43;0800</pubDate>
-    <author>zhouyinhui</author>
-    <guid>https://yinhui1984.github.io/categories/web3/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>tools</title>
-    <link>https://yinhui1984.github.io/categories/tools/</link>
-    <pubDate>Thu, 23 Feb 2023 15:45:37 &#43;0800</pubDate>
-    <author>zhouyinhui</author>
-    <guid>https://yinhui1984.github.io/categories/tools/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>devops</title>
-    <link>https://yinhui1984.github.io/categories/devops/</link>
-    <pubDate>Tue, 30 Aug 2022 16:20:50 &#43;0800</pubDate>
-    <author>zhouyinhui</author>
-    <guid>https://yinhui1984.github.io/categories/devops/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>aviation</title>
-    <link>https://yinhui1984.github.io/categories/aviation/</link>
-    <pubDate>Fri, 12 Aug 2022 11:30:58 &#43;0800</pubDate>
-    <author>zhouyinhui</author>
-    <guid>https://yinhui1984.github.io/categories/aviation/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>windows</title>
-    <link>https://yinhui1984.github.io/categories/windows/</link>
-    <pubDate>Wed, 27 Jul 2022 09:32:00 &#43;0800</pubDate>
-    <author>zhouyinhui</author>
-    <guid>https://yinhui1984.github.io/categories/windows/</guid>
-    <description><![CDATA[]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on YINHUI&#39;s BLOG</title>
+    <link>http://localhost:1313/categories/</link>
+    <description>Recent content in Categories on YINHUI&#39;s BLOG</description>
+    <generator>Hugo</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 17 Nov 2023 16:24:42 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Golang</title>
+      <link>http://localhost:1313/categories/golang/</link>
+      <pubDate>Fri, 17 Nov 2023 16:24:42 +0800</pubDate>
+      <guid>http://localhost:1313/categories/golang/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Blockchain</title>
+      <link>http://localhost:1313/categories/blockchain/</link>
+      <pubDate>Fri, 09 Jun 2023 13:35:50 +0800</pubDate>
+      <guid>http://localhost:1313/categories/blockchain/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Security</title>
+      <link>http://localhost:1313/categories/security/</link>
+      <pubDate>Fri, 28 Apr 2023 08:43:45 +0800</pubDate>
+      <guid>http://localhost:1313/categories/security/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Web3</title>
+      <link>http://localhost:1313/categories/web3/</link>
+      <pubDate>Tue, 28 Feb 2023 19:54:46 +0800</pubDate>
+      <guid>http://localhost:1313/categories/web3/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Tools</title>
+      <link>http://localhost:1313/categories/tools/</link>
+      <pubDate>Thu, 23 Feb 2023 15:45:37 +0800</pubDate>
+      <guid>http://localhost:1313/categories/tools/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Windows</title>
+      <link>http://localhost:1313/categories/windows/</link>
+      <pubDate>Wed, 27 Jul 2022 09:32:00 +0800</pubDate>
+      <guid>http://localhost:1313/categories/windows/</guid>
+      <description></description>
+    </item>
+  </channel>
 </rss>

@@ -1,119 +1,136 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>从零开始编写智能合约-手工打造 - YINHUI&#39;s BLOG</title><meta name="Description" content="银辉的博客"><meta property="og:title" content="从零开始编写智能合约-手工打造" />
-<meta property="og:description" content="前面在 从零开始编写智能合约-使用traffle套件 中 使用 truffle套件从零开始搭建环境, 编写、部署、测试和调用智能合约, 这次我们只使用一些命令行工具来进行&quot;手工打造&quot;
-配套代码: https://github.com/yinhui1984/stepByStepSmartContract" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://yinhui1984.github.io/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E6%89%8B%E5%B7%A5%E6%89%93%E9%80%A0/" /><meta property="og:image" content="https://yinhui1984.github.io/avatar.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2022-07-01T00:00:00+00:00" />
-<meta property="article:modified_time" content="2022-07-01T00:00:00+00:00" /><meta property="og:site_name" content="YINHUI&#39;s BLOG" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://yinhui1984.github.io/avatar.png"/>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>从零开始编写智能合约-手工打造 - YINHUI&#39;s BLOG</title><meta name="author" content="yinhui">
+<meta name="description" content="前面在 从零开始编写智能合约-使用traffle套件 中 使用 truffle套件从零开始搭建环境, 编写、部署、测试和调用智能合约, 这次我们只使用一些命令行工具来进行&quot;手工打造&quot;
+配套代码: https://github.com/yinhui1984/stepByStepSmartContract
+"><meta name="keywords" content='solidity, ethereum, go-ethereum, python'>
+  <meta itemprop="name" content="从零开始编写智能合约-手工打造">
+  <meta itemprop="description" content="前面在 从零开始编写智能合约-使用traffle套件 中 使用 truffle套件从零开始搭建环境, 编写、部署、测试和调用智能合约, 这次我们只使用一些命令行工具来进行&#34;手工打造&#34;
+配套代码: https://github.com/yinhui1984/stepByStepSmartContract">
+  <meta itemprop="datePublished" content="2022-07-01T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2022-07-01T00:00:00+00:00">
+  <meta itemprop="wordCount" content="2108">
+  <meta itemprop="image" content="http://localhost:1313/avatar.png">
+  <meta itemprop="keywords" content="Solidity,Ethereum,Go-Ethereum,Python"><meta property="og:url" content="http://localhost:1313/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E6%89%8B%E5%B7%A5%E6%89%93%E9%80%A0/">
+  <meta property="og:site_name" content="YINHUI&#39;s BLOG">
+  <meta property="og:title" content="从零开始编写智能合约-手工打造">
+  <meta property="og:description" content="前面在 从零开始编写智能合约-使用traffle套件 中 使用 truffle套件从零开始搭建环境, 编写、部署、测试和调用智能合约, 这次我们只使用一些命令行工具来进行&#34;手工打造&#34;
+配套代码: https://github.com/yinhui1984/stepByStepSmartContract">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2022-07-01T00:00:00+00:00">
+    <meta property="article:modified_time" content="2022-07-01T00:00:00+00:00">
+    <meta property="article:tag" content="Solidity">
+    <meta property="article:tag" content="Ethereum">
+    <meta property="article:tag" content="Go-Ethereum">
+    <meta property="article:tag" content="Python">
+    <meta property="og:image" content="http://localhost:1313/avatar.png">
 
-<meta name="twitter:title" content="从零开始编写智能合约-手工打造"/>
-<meta name="twitter:description" content="前面在 从零开始编写智能合约-使用traffle套件 中 使用 truffle套件从零开始搭建环境, 编写、部署、测试和调用智能合约, 这次我们只使用一些命令行工具来进行&quot;手工打造&quot;
-配套代码: https://github.com/yinhui1984/stepByStepSmartContract"/>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/avatar.png">
+  <meta name="twitter:title" content="从零开始编写智能合约-手工打造">
+  <meta name="twitter:description" content="前面在 从零开始编写智能合约-使用traffle套件 中 使用 truffle套件从零开始搭建环境, 编写、部署、测试和调用智能合约, 这次我们只使用一些命令行工具来进行&#34;手工打造&#34;
+配套代码: https://github.com/yinhui1984/stepByStepSmartContract">
 <meta name="application-name" content="YINHUI&#39;s BLOG">
-<meta name="apple-mobile-web-app-title" content="YINHUI&#39;s BLOG"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://yinhui1984.github.io/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E6%89%8B%E5%B7%A5%E6%89%93%E9%80%A0/" /><link rel="prev" href="https://yinhui1984.github.io/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E4%BD%BF%E7%94%A8truffle%E5%A5%97%E4%BB%B6/" /><link rel="next" href="https://yinhui1984.github.io/%E4%BD%BF%E7%94%A8web3.py%E5%AE%9E%E7%8E%B0%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8C%89%E9%9C%80%E6%8C%96%E7%9F%BF/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "从零开始编写智能合约-手工打造",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/yinhui1984.github.io\/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E6%89%8B%E5%B7%A5%E6%89%93%E9%80%A0\/"
-        },"genre": "posts","keywords": "solidity, ethereum, go-ethereum, python","wordcount":  2176 ,
-        "url": "https:\/\/yinhui1984.github.io\/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E6%89%8B%E5%B7%A5%E6%89%93%E9%80%A0\/","datePublished": "2022-07-01T00:00:00+00:00","dateModified": "2022-07-01T00:00:00+00:00","publisher": {
-            "@type": "Organization",
-            "name": ""},"author": {
-                "@type": "Person",
-                "name": "yinhui"
-            },"description": ""
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
-
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+<meta name="apple-mobile-web-app-title" content="YINHUI&#39;s BLOG"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="http://localhost:1313/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E6%89%8B%E5%B7%A5%E6%89%93%E9%80%A0/" title="从零开始编写智能合约-手工打造 - YINHUI&#39;s BLOG" /><link rel="prev" type="text/html" href="http://localhost:1313/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E4%BD%BF%E7%94%A8truffle%E5%A5%97%E4%BB%B6/" title="从零开始编写智能合约-使用trtffle套件" /><link rel="next" type="text/html" href="http://localhost:1313/%E4%BD%BF%E7%94%A8web3.py%E5%AE%9E%E7%8E%B0%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8C%89%E9%9C%80%E6%8C%96%E7%9F%BF/" title="使用web3.py实现区块链按需挖矿" /><link rel="alternate" type="text/plain" href="http://localhost:1313/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E6%89%8B%E5%B7%A5%E6%89%93%E9%80%A0/index.md" title="从零开始编写智能合约-手工打造 - YINHUI's BLOG"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "从零开始编写智能合约-手工打造",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "http:\/\/localhost:1313\/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E6%89%8B%E5%B7%A5%E6%89%93%E9%80%A0\/"
+    },"genre": "posts","keywords": "solidity, ethereum, go-ethereum, python","wordcount":  2108 ,
+    "url": "http:\/\/localhost:1313\/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E6%89%8B%E5%B7%A5%E6%89%93%E9%80%A0\/","datePublished": "2022-07-01T00:00:00+00:00","dateModified": "2022-07-01T00:00:00+00:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "yinhui"
+      },"description": ""
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="fixed" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="YINHUI&#39;s BLOG"><span class="header-title-text">YINHUI&#39;s BLOG</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="/categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="/">首页</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
     <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/" title="YINHUI&#39;s BLOG"></a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/"> 首页 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a>
-            </div>
-        </div>
+      <div class="header-title">
+        <a href="/" title="YINHUI&#39;s BLOG"><span class="header-title-text">YINHUI&#39;s BLOG</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/" title="YINHUI&#39;s BLOG"></a>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        Cancel
-                    </a>
-                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/" title="">首页</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a></div>
-    </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="/tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="/categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="/">首页</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
 </header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">Contents</h2>
-            <div class="toc-content always-active" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">从零开始编写智能合约-手工打造</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/yinhui1984" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>yinhui</a></span>&nbsp;<span class="post-category">included in <a href="/categories/blockchain/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Blockchain</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-07-01">2022-07-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2176 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
-                <div class="details-summary toc-title">
-                    <span>Contents</span>
-                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>从零开始编写智能合约-手工打造</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+      yinhui</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/blockchain/" class="post-category" title="分类 - Blockchain"><i class="fa-regular fa-folder" aria-hidden="true"></i> Blockchain</a></span></div><div class="post-meta-line"><span title="发布于 2022-07-01 00:00:00"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2022-07-01">2022-07-01</time></span>&nbsp;<span title="2108 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 2200 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 5 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#创建测试链">创建测试链</a>
       <ul>
@@ -133,16 +150,22 @@
     <li><a href="#调用智能合约">调用智能合约</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p>前面在 <a href="https://yinhui1984.github.io/%e4%bb%8e%e9%9b%b6%e5%bc%80%e5%a7%8b%e7%bc%96%e5%86%99%e6%99%ba%e8%83%bd%e5%90%88%e7%ba%a6-%e4%bd%bf%e7%94%a8traffle%e5%a5%97%e4%bb%b6/" target="_blank" rel="noopener noreffer ">从零开始编写智能合约-使用traffle套件</a> 中 使用 <code>truffle</code>套件从零开始搭建环境, 编写、部署、测试和调用智能合约, 这次我们只使用一些命令行工具来进行&quot;手工打造&quot;</p>
-<p>配套代码: <a href="https://github.com/yinhui1984/stepByStepSmartContract" target="_blank" rel="noopener noreffer ">https://github.com/yinhui1984/stepByStepSmartContract</a></p>
-<h2 id="创建测试链">创建测试链</h2>
-<p>还是以ETH为例, 使用 <code>Go Ethereum</code> <a href="https://geth.ethereum.org" target="_blank" rel="noopener noreffer ">https://geth.ethereum.org</a> 来创建 使用<code>POW</code>共识算法的一个简单私有链.</p>
-<h3 id="安装geth">安装geth</h3>
-<p>官方教程 <a href="https://geth.ethereum.org/docs/install-and-build/installing-geth" target="_blank" rel="noopener noreffer ">https://geth.ethereum.org/docs/install-and-build/installing-geth</a></p>
-<p>或者自己下载安装包进行安装  <a href="https://geth.ethereum.org/downloads/" target="_blank" rel="noopener noreffer ">https://geth.ethereum.org/downloads/</a></p>
+      </div><div class="content" id="content"><p>前面在 <a href="https://yinhui1984.github.io/%e4%bb%8e%e9%9b%b6%e5%bc%80%e5%a7%8b%e7%bc%96%e5%86%99%e6%99%ba%e8%83%bd%e5%90%88%e7%ba%a6-%e4%bd%bf%e7%94%a8traffle%e5%a5%97%e4%bb%b6/" target="_blank" rel="external nofollow noopener noreferrer">从零开始编写智能合约-使用traffle套件</a> 中 使用 <code>truffle</code>套件从零开始搭建环境, 编写、部署、测试和调用智能合约, 这次我们只使用一些命令行工具来进行&quot;手工打造&quot;</p>
+<p>配套代码: <a href="https://github.com/yinhui1984/stepByStepSmartContract" target="_blank" rel="external nofollow noopener noreferrer">https://github.com/yinhui1984/stepByStepSmartContract</a></p>
+<h2 class="heading-element" id="创建测试链"><span>创建测试链</span>
+  <a href="#%e5%88%9b%e5%bb%ba%e6%b5%8b%e8%af%95%e9%93%be" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>还是以ETH为例, 使用 <code>Go Ethereum</code> <a href="https://geth.ethereum.org" target="_blank" rel="external nofollow noopener noreferrer">https://geth.ethereum.org</a> 来创建 使用<code>POW</code>共识算法的一个简单私有链.</p>
+<h3 class="heading-element" id="安装geth"><span>安装geth</span>
+  <a href="#%e5%ae%89%e8%a3%85geth" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>官方教程 <a href="https://geth.ethereum.org/docs/install-and-build/installing-geth" target="_blank" rel="external nofollow noopener noreferrer">https://geth.ethereum.org/docs/install-and-build/installing-geth</a></p>
+<p>或者自己下载安装包进行安装  <a href="https://geth.ethereum.org/downloads/" target="_blank" rel="external nofollow noopener noreferrer">https://geth.ethereum.org/downloads/</a></p>
 <p>安装完成后, 运行一下version表示成功</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-shell"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
@@ -160,32 +183,32 @@
 </span></span><span class="line"><span class="cl">Go Version: go1.17.6
 </span></span><span class="line"><span class="cl">Operating System: darwin
 </span></span><span class="line"><span class="cl"><span class="nv">GOPATH</span><span class="o">=</span>
-</span></span><span class="line"><span class="cl"><span class="nv">GOROOT</span><span class="o">=</span>go
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="nv">GOROOT</span><span class="o">=</span>go</span></span></code></pre></td></tr></table></div>
 </div>
-</div><h3 id="创建一个账户">创建一个账户</h3>
-<p>下面的<code>创世文件</code>中的<code>coinbase</code>会用到这个账户, 用来接收挖矿的收入</p>
+</div><h3 class="heading-element" id="创建一个账户"><span>创建一个账户</span>
+  <a href="#%e5%88%9b%e5%bb%ba%e4%b8%80%e4%b8%aa%e8%b4%a6%e6%88%b7" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>下面的<code>创世文件</code>中的<code>coinbase</code>会用到这个账户, 用来接收挖矿的收入</p>
 <p>为方便起见, 将账户密码写到password.txt , 当然这是不安全的行为.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-shell"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="m">123456</span> &gt; password.txt
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="m">123456</span> &gt; password.txt</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>新建账户:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-shell"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">geth --datadir ./data/ account new --password ./password.txt
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">geth --datadir ./data/ account new --password ./password.txt</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>其中的<code>datadir</code>是数据存储目录, 后面的数据文件都将存到这个目录中</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-shell"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
@@ -211,95 +234,45 @@
 </span></span><span class="line"><span class="cl">- You can share your public address with anyone. Others need it to interact with you.
 </span></span><span class="line"><span class="cl">- You must NEVER share the secret key with anyone! The key controls access to your funds!
 </span></span><span class="line"><span class="cl">- You must BACKUP your key file! Without the key, it<span class="s1">&#39;s impossible to access account funds!
-</span></span></span><span class="line"><span class="cl"><span class="s1">- You must REMEMBER your password! Without the password, it&#39;</span>s impossible to decrypt the key!
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="s1">- You must REMEMBER your password! Without the password, it&#39;</span>s impossible to decrypt the key!</span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
 </div>
 </div><p>打印内容中的 <code>0x79dF0D3c23f22370881dC92aF524A1D5E52e3552</code>是公钥, 也是我们的账户地址</p>
-<h3 id="找一个网络id">找一个网络ID</h3>
-<p><code>chainId</code>或者<code>network ID</code> 用于隔离以太坊对等网络。只有当两个对等点使用相同的创世块和网络 ID 时，区块链节点之间才会发生连接。使用 &ndash;networkid 命令行选项设置 geth 使用的网络 ID。</p>
-<p>以太网主网 ID 为 1。如果您提供与主网不同的自定义网络 ID，您的节点将不会连接到其他节点并形成专用网络。如果您打算在 Internet 上连接到您的私有链，最好选择一个尚未使用的网络 ID。您可以在 <a href="https://chainid.network" target="_blank" rel="noopener noreffer ">https://chainid.network</a> 找到由社区运行的以太坊网络注册表。 这里我们只是在本地运行, 随便使用一个ID就可以了, 比如<code>1235</code></p>
-<h3 id="编写创世文件">编写&quot;创世文件&quot;</h3>
-<p>一个新的区块链在生成第一个区块, 也就是<code>创世块</code>的时候, 需要从<code>创世文件</code>来进行生成</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<h3 class="heading-element" id="找一个网络id"><span>找一个网络ID</span>
+  <a href="#%e6%89%be%e4%b8%80%e4%b8%aa%e7%bd%91%e7%bb%9cid" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><code>chainId</code>或者<code>network ID</code> 用于隔离以太坊对等网络。只有当两个对等点使用相同的创世块和网络 ID 时，区块链节点之间才会发生连接。使用 &ndash;networkid 命令行选项设置 geth 使用的网络 ID。</p>
+<p>以太网主网 ID 为 1。如果您提供与主网不同的自定义网络 ID，您的节点将不会连接到其他节点并形成专用网络。如果您打算在 Internet 上连接到您的私有链，最好选择一个尚未使用的网络 ID。您可以在 <a href="https://chainid.network" target="_blank" rel="external nofollow noopener noreferrer">https://chainid.network</a> 找到由社区运行的以太坊网络注册表。 这里我们只是在本地运行, 随便使用一个ID就可以了, 比如<code>1235</code></p>
+<h3 class="heading-element" id="编写创世文件"><span>编写&quot;创世文件&quot;</span>
+  <a href="#%e7%bc%96%e5%86%99%e5%88%9b%e4%b8%96%e6%96%87%e4%bb%b6" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>一个新的区块链在生成第一个区块, 也就是<code>创世块</code>的时候, 需要从<code>创世文件</code>来进行生成</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-shell"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">touch genesis.json
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">touch genesis.json</span></span></code></pre></td></tr></table></div>
 </div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;nonce&#34;</span><span class="p">:</span> <span class="s2">&#34;0x0000000000000042&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;timestamp&#34;</span><span class="p">:</span> <span class="s2">&#34;0x00&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;parentHash&#34;</span><span class="p">:</span> <span class="s2">&#34;0x0000000000000000000000000000000000000000000000000000000000000000&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;extraData&#34;</span><span class="p">:</span> <span class="s2">&#34;0x00&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;gasLimit&#34;</span><span class="p">:</span> <span class="s2">&#34;0x8000000&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;difficulty&#34;</span><span class="p">:</span> <span class="s2">&#34;0x0400&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;mixhash&#34;</span><span class="p">:</span> <span class="s2">&#34;0x0000000000000000000000000000000000000000000000000000000000000000&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;coinbase&#34;</span><span class="p">:</span> <span class="s2">&#34;0x79dF0D3c23f22370881dC92aF524A1D5E52e3552&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;alloc&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;0x79dF0D3c23f22370881dC92aF524A1D5E52e3552&#34;</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;balance&#34;</span><span class="p">:</span> <span class="s2">&#34;1000000000000000000000&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">},</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;config&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;chainId&#34;</span><span class="p">:</span> <span class="mi">1235</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;homesteadBlock&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;byzantiumBlock&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;constantinopleBlock&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;eip150Block&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;eip155Block&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;eip158Block&#34;</span><span class="p">:</span> <span class="mi">0</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>关于创世文件中的各个字段的含义, 后面会有一篇专门的博客来讲</p>
+</div><json-viewer value="&#34;{\n  \&#34;nonce\&#34;: \&#34;0x0000000000000042\&#34;,\n  \&#34;timestamp\&#34;: \&#34;0x00\&#34;,\n  \&#34;parentHash\&#34;: \&#34;0x0000000000000000000000000000000000000000000000000000000000000000\&#34;,\n  \&#34;extraData\&#34;: \&#34;0x00\&#34;,\n  \&#34;gasLimit\&#34;: \&#34;0x8000000\&#34;,\n  \&#34;difficulty\&#34;: \&#34;0x0400\&#34;,\n  \&#34;mixhash\&#34;: \&#34;0x0000000000000000000000000000000000000000000000000000000000000000\&#34;,\n  \&#34;coinbase\&#34;: \&#34;0x79dF0D3c23f22370881dC92aF524A1D5E52e3552\&#34;,\n  \&#34;alloc\&#34;: {\n    \&#34;0x79dF0D3c23f22370881dC92aF524A1D5E52e3552\&#34;:\n    {\n      \&#34;balance\&#34;: \&#34;1000000000000000000000\&#34;\n    }\n  },\n  \&#34;config\&#34;: {\n    \&#34;chainId\&#34;: 1235,\n    \&#34;homesteadBlock\&#34;: 0,\n    \&#34;byzantiumBlock\&#34;: 0,\n    \&#34;constantinopleBlock\&#34;: 0,\n    \&#34;eip150Block\&#34;: 0,\n    \&#34;eip155Block\&#34;: 0,\n    \&#34;eip158Block\&#34;: 0\n  }\n}&#34;" expand-depth="1" boxed copyable="{&#34;copiedText&#34;:&#34;已复制&#34;,&#34;copyText&#34;:&#34;复制&#34;}"></json-viewer><p>关于创世文件中的各个字段的含义, 后面会有一篇专门的博客来讲</p>
 <blockquote>
 <p>注意: 将<code>coinbase</code> 以及 <code>alloc</code>中的地址修改为上面创建账户时你所得到的地址</p>
 </blockquote>
-<h3 id="初始化区块链">初始化区块链</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<h3 class="heading-element" id="初始化区块链"><span>初始化区块链</span>
+  <a href="#%e5%88%9d%e5%a7%8b%e5%8c%96%e5%8c%ba%e5%9d%97%e9%93%be" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-shell"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">geth --datadir ./data init ./genesis.json
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">geth --datadir ./data init ./genesis.json</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>输出</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-shell"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
@@ -323,18 +296,19 @@
 </span></span><span class="line"><span class="cl">INFO <span class="o">[</span>07-01<span class="p">|</span>10:50:51.090<span class="o">]</span> Writing custom genesis block 
 </span></span><span class="line"><span class="cl">INFO <span class="o">[</span>07-01<span class="p">|</span>10:50:51.090<span class="o">]</span> Persisted trie from memory database      <span class="nv">nodes</span><span class="o">=</span><span class="m">0</span> <span class="nv">size</span><span class="o">=</span>0.00B <span class="nv">time</span><span class="o">=</span><span class="s2">&#34;2.71µs&#34;</span>   <span class="nv">gcnodes</span><span class="o">=</span><span class="m">0</span> <span class="nv">gcsize</span><span class="o">=</span>0.00B <span class="nv">gctime</span><span class="o">=</span>0s <span class="nv">livenodes</span><span class="o">=</span><span class="m">1</span> <span class="nv">livesize</span><span class="o">=</span>0.00B
 </span></span><span class="line"><span class="cl">INFO <span class="o">[</span>07-01<span class="p">|</span>10:50:51.091<span class="o">]</span> Successfully wrote genesis state         <span class="nv">database</span><span class="o">=</span>lightchaindata <span class="nv">hash</span><span class="o">=</span>0ca0fb..b61b69
-</span></span><span class="line"><span class="cl">OSX MP16 ~/Downloads/privateNetwork ❯ 
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">OSX MP16 ~/Downloads/privateNetwork ❯ </span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
 </div>
 </div><p>生成的文件在 <code> ./data/geth</code>下</p>
-<h2 id="运行区块链">运行区块链</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<h2 class="heading-element" id="运行区块链"><span>运行区块链</span>
+  <a href="#%e8%bf%90%e8%a1%8c%e5%8c%ba%e5%9d%97%e9%93%be" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-shell"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">geth --datadir ./data/ --networkid <span class="m">1235</span> --port <span class="m">8545</span>  --http --http.api <span class="s1">&#39;admin,eth,miner,net,txpool,personal,web3&#39;</span>  --mine --allow-insecure-unlock --unlock <span class="s1">&#39;0x79dF0D3c23f22370881dC92aF524A1D5E52e3552&#39;</span> --password password.txt
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">geth --datadir ./data/ --networkid <span class="m">1235</span> --port <span class="m">8545</span>  --http --http.api <span class="s1">&#39;admin,eth,miner,net,txpool,personal,web3&#39;</span>  --mine --allow-insecure-unlock --unlock <span class="s1">&#39;0x79dF0D3c23f22370881dC92aF524A1D5E52e3552&#39;</span> --password password.txt</span></span></code></pre></td></tr></table></div>
 </div>
 </div><ul>
 <li><code> --datadir</code> 数据文件目录</li>
@@ -348,41 +322,41 @@
 <li><code>--password</code> 解锁账户用到的密码文件</li>
 </ul>
 <p>成功运行后, 会看到很多打印信息, 其中值得注意的是下面这两行, 一个是ipc, 一个是http server, 我们会使用他们来和我们的区块链进行通讯</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-shell"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">INFO <span class="o">[</span>07-01<span class="p">|</span>11:08:58.245<span class="o">]</span> IPC endpoint opened                      <span class="nv">url</span><span class="o">=</span>/Users/zhouyinhui/Downloads/privateNetwork/data/geth.ipc
-</span></span><span class="line"><span class="cl">INFO <span class="o">[</span>07-01<span class="p">|</span>11:08:58.245<span class="o">]</span> HTTP server started                      <span class="nv">endpoint</span><span class="o">=</span>127.0.0.1:8545 <span class="nv">prefix</span><span class="o">=</span> <span class="nv">cors</span><span class="o">=</span> <span class="nv">vhosts</span><span class="o">=</span>localhost
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">INFO <span class="o">[</span>07-01<span class="p">|</span>11:08:58.245<span class="o">]</span> HTTP server started                      <span class="nv">endpoint</span><span class="o">=</span>127.0.0.1:8545 <span class="nv">prefix</span><span class="o">=</span> <span class="nv">cors</span><span class="o">=</span> <span class="nv">vhosts</span><span class="o">=</span>localhost</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>另外一条是 我们作为区块链中的对等节点<code>PEER NODE</code>时的信息, 这里我们还用不到</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-shell"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"> Started P2P networking                   <span class="nv">self</span><span class="o">=</span>enode://de2537c5f309be45bcb2d011cd172138db40295f74a288b07e03635e2194e7c2987cf97c9d295dc502053d9f7adda11052597c7f1bc5a5ec3d8182777138a0f1@127.0.0.1:8545
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"> Started P2P networking                   <span class="nv">self</span><span class="o">=</span>enode://de2537c5f309be45bcb2d011cd172138db40295f74a288b07e03635e2194e7c2987cf97c9d295dc502053d9f7adda11052597c7f1bc5a5ec3d8182777138a0f1@127.0.0.1:8545</span></span></code></pre></td></tr></table></div>
 </div>
 </div><blockquote>
 <p>请保持区块链在后台运行, 后面的代码都需要用到</p>
 </blockquote>
-<h2 id="与测试链进行交互">与测试链进行交互</h2>
-<p><code>attach</code>到测试链, 就可以启动一个js console, 和<code>truffle console</code>功能一样</p>
+<h2 class="heading-element" id="与测试链进行交互"><span>与测试链进行交互</span>
+  <a href="#%e4%b8%8e%e6%b5%8b%e8%af%95%e9%93%be%e8%bf%9b%e8%a1%8c%e4%ba%a4%e4%ba%92" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><code>attach</code>到测试链, 就可以启动一个js console, 和<code>truffle console</code>功能一样</p>
 <p><strong>方式1, 通过IPC进行attach</strong></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-shell"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">geth attach /Users/zhouyinhui/Downloads/privateNetwork/data/geth.ipc
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">geth attach /Users/zhouyinhui/Downloads/privateNetwork/data/geth.ipc</span></span></code></pre></td></tr></table></div>
 </div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+</div><div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-shell"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
@@ -402,28 +376,32 @@
 </span></span><span class="line"><span class="cl">To exit, press ctrl-d or <span class="nb">type</span> <span class="nb">exit</span>
 </span></span><span class="line"><span class="cl">&gt; eth.chainId<span class="o">()</span>
 </span></span><span class="line"><span class="cl"><span class="s2">&#34;0x4d3&#34;</span>
-</span></span><span class="line"><span class="cl">&gt;
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">&gt;</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p><code>&quot;0x4d3&quot;</code> 也就是 我们的 <code>1235</code></p>
 <p>其中 *.ipc 可以使用相对路径</p>
 <p><strong>方式2, 通过http服务进行attach</strong></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-fallback"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">geth attach http://127.0.0.1:8545
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">geth attach http://127.0.0.1:8545</span></span></code></pre></td></tr></table></div>
 </div>
-</div><h2 id="一键生成测试链">一键生成测试链</h2>
-<p>上面那些繁琐的步骤可以搞成一个脚本, 一键生成, 这样来得更方便</p>
-<p>脚本在这里: <a href="https://github.com/yinhui1984/stepByStepSmartContract/blob/main/autogen/autoGenChain.py" target="_blank" rel="noopener noreffer ">https://github.com/yinhui1984/stepByStepSmartContract/blob/main/autogen/autoGenChain.py</a></p>
+</div><h2 class="heading-element" id="一键生成测试链"><span>一键生成测试链</span>
+  <a href="#%e4%b8%80%e9%94%ae%e7%94%9f%e6%88%90%e6%b5%8b%e8%af%95%e9%93%be" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>上面那些繁琐的步骤可以搞成一个脚本, 一键生成, 这样来得更方便</p>
+<p>脚本在这里: <a href="https://github.com/yinhui1984/stepByStepSmartContract/blob/main/autogen/autoGenChain.py" target="_blank" rel="external nofollow noopener noreferrer">https://github.com/yinhui1984/stepByStepSmartContract/blob/main/autogen/autoGenChain.py</a></p>
 <p>(直接将代码贴到这里会导致<code>GitHub Pages failed to build your site</code>   😂)</p>
-<h2 id="编写智能合约">编写智能合约</h2>
-<p>我们还是使用 <a href="https://yinhui1984.github.io/%e4%bb%8e%e9%9b%b6%e5%bc%80%e5%a7%8b%e7%bc%96%e5%86%99%e6%99%ba%e8%83%bd%e5%90%88%e7%ba%a6-%e4%bd%bf%e7%94%a8traffle%e5%a5%97%e4%bb%b6/" target="_blank" rel="noopener noreffer ">上篇博客中的</a>智能合约</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<h2 class="heading-element" id="编写智能合约"><span>编写智能合约</span>
+  <a href="#%e7%bc%96%e5%86%99%e6%99%ba%e8%83%bd%e5%90%88%e7%ba%a6" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>我们还是使用 <a href="https://yinhui1984.github.io/%e4%bb%8e%e9%9b%b6%e5%bc%80%e5%a7%8b%e7%bc%96%e5%86%99%e6%99%ba%e8%83%bd%e5%90%88%e7%ba%a6-%e4%bd%bf%e7%94%a8traffle%e5%a5%97%e4%bb%b6/" target="_blank" rel="external nofollow noopener noreferrer">上篇博客中的</a>智能合约</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-shell"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
@@ -431,11 +409,10 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">mkdir ./contracts
 </span></span><span class="line"><span class="cl"><span class="nb">cd</span> ./contracts
-</span></span><span class="line"><span class="cl">touch Calculator.sol
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">touch Calculator.sol</span></span></code></pre></td></tr></table></div>
 </div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+</div><div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
@@ -452,7 +429,7 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// SPDX-License-Identifier: MIT
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">Calculator</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">
@@ -463,19 +440,20 @@
 </span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">subtract</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="k">public</span> <span class="k">pure</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
 </div>
-</div><h2 id="编译智能合约">编译智能合约</h2>
-<p>如果你的电脑上没有<code>solc</code>, 请事先安装, 它是solidity的编译器, 官方教程: <a href="https://docs.soliditylang.org/en/v0.8.15/installing-solidity.html#installing-solidity" target="_blank" rel="noopener noreffer ">https://docs.soliditylang.org/en/v0.8.15/installing-solidity.html#installing-solidity</a></p>
+</div><h2 class="heading-element" id="编译智能合约"><span>编译智能合约</span>
+  <a href="#%e7%bc%96%e8%af%91%e6%99%ba%e8%83%bd%e5%90%88%e7%ba%a6" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>如果你的电脑上没有<code>solc</code>, 请事先安装, 它是solidity的编译器, 官方教程: <a href="https://docs.soliditylang.org/en/v0.8.15/installing-solidity.html#installing-solidity" target="_blank" rel="external nofollow noopener noreferrer">https://docs.soliditylang.org/en/v0.8.15/installing-solidity.html#installing-solidity</a></p>
 <p>编译:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-shell"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">solc --bin --abi -o ./build ./Calculator.sol
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">solc --bin --abi -o ./build ./Calculator.sol</span></span></code></pre></td></tr></table></div>
 </div>
 </div><ul>
 <li><code>--bin</code> 生成16进制文件</li>
@@ -483,8 +461,8 @@
 <li><code>-o</code>输出目录</li>
 </ul>
 <p>可以写一个<code>Makefile</code>来干这个事情:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-makefile"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
@@ -495,10 +473,10 @@
 </span></span><span class="line"><span class="cl">	solc --bin --abi --overwrite -o ./build ./Calculator.sol
 </span></span><span class="line"><span class="cl"><span class="nf">clean</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">	rm -rf ./build/*
-</span></span></code></pre></td></tr></table>
+</span></span></code></pre></td></tr></table></div>
 </div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+</div><div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-fallback"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
@@ -508,19 +486,21 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">OSX MP16 ~/Downloads/privateNetwork/contracts ❯ tree
-</span></span><span class="line"><span class="cl">.
-</span></span><span class="line"><span class="cl">├── Calculator.sol
-</span></span><span class="line"><span class="cl">├── Makefile
-</span></span><span class="line"><span class="cl">└── build
-</span></span><span class="line"><span class="cl">    ├── Calculator.abi
-</span></span><span class="line"><span class="cl">    └── Calculator.bin
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">OSX</span> <span class="n">MP16</span> <span class="o">~/</span><span class="n">Downloads</span><span class="o">/</span><span class="n">privateNetwork</span><span class="o">/</span><span class="n">contracts</span> <span class="err">❯</span> <span class="n">tree</span>
+</span></span><span class="line"><span class="cl"><span class="o">.</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">Calculator</span><span class="o">.</span><span class="n">sol</span>
+</span></span><span class="line"><span class="cl"><span class="err">├──</span> <span class="n">Makefile</span>
+</span></span><span class="line"><span class="cl"><span class="err">└──</span> <span class="n">build</span>
+</span></span><span class="line"><span class="cl">    <span class="err">├──</span> <span class="n">Calculator</span><span class="o">.</span><span class="n">abi</span>
+</span></span><span class="line"><span class="cl">    <span class="err">└──</span> <span class="n">Calculator</span><span class="o">.</span><span class="n">bin</span></span></span></code></pre></td></tr></table></div>
 </div>
-</div><h2 id="部署智能合约">部署智能合约</h2>
-<p>新建一个node.js 项目<code>deploy</code></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+</div><h2 class="heading-element" id="部署智能合约"><span>部署智能合约</span>
+  <a href="#%e9%83%a8%e7%bd%b2%e6%99%ba%e8%83%bd%e5%90%88%e7%ba%a6" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>新建一个node.js 项目<code>deploy</code></p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-fallback"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
@@ -530,21 +510,19 @@
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">mkdir -p deploy/
 </span></span><span class="line"><span class="cl">cd deploy/
 </span></span><span class="line"><span class="cl">npm init
-</span></span><span class="line"><span class="cl">touch index.js
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">touch index.js</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>安装<code>web3.js</code></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-shell"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">npm install web3
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">npm install web3</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>在<code>index.js</code>中加入如下代码:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-js"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
@@ -592,15 +570,14 @@
 </span></span><span class="line"><span class="cl">    <span class="p">}).</span><span class="k">catch</span><span class="p">((</span><span class="nx">err</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">});</span>
-</span></span><span class="line"><span class="cl"><span class="p">})();</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">})();</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
 </div>
 </div><blockquote>
 <p>注意,  上面的部署代码没有使用账户的私钥, 是因为在前面的步骤中, 账户已经解锁了</p>
 </blockquote>
 <p><strong>在部署之前需要先启动挖矿</strong></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-shell"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
@@ -618,12 +595,11 @@
 </span></span><span class="line"><span class="cl">&gt; miner.start<span class="o">()</span>
 </span></span><span class="line"><span class="cl">null
 </span></span><span class="line"><span class="cl">&gt; eth.blockNumber
-</span></span><span class="line"><span class="cl"><span class="m">26</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="m">26</span></span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>部署:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-shell"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
@@ -631,58 +607,80 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">OSX MP16 ~/Downloads/pri/c/d/deploy_js ❯ node ./index.js 
 </span></span><span class="line"><span class="cl">Contract was deployed at the following address:
-</span></span><span class="line"><span class="cl">0x1F55d61D5Aa8eC92FD1Da0f19FaC9D552A29DBBF
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">0x1F55d61D5Aa8eC92FD1Da0f19FaC9D552A29DBBF</span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>部署成功, 停掉挖矿, 否则电脑巨烫&hellip;</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-shell"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">&gt; miner.stop<span class="o">()</span>
-</span></span><span class="line"><span class="cl">null
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">null</span></span></code></pre></td></tr></table></div>
 </div>
-</div><h2 id="调用智能合约">调用智能合约</h2>
-<p>调用智能合约就和 <a href="https://yinhui1984.github.io/%e4%bb%8e%e9%9b%b6%e5%bc%80%e5%a7%8b%e7%bc%96%e5%86%99%e6%99%ba%e8%83%bd%e5%90%88%e7%ba%a6-%e4%bd%bf%e7%94%a8truffle%e5%a5%97%e4%bb%b6/#7-demoapp%e8%b0%83%e7%94%a8%e5%90%88%e7%ba%a6" target="_blank" rel="noopener noreffer ">从零开始编写智能合约-使用truffle套件</a>中的一样了, 可以跳转到那里进行参考</p></div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>Updated on 2022-07-01</span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E6%89%8B%E5%B7%A5%E6%89%93%E9%80%A0/index.md" target="_blank">Read Markdown</a>
-                        </span></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://yinhui1984.github.io/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E6%89%8B%E5%B7%A5%E6%89%93%E9%80%A0/" data-title="从零开始编写智能合约-手工打造" data-hashtags="solidity,ethereum,go-ethereum,python"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://yinhui1984.github.io/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E6%89%8B%E5%B7%A5%E6%89%93%E9%80%A0/" data-hashtag="solidity"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://yinhui1984.github.io/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E6%89%8B%E5%B7%A5%E6%89%93%E9%80%A0/" data-title="从零开始编写智能合约-手工打造"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://yinhui1984.github.io/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E6%89%8B%E5%B7%A5%E6%89%93%E9%80%A0/" data-title="从零开始编写智能合约-手工打造"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://yinhui1984.github.io/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E6%89%8B%E5%B7%A5%E6%89%93%E9%80%A0/" data-title="从零开始编写智能合约-手工打造"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
-            </div>
+</div><h2 class="heading-element" id="调用智能合约"><span>调用智能合约</span>
+  <a href="#%e8%b0%83%e7%94%a8%e6%99%ba%e8%83%bd%e5%90%88%e7%ba%a6" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>调用智能合约就和 <a href="https://yinhui1984.github.io/%e4%bb%8e%e9%9b%b6%e5%bc%80%e5%a7%8b%e7%bc%96%e5%86%99%e6%99%ba%e8%83%bd%e5%90%88%e7%ba%a6-%e4%bd%bf%e7%94%a8truffle%e5%a5%97%e4%bb%b6/#7-demoapp%e8%b0%83%e7%94%a8%e5%90%88%e7%ba%a6" target="_blank" rel="external nofollow noopener noreferrer">从零开始编写智能合约-使用truffle套件</a>中的一样了, 可以跳转到那里进行参考</p></div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2022-07-01 00:00:00">更新于 2022-07-01&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"><span><a href="/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E6%89%8B%E5%B7%A5%E6%89%93%E9%80%A0/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span><span><a href="vscode://file//Users/z/Documents/web3/05_blogs/yinhui1984.github.io/content/posts/%e4%bb%8e%e9%9b%b6%e5%bc%80%e5%a7%8b%e7%bc%96%e5%86%99%e6%99%ba%e8%83%bd%e5%90%88%e7%ba%a6-%e6%89%8b%e5%b7%a5%e6%89%93%e9%80%a0.md" title="在编辑器中打开" target="_blank" rel="external nofollow noopener noreferrer" class="link-to-vscode">在编辑器中打开</a></span></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="http://localhost:1313/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E6%89%8B%E5%B7%A5%E6%89%93%E9%80%A0/" data-title="从零开始编写智能合约-手工打造" data-hashtags="solidity,ethereum,go-ethereum,python"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://localhost:1313/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E6%89%8B%E5%B7%A5%E6%89%93%E9%80%A0/" data-hashtag="solidity"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E6%89%8B%E5%B7%A5%E6%89%93%E9%80%A0/" data-title="从零开始编写智能合约-手工打造"><i class="fa-brands fa-hacker-news" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://localhost:1313/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E6%89%8B%E5%B7%A5%E6%89%93%E9%80%A0/" data-title="从零开始编写智能合约-手工打造"><svg class="icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>LINE</title><path d="M19.365 9.863c.349.0.63.285.63.631.0.345-.281.63-.63.63H17.61v1.125h1.755c.349.0.63.283.63.63.0.344-.281.629-.63.629h-2.386c-.345.0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346.0.627.285.627.63.0.349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211.0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346.0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195.0.375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345.0.63.285.63.63v4.771zm-5.741.0c0 .344-.282.629-.631.629-.345.0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346.0.628.285.628.63v4.771zm-2.466.629H4.917c-.345.0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348.0.63.285.63.63v4.141h1.756c.348.0.629.283.629.63.0.344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943.0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://localhost:1313/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E6%89%8B%E5%B7%A5%E6%89%93%E9%80%A0/" data-title="从零开始编写智能合约-手工打造"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
         </div>
-    </div>
+      </div></div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/solidity/">solidity</a>,&nbsp;<a href="/tags/ethereum/">ethereum</a>,&nbsp;<a href="/tags/go-ethereum/">go-ethereum</a>,&nbsp;<a href="/tags/python/">python</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
-        </section>
-    </div>
-
-    <div class="post-nav"><a href="/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E4%BD%BF%E7%94%A8truffle%E5%A5%97%E4%BB%B6/" class="prev" rel="prev" title="从零开始编写智能合约-使用trtffle套件"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>从零开始编写智能合约-使用trtffle套件</a>
-            <a href="/%E4%BD%BF%E7%94%A8web3.py%E5%AE%9E%E7%8E%B0%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8C%89%E9%9C%80%E6%8C%96%E7%9F%BF/" class="next" rel="next" title="使用web3.py实现区块链按需挖矿">使用web3.py实现区块链按需挖矿<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/tags/solidity/" class="post-tag" title="标签 - Solidity">Solidity</a><a href="/tags/ethereum/" class="post-tag" title="标签 - Ethereum">Ethereum</a><a href="/tags/go-ethereum/" class="post-tag" title="标签 - Go-Ethereum">Go-Ethereum</a><a href="/tags/python/" class="post-tag" title="标签 - Python">Python</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E4%BD%BF%E7%94%A8truffle%E5%A5%97%E4%BB%B6/" class="post-nav-item" rel="prev" title="从零开始编写智能合约-使用trtffle套件"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>从零开始编写智能合约-使用trtffle套件</a><a href="/%E4%BD%BF%E7%94%A8web3.py%E5%AE%9E%E7%8E%B0%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8C%89%E9%9C%80%E6%8C%96%E7%9F%BF/" class="post-nav-item" rel="next" title="使用web3.py实现区块链按需挖矿">使用web3.py实现区块链按需挖矿<i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
 </div>
-</article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.118.2">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/yinhui1984" target="_blank">zhouyinhui</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
-        </div>
-    </footer></div>
+</article>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":2000},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content always-active" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#创建测试链">创建测试链</a>
+      <ul>
+        <li><a href="#安装geth">安装geth</a></li>
+        <li><a href="#创建一个账户">创建一个账户</a></li>
+        <li><a href="#找一个网络id">找一个网络ID</a></li>
+        <li><a href="#编写创世文件">编写&quot;创世文件&quot;</a></li>
+        <li><a href="#初始化区块链">初始化区块链</a></li>
+      </ul>
+    </li>
+    <li><a href="#运行区块链">运行区块链</a></li>
+    <li><a href="#与测试链进行交互">与测试链进行交互</a></li>
+    <li><a href="#一键生成测试链">一键生成测试链</a></li>
+    <li><a href="#编写智能合约">编写智能合约</a></li>
+    <li><a href="#编译智能合约">编译智能合约</a></li>
+    <li><a href="#部署智能合约">部署智能合约</a></li>
+    <li><a href="#调用智能合约">调用智能合约</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.154.5"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.2"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="/"></a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="目录"><i class="fa-solid fa-bars" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/json-viewer-element/json-viewer-element.umd.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/js/config/f4490e49dd59c58c56b4d45ce76245e8.js" defer></script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
 </html>

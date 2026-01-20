@@ -1,117 +1,131 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>零知识证明 - YINHUI&#39;s BLOG</title><meta name="Description" content="银辉的博客"><meta property="og:title" content="零知识证明" />
-<meta property="og:description" content="关于零知识证明的若干知识" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://yinhui1984.github.io/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E/" /><meta property="og:image" content="https://yinhui1984.github.io/avatar.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2022-08-22T13:39:54+08:00" />
-<meta property="article:modified_time" content="2022-08-22T13:39:54+08:00" /><meta property="og:site_name" content="YINHUI&#39;s BLOG" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://yinhui1984.github.io/avatar.png"/>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>零知识证明 - YINHUI&#39;s BLOG</title><meta name="author" content="yinhui">
+<meta name="description" content="关于零知识证明的若干知识
+"><meta name="keywords" content='ZKPs, L0, Web3.0'>
+  <meta itemprop="name" content="零知识证明">
+  <meta itemprop="description" content="关于零知识证明的若干知识">
+  <meta itemprop="datePublished" content="2022-08-22T13:39:54+08:00">
+  <meta itemprop="dateModified" content="2022-08-22T13:39:54+08:00">
+  <meta itemprop="wordCount" content="3206">
+  <meta itemprop="image" content="http://localhost:1313/avatar.png">
+  <meta itemprop="keywords" content="ZKPs,L0,Web3.0"><meta property="og:url" content="http://localhost:1313/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E/">
+  <meta property="og:site_name" content="YINHUI&#39;s BLOG">
+  <meta property="og:title" content="零知识证明">
+  <meta property="og:description" content="关于零知识证明的若干知识">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2022-08-22T13:39:54+08:00">
+    <meta property="article:modified_time" content="2022-08-22T13:39:54+08:00">
+    <meta property="article:tag" content="ZKPs">
+    <meta property="article:tag" content="L0">
+    <meta property="article:tag" content="Web3.0">
+    <meta property="og:image" content="http://localhost:1313/avatar.png">
 
-<meta name="twitter:title" content="零知识证明"/>
-<meta name="twitter:description" content="关于零知识证明的若干知识"/>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/avatar.png">
+  <meta name="twitter:title" content="零知识证明">
+  <meta name="twitter:description" content="关于零知识证明的若干知识">
 <meta name="application-name" content="YINHUI&#39;s BLOG">
-<meta name="apple-mobile-web-app-title" content="YINHUI&#39;s BLOG"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://yinhui1984.github.io/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E/" /><link rel="prev" href="https://yinhui1984.github.io/censys%E6%96%87%E6%A1%A3/" /><link rel="next" href="https://yinhui1984.github.io/p2p/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "零知识证明",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/yinhui1984.github.io\/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E\/"
-        },"genre": "posts","keywords": "ZKPs, L0, Web3.0","wordcount":  3206 ,
-        "url": "https:\/\/yinhui1984.github.io\/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E\/","datePublished": "2022-08-22T13:39:54+08:00","dateModified": "2022-08-22T13:39:54+08:00","publisher": {
-            "@type": "Organization",
-            "name": ""},"author": {
-                "@type": "Person",
-                "name": "yinhui"
-            },"description": ""
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
-
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+<meta name="apple-mobile-web-app-title" content="YINHUI&#39;s BLOG"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="http://localhost:1313/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E/" title="零知识证明 - YINHUI&#39;s BLOG" /><link rel="prev" type="text/html" href="http://localhost:1313/censys%E6%96%87%E6%A1%A3/" title="Censys文档" /><link rel="next" type="text/html" href="http://localhost:1313/p2p/" title="P2P" /><link rel="alternate" type="text/plain" href="http://localhost:1313/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E/index.md" title="零知识证明 - YINHUI's BLOG"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "零知识证明",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "http:\/\/localhost:1313\/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E\/"
+    },"genre": "posts","keywords": "ZKPs, L0, Web3.0","wordcount":  3206 ,
+    "url": "http:\/\/localhost:1313\/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E\/","datePublished": "2022-08-22T13:39:54+08:00","dateModified": "2022-08-22T13:39:54+08:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "yinhui"
+      },"description": ""
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="fixed" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="YINHUI&#39;s BLOG"><span class="header-title-text">YINHUI&#39;s BLOG</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="/categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="/">首页</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
     <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/" title="YINHUI&#39;s BLOG"></a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/"> 首页 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a>
-            </div>
-        </div>
+      <div class="header-title">
+        <a href="/" title="YINHUI&#39;s BLOG"><span class="header-title-text">YINHUI&#39;s BLOG</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/" title="YINHUI&#39;s BLOG"></a>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        Cancel
-                    </a>
-                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/" title="">首页</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a></div>
-    </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="/tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="/categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="/">首页</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
 </header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">Contents</h2>
-            <div class="toc-content always-active" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">零知识证明</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/yinhui1984" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>yinhui</a></span>&nbsp;<span class="post-category">included in <a href="/categories/blockchain/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Blockchain</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-08-22">2022-08-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3206 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;7 minutes&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
-                <div class="details-summary toc-title">
-                    <span>Contents</span>
-                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>零知识证明</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+      yinhui</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/blockchain/" class="post-category" title="分类 - Blockchain"><i class="fa-regular fa-folder" aria-hidden="true"></i> Blockchain</a></span></div><div class="post-meta-line"><span title="发布于 2022-08-22 13:39:54"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2022-08-22">2022-08-22</time></span>&nbsp;<span title="3206 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 3300 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 7 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#这是啥">这是啥</a></li>
     <li><a href="#为什么需要零知识证明">为什么需要<code>零知识证明</code></a></li>
@@ -121,11 +135,17 @@
     <li><a href="#扩展阅读">扩展阅读</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p>关于零知识证明的若干知识</p>
-<h2 id="这是啥">这是啥</h2>
-<p>我知道一个秘密, 不能告诉你, 但我又得向你证明我的确知道这个秘密</p>
-<h2 id="为什么需要零知识证明">为什么需要<code>零知识证明</code></h2>
-<ol>
+      </div><div class="content" id="content"><p>关于零知识证明的若干知识</p>
+<h2 class="heading-element" id="这是啥"><span>这是啥</span>
+  <a href="#%e8%bf%99%e6%98%af%e5%95%a5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>我知道一个秘密, 不能告诉你, 但我又得向你证明我的确知道这个秘密</p>
+<h2 class="heading-element" id="为什么需要零知识证明"><span>为什么需要<code>零知识证明</code></span>
+  <a href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e9%9c%80%e8%a6%81%e9%9b%b6%e7%9f%a5%e8%af%86%e8%af%81%e6%98%8e" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ol>
 <li>
 <p>区块链太透明
 区块链以透明著称, 但这会带来一些问题, 比如一些企业级应用中的数据并不适合这种透明性</p>
@@ -137,14 +157,17 @@
 </li>
 </ol>
 <p>所以<code>零知识证明</code>是<code>Web3.0</code>的基石. 其处于<code>L0</code>层.</p>
-<h2 id="阿里巴巴洞穴">阿里巴巴洞穴</h2>
-<p>如何向你的孩子解释<code>零知识证明协议</code> <a href="https://link.springer.com/content/pdf/10.1007/0-387-34805-0_60.pdf" target="_blank" rel="noopener noreffer ">https://link.springer.com/content/pdf/10.1007/0-387-34805-0_60.pdf</a></p>
+<h2 class="heading-element" id="阿里巴巴洞穴"><span>阿里巴巴洞穴</span>
+  <a href="#%e9%98%bf%e9%87%8c%e5%b7%b4%e5%b7%b4%e6%b4%9e%e7%a9%b4" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>如何向你的孩子解释<code>零知识证明协议</code> <a href="https://link.springer.com/content/pdf/10.1007/0-387-34805-0_60.pdf" target="_blank" rel="external nofollow noopener noreferrer">https://link.springer.com/content/pdf/10.1007/0-387-34805-0_60.pdf</a></p>
 <p>简单翻译一下:</p>
 <p>哦，我的孩子们，你们要知道，很久以前，在东部城市巴格达，住着一个叫阿里巴巴的老人。每天阿里巴巴都会去集市上买东西或卖东西。这个故事部分是关于阿里巴巴的，部分也是关于一个山洞的，一个奇怪的山洞，其秘密和奇迹至今存在。但我想得太远了&hellip;</p>
 <p>有一天，在巴格达集市上，一个小偷从阿里巴巴手中抢走了一个钱包，阿里巴巴马上开始追赶他。小偷逃进了一个山洞，山洞的入口分叉成两条黑暗的蜿蜒通道：一条向左，另一条向右。</p>
 <p>山洞大概长这个样子😂</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-fallback"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
@@ -190,8 +213,7 @@
 </span></span><span class="line"><span class="cl">xxxxxxx                                    xxxxxxx
 </span></span><span class="line"><span class="cl">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 </span></span><span class="line"><span class="cl">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-</span></span><span class="line"><span class="cl">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
 </div>
 </div><p>阿里巴巴没有看到小偷进入哪条通道。阿里巴巴不得不选择走哪条路，他决定向左走。左边的通道尽头是一个死胡同。阿里巴巴从岔路口一直找到死胡同，但他没有找到小偷。阿里巴巴对自己说，小偷也许在另一条通道上。于是他找了右边的通道，也是一个死胡同。但他再次没有找到小偷。&ldquo;这个洞很奇怪，&ldquo;阿里巴巴对自己说，&ldquo;我的小偷去哪儿了？&rdquo;</p>
 <p>第二天，另一个小偷抓起阿里巴巴的篮子，像第一个小偷一样，逃进了那个奇怪的山洞。阿里巴巴追赶他，又一次没有看到小偷往哪边走。这一次，阿里巴巴决定向右搜索。他一直走到右侧通道的尽头，但没有找到那个小偷。他对自己说，和第一个小偷一样，第二个小偷也很幸运，走了阿里巴巴没有选择的通道。这无疑让小偷再次离开，悄悄地混入拥挤的集市。</p>
@@ -205,8 +227,11 @@
 为了纪念那四十个小偷，这个演示场景被播放了四十次。每一次大家都回到洞外，米克独自进入其中一个通道，一路走来。然后记者和摄像机一直走到岔路口，在那里他通过抛硬币选择给米克的命令。米克在所有40个场景中都成功了。</p>
 <p>任何不知道山洞秘密的人都会在第一次失败时被暴露。每一次新的测试都会使不知道秘密的人的成功机会减少两倍。另一方面，这个秘密让米克每次都能从规定的出口出来。</p>
 <p>&hellip;&hellip;.</p>
-<h2 id="零知识证明介绍"><code>零知识证明</code>介绍</h2>
-<p>从上面的故事中, 可以看出 <code>零知识证明</code> (Zero Knowledge Proofs,  ZKPs) 是基于概率性的, 而不是确定性的, 随着测试的不断进行, 靠运气猜中的几率越来越低: 0.5 ^ n</p>
+<h2 class="heading-element" id="零知识证明介绍"><span><code>零知识证明</code>介绍</span>
+  <a href="#%e9%9b%b6%e7%9f%a5%e8%af%86%e8%af%81%e6%98%8e%e4%bb%8b%e7%bb%8d" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>从上面的故事中, 可以看出 <code>零知识证明</code> (Zero Knowledge Proofs,  ZKPs) 是基于概率性的, 而不是确定性的, 随着测试的不断进行, 靠运气猜中的几率越来越低: 0.5 ^ n</p>
 <p><code>零知识证明</code>一般包括3个阶段:</p>
 <ol>
 <li>
@@ -225,8 +250,11 @@
 <li>换一个验证者, 证明者又得需要重复上述过程</li>
 </ol>
 <p>所以这又引入了另外一个概念<code>简洁的非交互式零知识证明</code>: &ldquo;Zero-Knowledge Succinct Non-Interactive Argument of Knowledge&rdquo;，或 &ldquo;zk-SNARK&rdquo;，</p>
-<h2 id="zk-snark">zk-SNARK</h2>
-<p><code>简洁的非交互式零知识证明</code>: &ldquo;Zero-Knowledge Succinct Non-Interactive Argument of Knowledge&rdquo;:</p>
+<h2 class="heading-element" id="zk-snark"><span>zk-SNARK</span>
+  <a href="#zk-snark" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><code>简洁的非交互式零知识证明</code>: &ldquo;Zero-Knowledge Succinct Non-Interactive Argument of Knowledge&rdquo;:</p>
 <p><code>Succinct</code>: 简洁,  意味着证明很短（例如，对于加密货币的人来说，让我们说，它可以很容易地存储在现有区块链的交易中），并且可以很容易地被验证（例如，它可以由区块链节点在验证区块时廉价地检查）。</p>
 <p><code>Non-Interactive</code>: 非交互式意味着我们可以编写和存储一个证明，而不需要像主页中的介绍性 &ldquo;斯诺克球 &ldquo;例子那样有问题/答案循环。因此，一个证明可以被计算出来并发布在区块链上，每个人都可以验证它。</p>
 <p>zk-Snark通常以5个主要步骤的序列来实现:</p>
@@ -238,51 +266,65 @@
 <li>通过计算方程是否成立来验证证明。验证不是直接在映射的空间中进行的，而是通过一个 &ldquo;配对 &ldquo;函数将数值再次映射到一个新的空间，该函数保留并允许检查原始变量之间的乘法。</li>
 </ol>
 <p>是不是理解起来特别懵逼😳</p>
-<p>通过一个来自这里的漫画更容易理解点 : <a href="https://github.com/KevinSmall/zk-SNARKs-Explainer/blob/master/translations/zh-TW/README.md" target="_blank" rel="noopener noreffer ">https://github.com/KevinSmall/zk-SNARKs-Explainer/blob/master/translations/zh-TW/README.md</a></p>
+<p>通过一个来自这里的漫画更容易理解点 : <a href="https://github.com/KevinSmall/zk-SNARKs-Explainer/blob/master/translations/zh-TW/README.md" target="_blank" rel="external nofollow noopener noreferrer">https://github.com/KevinSmall/zk-SNARKs-Explainer/blob/master/translations/zh-TW/README.md</a></p>
 <img src="https://github.com/KevinSmall/zk-SNARKs-Explainer/blob/master/translations/zh-TW/page1.png?raw=true" style="zoom:50%;" />
 <img src="https://github.com/KevinSmall/zk-SNARKs-Explainer/blob/master/translations/zh-TW/page2.png?raw=true" style="zoom:50%;" />
-<p>这里就看到了几个关键函数, 而他们实际是相当复杂的, 有能力的看这里 <a href="https://www.di.ens.fr/~nitulesc/files/Survey-SNARKs.pdf" target="_blank" rel="noopener noreffer ">https://www.di.ens.fr/~nitulesc/files/Survey-SNARKs.pdf</a></p>
-<h2 id="扩展阅读">扩展阅读</h2>
-<p><strong>Awesome zero knowledge proofs (zkp)</strong></p>
-<p><a href="https://github.com/matter-labs/awesome-zero-knowledge-proofs" target="_blank" rel="noopener noreffer ">https://github.com/matter-labs/awesome-zero-knowledge-proofs</a></p>
+<p>这里就看到了几个关键函数, 而他们实际是相当复杂的, 有能力的看这里 <a href="https://www.di.ens.fr/~nitulesc/files/Survey-SNARKs.pdf" target="_blank" rel="external nofollow noopener noreferrer">https://www.di.ens.fr/~nitulesc/files/Survey-SNARKs.pdf</a></p>
+<h2 class="heading-element" id="扩展阅读"><span>扩展阅读</span>
+  <a href="#%e6%89%a9%e5%b1%95%e9%98%85%e8%af%bb" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><strong>Awesome zero knowledge proofs (zkp)</strong></p>
+<p><a href="https://github.com/matter-labs/awesome-zero-knowledge-proofs" target="_blank" rel="external nofollow noopener noreferrer">https://github.com/matter-labs/awesome-zero-knowledge-proofs</a></p>
 <p><strong>zkapps</strong></p>
-<p><a href="https://docs.minaprotocol.com/en/zkapps" target="_blank" rel="noopener noreffer ">https://docs.minaprotocol.com/en/zkapps</a></p></div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>Updated on 2022-08-22</span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E/index.md" target="_blank">Read Markdown</a>
-                        </span></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://yinhui1984.github.io/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E/" data-title="零知识证明" data-hashtags="ZKPs,L0,Web3.0"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://yinhui1984.github.io/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E/" data-hashtag="ZKPs"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://yinhui1984.github.io/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E/" data-title="零知识证明"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://yinhui1984.github.io/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E/" data-title="零知识证明"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://yinhui1984.github.io/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E/" data-title="零知识证明"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
-            </div>
+<p><a href="https://docs.minaprotocol.com/en/zkapps" target="_blank" rel="external nofollow noopener noreferrer">https://docs.minaprotocol.com/en/zkapps</a></p></div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2022-08-22 13:39:54">更新于 2022-08-22&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"><span><a href="/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span><span><a href="vscode://file//Users/z/Documents/web3/05_blogs/yinhui1984.github.io/content/posts/%e9%9b%b6%e7%9f%a5%e8%af%86%e8%af%81%e6%98%8e.md" title="在编辑器中打开" target="_blank" rel="external nofollow noopener noreferrer" class="link-to-vscode">在编辑器中打开</a></span></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="http://localhost:1313/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E/" data-title="零知识证明" data-hashtags="ZKPs,L0,Web3.0"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://localhost:1313/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E/" data-hashtag="ZKPs"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E/" data-title="零知识证明"><i class="fa-brands fa-hacker-news" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://localhost:1313/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E/" data-title="零知识证明"><svg class="icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>LINE</title><path d="M19.365 9.863c.349.0.63.285.63.631.0.345-.281.63-.63.63H17.61v1.125h1.755c.349.0.63.283.63.63.0.344-.281.629-.63.629h-2.386c-.345.0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346.0.627.285.627.63.0.349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211.0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346.0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195.0.375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345.0.63.285.63.63v4.771zm-5.741.0c0 .344-.282.629-.631.629-.345.0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346.0.628.285.628.63v4.771zm-2.466.629H4.917c-.345.0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348.0.63.285.63.63v4.141h1.756c.348.0.629.283.629.63.0.344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943.0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://localhost:1313/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E/" data-title="零知识证明"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
         </div>
-    </div>
+      </div></div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/zkps/">ZKPs</a>,&nbsp;<a href="/tags/l0/">L0</a>,&nbsp;<a href="/tags/web3.0/">Web3.0</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
-        </section>
-    </div>
-
-    <div class="post-nav"><a href="/censys%E6%96%87%E6%A1%A3/" class="prev" rel="prev" title="Censys文档"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Censys文档</a>
-            <a href="/p2p/" class="next" rel="next" title="P2P">P2P<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/tags/zkps/" class="post-tag" title="标签 - ZKPs">ZKPs</a><a href="/tags/l0/" class="post-tag" title="标签 - L0">L0</a><a href="/tags/web3.0/" class="post-tag" title="标签 - Web3.0">Web3.0</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="/censys%E6%96%87%E6%A1%A3/" class="post-nav-item" rel="prev" title="Censys文档"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>Censys文档</a><a href="/p2p/" class="post-nav-item" rel="next" title="P2P">P2P<i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
 </div>
-</article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.118.2">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/yinhui1984" target="_blank">zhouyinhui</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
-        </div>
-    </footer></div>
+</article>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":2000},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content always-active" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#这是啥">这是啥</a></li>
+    <li><a href="#为什么需要零知识证明">为什么需要<code>零知识证明</code></a></li>
+    <li><a href="#阿里巴巴洞穴">阿里巴巴洞穴</a></li>
+    <li><a href="#零知识证明介绍"><code>零知识证明</code>介绍</a></li>
+    <li><a href="#zk-snark">zk-SNARK</a></li>
+    <li><a href="#扩展阅读">扩展阅读</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.154.5"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.2"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="/"></a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="目录"><i class="fa-solid fa-bars" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/js/config/a4fc622b460605dd6ff98a1cf4bc3f6f.js" defer></script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
 </html>

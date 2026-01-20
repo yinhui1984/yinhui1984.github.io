@@ -1,18 +1,20 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>consensus - Tag - YINHUI&#39;s BLOG</title>
-        <link>https://yinhui1984.github.io/tags/consensus/</link>
-        <description>consensus - Tag - YINHUI&#39;s BLOG</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 08 Jul 2022 19:45:30 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/tags/consensus/" rel="self" type="application/rss+xml" /><item>
-    <title>PoW</title>
-    <link>https://yinhui1984.github.io/pow/</link>
-    <pubDate>Fri, 08 Jul 2022 19:45:30 &#43;0800</pubDate>
-    <author>yinhui</author>
-    <guid>https://yinhui1984.github.io/pow/</guid>
-    <description><![CDATA[<p>&ldquo;如何达成共识&quot;是分布式系统的一个最基本的问题. 区块链作为一个分布式系统, 这也是最核心的问题.</p>
-<p>共识算法很多, <code>PoW</code>、 <code>BFT</code> 、<code>POS</code> .. 以及的变体, 比如<code>PBFT</code>、 <code>IBFT</code>、<code>Tendermint</code>、<code>DPoS</code>、 <code>HotStuff</code> 等.</p>
-<p>但作为区块链的鼻祖的BTC和元老的ETH都使用的<code>PoW</code>, ETH正在过度到<code>PoS</code>, 另外有一些区块链采用了<code>PoS</code>的一个变体<code>DPoS</code>.我们主要关注这几种.</p>
-<p>今天先说说<code>PoW</code></p>]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Consensus - 标签 - YINHUI&#39;s BLOG</title>
+    <link>http://localhost:1313/tags/consensus/</link>
+    <description>银辉的博客</description>
+    <generator>Hugo 0.154.5 &amp; FixIt v0.4.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 08 Jul 2022 19:45:30 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/consensus/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PoW</title>
+      <link>http://localhost:1313/pow/</link>
+      <pubDate>Fri, 08 Jul 2022 19:45:30 +0800</pubDate>
+      <guid>http://localhost:1313/pow/</guid>
+      <category domain="http://localhost:1313/categories/blockchain/">Blockchain</category>
+      <description>&lt;p&gt;&amp;ldquo;如何达成共识&amp;quot;是分布式系统的一个最基本的问题. 区块链作为一个分布式系统, 这也是最核心的问题.&lt;/p&gt;&#xA;&lt;p&gt;共识算法很多, &lt;code&gt;PoW&lt;/code&gt;、 &lt;code&gt;BFT&lt;/code&gt; 、&lt;code&gt;POS&lt;/code&gt; .. 以及的变体, 比如&lt;code&gt;PBFT&lt;/code&gt;、 &lt;code&gt;IBFT&lt;/code&gt;、&lt;code&gt;Tendermint&lt;/code&gt;、&lt;code&gt;DPoS&lt;/code&gt;、 &lt;code&gt;HotStuff&lt;/code&gt; 等.&lt;/p&gt;&#xA;&lt;p&gt;但作为区块链的鼻祖的BTC和元老的ETH都使用的&lt;code&gt;PoW&lt;/code&gt;, ETH正在过度到&lt;code&gt;PoS&lt;/code&gt;, 另外有一些区块链采用了&lt;code&gt;PoS&lt;/code&gt;的一个变体&lt;code&gt;DPoS&lt;/code&gt;.我们主要关注这几种.&lt;/p&gt;&#xA;&lt;p&gt;今天先说说&lt;code&gt;PoW&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
 </rss>

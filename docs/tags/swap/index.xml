@@ -1,15 +1,20 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>swap - Tag - YINHUI&#39;s BLOG</title>
-        <link>https://yinhui1984.github.io/tags/swap/</link>
-        <description>swap - Tag - YINHUI&#39;s BLOG</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 13 Mar 2023 09:53:56 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/tags/swap/" rel="self" type="application/rss+xml" /><item>
-    <title>Uniswap</title>
-    <link>https://yinhui1984.github.io/uniswap/</link>
-    <pubDate>Mon, 13 Mar 2023 09:53:56 &#43;0800</pubDate>
-    <author>yinhui</author>
-    <guid>https://yinhui1984.github.io/uniswap/</guid>
-    <description><![CDATA[<p>uniswap API 解释与举例</p>]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Swap - 标签 - YINHUI&#39;s BLOG</title>
+    <link>http://localhost:1313/tags/swap/</link>
+    <description>银辉的博客</description>
+    <generator>Hugo 0.154.5 &amp; FixIt v0.4.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 13 Mar 2023 09:53:56 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/swap/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Uniswap</title>
+      <link>http://localhost:1313/uniswap/</link>
+      <pubDate>Mon, 13 Mar 2023 09:53:56 +0800</pubDate>
+      <guid>http://localhost:1313/uniswap/</guid>
+      <category domain="http://localhost:1313/categories/blockchain/">Blockchain</category>
+      <description>&lt;p&gt;uniswap API 解释与举例&lt;/p&gt;</description>
+    </item>
+  </channel>
 </rss>

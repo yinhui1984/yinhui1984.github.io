@@ -1,64 +1,36 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>golang - Category - YINHUI&#39;s BLOG</title>
-        <link>https://yinhui1984.github.io/categories/golang/</link>
-        <description>golang - Category - YINHUI&#39;s BLOG</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 17 Nov 2023 16:24:42 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/categories/golang/" rel="self" type="application/rss+xml" /><item>
-    <title>Golang记录panic到日志</title>
-    <link>https://yinhui1984.github.io/golang%E8%AE%B0%E5%BD%95panic%E5%88%B0%E6%97%A5%E5%BF%97/</link>
-    <pubDate>Fri, 17 Nov 2023 16:24:42 &#43;0800</pubDate>
-    <author>yinhui</author>
-    <guid>https://yinhui1984.github.io/golang%E8%AE%B0%E5%BD%95panic%E5%88%B0%E6%97%A5%E5%BF%97/</guid>
-    <description><![CDATA[<p>将panic记录下来可以使用recover函数, 但由于golang 的 recover 函数只能捕获同一个 goroutine 中的 panic, 所以就有了下面的一些辅助函数</p>]]></description>
-</item>
-<item>
-    <title>Golang获得动态网页内容</title>
-    <link>https://yinhui1984.github.io/golang%E8%8E%B7%E5%BE%97%E5%8A%A8%E6%80%81%E7%BD%91%E9%A1%B5%E5%86%85%E5%AE%B9/</link>
-    <pubDate>Thu, 18 Aug 2022 10:07:22 &#43;0800</pubDate>
-    <author>yinhui</author>
-    <guid>https://yinhui1984.github.io/golang%E8%8E%B7%E5%BE%97%E5%8A%A8%E6%80%81%E7%BD%91%E9%A1%B5%E5%86%85%E5%AE%B9/</guid>
-    <description><![CDATA[<p>golang中用get()或httpClient 进行get时得到的静态页面, 如果页面中的内容是获取到本地后动态生成的话, 应该如何得到呢</p>]]></description>
-</item>
-<item>
-    <title>Golang文件下载</title>
-    <link>https://yinhui1984.github.io/golang%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/</link>
-    <pubDate>Fri, 22 Jul 2022 20:54:37 &#43;0800</pubDate>
-    <author>yinhui</author>
-    <guid>https://yinhui1984.github.io/golang%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/</guid>
-    <description><![CDATA[<p>go语言写的一个文件下载脚本</p>
-<p>晚上想听点有声小说, 要两毛一集, 算了一下,一本书要几百块, 囊中羞涩, 于是拿出电脑搞个脚本</p>]]></description>
-</item>
-<item>
-    <title>使用delve对go代码进行调试</title>
-    <link>https://yinhui1984.github.io/%E4%BD%BF%E7%94%A8delve%E5%AF%B9go%E4%BB%A3%E7%A0%81%E8%BF%9B%E8%A1%8C%E8%B0%83%E8%AF%95/</link>
-    <pubDate>Fri, 22 Jul 2022 20:20:38 &#43;0800</pubDate>
-    <author>yinhui</author>
-    <guid>https://yinhui1984.github.io/%E4%BD%BF%E7%94%A8delve%E5%AF%B9go%E4%BB%A3%E7%A0%81%E8%BF%9B%E8%A1%8C%E8%B0%83%E8%AF%95/</guid>
-    <description><![CDATA[<p><code>delve</code>就是go语言的<code>gdb</code></p>]]></description>
-</item>
-<item>
-    <title>Golang实现一个简单的事件处理程序</title>
-    <link>https://yinhui1984.github.io/golang%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F/</link>
-    <pubDate>Fri, 22 Jul 2022 20:16:58 &#43;0800</pubDate>
-    <author>yinhui</author>
-    <guid>https://yinhui1984.github.io/golang%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F/</guid>
-    <description><![CDATA[<p>一个简单的事件处理程序</p>]]></description>
-</item>
-<item>
-    <title>聊聊go语言中的sync</title>
-    <link>https://yinhui1984.github.io/%E8%81%8A%E8%81%8Ago%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84sync/</link>
-    <pubDate>Sun, 12 Jun 2022 16:41:41 &#43;0800</pubDate>
-    <author>yinhui</author>
-    <guid>https://yinhui1984.github.io/%E8%81%8A%E8%81%8Ago%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84sync/</guid>
-    <description><![CDATA[<p>我们将用些简单的例子来尝试golang中sync包的各种有趣的情况</p>]]></description>
-</item>
-<item>
-    <title>Go语言中的http服务器</title>
-    <link>https://yinhui1984.github.io/go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84http%E6%9C%8D%E5%8A%A1%E5%99%A8/</link>
-    <pubDate>Mon, 06 Jun 2022 00:00:00 &#43;0000</pubDate>
-    <author>yinhui</author>
-    <guid>https://yinhui1984.github.io/go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84http%E6%9C%8D%E5%8A%A1%E5%99%A8/</guid>
-    <description><![CDATA[<p>go语言中<code>net/http</code>包对<code>http</code>服务与请求的处理</p>]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Golang - 分类 - YINHUI&#39;s BLOG</title>
+    <link>http://localhost:1313/categories/golang/</link>
+    <description>银辉的博客</description>
+    <generator>Hugo 0.154.5 &amp; FixIt v0.4.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 17 Nov 2023 16:24:42 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/golang/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Golang记录panic到日志</title>
+      <link>http://localhost:1313/golang%E8%AE%B0%E5%BD%95panic%E5%88%B0%E6%97%A5%E5%BF%97/</link>
+      <pubDate>Fri, 17 Nov 2023 16:24:42 +0800</pubDate>
+      <guid>http://localhost:1313/golang%E8%AE%B0%E5%BD%95panic%E5%88%B0%E6%97%A5%E5%BF%97/</guid>
+      <category domain="http://localhost:1313/categories/golang/">Golang</category>
+      <description>&lt;p&gt;将panic记录下来可以使用recover函数, 但由于golang 的 recover 函数只能捕获同一个 goroutine 中的 panic, 所以就有了下面的一些辅助函数&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Golang文件下载</title>
+      <link>http://localhost:1313/golang%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/</link>
+      <pubDate>Fri, 22 Jul 2022 20:54:37 +0800</pubDate>
+      <guid>http://localhost:1313/golang%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/</guid>
+      <category domain="http://localhost:1313/categories/golang/">Golang</category>
+      <description>&lt;p&gt;go语言写的一个文件下载脚本&lt;/p&gt;&#xA;&lt;p&gt;晚上想听点有声小说, 要两毛一集, 算了一下,一本书要几百块, 囊中羞涩, 于是拿出电脑搞个脚本&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>聊聊go语言中的sync</title>
+      <link>http://localhost:1313/%E8%81%8A%E8%81%8Ago%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84sync/</link>
+      <pubDate>Sun, 12 Jun 2022 16:41:41 +0800</pubDate>
+      <guid>http://localhost:1313/%E8%81%8A%E8%81%8Ago%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84sync/</guid>
+      <category domain="http://localhost:1313/categories/golang/">Golang</category>
+      <description>&lt;p&gt;我们将用些简单的例子来尝试golang中sync包的各种有趣的情况&lt;/p&gt;</description>
+    </item>
+  </channel>
 </rss>

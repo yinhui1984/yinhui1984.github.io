@@ -1,31 +1,20 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>windows - Category - YINHUI&#39;s BLOG</title>
-        <link>https://yinhui1984.github.io/categories/windows/</link>
-        <description>windows - Category - YINHUI&#39;s BLOG</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 27 Jul 2022 09:32:00 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/categories/windows/" rel="self" type="application/rss+xml" /><item>
-    <title>Visual Studio VC&#43;&#43; 远程调试</title>
-    <link>https://yinhui1984.github.io/visutal-studio-%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95/</link>
-    <pubDate>Wed, 27 Jul 2022 09:32:00 &#43;0800</pubDate>
-    <author>yinhui</author>
-    <guid>https://yinhui1984.github.io/visutal-studio-%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95/</guid>
-    <description><![CDATA[<p>如何使用Visual Studio进行C++项目远程调试</p>]]></description>
-</item>
-<item>
-    <title>MFC窗体程序弹出命令行窗口显示日志输出</title>
-    <link>https://yinhui1984.github.io/mfc%E7%AA%97%E4%BD%93%E7%A8%8B%E5%BA%8F%E5%BC%B9%E5%87%BA%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%AA%97%E5%8F%A3%E6%98%BE%E7%A4%BA%E6%97%A5%E5%BF%97%E8%BE%93%E5%87%BA/</link>
-    <pubDate>Wed, 13 Jul 2022 17:38:13 &#43;0800</pubDate>
-    <author>yinhui</author>
-    <guid>https://yinhui1984.github.io/mfc%E7%AA%97%E4%BD%93%E7%A8%8B%E5%BA%8F%E5%BC%B9%E5%87%BA%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%AA%97%E5%8F%A3%E6%98%BE%E7%A4%BA%E6%97%A5%E5%BF%97%E8%BE%93%E5%87%BA/</guid>
-    <description><![CDATA[<p>如何让MFC窗体程序弹出命令行窗口并打印日志输出</p>]]></description>
-</item>
-<item>
-    <title>Error : WINDOWS.H Already Included</title>
-    <link>https://yinhui1984.github.io/error--windows.h-already-included/</link>
-    <pubDate>Tue, 12 Jul 2022 20:30:29 &#43;0800</pubDate>
-    <author>yinhui</author>
-    <guid>https://yinhui1984.github.io/error--windows.h-already-included/</guid>
-    <description><![CDATA[<p>关于编译Windows  MFC 项目遇到的<code>Error : WINDOWS.H Already Included</code>的解决方法</p>]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Windows - 分类 - YINHUI&#39;s BLOG</title>
+    <link>http://localhost:1313/categories/windows/</link>
+    <description>银辉的博客</description>
+    <generator>Hugo 0.154.5 &amp; FixIt v0.4.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 27 Jul 2022 09:32:00 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/windows/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Visual Studio VC&#43;&#43; 远程调试</title>
+      <link>http://localhost:1313/visutal-studio-%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95/</link>
+      <pubDate>Wed, 27 Jul 2022 09:32:00 +0800</pubDate>
+      <guid>http://localhost:1313/visutal-studio-%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95/</guid>
+      <category domain="http://localhost:1313/categories/windows/">Windows</category>
+      <description>&lt;p&gt;如何使用Visual Studio进行C++项目远程调试&lt;/p&gt;</description>
+    </item>
+  </channel>
 </rss>

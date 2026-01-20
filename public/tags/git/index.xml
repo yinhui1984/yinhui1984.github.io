@@ -1,15 +1,20 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>git - Tag - YINHUI&#39;s BLOG</title>
-        <link>https://yinhui1984.github.io/tags/git/</link>
-        <description>git - Tag - YINHUI&#39;s BLOG</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 30 Aug 2022 16:20:50 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/tags/git/" rel="self" type="application/rss+xml" /><item>
-    <title>Git Master恢复</title>
-    <link>https://yinhui1984.github.io/git-master%E6%81%A2%E5%A4%8D/</link>
-    <pubDate>Tue, 30 Aug 2022 16:20:50 &#43;0800</pubDate>
-    <author>yinhui</author>
-    <guid>https://yinhui1984.github.io/git-master%E6%81%A2%E5%A4%8D/</guid>
-    <description><![CDATA[删库跑路, 如何恢复 给代码打tag的时候, 发现 fatal: 'xxx/myproject.git' does not appear to be a git repository 服务器上一看, 被人删了, NB-PLUS 首先本地机的clone中查看远程路径 1 2 3 &gt; git remote -v]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Git - 标签 - YINHUI&#39;s BLOG</title>
+    <link>https://yinhui1984.github.io/tags/git/</link>
+    <description>银辉的博客</description>
+    <generator>Hugo 0.154.5 &amp; FixIt v0.4.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 30 Aug 2022 16:20:50 +0800</lastBuildDate>
+    <atom:link href="https://yinhui1984.github.io/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Git Master恢复</title>
+      <link>https://yinhui1984.github.io/git-master%E6%81%A2%E5%A4%8D/</link>
+      <pubDate>Tue, 30 Aug 2022 16:20:50 +0800</pubDate>
+      <guid>https://yinhui1984.github.io/git-master%E6%81%A2%E5%A4%8D/</guid>
+      <category domain="https://yinhui1984.github.io/categories/devops/">Devops</category>
+      <description>&lt;p&gt;删库跑路, 如何恢复&lt;/p&gt;&#xA;&lt;!---more--&gt;&#xA;&lt;p&gt;给代码打tag的时候, 发现 &lt;code&gt;fatal: &#39;xxx/myproject.git&#39; does not appear to be a git repository&lt;/code&gt;&lt;/p&gt;&#xA;&lt;p&gt;服务器上一看, 被人删了, NB-PLUS&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;首先本地机的clone中查看远程路径&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;pre&gt;&lt;code&gt;&amp;gt; git remote -v&#xA;origin&#x9;root@XXX:/xxx/myproject.git (fetch)&#xA;origin&#x9;root@XXX:/xxx/myproject.git (push)&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;&#xA;&lt;li&gt;到服务器上创建对应的路径&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;pre&gt;&lt;code&gt;mkdir -p /xxx/&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;&#xA;&lt;li&gt;在服务上创建一个空的repository&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;pre&gt;&lt;code&gt;cd /xxx/&#xA;git init --bare myproject.git&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;&#xA;&lt;li&gt;到本地机clone中 添加现存代码到服务器&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;pre&gt;&lt;code&gt;git add .&#xA;git commit -m &amp;#34;re-add all&amp;#34;&#xA;git push origin master&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+  </channel>
 </rss>

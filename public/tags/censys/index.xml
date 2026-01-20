@@ -1,15 +1,20 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>censys - Tag - YINHUI&#39;s BLOG</title>
-        <link>https://yinhui1984.github.io/tags/censys/</link>
-        <description>censys - Tag - YINHUI&#39;s BLOG</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 19 Aug 2022 21:18:09 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/tags/censys/" rel="self" type="application/rss+xml" /><item>
-    <title>Censys文档</title>
-    <link>https://yinhui1984.github.io/censys%E6%96%87%E6%A1%A3/</link>
-    <pubDate>Fri, 19 Aug 2022 21:18:09 &#43;0800</pubDate>
-    <author>yinhui</author>
-    <guid>https://yinhui1984.github.io/censys%E6%96%87%E6%A1%A3/</guid>
-    <description><![CDATA[<p><code>censys</code> <a href="https://search.censys.io" target="_blank" rel="noopener noreffer ">https://search.censys.io</a> 堪称神器, 翻译了一下帮助文档</p>]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Censys - 标签 - YINHUI&#39;s BLOG</title>
+    <link>http://localhost:1313/tags/censys/</link>
+    <description>银辉的博客</description>
+    <generator>Hugo 0.154.5 &amp; FixIt v0.4.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 19 Aug 2022 21:18:09 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/censys/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Censys文档</title>
+      <link>http://localhost:1313/censys%E6%96%87%E6%A1%A3/</link>
+      <pubDate>Fri, 19 Aug 2022 21:18:09 +0800</pubDate>
+      <guid>http://localhost:1313/censys%E6%96%87%E6%A1%A3/</guid>
+      <category domain="http://localhost:1313/categories/tools/">Tools</category>
+      <description>&lt;p&gt;&lt;code&gt;censys&lt;/code&gt; &lt;a href=&#34;https://search.censys.io&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://search.censys.io&lt;/a&gt; 堪称神器, 翻译了一下帮助文档&lt;/p&gt;</description>
+    </item>
+  </channel>
 </rss>

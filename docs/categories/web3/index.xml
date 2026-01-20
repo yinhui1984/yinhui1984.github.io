@@ -1,23 +1,28 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>web3 - Category - YINHUI&#39;s BLOG</title>
-        <link>https://yinhui1984.github.io/categories/web3/</link>
-        <description>web3 - Category - YINHUI&#39;s BLOG</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 28 Feb 2023 19:54:46 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/categories/web3/" rel="self" type="application/rss+xml" /><item>
-    <title>Ethernaut</title>
-    <link>https://yinhui1984.github.io/ethernaut/</link>
-    <pubDate>Tue, 28 Feb 2023 19:54:46 &#43;0800</pubDate>
-    <author>yinhui</author>
-    <guid>https://yinhui1984.github.io/ethernaut/</guid>
-    <description><![CDATA[<p>Ethernaut 挑战记录</p>]]></description>
-</item>
-<item>
-    <title>Ethernaut 19 MagicNumber</title>
-    <link>https://yinhui1984.github.io/ethernaut_19_magicnumber/</link>
-    <pubDate>Thu, 19 Jan 2023 20:06:53 &#43;0800</pubDate>
-    <author>yinhui</author>
-    <guid>https://yinhui1984.github.io/ethernaut_19_magicnumber/</guid>
-    <description><![CDATA[<p>ethernaut 挑战 第19题, 比较有意思, 记录一下</p>]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Web3 - 分类 - YINHUI&#39;s BLOG</title>
+    <link>http://localhost:1313/categories/web3/</link>
+    <description>银辉的博客</description>
+    <generator>Hugo 0.154.5 &amp; FixIt v0.4.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 28 Feb 2023 19:54:46 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/web3/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ethernaut</title>
+      <link>http://localhost:1313/ethernaut/</link>
+      <pubDate>Tue, 28 Feb 2023 19:54:46 +0800</pubDate>
+      <guid>http://localhost:1313/ethernaut/</guid>
+      <category domain="http://localhost:1313/categories/web3/">Web3</category>
+      <description>&lt;p&gt;Ethernaut 挑战记录&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Ethernaut 19 MagicNumber</title>
+      <link>http://localhost:1313/ethernaut_19_magicnumber/</link>
+      <pubDate>Thu, 19 Jan 2023 20:06:53 +0800</pubDate>
+      <guid>http://localhost:1313/ethernaut_19_magicnumber/</guid>
+      <category domain="http://localhost:1313/categories/web3/">Web3</category>
+      <description>&lt;p&gt;ethernaut 挑战 第19题, 比较有意思, 记录一下&lt;/p&gt;</description>
+    </item>
+  </channel>
 </rss>

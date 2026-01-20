@@ -1,117 +1,131 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>UTXO - YINHUI&#39;s BLOG</title><meta name="Description" content="银辉的博客"><meta property="og:title" content="UTXO" />
-<meta property="og:description" content="一些关于UTXO的理解" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://yinhui1984.github.io/utxo/" /><meta property="og:image" content="https://yinhui1984.github.io/avatar.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2022-08-31T11:13:36+08:00" />
-<meta property="article:modified_time" content="2022-08-31T11:13:36+08:00" /><meta property="og:site_name" content="YINHUI&#39;s BLOG" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://yinhui1984.github.io/avatar.png"/>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>UTXO - YINHUI&#39;s BLOG</title><meta name="author" content="yinhui">
+<meta name="description" content="一些关于UTXO的理解
+"><meta name="keywords" content='UTXO, L0, Web3.0'>
+  <meta itemprop="name" content="UTXO">
+  <meta itemprop="description" content="一些关于UTXO的理解">
+  <meta itemprop="datePublished" content="2022-08-31T11:13:36+08:00">
+  <meta itemprop="dateModified" content="2022-08-31T11:13:36+08:00">
+  <meta itemprop="wordCount" content="1902">
+  <meta itemprop="image" content="http://localhost:1313/avatar.png">
+  <meta itemprop="keywords" content="UTXO,L0,Web3.0"><meta property="og:url" content="http://localhost:1313/utxo/">
+  <meta property="og:site_name" content="YINHUI&#39;s BLOG">
+  <meta property="og:title" content="UTXO">
+  <meta property="og:description" content="一些关于UTXO的理解">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2022-08-31T11:13:36+08:00">
+    <meta property="article:modified_time" content="2022-08-31T11:13:36+08:00">
+    <meta property="article:tag" content="UTXO">
+    <meta property="article:tag" content="L0">
+    <meta property="article:tag" content="Web3.0">
+    <meta property="og:image" content="http://localhost:1313/avatar.png">
 
-<meta name="twitter:title" content="UTXO"/>
-<meta name="twitter:description" content="一些关于UTXO的理解"/>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/avatar.png">
+  <meta name="twitter:title" content="UTXO">
+  <meta name="twitter:description" content="一些关于UTXO的理解">
 <meta name="application-name" content="YINHUI&#39;s BLOG">
-<meta name="apple-mobile-web-app-title" content="YINHUI&#39;s BLOG"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://yinhui1984.github.io/utxo/" /><link rel="prev" href="https://yinhui1984.github.io/git-master%E6%81%A2%E5%A4%8D/" /><link rel="next" href="https://yinhui1984.github.io/evm/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "UTXO",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/yinhui1984.github.io\/utxo\/"
-        },"genre": "posts","keywords": "UTXO, L0, Web3.0","wordcount":  1902 ,
-        "url": "https:\/\/yinhui1984.github.io\/utxo\/","datePublished": "2022-08-31T11:13:36+08:00","dateModified": "2022-08-31T11:13:36+08:00","publisher": {
-            "@type": "Organization",
-            "name": ""},"author": {
-                "@type": "Person",
-                "name": "yinhui"
-            },"description": ""
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
-
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+<meta name="apple-mobile-web-app-title" content="YINHUI&#39;s BLOG"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="http://localhost:1313/utxo/" title="UTXO - YINHUI&#39;s BLOG" /><link rel="prev" type="text/html" href="http://localhost:1313/p2p/" title="P2P" /><link rel="next" type="text/html" href="http://localhost:1313/evm/" title="EVM" /><link rel="alternate" type="text/plain" href="http://localhost:1313/utxo/index.md" title="UTXO - YINHUI's BLOG"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "UTXO",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "http:\/\/localhost:1313\/utxo\/"
+    },"genre": "posts","keywords": "UTXO, L0, Web3.0","wordcount":  1902 ,
+    "url": "http:\/\/localhost:1313\/utxo\/","datePublished": "2022-08-31T11:13:36+08:00","dateModified": "2022-08-31T11:13:36+08:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "yinhui"
+      },"description": ""
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="fixed" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="YINHUI&#39;s BLOG"><span class="header-title-text">YINHUI&#39;s BLOG</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="/categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="/">首页</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
     <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/" title="YINHUI&#39;s BLOG"></a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/"> 首页 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a>
-            </div>
-        </div>
+      <div class="header-title">
+        <a href="/" title="YINHUI&#39;s BLOG"><span class="header-title-text">YINHUI&#39;s BLOG</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/" title="YINHUI&#39;s BLOG"></a>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        Cancel
-                    </a>
-                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/" title="">首页</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a></div>
-    </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="/tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="/categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="/">首页</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
 </header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">Contents</h2>
-            <div class="toc-content always-active" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">UTXO</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/yinhui1984" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>yinhui</a></span>&nbsp;<span class="post-category">included in <a href="/categories/blockchain/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Blockchain</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-08-31">2022-08-31</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1902 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
-                <div class="details-summary toc-title">
-                    <span>Contents</span>
-                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>UTXO</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+      yinhui</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/blockchain/" class="post-category" title="分类 - Blockchain"><i class="fa-regular fa-folder" aria-hidden="true"></i> Blockchain</a></span></div><div class="post-meta-line"><span title="发布于 2022-08-31 11:13:36"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2022-08-31">2022-08-31</time></span>&nbsp;<span title="1902 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 2000 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 4 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#什么utxo">什么UTXO</a></li>
     <li><a href="#tx构成">TX构成</a></li>
@@ -120,11 +134,14 @@
     <li><a href="#扩展的utxo--eutxo">扩展的UTXO  (EUTXO)</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p>一些关于<code>UTXO</code>的理解</p>
+      </div><div class="content" id="content"><p>一些关于<code>UTXO</code>的理解</p>
 <p>在<code>web3</code>的的L0中, 涉及到一个概念 <code>Platform neutral language</code> (有些地方也写做 <code>Platform-neutral computation description language </code>) 平台中立的计算描述语言, 指一种在不同物理平台（架构、操作系统等）上执行相同程序的方法。注意, 它是一种描述, 一种方式, 而不是具体的编程语言.  示例包括 EVM（以太坊）、UTXO（比特币）和 Wasm（Polkadot）。</p>
 <p>这里先看看 <code>UTXO</code> :  An unspent transaction output 未花费的交易输出</p>
-<h2 id="什么utxo">什么UTXO</h2>
-<p>一个交易(TX)由一个或多个<code>输入</code>(Input)和一个或多个<code>输出</code>(Output)组成.</p>
+<h2 class="heading-element" id="什么utxo"><span>什么UTXO</span>
+  <a href="#%e4%bb%80%e4%b9%88utxo" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>一个交易(TX)由一个或多个<code>输入</code>(Input)和一个或多个<code>输出</code>(Output)组成.</p>
 <p>一个<code>输出</code>由两个状态: 未被使用 和 已被使用, 这个使用的意思是: 该输出作为另外一次交易的输入而被花掉(或花掉一部分)</p>
 <p>你的账户上所有未被使用掉的输入(unspent transaction output ,<code>UTXO</code>)的总和就是我们平时所说的账户余额. 但在BTC的区块链账本中,我们并不像平时一样使用余额(balance)来进行记录, 而是使用若干个未被使用掉的输入,也就是UTXOs</p>
 <p>假设我们现在的账户上还有两个UTXO, 一个0.2BTC, 另外一个0.4BTC, 要进行某次交易,</p>
@@ -132,129 +149,141 @@
 <li>情况举例1: 交易需要花掉0.1BTC, 这个时候发现0.2BTC这个UTXO就够花了, 所以交易会使用0.2BTC作为input, 当这个交易完成时,这个0.2BTC就不再试UTXO, 其会被分解成2个0.1BTC的UTXO (我们这里先忽略旷工费), 其中一个0.1BTC的UTXO发送到了对方账户, 另外一个0.1BTC返还给我们自己. 这个时候我们账户上还存在2个UXTO, 一个0.1BTC, 一个0.4BTC</li>
 <li>情况举例2: 交易需要花掉0.5BTC, 这个时候我们返回0.2和0.4这两个UTXO都不足以完成该次交易, 但0.2+0.4是足够的, 所以需要将他们同时作为该次交易的input,并生成2个UTXO, 一个0.5BTC到对方账户, 另外一个0.1BTC返还到自己账户.</li>
 </ul>
-<h2 id="tx构成">TX构成</h2>
-<p>一个交易(TX)由如下这些字段组成</p>
-<table>
-<thead>
-<tr>
-<th>TX的字段</th>
-<th>大小 (字节)</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>version</td>
-<td>4</td>
-<td>它是指定网络交易类型的版本号。通过，节点可以确定用于验证该特定交易的规则集</td>
-</tr>
-<tr>
-<td>input counter</td>
-<td>1-9</td>
-<td>input 数量, 指下面的input list 的长度</td>
-</tr>
-<tr>
-<td>inputs list</td>
-<td>不固定</td>
-<td>输入列表</td>
-</tr>
-<tr>
-<td>output counter</td>
-<td>1-9</td>
-<td>output 数量, 指下面的output list 的长度</td>
-</tr>
-<tr>
-<td>outputs list</td>
-<td>不固定</td>
-<td>输出列表</td>
-</tr>
-<tr>
-<td>lock time</td>
-<td>4</td>
-<td>它指定交易是否可以立即或在指定时间后包含在区块链中</td>
-</tr>
-</tbody>
-</table>
-<p>其中<code>Input</code>由下面这些字段组成</p>
-<table>
-<thead>
-<tr>
-<th>Input的字段</th>
-<th>大小 (字节)</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>previous  tx  hash</td>
-<td>32</td>
-<td>上一次交易的hash (追溯这个input是从哪里来的)</td>
-</tr>
-<tr>
-<td>previous out index</td>
-<td>4</td>
-<td>上一次交易是其在outputs中的index号</td>
-</tr>
-<tr>
-<td>Script length</td>
-<td>1-9</td>
-<td>解锁脚本的大小</td>
-</tr>
-<tr>
-<td>Unlocking script</td>
-<td>可变</td>
-<td>解锁脚本是用于证明允许交易花费给定 UTXO 的脚本。这是通过首先执行解锁脚本，然后为交易输入引用的 UTXO 执行锁定脚本来完成的</td>
-</tr>
-<tr>
-<td>Sequence number</td>
-<td>4</td>
-<td>通常是禁用或包含锁定时间 - 禁用表示为0xFFFFFFFF</td>
-</tr>
-</tbody>
-</table>
-<p>其中 <code>Output</code>由下面这些字段组成</p>
-<table>
-<thead>
-<tr>
-<th>Output的字段</th>
-<th>大小</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Value</td>
-<td>8</td>
-<td>将要转移的Satoshis总数（正整数）</td>
-</tr>
-<tr>
-<td>Script size</td>
-<td>1 – 9</td>
-<td>锁定脚本大小</td>
-</tr>
-<tr>
-<td>Locking script</td>
-<td>可变</td>
-<td>锁定脚本</td>
-</tr>
-</tbody>
-</table>
-<p>锁定和解锁脚本参考 这里 <a href="https://medium.com/@ackhor/ch-10-something-on-transaction-unlocking-locking-script-83228754c3f9" target="_blank" rel="noopener noreffer ">https://medium.com/@ackhor/ch-10-something-on-transaction-unlocking-locking-script-83228754c3f9</a></p>
+<h2 class="heading-element" id="tx构成"><span>TX构成</span>
+  <a href="#tx%e6%9e%84%e6%88%90" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>一个交易(TX)由如下这些字段组成</p>
+<div class="table-wrapper">
+  <table>
+    <thead>
+        <tr>
+            <th>TX的字段</th>
+            <th>大小 (字节)</th>
+            <th>描述</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>version</td>
+            <td>4</td>
+            <td>它是指定网络交易类型的版本号。通过，节点可以确定用于验证该特定交易的规则集</td>
+        </tr>
+        <tr>
+            <td>input counter</td>
+            <td>1-9</td>
+            <td>input 数量, 指下面的input list 的长度</td>
+        </tr>
+        <tr>
+            <td>inputs list</td>
+            <td>不固定</td>
+            <td>输入列表</td>
+        </tr>
+        <tr>
+            <td>output counter</td>
+            <td>1-9</td>
+            <td>output 数量, 指下面的output list 的长度</td>
+        </tr>
+        <tr>
+            <td>outputs list</td>
+            <td>不固定</td>
+            <td>输出列表</td>
+        </tr>
+        <tr>
+            <td>lock time</td>
+            <td>4</td>
+            <td>它指定交易是否可以立即或在指定时间后包含在区块链中</td>
+        </tr>
+    </tbody>
+  </table>
+</div><p>其中<code>Input</code>由下面这些字段组成</p>
+<div class="table-wrapper">
+  <table>
+    <thead>
+        <tr>
+            <th>Input的字段</th>
+            <th>大小 (字节)</th>
+            <th>描述</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>previous  tx  hash</td>
+            <td>32</td>
+            <td>上一次交易的hash (追溯这个input是从哪里来的)</td>
+        </tr>
+        <tr>
+            <td>previous out index</td>
+            <td>4</td>
+            <td>上一次交易是其在outputs中的index号</td>
+        </tr>
+        <tr>
+            <td>Script length</td>
+            <td>1-9</td>
+            <td>解锁脚本的大小</td>
+        </tr>
+        <tr>
+            <td>Unlocking script</td>
+            <td>可变</td>
+            <td>解锁脚本是用于证明允许交易花费给定 UTXO 的脚本。这是通过首先执行解锁脚本，然后为交易输入引用的 UTXO 执行锁定脚本来完成的</td>
+        </tr>
+        <tr>
+            <td>Sequence number</td>
+            <td>4</td>
+            <td>通常是禁用或包含锁定时间 - 禁用表示为0xFFFFFFFF</td>
+        </tr>
+    </tbody>
+  </table>
+</div><p>其中 <code>Output</code>由下面这些字段组成</p>
+<div class="table-wrapper">
+  <table>
+    <thead>
+        <tr>
+            <th>Output的字段</th>
+            <th>大小</th>
+            <th>描述</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Value</td>
+            <td>8</td>
+            <td>将要转移的Satoshis总数（正整数）</td>
+        </tr>
+        <tr>
+            <td>Script size</td>
+            <td>1 – 9</td>
+            <td>锁定脚本大小</td>
+        </tr>
+        <tr>
+            <td>Locking script</td>
+            <td>可变</td>
+            <td>锁定脚本</td>
+        </tr>
+    </tbody>
+  </table>
+</div><p>锁定和解锁脚本参考 这里 <a href="https://medium.com/@ackhor/ch-10-something-on-transaction-unlocking-locking-script-83228754c3f9" target="_blank" rel="external nofollow noopener noreferrer">https://medium.com/@ackhor/ch-10-something-on-transaction-unlocking-locking-script-83228754c3f9</a></p>
 <blockquote>
 <p>比特币交易通过用当前所有者的签名（或与公钥/脚本一起）解锁现有的UTXO（在输入端），并通过锁定新所有者的公钥/公钥哈希/脚本哈希生成新的UTXO（在输出端）。
 &ldquo;解锁 &ldquo;和 &ldquo;锁定 &ldquo;实际上是由称为 &ldquo;脚本 &ldquo;的编程语言来完成的。脚本是一个基于堆栈的程序，由数据和操作代码（操作代码）组成。数据是用来 &ldquo;推 &ldquo;入堆栈和 &ldquo;弹 &ldquo;出堆栈的。请不要将这些数据与比特币交易数据混淆。脚本中的这些数据基本上是公钥、公钥哈希、脚本哈希和签名。另一方面，操作码从堆栈中&rsquo;弹出&rsquo;数据，对数据做一些处理，然后将结果&rsquo;推&rsquo;回堆栈中。如果结果是'1&rsquo;，那么这个脚本就是有效的</p>
 </blockquote>
-<h2 id="看懂一次交易">看懂一次交易</h2>
-<p>以这个交易为例:</p>
-<p><a href="https://www.blockchain.com/btc/tx/d28ca5a59b2239864eac1c96d3fd1c23b747f0ded8f5af0161bae8a616b56a1d" target="_blank" rel="noopener noreffer ">https://www.blockchain.com/btc/tx/d28ca5a59b2239864eac1c96d3fd1c23b747f0ded8f5af0161bae8a616b56a1d</a></p>
+<h2 class="heading-element" id="看懂一次交易"><span>看懂一次交易</span>
+  <a href="#%e7%9c%8b%e6%87%82%e4%b8%80%e6%ac%a1%e4%ba%a4%e6%98%93" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>以这个交易为例:</p>
+<p><a href="https://www.blockchain.com/btc/tx/d28ca5a59b2239864eac1c96d3fd1c23b747f0ded8f5af0161bae8a616b56a1d" target="_blank" rel="external nofollow noopener noreferrer">https://www.blockchain.com/btc/tx/d28ca5a59b2239864eac1c96d3fd1c23b747f0ded8f5af0161bae8a616b56a1d</a></p>
 <p>可以看到这个交易由一个<code>input</code>加上2个<code>output</code>组成.</p>
 <p>input:  0.00137322btc</p>
 <p>output[0]: 0.00033324btc</p>
 <p>output[1]: 0.00093376btc</p>
 <p>矿工费: 0.00010622 btc</p>
 <p>0.00033324 + 0.00093376 + 0.00010622 = 0.00137322</p>
-<h2 id="utxos集">UTXOs集</h2>
-<p>BTC区块链中存在的全部UTXO表示为一个集合，并由每个比特币节点不断维护。</p>
+<h2 class="heading-element" id="utxos集"><span>UTXOs集</span>
+  <a href="#utxos%e9%9b%86" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>BTC区块链中存在的全部UTXO表示为一个集合，并由每个比特币节点不断维护。</p>
 <p>每笔交易都会消耗这个集合中的元素，并创建新的元素，然后添加到这个集合中。
 因此，这个集合代表了一个特定加密货币系统中的所有代币。
 每当区块链中接受一个新区块时，UTXO集就会更新。
@@ -262,45 +291,58 @@
 完整的UTXO集可以被加总，以计算出某一特定时间点的加密货币的总供应量。
 在区块链交易有效的情况下，只有未花费的输出可以用于资助进一步的交易。
 只有未使用的输出可用于进一步的交易，这一条件对于防止重复消费和欺诈是必要的。</p>
-<h2 id="扩展的utxo--eutxo">扩展的UTXO  (EUTXO)</h2>
-<p>参考这里</p>
-<p><a href="https://iohk.io/en/blog/posts/2021/03/11/cardanos-extended-utxo-accounting-model/" target="_blank" rel="noopener noreffer ">https://iohk.io/en/blog/posts/2021/03/11/cardanos-extended-utxo-accounting-model/</a></p></div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>Updated on 2022-08-31</span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/utxo/index.md" target="_blank">Read Markdown</a>
-                        </span></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://yinhui1984.github.io/utxo/" data-title="UTXO" data-hashtags="UTXO,L0,Web3.0"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://yinhui1984.github.io/utxo/" data-hashtag="UTXO"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://yinhui1984.github.io/utxo/" data-title="UTXO"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://yinhui1984.github.io/utxo/" data-title="UTXO"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://yinhui1984.github.io/utxo/" data-title="UTXO"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
-            </div>
+<h2 class="heading-element" id="扩展的utxo--eutxo"><span>扩展的UTXO  (EUTXO)</span>
+  <a href="#%e6%89%a9%e5%b1%95%e7%9a%84utxo--eutxo" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>参考这里</p>
+<p><a href="https://iohk.io/en/blog/posts/2021/03/11/cardanos-extended-utxo-accounting-model/" target="_blank" rel="external nofollow noopener noreferrer">https://iohk.io/en/blog/posts/2021/03/11/cardanos-extended-utxo-accounting-model/</a></p></div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2022-08-31 11:13:36">更新于 2022-08-31&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"><span><a href="/utxo/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span><span><a href="vscode://file//Users/z/Documents/web3/05_blogs/yinhui1984.github.io/content/posts/UTXO.md" title="在编辑器中打开" target="_blank" rel="external nofollow noopener noreferrer" class="link-to-vscode">在编辑器中打开</a></span></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="http://localhost:1313/utxo/" data-title="UTXO" data-hashtags="UTXO,L0,Web3.0"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://localhost:1313/utxo/" data-hashtag="UTXO"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/utxo/" data-title="UTXO"><i class="fa-brands fa-hacker-news" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://localhost:1313/utxo/" data-title="UTXO"><svg class="icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>LINE</title><path d="M19.365 9.863c.349.0.63.285.63.631.0.345-.281.63-.63.63H17.61v1.125h1.755c.349.0.63.283.63.63.0.344-.281.629-.63.629h-2.386c-.345.0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346.0.627.285.627.63.0.349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211.0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346.0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195.0.375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345.0.63.285.63.63v4.771zm-5.741.0c0 .344-.282.629-.631.629-.345.0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346.0.628.285.628.63v4.771zm-2.466.629H4.917c-.345.0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348.0.63.285.63.63v4.141h1.756c.348.0.629.283.629.63.0.344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943.0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://localhost:1313/utxo/" data-title="UTXO"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
         </div>
-    </div>
+      </div></div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/utxo/">UTXO</a>,&nbsp;<a href="/tags/l0/">L0</a>,&nbsp;<a href="/tags/web3.0/">Web3.0</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
-        </section>
-    </div>
-
-    <div class="post-nav"><a href="/git-master%E6%81%A2%E5%A4%8D/" class="prev" rel="prev" title="Git Master恢复"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Git Master恢复</a>
-            <a href="/evm/" class="next" rel="next" title="EVM">EVM<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/tags/utxo/" class="post-tag" title="标签 - UTXO">UTXO</a><a href="/tags/l0/" class="post-tag" title="标签 - L0">L0</a><a href="/tags/web3.0/" class="post-tag" title="标签 - Web3.0">Web3.0</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="/p2p/" class="post-nav-item" rel="prev" title="P2P"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>P2P</a><a href="/evm/" class="post-nav-item" rel="next" title="EVM">EVM<i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
 </div>
-</article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.118.2">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/yinhui1984" target="_blank">zhouyinhui</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
-        </div>
-    </footer></div>
+</article>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":2000},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content always-active" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#什么utxo">什么UTXO</a></li>
+    <li><a href="#tx构成">TX构成</a></li>
+    <li><a href="#看懂一次交易">看懂一次交易</a></li>
+    <li><a href="#utxos集">UTXOs集</a></li>
+    <li><a href="#扩展的utxo--eutxo">扩展的UTXO  (EUTXO)</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.154.5"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.2"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="/"></a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="目录"><i class="fa-solid fa-bars" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/js/config/35e06d1117314bbb6d81b1578d100ae4.js" defer></script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
 </html>

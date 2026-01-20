@@ -1,87 +1,222 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Tags - Tag - YINHUI&#39;s BLOG</title>
-        <link>https://yinhui1984.github.io/tags/</link>
-        <description>Tags - Tag - YINHUI&#39;s BLOG</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 09 Jun 2023 13:35:50 &#43;0800</lastBuildDate><atom:link href="https://yinhui1984.github.io/tags/" rel="self" type="application/rss+xml" /><item>
-    <title>L3</title>
-    <link>https://yinhui1984.github.io/tags/l3/</link>
-    <pubDate>Fri, 09 Jun 2023 13:35:50 &#43;0800</pubDate>
-    <author>zhouyinhui</author>
-    <guid>https://yinhui1984.github.io/tags/l3/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>Web3.0</title>
-    <link>https://yinhui1984.github.io/tags/web3.0/</link>
-    <pubDate>Fri, 09 Jun 2023 13:35:50 &#43;0800</pubDate>
-    <author>zhouyinhui</author>
-    <guid>https://yinhui1984.github.io/tags/web3.0/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>defi</title>
-    <link>https://yinhui1984.github.io/tags/defi/</link>
-    <pubDate>Fri, 28 Apr 2023 08:43:45 &#43;0800</pubDate>
-    <author>zhouyinhui</author>
-    <guid>https://yinhui1984.github.io/tags/defi/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>swap</title>
-    <link>https://yinhui1984.github.io/tags/swap/</link>
-    <pubDate>Mon, 13 Mar 2023 09:53:56 &#43;0800</pubDate>
-    <author>zhouyinhui</author>
-    <guid>https://yinhui1984.github.io/tags/swap/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>EVM</title>
-    <link>https://yinhui1984.github.io/tags/evm/</link>
-    <pubDate>Tue, 28 Feb 2023 20:03:46 &#43;0800</pubDate>
-    <author>zhouyinhui</author>
-    <guid>https://yinhui1984.github.io/tags/evm/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>L0</title>
-    <link>https://yinhui1984.github.io/tags/l0/</link>
-    <pubDate>Tue, 28 Feb 2023 20:03:46 &#43;0800</pubDate>
-    <author>zhouyinhui</author>
-    <guid>https://yinhui1984.github.io/tags/l0/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>solidity</title>
-    <link>https://yinhui1984.github.io/tags/solidity/</link>
-    <pubDate>Tue, 28 Feb 2023 19:54:46 &#43;0800</pubDate>
-    <author>zhouyinhui</author>
-    <guid>https://yinhui1984.github.io/tags/solidity/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>docker</title>
-    <link>https://yinhui1984.github.io/tags/docker/</link>
-    <pubDate>Thu, 23 Feb 2023 15:45:37 &#43;0800</pubDate>
-    <author>zhouyinhui</author>
-    <guid>https://yinhui1984.github.io/tags/docker/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>IPFS</title>
-    <link>https://yinhui1984.github.io/tags/ipfs/</link>
-    <pubDate>Mon, 24 Oct 2022 09:17:22 &#43;0800</pubDate>
-    <author>zhouyinhui</author>
-    <guid>https://yinhui1984.github.io/tags/ipfs/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>L1</title>
-    <link>https://yinhui1984.github.io/tags/l1/</link>
-    <pubDate>Mon, 24 Oct 2022 09:17:22 &#43;0800</pubDate>
-    <author>zhouyinhui</author>
-    <guid>https://yinhui1984.github.io/tags/l1/</guid>
-    <description><![CDATA[]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on YINHUI&#39;s BLOG</title>
+    <link>http://localhost:1313/tags/</link>
+    <description>Recent content in Tags on YINHUI&#39;s BLOG</description>
+    <generator>Hugo</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 09 Jun 2023 13:35:50 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>L3</title>
+      <link>http://localhost:1313/tags/l3/</link>
+      <pubDate>Fri, 09 Jun 2023 13:35:50 +0800</pubDate>
+      <guid>http://localhost:1313/tags/l3/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Web3.0</title>
+      <link>http://localhost:1313/tags/web3.0/</link>
+      <pubDate>Fri, 09 Jun 2023 13:35:50 +0800</pubDate>
+      <guid>http://localhost:1313/tags/web3.0/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Defi</title>
+      <link>http://localhost:1313/tags/defi/</link>
+      <pubDate>Fri, 28 Apr 2023 08:43:45 +0800</pubDate>
+      <guid>http://localhost:1313/tags/defi/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Swap</title>
+      <link>http://localhost:1313/tags/swap/</link>
+      <pubDate>Mon, 13 Mar 2023 09:53:56 +0800</pubDate>
+      <guid>http://localhost:1313/tags/swap/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>EVM</title>
+      <link>http://localhost:1313/tags/evm/</link>
+      <pubDate>Tue, 28 Feb 2023 20:03:46 +0800</pubDate>
+      <guid>http://localhost:1313/tags/evm/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>L0</title>
+      <link>http://localhost:1313/tags/l0/</link>
+      <pubDate>Tue, 28 Feb 2023 20:03:46 +0800</pubDate>
+      <guid>http://localhost:1313/tags/l0/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Solidity</title>
+      <link>http://localhost:1313/tags/solidity/</link>
+      <pubDate>Tue, 28 Feb 2023 19:54:46 +0800</pubDate>
+      <guid>http://localhost:1313/tags/solidity/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Docker</title>
+      <link>http://localhost:1313/tags/docker/</link>
+      <pubDate>Thu, 23 Feb 2023 15:45:37 +0800</pubDate>
+      <guid>http://localhost:1313/tags/docker/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>IPFS</title>
+      <link>http://localhost:1313/tags/ipfs/</link>
+      <pubDate>Mon, 24 Oct 2022 09:17:22 +0800</pubDate>
+      <guid>http://localhost:1313/tags/ipfs/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>L1</title>
+      <link>http://localhost:1313/tags/l1/</link>
+      <pubDate>Mon, 24 Oct 2022 09:17:22 +0800</pubDate>
+      <guid>http://localhost:1313/tags/l1/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Wasm</title>
+      <link>http://localhost:1313/tags/wasm/</link>
+      <pubDate>Tue, 11 Oct 2022 13:55:14 +0800</pubDate>
+      <guid>http://localhost:1313/tags/wasm/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>UTXO</title>
+      <link>http://localhost:1313/tags/utxo/</link>
+      <pubDate>Wed, 31 Aug 2022 11:13:36 +0800</pubDate>
+      <guid>http://localhost:1313/tags/utxo/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>P2p</title>
+      <link>http://localhost:1313/tags/p2p/</link>
+      <pubDate>Tue, 23 Aug 2022 12:09:22 +0800</pubDate>
+      <guid>http://localhost:1313/tags/p2p/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>ZKPs</title>
+      <link>http://localhost:1313/tags/zkps/</link>
+      <pubDate>Mon, 22 Aug 2022 13:39:54 +0800</pubDate>
+      <guid>http://localhost:1313/tags/zkps/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Censys</title>
+      <link>http://localhost:1313/tags/censys/</link>
+      <pubDate>Fri, 19 Aug 2022 21:18:09 +0800</pubDate>
+      <guid>http://localhost:1313/tags/censys/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vc&#43;&#43;</title>
+      <link>http://localhost:1313/tags/vc&#43;&#43;/</link>
+      <pubDate>Wed, 27 Jul 2022 09:32:00 +0800</pubDate>
+      <guid>http://localhost:1313/tags/vc&#43;&#43;/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vs</title>
+      <link>http://localhost:1313/tags/vs/</link>
+      <pubDate>Wed, 27 Jul 2022 09:32:00 +0800</pubDate>
+      <guid>http://localhost:1313/tags/vs/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Crawler</title>
+      <link>http://localhost:1313/tags/crawler/</link>
+      <pubDate>Fri, 22 Jul 2022 20:54:37 +0800</pubDate>
+      <guid>http://localhost:1313/tags/crawler/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Http</title>
+      <link>http://localhost:1313/tags/http/</link>
+      <pubDate>Fri, 22 Jul 2022 20:54:37 +0800</pubDate>
+      <guid>http://localhost:1313/tags/http/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Consensus</title>
+      <link>http://localhost:1313/tags/consensus/</link>
+      <pubDate>Fri, 08 Jul 2022 19:45:30 +0800</pubDate>
+      <guid>http://localhost:1313/tags/consensus/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Pow</title>
+      <link>http://localhost:1313/tags/pow/</link>
+      <pubDate>Fri, 08 Jul 2022 19:45:30 +0800</pubDate>
+      <guid>http://localhost:1313/tags/pow/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Genesis.json</title>
+      <link>http://localhost:1313/tags/genesis.json/</link>
+      <pubDate>Wed, 06 Jul 2022 10:53:24 +0800</pubDate>
+      <guid>http://localhost:1313/tags/genesis.json/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Python</title>
+      <link>http://localhost:1313/tags/python/</link>
+      <pubDate>Sun, 03 Jul 2022 13:10:58 +0800</pubDate>
+      <guid>http://localhost:1313/tags/python/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Web3.py</title>
+      <link>http://localhost:1313/tags/web3.py/</link>
+      <pubDate>Sun, 03 Jul 2022 13:10:58 +0800</pubDate>
+      <guid>http://localhost:1313/tags/web3.py/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Ethereum</title>
+      <link>http://localhost:1313/tags/ethereum/</link>
+      <pubDate>Fri, 01 Jul 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/ethereum/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Go-Ethereum</title>
+      <link>http://localhost:1313/tags/go-ethereum/</link>
+      <pubDate>Fri, 01 Jul 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/go-ethereum/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Ganache</title>
+      <link>http://localhost:1313/tags/ganache/</link>
+      <pubDate>Wed, 29 Jun 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/ganache/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Truffle</title>
+      <link>http://localhost:1313/tags/truffle/</link>
+      <pubDate>Wed, 29 Jun 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/truffle/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Go</title>
+      <link>http://localhost:1313/tags/go/</link>
+      <pubDate>Sun, 12 Jun 2022 16:41:41 +0800</pubDate>
+      <guid>http://localhost:1313/tags/go/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Sync</title>
+      <link>http://localhost:1313/tags/sync/</link>
+      <pubDate>Sun, 12 Jun 2022 16:41:41 +0800</pubDate>
+      <guid>http://localhost:1313/tags/sync/</guid>
+      <description></description>
+    </item>
+  </channel>
 </rss>
