@@ -2,18 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Crawler - 标签 - YINHUI&#39;s BLOG</title>
-    <link>http://localhost:1313/tags/crawler/</link>
+    <link>https://yinhui1984.github.io/tags/crawler/</link>
     <description>银辉的博客</description>
     <generator>Hugo 0.154.5 &amp; FixIt v0.4.2</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 22 Jul 2022 20:54:37 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/crawler/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 18 Aug 2022 10:07:22 +0800</lastBuildDate>
+    <atom:link href="https://yinhui1984.github.io/tags/crawler/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Golang获得动态网页内容</title>
+      <link>https://yinhui1984.github.io/golang%E8%8E%B7%E5%BE%97%E5%8A%A8%E6%80%81%E7%BD%91%E9%A1%B5%E5%86%85%E5%AE%B9/</link>
+      <pubDate>Thu, 18 Aug 2022 10:07:22 +0800</pubDate>
+      <guid>https://yinhui1984.github.io/golang%E8%8E%B7%E5%BE%97%E5%8A%A8%E6%80%81%E7%BD%91%E9%A1%B5%E5%86%85%E5%AE%B9/</guid>
+      <category domain="https://yinhui1984.github.io/categories/golang/">Golang</category>
+      <description>&lt;p&gt;golang中用get()或httpClient 进行get时得到的静态页面, 如果页面中的内容是获取到本地后动态生成的话, 应该如何得到呢&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Golang文件下载</title>
-      <link>http://localhost:1313/golang%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/</link>
+      <link>https://yinhui1984.github.io/golang%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/</link>
       <pubDate>Fri, 22 Jul 2022 20:54:37 +0800</pubDate>
-      <guid>http://localhost:1313/golang%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/</guid>
-      <category domain="http://localhost:1313/categories/golang/">Golang</category>
+      <guid>https://yinhui1984.github.io/golang%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/</guid>
+      <category domain="https://yinhui1984.github.io/categories/golang/">Golang</category>
       <description>&lt;p&gt;go语言写的一个文件下载脚本&lt;/p&gt;&#xA;&lt;p&gt;晚上想听点有声小说, 要两毛一集, 算了一下,一本书要几百块, 囊中羞涩, 于是拿出电脑搞个脚本&lt;/p&gt;</description>
     </item>
   </channel>

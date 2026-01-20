@@ -2,18 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Web3.py - 标签 - YINHUI&#39;s BLOG</title>
-    <link>http://localhost:1313/tags/web3.py/</link>
+    <link>https://yinhui1984.github.io/tags/web3.py/</link>
     <description>银辉的博客</description>
     <generator>Hugo 0.154.5 &amp; FixIt v0.4.2</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 03 Jul 2022 13:10:58 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/web3.py/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 04 Jul 2022 13:10:51 +0800</lastBuildDate>
+    <atom:link href="https://yinhui1984.github.io/tags/web3.py/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>对智能合约的读方法和写方法的调用</title>
+      <link>https://yinhui1984.github.io/%E5%AF%B9%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E7%9A%84%E8%AF%BB%E6%96%B9%E6%B3%95%E5%92%8C%E5%86%99%E6%96%B9%E6%B3%95%E7%9A%84%E8%B0%83%E7%94%A8/</link>
+      <pubDate>Mon, 04 Jul 2022 13:10:51 +0800</pubDate>
+      <guid>https://yinhui1984.github.io/%E5%AF%B9%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E7%9A%84%E8%AF%BB%E6%96%B9%E6%B3%95%E5%92%8C%E5%86%99%E6%96%B9%E6%B3%95%E7%9A%84%E8%B0%83%E7%94%A8/</guid>
+      <category domain="https://yinhui1984.github.io/categories/blockchain/">Blockchain</category>
+      <description>&lt;p&gt;介绍了调用智能合约中&amp;quot;读方法&amp;quot;与&amp;quot;写方法&amp;quot;的区别&lt;/p&gt;</description>
+    </item>
     <item>
       <title>使用web3.py实现区块链按需挖矿</title>
-      <link>http://localhost:1313/%E4%BD%BF%E7%94%A8web3.py%E5%AE%9E%E7%8E%B0%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8C%89%E9%9C%80%E6%8C%96%E7%9F%BF/</link>
+      <link>https://yinhui1984.github.io/%E4%BD%BF%E7%94%A8web3.py%E5%AE%9E%E7%8E%B0%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8C%89%E9%9C%80%E6%8C%96%E7%9F%BF/</link>
       <pubDate>Sun, 03 Jul 2022 13:10:58 +0800</pubDate>
-      <guid>http://localhost:1313/%E4%BD%BF%E7%94%A8web3.py%E5%AE%9E%E7%8E%B0%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8C%89%E9%9C%80%E6%8C%96%E7%9F%BF/</guid>
-      <category domain="http://localhost:1313/categories/blockchain/">Blockchain</category>
+      <guid>https://yinhui1984.github.io/%E4%BD%BF%E7%94%A8web3.py%E5%AE%9E%E7%8E%B0%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8C%89%E9%9C%80%E6%8C%96%E7%9F%BF/</guid>
+      <category domain="https://yinhui1984.github.io/categories/blockchain/">Blockchain</category>
       <description>&lt;p&gt;让自己使用&lt;code&gt;geth&lt;/code&gt;运行的区块链像&lt;code&gt;Ganche&lt;/code&gt;一样可以&lt;code&gt;AUTOMINING&lt;/code&gt;&lt;/p&gt;</description>
     </item>
   </channel>

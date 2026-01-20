@@ -2,74 +2,74 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Defi - 标签 - YINHUI&#39;s BLOG</title>
-    <link>http://localhost:1313/tags/defi/</link>
+    <link>https://yinhui1984.github.io/tags/defi/</link>
     <description>银辉的博客</description>
     <generator>Hugo 0.154.5 &amp; FixIt v0.4.2</generator>
     <language>zh-CN</language>
     <lastBuildDate>Fri, 28 Apr 2023 08:43:45 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/defi/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://yinhui1984.github.io/tags/defi/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Binance BGEO Attack Analysis</title>
-      <link>http://localhost:1313/binance-bgeo-attack-analysis/</link>
+      <link>https://yinhui1984.github.io/binance-bgeo-attack-analysis/</link>
       <pubDate>Fri, 28 Apr 2023 08:43:45 +0800</pubDate>
-      <guid>http://localhost:1313/binance-bgeo-attack-analysis/</guid>
-      <category domain="http://localhost:1313/categories/security/">Security</category>
+      <guid>https://yinhui1984.github.io/binance-bgeo-attack-analysis/</guid>
+      <category domain="https://yinhui1984.github.io/categories/security/">Security</category>
       <description>&lt;p&gt;参数检查不严格的锅&lt;/p&gt;</description>
     </item>
     <item>
       <title>HealthToken 攻击案例分析</title>
-      <link>http://localhost:1313/healthtoken-attack-analysic/</link>
+      <link>https://yinhui1984.github.io/healthtoken-attack-analysic/</link>
       <pubDate>Thu, 27 Apr 2023 13:08:06 +0800</pubDate>
-      <guid>http://localhost:1313/healthtoken-attack-analysic/</guid>
-      <category domain="http://localhost:1313/categories/security/">Security</category>
+      <guid>https://yinhui1984.github.io/healthtoken-attack-analysic/</guid>
+      <category domain="https://yinhui1984.github.io/categories/security/">Security</category>
       <description>&lt;p&gt;HEALTH Token 攻击案例分析&lt;/p&gt;</description>
     </item>
     <item>
       <title>BondFixedExpiryTeller 攻击案例分析</title>
-      <link>http://localhost:1313/olympusdao-attack-analysis/</link>
+      <link>https://yinhui1984.github.io/olympusdao-attack-analysis/</link>
       <pubDate>Thu, 27 Apr 2023 09:04:23 +0800</pubDate>
-      <guid>http://localhost:1313/olympusdao-attack-analysis/</guid>
-      <category domain="http://localhost:1313/categories/security/">Security</category>
+      <guid>https://yinhui1984.github.io/olympusdao-attack-analysis/</guid>
+      <category domain="https://yinhui1984.github.io/categories/security/">Security</category>
       <description>&lt;p&gt;OlympusDao BondFixedExpiryTeller 攻击案例分析&lt;/p&gt;</description>
     </item>
     <item>
       <title>Swapos v2 attack 攻击分析</title>
-      <link>http://localhost:1313/analysis_of_swaposv2_attack/</link>
+      <link>https://yinhui1984.github.io/analysis_of_swaposv2_attack/</link>
       <pubDate>Wed, 19 Apr 2023 10:12:15 +0800</pubDate>
-      <guid>http://localhost:1313/analysis_of_swaposv2_attack/</guid>
-      <category domain="http://localhost:1313/categories/security/">Security</category>
+      <guid>https://yinhui1984.github.io/analysis_of_swaposv2_attack/</guid>
+      <category domain="https://yinhui1984.github.io/categories/security/">Security</category>
       <description>&lt;p&gt;saving gas的锅&lt;/p&gt;</description>
     </item>
     <item>
       <title>DKP Exchange 攻击事件分析</title>
-      <link>http://localhost:1313/dpk-exchange-attack/</link>
+      <link>https://yinhui1984.github.io/dpk-exchange-attack/</link>
       <pubDate>Fri, 24 Mar 2023 20:16:27 +0800</pubDate>
-      <guid>http://localhost:1313/dpk-exchange-attack/</guid>
-      <category domain="http://localhost:1313/categories/security/">Security</category>
+      <guid>https://yinhui1984.github.io/dpk-exchange-attack/</guid>
+      <category domain="https://yinhui1984.github.io/categories/security/">Security</category>
       <description>&lt;p&gt;DKP Exchange 攻击事件分析&lt;/p&gt;</description>
     </item>
     <item>
       <title>Euler Finance 黑客攻击分析</title>
-      <link>http://localhost:1313/euler-finance-attack/</link>
+      <link>https://yinhui1984.github.io/euler-finance-attack/</link>
       <pubDate>Wed, 22 Mar 2023 14:33:05 +0800</pubDate>
-      <guid>http://localhost:1313/euler-finance-attack/</guid>
-      <category domain="http://localhost:1313/categories/security/">Security</category>
+      <guid>https://yinhui1984.github.io/euler-finance-attack/</guid>
+      <category domain="https://yinhui1984.github.io/categories/security/">Security</category>
       <description>&lt;p&gt;去中心化去审批化借贷平台Euler前端时间遭到最糟糕的一系列攻击。这里以以太坊主链&lt;a href=&#34;https://etherscan.io/tx/0xc310a0affe2169d1f6feec1c63dbc7f7c62a887fa48795d327d4d2da2d6b111d&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;16817996高度的一次攻击&lt;/a&gt;为例，看看这个黑客是如何利用其漏洞实施攻击并获利的&lt;/p&gt;</description>
     </item>
     <item>
       <title>Phoenix 访问控制攻击分析</title>
-      <link>http://localhost:1313/phoenix-access-control-attack/</link>
+      <link>https://yinhui1984.github.io/phoenix-access-control-attack/</link>
       <pubDate>Wed, 15 Mar 2023 14:50:48 +0800</pubDate>
-      <guid>http://localhost:1313/phoenix-access-control-attack/</guid>
-      <category domain="http://localhost:1313/categories/security/">Security</category>
+      <guid>https://yinhui1984.github.io/phoenix-access-control-attack/</guid>
+      <category domain="https://yinhui1984.github.io/categories/security/">Security</category>
       <description>&lt;p&gt;Phoenix Finance 的智能合约访问控制不严格导致的一次攻击&lt;/p&gt;</description>
     </item>
     <item>
       <title>EGD Finance 价格操纵攻击事件分析</title>
-      <link>http://localhost:1313/analyse_of_egd_finance_attack/</link>
+      <link>https://yinhui1984.github.io/analyse_of_egd_finance_attack/</link>
       <pubDate>Mon, 06 Mar 2023 15:09:31 +0800</pubDate>
-      <guid>http://localhost:1313/analyse_of_egd_finance_attack/</guid>
-      <category domain="http://localhost:1313/categories/security/">Security</category>
+      <guid>https://yinhui1984.github.io/analyse_of_egd_finance_attack/</guid>
+      <category domain="https://yinhui1984.github.io/categories/security/">Security</category>
       <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;背景介绍&#34;&gt;&lt;span&gt;背景介绍&lt;/span&gt;&#xA;  &lt;a href=&#34;#%e8%83%8c%e6%99%af%e4%bb%8b%e7%bb%8d&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;攻击事件发生在 &lt;a href=&#34;https://bscscan.com/tx/0x50da0b1b6e34bce59769157df769eb45fa11efc7d0e292900d6b0a86ae66a2b3&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://bscscan.com/tx/0x50da0b1b6e34bce59769157df769eb45fa11efc7d0e292900d6b0a86ae66a2b3&lt;/a&gt;&lt;/p&gt;</description>
     </item>
   </channel>

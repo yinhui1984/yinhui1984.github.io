@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>EVM - 标签 - YINHUI&#39;s BLOG</title>
-    <link>http://localhost:1313/tags/evm/</link>
+    <link>https://yinhui1984.github.io/tags/evm/</link>
     <description>银辉的博客</description>
     <generator>Hugo 0.154.5 &amp; FixIt v0.4.2</generator>
     <language>zh-CN</language>
     <lastBuildDate>Tue, 28 Feb 2023 20:03:46 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/evm/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://yinhui1984.github.io/tags/evm/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Evm Puzzles</title>
-      <link>http://localhost:1313/evm-puzzles/</link>
+      <link>https://yinhui1984.github.io/evm-puzzles/</link>
       <pubDate>Tue, 28 Feb 2023 20:03:46 +0800</pubDate>
-      <guid>http://localhost:1313/evm-puzzles/</guid>
-      <category domain="http://localhost:1313/categories/blockchain/">Blockchain</category>
+      <guid>https://yinhui1984.github.io/evm-puzzles/</guid>
+      <category domain="https://yinhui1984.github.io/categories/blockchain/">Blockchain</category>
       <description>&lt;p&gt;EVM Puzzles挑战完成记录&lt;/p&gt;</description>
     </item>
     <item>
       <title>EVM</title>
-      <link>http://localhost:1313/evm/</link>
+      <link>https://yinhui1984.github.io/evm/</link>
       <pubDate>Thu, 06 Oct 2022 09:14:06 +0800</pubDate>
-      <guid>http://localhost:1313/evm/</guid>
-      <category domain="http://localhost:1313/categories/blockchain/">Blockchain</category>
+      <guid>https://yinhui1984.github.io/evm/</guid>
+      <category domain="https://yinhui1984.github.io/categories/blockchain/">Blockchain</category>
       <description>&lt;p&gt;一些关于EVM的学习笔记&lt;/p&gt;</description>
     </item>
   </channel>

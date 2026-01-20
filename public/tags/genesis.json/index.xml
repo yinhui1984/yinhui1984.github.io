@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Genesis.json - 标签 - YINHUI&#39;s BLOG</title>
-    <link>http://localhost:1313/tags/genesis.json/</link>
+    <link>https://yinhui1984.github.io/tags/genesis.json/</link>
     <description>银辉的博客</description>
     <generator>Hugo 0.154.5 &amp; FixIt v0.4.2</generator>
     <language>zh-CN</language>
     <lastBuildDate>Wed, 06 Jul 2022 10:53:24 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/genesis.json/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://yinhui1984.github.io/tags/genesis.json/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>genesis.json</title>
-      <link>http://localhost:1313/genesis.json/</link>
+      <link>https://yinhui1984.github.io/genesis.json/</link>
       <pubDate>Wed, 06 Jul 2022 10:53:24 +0800</pubDate>
-      <guid>http://localhost:1313/genesis.json/</guid>
-      <category domain="http://localhost:1313/categories/blockchain/">Blockchain</category>
+      <guid>https://yinhui1984.github.io/genesis.json/</guid>
+      <category domain="https://yinhui1984.github.io/categories/blockchain/">Blockchain</category>
       <description>&lt;p&gt;对&lt;code&gt;创世文件&lt;/code&gt;的介绍&lt;/p&gt;</description>
     </item>
   </channel>

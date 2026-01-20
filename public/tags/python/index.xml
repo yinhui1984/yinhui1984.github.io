@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Python - 标签 - YINHUI&#39;s BLOG</title>
-    <link>http://localhost:1313/tags/python/</link>
+    <link>https://yinhui1984.github.io/tags/python/</link>
     <description>银辉的博客</description>
     <generator>Hugo 0.154.5 &amp; FixIt v0.4.2</generator>
     <language>zh-CN</language>
     <lastBuildDate>Sun, 03 Jul 2022 13:10:58 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://yinhui1984.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>使用web3.py实现区块链按需挖矿</title>
-      <link>http://localhost:1313/%E4%BD%BF%E7%94%A8web3.py%E5%AE%9E%E7%8E%B0%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8C%89%E9%9C%80%E6%8C%96%E7%9F%BF/</link>
+      <link>https://yinhui1984.github.io/%E4%BD%BF%E7%94%A8web3.py%E5%AE%9E%E7%8E%B0%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8C%89%E9%9C%80%E6%8C%96%E7%9F%BF/</link>
       <pubDate>Sun, 03 Jul 2022 13:10:58 +0800</pubDate>
-      <guid>http://localhost:1313/%E4%BD%BF%E7%94%A8web3.py%E5%AE%9E%E7%8E%B0%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8C%89%E9%9C%80%E6%8C%96%E7%9F%BF/</guid>
-      <category domain="http://localhost:1313/categories/blockchain/">Blockchain</category>
+      <guid>https://yinhui1984.github.io/%E4%BD%BF%E7%94%A8web3.py%E5%AE%9E%E7%8E%B0%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8C%89%E9%9C%80%E6%8C%96%E7%9F%BF/</guid>
+      <category domain="https://yinhui1984.github.io/categories/blockchain/">Blockchain</category>
       <description>&lt;p&gt;让自己使用&lt;code&gt;geth&lt;/code&gt;运行的区块链像&lt;code&gt;Ganche&lt;/code&gt;一样可以&lt;code&gt;AUTOMINING&lt;/code&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>从零开始编写智能合约-手工打造</title>
-      <link>http://localhost:1313/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E6%89%8B%E5%B7%A5%E6%89%93%E9%80%A0/</link>
+      <link>https://yinhui1984.github.io/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E6%89%8B%E5%B7%A5%E6%89%93%E9%80%A0/</link>
       <pubDate>Fri, 01 Jul 2022 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E6%89%8B%E5%B7%A5%E6%89%93%E9%80%A0/</guid>
-      <category domain="http://localhost:1313/categories/blockchain/">Blockchain</category>
+      <guid>https://yinhui1984.github.io/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E6%89%8B%E5%B7%A5%E6%89%93%E9%80%A0/</guid>
+      <category domain="https://yinhui1984.github.io/categories/blockchain/">Blockchain</category>
       <description>&lt;p&gt;前面在 &lt;a href=&#34;https://yinhui1984.github.io/%e4%bb%8e%e9%9b%b6%e5%bc%80%e5%a7%8b%e7%bc%96%e5%86%99%e6%99%ba%e8%83%bd%e5%90%88%e7%ba%a6-%e4%bd%bf%e7%94%a8traffle%e5%a5%97%e4%bb%b6/&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;从零开始编写智能合约-使用traffle套件&lt;/a&gt; 中 使用 &lt;code&gt;truffle&lt;/code&gt;套件从零开始搭建环境, 编写、部署、测试和调用智能合约, 这次我们只使用一些命令行工具来进行&amp;quot;手工打造&amp;quot;&lt;/p&gt;&#xA;&lt;p&gt;配套代码: &lt;a href=&#34;https://github.com/yinhui1984/stepByStepSmartContract&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://github.com/yinhui1984/stepByStepSmartContract&lt;/a&gt;&lt;/p&gt;</description>
     </item>
   </channel>
