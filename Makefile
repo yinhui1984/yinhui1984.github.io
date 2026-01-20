@@ -21,8 +21,15 @@ list:
 	
 	
 release:
-	cp -aRf ./public/* ./docs
-	git add . && git commit -m "auto updated by script" && git push
+	@echo "Building site..."
+	@hugo -D || (echo "Build failed!" && exit 1)
+	@echo "Copying files to docs/..."
+	@rm -rf ./docs/*
+	@cp -aRf ./public/* ./docs
+	@touch ./docs/.nojekyll
+	@echo "Committing and pushing..."
+	@git add . && git commit -m "auto updated by script" && git push || (echo "Git operation failed!" && exit 1)
+	@echo "Deployment complete!"
 
 #
 #

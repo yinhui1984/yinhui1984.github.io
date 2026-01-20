@@ -3,10 +3,10 @@
   <channel>
     <title>Vc&#43;&#43; - 标签 - YINHUI&#39;s BLOG</title>
     <link>https://yinhui1984.github.io/tags/vc&#43;&#43;/</link>
-    <description>银辉的博客</description>
+    <description>银辉的技术博客 - 专注 Web3 安全、智能合约审计、区块链安全分析、Go语言开发</description>
     <generator>Hugo 0.154.5 &amp; FixIt v0.4.2</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 27 Jul 2022 09:32:00 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 19 Apr 2023 11:09:47 +0800</lastBuildDate>
     <atom:link href="https://yinhui1984.github.io/tags/vc++/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Visual Studio VC&#43;&#43; 远程调试</title>

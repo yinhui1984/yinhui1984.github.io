@@ -14,7 +14,7 @@
   <meta itemprop="datePublished" content="2022-06-29T00:00:00+00:00">
   <meta itemprop="dateModified" content="2022-06-29T00:00:00+00:00">
   <meta itemprop="wordCount" content="3047">
-  <meta itemprop="image" content="https://yinhui1984.github.io/avatar.png">
+  <meta itemprop="image" content="https://yinhui1984.github.io/images/avatar.png">
   <meta itemprop="keywords" content="Solidity,Truffle,Ganache,Ethereum,Go-Ethereum"><meta property="og:url" content="https://yinhui1984.github.io/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E4%BD%BF%E7%94%A8truffle%E5%A5%97%E4%BB%B6/">
   <meta property="og:site_name" content="YINHUI&#39;s BLOG">
   <meta property="og:title" content="从零开始编写智能合约-使用trtffle套件">
@@ -30,17 +30,17 @@
     <meta property="article:tag" content="Ganache">
     <meta property="article:tag" content="Ethereum">
     <meta property="article:tag" content="Go-Ethereum">
-    <meta property="og:image" content="https://yinhui1984.github.io/avatar.png">
+    <meta property="og:image" content="https://yinhui1984.github.io/images/avatar.png">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://yinhui1984.github.io/avatar.png">
+  <meta name="twitter:image" content="https://yinhui1984.github.io/images/avatar.png">
   <meta name="twitter:title" content="从零开始编写智能合约-使用trtffle套件">
   <meta name="twitter:description" content="这篇文章将带你使用truffle套件从零开始搭建环境, 编写、部署、测试和调用智能合约。
 配套代码在 https://github.com/yinhui1984/HelloTruffle">
 <meta name="application-name" content="YINHUI&#39;s BLOG">
 <meta name="apple-mobile-web-app-title" content="YINHUI&#39;s BLOG"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://yinhui1984.github.io/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E4%BD%BF%E7%94%A8truffle%E5%A5%97%E4%BB%B6/" title="从零开始编写智能合约-使用trtffle套件 - YINHUI&#39;s BLOG" /><link rel="prev" type="text/html" href="https://yinhui1984.github.io/%E8%81%8A%E8%81%8Ago%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84sync/" title="聊聊go语言中的sync" /><link rel="next" type="text/html" href="https://yinhui1984.github.io/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E6%89%8B%E5%B7%A5%E6%89%93%E9%80%A0/" title="从零开始编写智能合约-手工打造" /><link rel="alternate" type="text/plain" href="https://yinhui1984.github.io/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E4%BD%BF%E7%94%A8truffle%E5%A5%97%E4%BB%B6/index.md" title="从零开始编写智能合约-使用trtffle套件 - YINHUI's BLOG"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://yinhui1984.github.io/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E4%BD%BF%E7%94%A8truffle%E5%A5%97%E4%BB%B6/" title="从零开始编写智能合约-使用trtffle套件 - YINHUI&#39;s BLOG" /><link rel="prev" type="text/html" href="https://yinhui1984.github.io/%E8%81%8A%E8%81%8Ago%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84sync/" title="聊聊go语言中的sync" /><link rel="next" type="text/html" href="https://yinhui1984.github.io/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E6%89%8B%E5%B7%A5%E6%89%93%E9%80%A0/" title="从零开始编写智能合约-手工打造" /><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
   {
@@ -51,7 +51,7 @@
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "https:\/\/yinhui1984.github.io\/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E4%BD%BF%E7%94%A8truffle%E5%A5%97%E4%BB%B6\/"
-    },"genre": "posts","keywords": "solidity, truffle, ganache, ethereum, go-ethereum","wordcount":  3047 ,
+    },"image": ["https:\/\/yinhui1984.github.io\/images\/avatar.png"],"genre": "posts","keywords": "solidity, truffle, ganache, ethereum, go-ethereum","wordcount":  3047 ,
     "url": "https:\/\/yinhui1984.github.io\/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E4%BD%BF%E7%94%A8truffle%E5%A5%97%E4%BB%B6\/","datePublished": "2022-06-29T00:00:00+00:00","dateModified": "2022-06-29T00:00:00+00:00","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
@@ -1145,7 +1145,7 @@
       </div><div class="post-info-license">
             <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
           </div></div><div class="post-info-line">
-        <div class="post-info-md"><span><a href="/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E4%BD%BF%E7%94%A8truffle%E5%A5%97%E4%BB%B6/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
+        <div class="post-info-md"></div>
         <div class="post-info-share">
           <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://yinhui1984.github.io/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E4%BD%BF%E7%94%A8truffle%E5%A5%97%E4%BB%B6/" data-title="从零开始编写智能合约-使用trtffle套件" data-hashtags="solidity,truffle,ganache,ethereum,go-ethereum"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
   <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://yinhui1984.github.io/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E4%BD%BF%E7%94%A8truffle%E5%A5%97%E4%BB%B6/" data-hashtag="solidity"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>

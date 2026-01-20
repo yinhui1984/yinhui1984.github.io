@@ -12,7 +12,7 @@
   <meta itemprop="datePublished" content="2022-06-06T00:00:00+00:00">
   <meta itemprop="dateModified" content="2022-06-06T00:00:00+00:00">
   <meta itemprop="wordCount" content="3301">
-  <meta itemprop="image" content="https://yinhui1984.github.io/avatar.png">
+  <meta itemprop="image" content="https://yinhui1984.github.io/images/avatar.png">
   <meta itemprop="keywords" content="Go,Http"><meta property="og:url" content="https://yinhui1984.github.io/go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84http%E6%9C%8D%E5%8A%A1%E5%99%A8/">
   <meta property="og:site_name" content="YINHUI&#39;s BLOG">
   <meta property="og:title" content="Go语言中的http服务器">
@@ -24,16 +24,16 @@
     <meta property="article:modified_time" content="2022-06-06T00:00:00+00:00">
     <meta property="article:tag" content="Go">
     <meta property="article:tag" content="Http">
-    <meta property="og:image" content="https://yinhui1984.github.io/avatar.png">
+    <meta property="og:image" content="https://yinhui1984.github.io/images/avatar.png">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://yinhui1984.github.io/avatar.png">
+  <meta name="twitter:image" content="https://yinhui1984.github.io/images/avatar.png">
   <meta name="twitter:title" content="Go语言中的http服务器">
   <meta name="twitter:description" content="go语言中net/http包对http服务与请求的处理">
 <meta name="application-name" content="YINHUI&#39;s BLOG">
 <meta name="apple-mobile-web-app-title" content="YINHUI&#39;s BLOG"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://yinhui1984.github.io/go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84http%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="Go语言中的http服务器 - YINHUI&#39;s BLOG" /><link rel="prev" type="text/html" href="https://yinhui1984.github.io/archives/" title="Archive" /><link rel="next" type="text/html" href="https://yinhui1984.github.io/%E8%81%8A%E8%81%8Ago%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84sync/" title="聊聊go语言中的sync" /><link rel="alternate" type="text/plain" href="https://yinhui1984.github.io/go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84http%E6%9C%8D%E5%8A%A1%E5%99%A8/index.md" title="Go语言中的http服务器 - YINHUI's BLOG"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://yinhui1984.github.io/go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84http%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="Go语言中的http服务器 - YINHUI&#39;s BLOG" /><link rel="prev" type="text/html" href="https://yinhui1984.github.io/archives/" title="Archive" /><link rel="next" type="text/html" href="https://yinhui1984.github.io/%E8%81%8A%E8%81%8Ago%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84sync/" title="聊聊go语言中的sync" /><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
   {
@@ -44,7 +44,7 @@
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "https:\/\/yinhui1984.github.io\/go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84http%E6%9C%8D%E5%8A%A1%E5%99%A8\/"
-    },"genre": "posts","keywords": "go, http","wordcount":  3301 ,
+    },"image": ["https:\/\/yinhui1984.github.io\/images\/avatar.png"],"genre": "posts","keywords": "go, http","wordcount":  3301 ,
     "url": "https:\/\/yinhui1984.github.io\/go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84http%E6%9C%8D%E5%8A%A1%E5%99%A8\/","datePublished": "2022-06-06T00:00:00+00:00","dateModified": "2022-06-06T00:00:00+00:00","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
@@ -1256,7 +1256,7 @@ ParseMultipartForm自动调用ParseForm。ParseForm是幂等的。</p>
       </div><div class="post-info-license">
             <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
           </div></div><div class="post-info-line">
-        <div class="post-info-md"><span><a href="/go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84http%E6%9C%8D%E5%8A%A1%E5%99%A8/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
+        <div class="post-info-md"></div>
         <div class="post-info-share">
           <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://yinhui1984.github.io/go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84http%E6%9C%8D%E5%8A%A1%E5%99%A8/" data-title="Go语言中的http服务器" data-hashtags="go,http"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
   <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://yinhui1984.github.io/go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84http%E6%9C%8D%E5%8A%A1%E5%99%A8/" data-hashtag="go"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
