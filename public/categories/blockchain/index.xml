@@ -6,8 +6,16 @@
     <description>银辉的技术博客 - 专注 Web3 安全、智能合约审计、区块链安全分析、Go语言开发</description>
     <generator>Hugo 0.154.5 &amp; FixIt v0.4.2</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 12 Jun 2023 10:01:44 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 02 Jun 2026 16:54:18 +0800</lastBuildDate>
     <atom:link href="https://yinhui1984.github.io/categories/blockchain/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>全局累计奖励指数模型(reward-per-share-accumulator)</title>
+      <link>https://yinhui1984.github.io/%E5%85%A8%E5%B1%80%E7%B4%AF%E8%AE%A1%E5%A5%96%E5%8A%B1%E6%8C%87%E6%95%B0%E6%A8%A1%E5%9E%8Breward-per-share-accumulator/</link>
+      <pubDate>Tue, 02 Jun 2026 16:54:18 +0800</pubDate>
+      <guid>https://yinhui1984.github.io/%E5%85%A8%E5%B1%80%E7%B4%AF%E8%AE%A1%E5%A5%96%E5%8A%B1%E6%8C%87%E6%95%B0%E6%A8%A1%E5%9E%8Breward-per-share-accumulator/</guid>
+      <category domain="https://yinhui1984.github.io/categories/blockchain/">Blockchain</category>
+      <description>&lt;p&gt;about &lt;a href=&#34;https://batog.info/papers/scalable-reward-distribution.pdf&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;Scalable Reward Distribution on the Ethereum Blockchain&lt;/a&gt; and more&amp;hellip;&lt;/p&gt;</description>
+    </item>
     <item>
       <title>在一个项目中同时使用Truffle和Foundry</title>
       <link>https://yinhui1984.github.io/truffle_foundry_together/</link>
@@ -39,14 +47,6 @@
       <guid>https://yinhui1984.github.io/solidity_tx_origin_msg_sender/</guid>
       <category domain="https://yinhui1984.github.io/categories/blockchain/">Blockchain</category>
       <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;基本含义&#34;&gt;&lt;span&gt;基本含义:&lt;/span&gt;&#xA;  &lt;a href=&#34;#%e5%9f%ba%e6%9c%ac%e5%90%ab%e4%b9%89&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;h3 class=&#34;heading-element&#34; id=&#34;txorigin&#34;&gt;&lt;span&gt;&lt;code&gt;tx.origin&lt;/code&gt;:&lt;/span&gt;&#xA;  &lt;a href=&#34;#txorigin&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h3&gt;&lt;p&gt;tx.origin 表示交易的发起者,这个值在执行交易时自动设置，用于表示这个交易是由哪个账户发起的.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Solidity中的fallback和receive函数</title>
-      <link>https://yinhui1984.github.io/solidity_fallback_receive_function/</link>
-      <pubDate>Wed, 30 Nov 2022 09:25:29 +0800</pubDate>
-      <guid>https://yinhui1984.github.io/solidity_fallback_receive_function/</guid>
-      <category domain="https://yinhui1984.github.io/categories/blockchain/">Blockchain</category>
-      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;receiver&#34;&gt;&lt;span&gt;Receiver&lt;/span&gt;&#xA;  &lt;a href=&#34;#receiver&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;receive() external payable {&#xA; &#x9;//...&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;h3 class=&#34;heading-element&#34; id=&#34;基本作用&#34;&gt;&lt;span&gt;基本作用&lt;/span&gt;&#xA;  &lt;a href=&#34;#%e5%9f%ba%e6%9c%ac%e4%bd%9c%e7%94%a8&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h3&gt;&lt;p&gt;让合约地址可以&lt;strong&gt;以纯转账的方式&lt;/strong&gt;接收以太, 直接当向合约地址发送以太的时候, &lt;code&gt;receive&lt;/code&gt;函数将被调用&lt;/p&gt;</description>
     </item>
     <item>
       <title>IPFS</title>
@@ -97,22 +97,6 @@
       <description>&lt;p&gt;关于零知识证明的若干知识&lt;/p&gt;</description>
     </item>
     <item>
-      <title>[Solidity by Example]Ex002FirstApplication</title>
-      <link>https://yinhui1984.github.io/solidity-by-exampleex002firstapplication/</link>
-      <pubDate>Wed, 10 Aug 2022 14:14:38 +0800</pubDate>
-      <guid>https://yinhui1984.github.io/solidity-by-exampleex002firstapplication/</guid>
-      <category domain="https://yinhui1984.github.io/categories/blockchain/">Blockchain</category>
-      <description>&lt;p&gt;&lt;a href=&#34;https://solidity-by-example.org&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://solidity-by-example.org&lt;/a&gt; 中的第二个练习, 并添加了注释&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>[Solidity by Example]Ex001HelloWorld</title>
-      <link>https://yinhui1984.github.io/solidity-by-exampleex001helloworld/</link>
-      <pubDate>Wed, 10 Aug 2022 08:44:36 +0800</pubDate>
-      <guid>https://yinhui1984.github.io/solidity-by-exampleex001helloworld/</guid>
-      <category domain="https://yinhui1984.github.io/categories/blockchain/">Blockchain</category>
-      <description>&lt;p&gt;&lt;a href=&#34;https://solidity-by-example.org&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://solidity-by-example.org&lt;/a&gt; 中的第一个练习, 并添加了注释&lt;/p&gt;</description>
-    </item>
-    <item>
       <title>PoW</title>
       <link>https://yinhui1984.github.io/pow/</link>
       <pubDate>Fri, 08 Jul 2022 19:45:30 +0800</pubDate>
@@ -127,14 +111,6 @@
       <guid>https://yinhui1984.github.io/genesis.json/</guid>
       <category domain="https://yinhui1984.github.io/categories/blockchain/">Blockchain</category>
       <description>&lt;p&gt;对&lt;code&gt;创世文件&lt;/code&gt;的介绍&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>对智能合约的读方法和写方法的调用</title>
-      <link>https://yinhui1984.github.io/%E5%AF%B9%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E7%9A%84%E8%AF%BB%E6%96%B9%E6%B3%95%E5%92%8C%E5%86%99%E6%96%B9%E6%B3%95%E7%9A%84%E8%B0%83%E7%94%A8/</link>
-      <pubDate>Mon, 04 Jul 2022 13:10:51 +0800</pubDate>
-      <guid>https://yinhui1984.github.io/%E5%AF%B9%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E7%9A%84%E8%AF%BB%E6%96%B9%E6%B3%95%E5%92%8C%E5%86%99%E6%96%B9%E6%B3%95%E7%9A%84%E8%B0%83%E7%94%A8/</guid>
-      <category domain="https://yinhui1984.github.io/categories/blockchain/">Blockchain</category>
-      <description>&lt;p&gt;介绍了调用智能合约中&amp;quot;读方法&amp;quot;与&amp;quot;写方法&amp;quot;的区别&lt;/p&gt;</description>
     </item>
     <item>
       <title>使用web3.py实现区块链按需挖矿</title>

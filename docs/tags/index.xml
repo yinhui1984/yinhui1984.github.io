@@ -6,27 +6,34 @@
     <description>Recent content in Tags on YINHUI&#39;s BLOG</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 12 Jun 2023 10:01:44 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 02 Jun 2026 16:54:18 +0800</lastBuildDate>
     <atom:link href="https://yinhui1984.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>L3</title>
-      <link>https://yinhui1984.github.io/tags/l3/</link>
-      <pubDate>Fri, 09 Jun 2023 13:35:50 +0800</pubDate>
-      <guid>https://yinhui1984.github.io/tags/l3/</guid>
+      <title>Defi</title>
+      <link>https://yinhui1984.github.io/tags/defi/</link>
+      <pubDate>Tue, 02 Jun 2026 16:54:18 +0800</pubDate>
+      <guid>https://yinhui1984.github.io/tags/defi/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Solidity</title>
+      <link>https://yinhui1984.github.io/tags/solidity/</link>
+      <pubDate>Tue, 02 Jun 2026 16:54:18 +0800</pubDate>
+      <guid>https://yinhui1984.github.io/tags/solidity/</guid>
       <description></description>
     </item>
     <item>
       <title>Web3.0</title>
       <link>https://yinhui1984.github.io/tags/web3.0/</link>
-      <pubDate>Fri, 09 Jun 2023 13:35:50 +0800</pubDate>
+      <pubDate>Tue, 02 Jun 2026 16:54:18 +0800</pubDate>
       <guid>https://yinhui1984.github.io/tags/web3.0/</guid>
       <description></description>
     </item>
     <item>
-      <title>Defi</title>
-      <link>https://yinhui1984.github.io/tags/defi/</link>
-      <pubDate>Fri, 28 Apr 2023 08:43:45 +0800</pubDate>
-      <guid>https://yinhui1984.github.io/tags/defi/</guid>
+      <title>L3</title>
+      <link>https://yinhui1984.github.io/tags/l3/</link>
+      <pubDate>Fri, 09 Jun 2023 13:35:50 +0800</pubDate>
+      <guid>https://yinhui1984.github.io/tags/l3/</guid>
       <description></description>
     </item>
     <item>
@@ -48,13 +55,6 @@
       <link>https://yinhui1984.github.io/tags/l0/</link>
       <pubDate>Tue, 28 Feb 2023 20:03:46 +0800</pubDate>
       <guid>https://yinhui1984.github.io/tags/l0/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Solidity</title>
-      <link>https://yinhui1984.github.io/tags/solidity/</link>
-      <pubDate>Tue, 28 Feb 2023 19:54:46 +0800</pubDate>
-      <guid>https://yinhui1984.github.io/tags/solidity/</guid>
       <description></description>
     </item>
     <item>
@@ -121,24 +121,17 @@
       <description></description>
     </item>
     <item>
-      <title>Web3.js</title>
-      <link>https://yinhui1984.github.io/tags/web3.js/</link>
-      <pubDate>Mon, 04 Jul 2022 13:10:51 +0800</pubDate>
-      <guid>https://yinhui1984.github.io/tags/web3.js/</guid>
+      <title>Python</title>
+      <link>https://yinhui1984.github.io/tags/python/</link>
+      <pubDate>Sun, 03 Jul 2022 13:10:58 +0800</pubDate>
+      <guid>https://yinhui1984.github.io/tags/python/</guid>
       <description></description>
     </item>
     <item>
       <title>Web3.py</title>
       <link>https://yinhui1984.github.io/tags/web3.py/</link>
-      <pubDate>Mon, 04 Jul 2022 13:10:51 +0800</pubDate>
-      <guid>https://yinhui1984.github.io/tags/web3.py/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Python</title>
-      <link>https://yinhui1984.github.io/tags/python/</link>
       <pubDate>Sun, 03 Jul 2022 13:10:58 +0800</pubDate>
-      <guid>https://yinhui1984.github.io/tags/python/</guid>
+      <guid>https://yinhui1984.github.io/tags/web3.py/</guid>
       <description></description>
     </item>
     <item>

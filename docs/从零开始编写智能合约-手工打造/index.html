@@ -12,7 +12,7 @@
   <meta itemprop="description" content="前面在 从零开始编写智能合约-使用traffle套件 中 使用 truffle套件从零开始搭建环境, 编写、部署、测试和调用智能合约, 这次我们只使用一些命令行工具来进行&#34;手工打造&#34;
 配套代码: https://github.com/yinhui1984/stepByStepSmartContract">
   <meta itemprop="datePublished" content="2022-07-01T00:00:00+00:00">
-  <meta itemprop="dateModified" content="2022-07-01T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2022-08-22T17:13:01+08:00">
   <meta itemprop="wordCount" content="2108">
   <meta itemprop="image" content="https://yinhui1984.github.io/images/avatar.png">
   <meta itemprop="keywords" content="Solidity,Ethereum,Go-Ethereum,Python"><meta property="og:url" content="https://yinhui1984.github.io/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E6%89%8B%E5%B7%A5%E6%89%93%E9%80%A0/">
@@ -24,7 +24,7 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2022-07-01T00:00:00+00:00">
-    <meta property="article:modified_time" content="2022-07-01T00:00:00+00:00">
+    <meta property="article:modified_time" content="2022-08-22T17:13:01+08:00">
     <meta property="article:tag" content="Solidity">
     <meta property="article:tag" content="Ethereum">
     <meta property="article:tag" content="Go-Ethereum">
@@ -51,7 +51,7 @@
       "@type": "WebPage",
       "@id": "https:\/\/yinhui1984.github.io\/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E6%89%8B%E5%B7%A5%E6%89%93%E9%80%A0\/"
     },"image": ["https:\/\/yinhui1984.github.io\/images\/avatar.png"],"genre": "posts","keywords": "solidity, ethereum, go-ethereum, python","wordcount":  2108 ,
-    "url": "https:\/\/yinhui1984.github.io\/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E6%89%8B%E5%B7%A5%E6%89%93%E9%80%A0\/","datePublished": "2022-07-01T00:00:00+00:00","dateModified": "2022-07-01T00:00:00+00:00","publisher": {
+    "url": "https:\/\/yinhui1984.github.io\/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E6%89%8B%E5%B7%A5%E6%89%93%E9%80%A0\/","datePublished": "2022-07-01T00:00:00+00:00","dateModified": "2022-08-22T17:13:01+08:00","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
         "@type": "Person",
@@ -124,7 +124,7 @@
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>从零开始编写智能合约-手工打造</span>
       </h1></div><div class="post-meta">
       <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
-      yinhui</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/blockchain/" class="post-category" title="分类 - Blockchain"><i class="fa-regular fa-folder" aria-hidden="true"></i> Blockchain</a></span></div><div class="post-meta-line"><span title="发布于 2022-07-01 00:00:00"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2022-07-01">2022-07-01</time></span>&nbsp;<span title="2108 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 2200 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 5 分钟</span>&nbsp;</div>
+      yinhui</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/blockchain/" class="post-category" title="分类 - Blockchain"><i class="fa-regular fa-folder" aria-hidden="true"></i> Blockchain</a></span></div><div class="post-meta-line"><span title="发布于 2022-07-01 00:00:00"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2022-07-01">2022-07-01</time></span>&nbsp;<span title="更新于 2022-08-22 17:13:01"><i class="fa-regular fa-calendar-check me-1" aria-hidden="true"></i><time datetime="2022-08-22">2022-08-22</time></span>&nbsp;<span title="2108 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 2200 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 5 分钟</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>目录</span>
@@ -626,7 +626,7 @@
 </h2><p>调用智能合约就和 <a href="https://yinhui1984.github.io/%e4%bb%8e%e9%9b%b6%e5%bc%80%e5%a7%8b%e7%bc%96%e5%86%99%e6%99%ba%e8%83%bd%e5%90%88%e7%ba%a6-%e4%bd%bf%e7%94%a8truffle%e5%a5%97%e4%bb%b6/#7-demoapp%e8%b0%83%e7%94%a8%e5%90%88%e7%ba%a6" target="_blank" rel="external nofollow noopener noreferrer">从零开始编写智能合约-使用truffle套件</a>中的一样了, 可以跳转到那里进行参考</p></div><div class="post-footer" id="post-footer">
   <div class="post-info">
     <div class="post-info-line">
-      <div class="post-info-mod"><span title="更新于 2022-07-01 00:00:00">更新于 2022-07-01&nbsp;</span>
+      <div class="post-info-mod"><span title="更新于 2022-08-22 17:13:01">更新于 2022-08-22&nbsp;</span>
       </div><div class="post-info-license">
             <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
           </div></div><div class="post-info-line">

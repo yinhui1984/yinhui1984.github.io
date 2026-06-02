@@ -603,7 +603,7 @@ async function promoteDraft() {
     {
       type: 'confirm',
       name: 'confirm',
-      message: `确认发布文章 "${post.title}"?`,
+      message: `确认将 "${post.title}" 转为正式文章?`,
       default: false
     }
   ]);
@@ -623,6 +623,7 @@ async function promoteDraft() {
   }
   writeFrontMatter(post.filePath, frontMatter, parsed.body);
   console.log(chalk.green(`已转为正式文章: ${post.fileName}`));
+  console.log(chalk.yellow('注意：这篇文章尚未发布到线上。需要回到博客工作台选择“发布正式站点”。'));
 }
 
 async function processArticleImages() {
