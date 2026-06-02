@@ -483,7 +483,7 @@ pool.lpToken.safeTransfer(
 
 因此可以领取奖励而不改变质押本金.
 
-### **仍然存在循环：****`massUpdatePools()`**
+### **仍然存在循环：`massUpdatePools()`**
 
 核心用户路径已经不再遍历用户.
 但 `MasterChef` 仍然保留了：
