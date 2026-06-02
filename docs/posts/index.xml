@@ -6,16 +6,8 @@
     <description>银辉的技术博客 - 专注 Web3 安全、智能合约审计、区块链安全分析、Go语言开发</description>
     <generator>Hugo 0.154.5 &amp; FixIt v0.4.2</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 17 Nov 2023 16:24:42 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 12 Jun 2023 10:01:44 +0800</lastBuildDate>
     <atom:link href="https://yinhui1984.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Golang记录panic到日志</title>
-      <link>https://yinhui1984.github.io/golang%E8%AE%B0%E5%BD%95panic%E5%88%B0%E6%97%A5%E5%BF%97/</link>
-      <pubDate>Fri, 17 Nov 2023 16:24:42 +0800</pubDate>
-      <guid>https://yinhui1984.github.io/golang%E8%AE%B0%E5%BD%95panic%E5%88%B0%E6%97%A5%E5%BF%97/</guid>
-      <category domain="https://yinhui1984.github.io/categories/golang/">Golang</category>
-      <description>&lt;p&gt;将panic记录下来可以使用recover函数, 但由于golang 的 recover 函数只能捕获同一个 goroutine 中的 panic, 所以就有了下面的一些辅助函数&lt;/p&gt;</description>
-    </item>
     <item>
       <title>在一个项目中同时使用Truffle和Foundry</title>
       <link>https://yinhui1984.github.io/truffle_foundry_together/</link>
@@ -113,14 +105,6 @@
       <description>&lt;p&gt;Ethernaut 挑战记录&lt;/p&gt;</description>
     </item>
     <item>
-      <title>About docker</title>
-      <link>https://yinhui1984.github.io/about_docker/</link>
-      <pubDate>Thu, 23 Feb 2023 15:45:37 +0800</pubDate>
-      <guid>https://yinhui1984.github.io/about_docker/</guid>
-      <category domain="https://yinhui1984.github.io/categories/tools/">Tools</category>
-      <description>&lt;p&gt;docker 学习总结&lt;/p&gt;</description>
-    </item>
-    <item>
       <title>Ethernaut 19 MagicNumber</title>
       <link>https://yinhui1984.github.io/ethernaut_19_magicnumber/</link>
       <pubDate>Thu, 19 Jan 2023 20:06:53 +0800</pubDate>
@@ -177,14 +161,6 @@
       <description>&lt;p&gt;一些关于&lt;code&gt;UTXO&lt;/code&gt;的理解&lt;/p&gt;</description>
     </item>
     <item>
-      <title>Git Master恢复</title>
-      <link>https://yinhui1984.github.io/git-master%E6%81%A2%E5%A4%8D/</link>
-      <pubDate>Tue, 30 Aug 2022 16:20:50 +0800</pubDate>
-      <guid>https://yinhui1984.github.io/git-master%E6%81%A2%E5%A4%8D/</guid>
-      <category domain="https://yinhui1984.github.io/categories/devops/">Devops</category>
-      <description>&lt;p&gt;删库跑路, 如何恢复&lt;/p&gt;&#xA;&lt;!---more--&gt;&#xA;&lt;p&gt;给代码打tag的时候, 发现 &lt;code&gt;fatal: &#39;xxx/myproject.git&#39; does not appear to be a git repository&lt;/code&gt;&lt;/p&gt;&#xA;&lt;p&gt;服务器上一看, 被人删了, NB-PLUS&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;首先本地机的clone中查看远程路径&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;pre&gt;&lt;code&gt;&amp;gt; git remote -v&#xA;origin&#x9;root@XXX:/xxx/myproject.git (fetch)&#xA;origin&#x9;root@XXX:/xxx/myproject.git (push)&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;&#xA;&lt;li&gt;到服务器上创建对应的路径&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;pre&gt;&lt;code&gt;mkdir -p /xxx/&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;&#xA;&lt;li&gt;在服务上创建一个空的repository&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;pre&gt;&lt;code&gt;cd /xxx/&#xA;git init --bare myproject.git&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;&#xA;&lt;li&gt;到本地机clone中 添加现存代码到服务器&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;pre&gt;&lt;code&gt;git add .&#xA;git commit -m &amp;#34;re-add all&amp;#34;&#xA;git push origin master&lt;/code&gt;&lt;/pre&gt;</description>
-    </item>
-    <item>
       <title>P2P</title>
       <link>https://yinhui1984.github.io/p2p/</link>
       <pubDate>Tue, 23 Aug 2022 12:09:22 +0800</pubDate>
@@ -201,30 +177,6 @@
       <description>&lt;p&gt;关于零知识证明的若干知识&lt;/p&gt;</description>
     </item>
     <item>
-      <title>Censys文档</title>
-      <link>https://yinhui1984.github.io/censys%E6%96%87%E6%A1%A3/</link>
-      <pubDate>Fri, 19 Aug 2022 21:18:09 +0800</pubDate>
-      <guid>https://yinhui1984.github.io/censys%E6%96%87%E6%A1%A3/</guid>
-      <category domain="https://yinhui1984.github.io/categories/tools/">Tools</category>
-      <description>&lt;p&gt;&lt;code&gt;censys&lt;/code&gt; &lt;a href=&#34;https://search.censys.io&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://search.censys.io&lt;/a&gt; 堪称神器, 翻译了一下帮助文档&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Golang获得动态网页内容</title>
-      <link>https://yinhui1984.github.io/golang%E8%8E%B7%E5%BE%97%E5%8A%A8%E6%80%81%E7%BD%91%E9%A1%B5%E5%86%85%E5%AE%B9/</link>
-      <pubDate>Thu, 18 Aug 2022 10:07:22 +0800</pubDate>
-      <guid>https://yinhui1984.github.io/golang%E8%8E%B7%E5%BE%97%E5%8A%A8%E6%80%81%E7%BD%91%E9%A1%B5%E5%86%85%E5%AE%B9/</guid>
-      <category domain="https://yinhui1984.github.io/categories/golang/">Golang</category>
-      <description>&lt;p&gt;golang中用get()或httpClient 进行get时得到的静态页面, 如果页面中的内容是获取到本地后动态生成的话, 应该如何得到呢&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>ARINC-429</title>
-      <link>https://yinhui1984.github.io/arinc429/</link>
-      <pubDate>Fri, 12 Aug 2022 11:30:58 +0800</pubDate>
-      <guid>https://yinhui1984.github.io/arinc429/</guid>
-      <category domain="https://yinhui1984.github.io/categories/aviation/">Aviation</category>
-      <description>&lt;p&gt;&lt;code&gt;ARINC-429&lt;/code&gt; 定义了商用飞机航空电子系统之间(局域网)数字数据传输的标准要求和协议。设备制造商遵循这些标准，从而实现航空电子设备的互换性.&lt;/p&gt;&#xA;&lt;p&gt;ARINC 429 也称为 Mark 33 数字信息传输系统 (DITS) 总线。虽然主要用于航空电子领域，但这些总线也用于地面车辆、武器系统和其他商业和军事设备领域。&lt;/p&gt;</description>
-    </item>
-    <item>
       <title>[Solidity by Example]Ex002FirstApplication</title>
       <link>https://yinhui1984.github.io/solidity-by-exampleex002firstapplication/</link>
       <pubDate>Wed, 10 Aug 2022 14:14:38 +0800</pubDate>
@@ -239,54 +191,6 @@
       <guid>https://yinhui1984.github.io/solidity-by-exampleex001helloworld/</guid>
       <category domain="https://yinhui1984.github.io/categories/blockchain/">Blockchain</category>
       <description>&lt;p&gt;&lt;a href=&#34;https://solidity-by-example.org&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://solidity-by-example.org&lt;/a&gt; 中的第一个练习, 并添加了注释&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Visual Studio VC&#43;&#43; 远程调试</title>
-      <link>https://yinhui1984.github.io/visutal-studio-%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95/</link>
-      <pubDate>Wed, 27 Jul 2022 09:32:00 +0800</pubDate>
-      <guid>https://yinhui1984.github.io/visutal-studio-%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95/</guid>
-      <category domain="https://yinhui1984.github.io/categories/windows/">Windows</category>
-      <description>&lt;p&gt;如何使用Visual Studio进行C++项目远程调试&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Golang文件下载</title>
-      <link>https://yinhui1984.github.io/golang%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/</link>
-      <pubDate>Fri, 22 Jul 2022 20:54:37 +0800</pubDate>
-      <guid>https://yinhui1984.github.io/golang%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD/</guid>
-      <category domain="https://yinhui1984.github.io/categories/golang/">Golang</category>
-      <description>&lt;p&gt;go语言写的一个文件下载脚本&lt;/p&gt;&#xA;&lt;p&gt;晚上想听点有声小说, 要两毛一集, 算了一下,一本书要几百块, 囊中羞涩, 于是拿出电脑搞个脚本&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>使用delve对go代码进行调试</title>
-      <link>https://yinhui1984.github.io/%E4%BD%BF%E7%94%A8delve%E5%AF%B9go%E4%BB%A3%E7%A0%81%E8%BF%9B%E8%A1%8C%E8%B0%83%E8%AF%95/</link>
-      <pubDate>Fri, 22 Jul 2022 20:20:38 +0800</pubDate>
-      <guid>https://yinhui1984.github.io/%E4%BD%BF%E7%94%A8delve%E5%AF%B9go%E4%BB%A3%E7%A0%81%E8%BF%9B%E8%A1%8C%E8%B0%83%E8%AF%95/</guid>
-      <category domain="https://yinhui1984.github.io/categories/golang/">Golang</category>
-      <description>&lt;p&gt;&lt;code&gt;delve&lt;/code&gt;就是go语言的&lt;code&gt;gdb&lt;/code&gt;&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Golang实现一个简单的事件处理程序</title>
-      <link>https://yinhui1984.github.io/golang%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F/</link>
-      <pubDate>Fri, 22 Jul 2022 20:16:58 +0800</pubDate>
-      <guid>https://yinhui1984.github.io/golang%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%A8%8B%E5%BA%8F/</guid>
-      <category domain="https://yinhui1984.github.io/categories/golang/">Golang</category>
-      <description>&lt;p&gt;一个简单的事件处理程序&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>MFC窗体程序弹出命令行窗口显示日志输出</title>
-      <link>https://yinhui1984.github.io/mfc%E7%AA%97%E4%BD%93%E7%A8%8B%E5%BA%8F%E5%BC%B9%E5%87%BA%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%AA%97%E5%8F%A3%E6%98%BE%E7%A4%BA%E6%97%A5%E5%BF%97%E8%BE%93%E5%87%BA/</link>
-      <pubDate>Wed, 13 Jul 2022 17:38:13 +0800</pubDate>
-      <guid>https://yinhui1984.github.io/mfc%E7%AA%97%E4%BD%93%E7%A8%8B%E5%BA%8F%E5%BC%B9%E5%87%BA%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%AA%97%E5%8F%A3%E6%98%BE%E7%A4%BA%E6%97%A5%E5%BF%97%E8%BE%93%E5%87%BA/</guid>
-      <category domain="https://yinhui1984.github.io/categories/windows/">Windows</category>
-      <description>&lt;p&gt;如何让MFC窗体程序弹出命令行窗口并打印日志输出&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Error : WINDOWS.H Already Included</title>
-      <link>https://yinhui1984.github.io/error--windows.h-already-included/</link>
-      <pubDate>Tue, 12 Jul 2022 20:30:29 +0800</pubDate>
-      <guid>https://yinhui1984.github.io/error--windows.h-already-included/</guid>
-      <category domain="https://yinhui1984.github.io/categories/windows/">Windows</category>
-      <description>&lt;p&gt;关于编译Windows  MFC 项目遇到的&lt;code&gt;Error : WINDOWS.H Already Included&lt;/code&gt;的解决方法&lt;/p&gt;</description>
     </item>
     <item>
       <title>PoW</title>
@@ -335,22 +239,6 @@
       <guid>https://yinhui1984.github.io/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E4%BD%BF%E7%94%A8truffle%E5%A5%97%E4%BB%B6/</guid>
       <category domain="https://yinhui1984.github.io/categories/blockchain/">Blockchain</category>
       <description>&lt;p&gt;这篇文章将带你使用truffle套件从零开始搭建环境, 编写、部署、测试和调用智能合约。&lt;/p&gt;&#xA;&lt;p&gt;配套代码在 &lt;a href=&#34;https://github.com/yinhui1984/HelloTruffle&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://github.com/yinhui1984/HelloTruffle&lt;/a&gt;&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>聊聊go语言中的sync</title>
-      <link>https://yinhui1984.github.io/%E8%81%8A%E8%81%8Ago%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84sync/</link>
-      <pubDate>Sun, 12 Jun 2022 16:41:41 +0800</pubDate>
-      <guid>https://yinhui1984.github.io/%E8%81%8A%E8%81%8Ago%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84sync/</guid>
-      <category domain="https://yinhui1984.github.io/categories/golang/">Golang</category>
-      <description>&lt;p&gt;我们将用些简单的例子来尝试golang中sync包的各种有趣的情况&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Go语言中的http服务器</title>
-      <link>https://yinhui1984.github.io/go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84http%E6%9C%8D%E5%8A%A1%E5%99%A8/</link>
-      <pubDate>Mon, 06 Jun 2022 00:00:00 +0000</pubDate>
-      <guid>https://yinhui1984.github.io/go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84http%E6%9C%8D%E5%8A%A1%E5%99%A8/</guid>
-      <category domain="https://yinhui1984.github.io/categories/golang/">Golang</category>
-      <description>&lt;p&gt;go语言中&lt;code&gt;net/http&lt;/code&gt;包对&lt;code&gt;http&lt;/code&gt;服务与请求的处理&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

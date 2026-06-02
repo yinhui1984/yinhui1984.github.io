@@ -10,8 +10,8 @@
 <meta name="description" content="银辉的技术博客 - 专注 Web3 安全、智能合约审计、区块链安全分析、Go语言开发"><meta name="keywords" content='Web3安全, Web3 Security, 区块链安全, Blockchain Security, 智能合约安全, Smart Contract Security, 智能合约审计, Smart Contract Audit, Solidity, Ethereum, EVM, DeFi安全, DeFi Security, Go语言, Golang, 技术博客, Tech Blog, 安全分析, Security Analysis, 漏洞分析, Vulnerability Analysis, 智能合约漏洞, Smart Contract Vulnerability, 攻击案例分析, Attack Case Analysis'>
   <meta itemprop="name" content="YINHUI&#39;s BLOG">
   <meta itemprop="description" content="银辉的技术博客 - 专注 Web3 安全、智能合约审计、区块链安全分析、Go语言开发">
-  <meta itemprop="datePublished" content="2023-11-17T16:24:42+08:00">
-  <meta itemprop="dateModified" content="2023-11-17T16:24:42+08:00">
+  <meta itemprop="datePublished" content="2023-06-09T13:35:50+08:00">
+  <meta itemprop="dateModified" content="2023-06-12T10:01:44+08:00">
   <meta itemprop="image" content="https://yinhui1984.github.io/images/avatar.png"><meta property="og:url" content="https://yinhui1984.github.io/">
   <meta property="og:site_name" content="YINHUI&#39;s BLOG">
   <meta property="og:title" content="YINHUI&#39;s BLOG">
@@ -98,11 +98,7 @@
   </div><main class="fi-container"><div class="page home posts"><div class="home-profile"><div class="home-avatar"><a href="/posts/" title="文章"><img src='/images/avatar.png' alt="Home avatar" height="96" width="96"></a></div><h1 class="home-title"></h1><p class="home-subtitle"><span class="d-none">YINHUI&#39;s Blog</span><span class="typeit"><template>YINHUI's Blog</template></span></p><div class="links"><a href="https://github.com/yinhui1984" title="GitHub" target="_blank" rel="external nofollow noopener noreferrer me"><i class="fa-brands fa-github-alt" aria-hidden="true"></i>
     </a><a href="/index.xml" title="RSS" target="_blank" rel="external nofollow noopener noreferrer me"><i class="fa-solid fa-rss" aria-hidden="true"></i>
     </a></div></div>
-<article class="single summary" itemscope itemtype="http://schema.org/Article"><h2 class="single-title" itemprop="name headline"><a href="/golang%E8%AE%B0%E5%BD%95panic%E5%88%B0%E6%97%A5%E5%BF%97/">Golang记录panic到日志</a>
-  </h2><div class="post-meta"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
-      yinhui</span></span>&nbsp;<span class="post-publish" title='2023-11-17 16:24:42'>发布于 <time datetime="2023-11-17">2023-11-17</time></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/golang/" class="post-category" title="分类 - Golang"><i class="fa-regular fa-folder" aria-hidden="true"></i> Golang</a></span></div><div class="content"><p>将panic记录下来可以使用recover函数, 但由于golang 的 recover 函数只能捕获同一个 goroutine 中的 panic, 所以就有了下面的一些辅助函数</p></div><div class="post-footer">
-    <a href="/golang%E8%AE%B0%E5%BD%95panic%E5%88%B0%E6%97%A5%E5%BF%97/">阅读全文</a></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h2 class="single-title" itemprop="name headline"><a href="/truffle_foundry_together/">在一个项目中同时使用Truffle和Foundry</a>
+<article class="single summary" itemscope itemtype="http://schema.org/Article"><h2 class="single-title" itemprop="name headline"><a href="/truffle_foundry_together/">在一个项目中同时使用Truffle和Foundry</a>
   </h2><div class="post-meta"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
       yinhui</span></span>&nbsp;<span class="post-publish" title='2023-06-09 13:35:50'>发布于 <time datetime="2023-06-09">2023-06-09</time></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/blockchain/" class="post-category" title="分类 - Blockchain"><i class="fa-regular fa-folder" aria-hidden="true"></i> Blockchain</a></span></div><div class="content"><p>foundry套件有很棒的功能，比如一堆作弊码可以快速验证自己的想法，可以给地址打标签以及trace。truffle可以向GDB一样debug源代码的功能又太爽了，所有想把两者融合在同一个项目中。</p></div><div class="post-footer">
     <a href="/truffle_foundry_together/">阅读全文</a><div class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href='/tags/l3/' class="post-tag">L3</a><a href='/tags/web3.0/' class="post-tag">Web3.0</a></div></div>
@@ -122,6 +118,10 @@
   </h2><div class="post-meta"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
       yinhui</span></span>&nbsp;<span class="post-publish" title='2023-04-19 10:12:15'>发布于 <time datetime="2023-04-19">2023-04-19</time></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/security/" class="post-category" title="分类 - Security"><i class="fa-regular fa-folder" aria-hidden="true"></i> Security</a></span></div><div class="content"><p>saving gas的锅</p></div><div class="post-footer">
     <a href="/analysis_of_swaposv2_attack/">阅读全文</a><div class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href='/tags/defi/' class="post-tag">Defi</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h2 class="single-title" itemprop="name headline"><a href="/dpk-exchange-attack/">DKP Exchange 攻击事件分析</a>
+  </h2><div class="post-meta"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+      yinhui</span></span>&nbsp;<span class="post-publish" title='2023-03-24 20:16:27'>发布于 <time datetime="2023-03-24">2023-03-24</time></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/security/" class="post-category" title="分类 - Security"><i class="fa-regular fa-folder" aria-hidden="true"></i> Security</a></span></div><div class="content"><p>DKP Exchange 攻击事件分析</p></div><div class="post-footer">
+    <a href="/dpk-exchange-attack/">阅读全文</a><div class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href='/tags/defi/' class="post-tag">Defi</a></div></div>
 </article><ul class="pagination"><li class="page-item active">
           <span class="page-link">
             <a href="/">1</a>
@@ -138,7 +138,7 @@
           <span class="page-link" aria-hidden="true">&hellip;</span>
         </li><li class="page-item">
           <span class="page-link">
-            <a href="/page/8/">8</a>
+            <a href="/page/5/">5</a>
           </span>
         </li></ul></div></main><footer class="footer">
     <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.154.5"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.2"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
