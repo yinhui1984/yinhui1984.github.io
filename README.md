@@ -28,8 +28,8 @@ yinhui1984.github.io/
 ├── docs/               # GitHub Pages部署目录（从public复制）
 ├── layouts/            # 自定义布局模板
 ├── data/               # 数据文件
-├── Makefile            # 构建和部署脚本
-├── new.sh              # 创建新文章的脚本
+├── blog                # 博客工作台入口
+├── blog.js             # 交互式文章和发布工具
 └── webpack.config.js   # Webpack配置
 ```
 
@@ -52,33 +52,18 @@ git submodule init
 git submodule update
 ```
 
-### 本地开发
+### 博客工作台
 
 ```bash
-# 启动本地开发服务器
-make test
-
-# 或者手动启动
-hugo server -D
+./blog
 ```
 
-访问 http://localhost:1313 查看网站
-
-### 创建新文章
-
-```bash
-# 使用脚本创建新文章
-./new.sh 文章标题
-
-# 或者使用 Hugo 命令
-hugo new posts/文章标题.md
-```
-
-新文章会使用 `archetypes/posts.md` 模板创建，模板会自动填充默认的 front matter 字段。
+以后维护博客只使用 `./blog` 这个交互式博客工作台，不需要记底层构建或发布命令。
+工作台支持新建草稿、编辑草稿、编辑正式文章、预览草稿、草稿转正式文章、发布正式站点和查看文章列表。
 
 ## 文章模板字段说明
 
-创建新文章时，会自动使用 `archetypes/posts.md` 模板。以下是模板中各个字段的详细说明：
+博客工作台创建新文章时会自动生成 front matter。以下是常用字段说明：
 
 ### 基础信息
 
@@ -99,7 +84,7 @@ hugo new posts/文章标题.md
 
 - **draft**
   - 是否为草稿，默认 `true`
-  - `true`: 草稿状态，需要 `hugo -D` 或 `hugo server -D` 才能看到
+  - `true`: 草稿状态，只在博客工作台的“预览草稿”中可见
   - `false`: 正式发布，会出现在网站上
 
 ### 作者信息
@@ -249,43 +234,28 @@ hugo new posts/文章标题.md
 
 ### 发布前检查清单
 
-创建文章后，发布前请检查：
+工作台会处理草稿转正式文章和正式构建。发布前主要检查：
 
-1. ✅ 将 `draft: true` 改为 `draft: false`
-2. ✅ 删除或替换默认的 `tags: [draft]` 和 `categories: [draft]`
-3. ✅ 填写 `description`（SEO 优化）
-4. ✅ 填写合适的 `tags` 和 `categories`
-5. ✅ 如需显示作者，填写 `author.name` 等信息
-6. ✅ 如需特色图片，设置 `featuredImage` 和 `featuredImagePreview`
-7. ✅ 在 `<!--more-->` 前添加文章摘要
+1. 文章摘要是否写在 `<!--more-->` 前
+2. `tags` 和 `categories` 是否准确
+3. `description` 是否需要补充
+4. 图片和外链是否可访问
 
 更多详细信息请参考 [FixIt 主题文档](https://fixit.lruihao.cn/documentation/content-management/introduction/#front-matter)
 
 ### 构建和部署
 
 ```bash
-# 构建网站
-make all
-# 或
-hugo -D
-
-# 部署到 GitHub Pages
-make release
+./blog
 ```
 
-`make release` 会：
-1. 将 `public/` 目录内容复制到 `docs/`
-2. 提交并推送到 GitHub
-3. GitHub Pages 会自动从 `docs/` 目录部署
+在交互式菜单中选择“发布正式站点”。正式发布不会包含草稿。
+工具会构建 `public/`，同步到 `docs/`，展示变更摘要，经确认后提交并推送到 GitHub。
 
 ## 常用命令
 
 ```bash
-make test      # 启动本地开发服务器
-make all       # 构建网站
-make release   # 构建并部署
-make stop      # 停止本地服务器
-make list      # 列出所有文章
+./blog         # 唯一日常入口
 ```
 
 ## 主题更新
