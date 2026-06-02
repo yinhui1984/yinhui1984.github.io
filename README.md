@@ -59,7 +59,7 @@ git submodule update
 ```
 
 以后维护博客只使用 `./blog` 这个交互式博客工作台，不需要记底层构建或发布命令。
-工作台支持新建草稿、编辑草稿、编辑正式文章、预览草稿、草稿转正式文章、发布正式站点和查看文章列表。
+工作台支持新建草稿、编辑草稿、编辑正式文章、处理文章图片、预览草稿、草稿转正式文章、发布正式站点和查看文章列表。
 
 ## 文章模板字段说明
 
@@ -156,6 +156,8 @@ git submodule update
 
 ### 图片和媒体
 
+正文图片统一使用图床链接。使用 Typora 编辑时可以先插入本地图片；博客工作台会在“处理文章图片”“预览草稿”和“发布正式站点”时扫描本地图片链接，调用 `imagehosting` 上传到图床，并自动替换 Markdown 链接。已经是 `http://` 或 `https://` 的网络图片不会被处理。
+
 - **featuredImage**
   - 文章特色图片（大图），用于文章详情页
   - 支持两种方式：
@@ -239,7 +241,7 @@ git submodule update
 1. 文章摘要是否写在 `<!--more-->` 前
 2. `tags` 和 `categories` 是否准确
 3. `description` 是否需要补充
-4. 图片和外链是否可访问
+4. 图片和外链是否可访问；正文中的本地图片会由博客工作台上传到图床
 
 更多详细信息请参考 [FixIt 主题文档](https://fixit.lruihao.cn/documentation/content-management/introduction/#front-matter)
 

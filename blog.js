@@ -15,6 +15,8 @@ const DOCS_DIR = path.join(PROJECT_ROOT, 'docs');
 const CACHE_DIR = path.join(PROJECT_ROOT, '.cache', 'hugo-0.154.5');
 const HUGO_VERSION = '0.154.5';
 const HUGO_PKG_URL = 'https://github.com/gohugoio/hugo/releases/download/v0.154.5/hugo_extended_0.154.5_darwin-universal.pkg';
+const DEFAULT_IMAGEHOSTING_BIN = '/Users/z/Documents/web3/05_blogs/imagehosting/bin/imagehosting';
+const IMAGE_EXTENSIONS = new Set(['.apng', '.avif', '.gif', '.jpeg', '.jpg', '.png', '.svg', '.webp']);
 
 function commandExists(command) {
   try {
@@ -168,6 +170,206 @@ function openFile(filePath) {
     execFileSync('open', [filePath], { stdio: 'ignore' });
   } else {
     console.log(chalk.cyan(filePath));
+  }
+}
+
+function isRemoteUrl(value) {
+  return /^https?:\/\//i.test(value);
+}
+
+function isDataImage(value) {
+  return /^data:image\//i.test(value);
+}
+
+function isLikelyImagePath(value) {
+  const clean = value.split(/[?#]/, 1)[0].toLowerCase();
+  return IMAGE_EXTENSIONS.has(path.extname(clean));
+}
+
+function stripMarkdownUrl(value) {
+  return value.trim().replace(/^<|>$/g, '');
+}
+
+function getImagehostingCommand() {
+  const candidates = [
+    process.env.IMAGEHOSTING_BIN,
+    commandExists('imagehosting') ? 'imagehosting' : null,
+    DEFAULT_IMAGEHOSTING_BIN
+  ].filter(Boolean);
+
+  for (const candidate of candidates) {
+    if (candidate === 'imagehosting') return candidate;
+    if (fs.existsSync(candidate)) return candidate;
+  }
+  return null;
+}
+
+function findMarkdownImages(markdown) {
+  const images = [];
+  const pattern = /!\[([^\]]*)\]\(([^)\n]+)\)/g;
+  let match;
+  while ((match = pattern.exec(markdown)) !== null) {
+    const rawUrl = stripMarkdownUrl(match[2]);
+    images.push({
+      fullMatch: match[0],
+      alt: match[1],
+      rawUrl,
+      index: match.index
+    });
+  }
+  return images;
+}
+
+function resolveLocalImagePath(postPath, imagePath) {
+  const cleanPath = decodeURI(imagePath.split(/[?#]/, 1)[0]);
+  if (path.isAbsolute(cleanPath)) {
+    return cleanPath;
+  }
+  return path.resolve(path.dirname(postPath), cleanPath);
+}
+
+function lineNumberAt(content, index) {
+  return content.slice(0, index).split('\n').length;
+}
+
+function extractUrlFromImagehostingOutput(output) {
+  const markdownMatch = output.match(/!\[[^\]]*\]\((https?:\/\/[^)\s]+)\)/);
+  if (markdownMatch) return markdownMatch[1];
+  const urlMatch = output.match(/https?:\/\/\S+/);
+  if (urlMatch) return urlMatch[0].replace(/[)\]]+$/, '');
+  return null;
+}
+
+function uploadImage(imagehostingCommand, imagePath) {
+  const output = execFileSync(imagehostingCommand, [imagePath], {
+    cwd: PROJECT_ROOT,
+    encoding: 'utf8',
+    stdio: ['ignore', 'pipe', 'pipe']
+  });
+  const url = extractUrlFromImagehostingOutput(output);
+  if (!url) {
+    throw new Error(`无法解析 imagehosting 输出: ${output.trim()}`);
+  }
+  return url;
+}
+
+function inspectPostImages(post) {
+  const content = fs.readFileSync(post.filePath, 'utf8');
+  const localImages = [];
+  const blockedImages = [];
+
+  for (const image of findMarkdownImages(content)) {
+    const url = image.rawUrl;
+    if (isRemoteUrl(url)) continue;
+    if (isDataImage(url)) {
+      blockedImages.push({ post, image, reason: 'data image 不支持发布' });
+      continue;
+    }
+    if (!isLikelyImagePath(url)) continue;
+
+    const localPath = resolveLocalImagePath(post.filePath, url);
+    localImages.push({
+      post,
+      image,
+      localPath,
+      line: lineNumberAt(content, image.index)
+    });
+  }
+
+  return { localImages, blockedImages };
+}
+
+async function processImagesForPosts(posts, options = {}) {
+  const allLocalImages = [];
+  const allBlockedImages = [];
+
+  for (const post of posts) {
+    const { localImages, blockedImages } = inspectPostImages(post);
+    allLocalImages.push(...localImages);
+    allBlockedImages.push(...blockedImages);
+  }
+
+  if (allBlockedImages.length) {
+    console.log(chalk.red('发现不支持的内联图片:'));
+    for (const item of allBlockedImages) {
+      const line = lineNumberAt(fs.readFileSync(item.post.filePath, 'utf8'), item.image.index);
+      console.log(`- ${item.post.fileName}:${line} ${item.reason}`);
+    }
+    throw new Error('图片检查失败');
+  }
+
+  if (!allLocalImages.length) {
+    if (!options.silent) console.log(chalk.green('没有发现需要上传的本地图片。'));
+    return { uploaded: 0 };
+  }
+
+  const missing = allLocalImages.filter((item) => !fs.existsSync(item.localPath));
+  if (missing.length) {
+    console.log(chalk.red('发现本地图片路径不存在:'));
+    for (const item of missing) {
+      console.log(`- ${item.post.fileName}:${item.line} ${item.image.rawUrl}`);
+    }
+    throw new Error('图片检查失败');
+  }
+
+  console.log(chalk.cyan(`发现 ${allLocalImages.length} 个本地图片引用:`));
+  for (const item of allLocalImages) {
+    console.log(`- ${item.post.fileName}:${item.line} ${item.image.rawUrl}`);
+  }
+
+  if (!options.autoConfirm) {
+    const { confirm } = await inquirer.prompt([
+      {
+        type: 'confirm',
+        name: 'confirm',
+        message: '上传这些图片到图床并替换 Markdown 链接?',
+        default: true
+      }
+    ]);
+    if (!confirm) {
+      throw new Error('已取消图片处理');
+    }
+  }
+
+  const imagehostingCommand = getImagehostingCommand();
+  if (!imagehostingCommand) {
+    throw new Error(`未找到 imagehosting 命令。请设置 IMAGEHOSTING_BIN，或确认 ${DEFAULT_IMAGEHOSTING_BIN} 存在。`);
+  }
+
+  const replacementsByPost = new Map();
+  const cacheByPath = new Map();
+  const spinner = ora('正在上传图片...').start();
+
+  try {
+    for (const item of allLocalImages) {
+      let url = cacheByPath.get(item.localPath);
+      if (!url) {
+        spinner.text = `正在上传 ${path.basename(item.localPath)}...`;
+        url = uploadImage(imagehostingCommand, item.localPath);
+        cacheByPath.set(item.localPath, url);
+      }
+      if (!replacementsByPost.has(item.post.filePath)) {
+        replacementsByPost.set(item.post.filePath, []);
+      }
+      replacementsByPost.get(item.post.filePath).push({
+        from: item.image.fullMatch,
+        to: `![${item.image.alt}](${url})`
+      });
+    }
+
+    for (const [postPath, replacements] of replacementsByPost.entries()) {
+      let content = fs.readFileSync(postPath, 'utf8');
+      for (const replacement of replacements) {
+        content = content.split(replacement.from).join(replacement.to);
+      }
+      fs.writeFileSync(postPath, content);
+    }
+
+    spinner.succeed(`已上传并替换 ${allLocalImages.length} 个图片引用。`);
+    return { uploaded: allLocalImages.length };
+  } catch (error) {
+    spinner.fail('图片上传失败');
+    throw error;
   }
 }
 
@@ -345,6 +547,10 @@ async function getHugo() {
 
 async function previewDrafts() {
   showTitle('预览草稿');
+  const drafts = getPosts().filter((post) => post.draft);
+  if (drafts.length) {
+    await processImagesForPosts(drafts);
+  }
   const hugo = await getHugo();
   console.log(chalk.gray(hugo.version));
   console.log(chalk.cyan('启动本地预览: http://localhost:1313/'));
@@ -419,6 +625,41 @@ async function promoteDraft() {
   console.log(chalk.green(`已转为正式文章: ${post.fileName}`));
 }
 
+async function processArticleImages() {
+  showTitle('处理文章图片');
+  const posts = getPosts();
+  if (!posts.length) {
+    console.log(chalk.yellow('没有文章。'));
+    return;
+  }
+
+  const { scope } = await inquirer.prompt([
+    {
+      type: 'list',
+      name: 'scope',
+      message: '选择处理范围:',
+      choices: [
+        { name: '草稿文章', value: 'drafts' },
+        { name: '正式文章', value: 'published' },
+        { name: '全部文章', value: 'all' },
+        { name: '选择单篇文章', value: 'single' }
+      ]
+    }
+  ]);
+
+  let selectedPosts = posts;
+  if (scope === 'drafts') selectedPosts = posts.filter((post) => post.draft);
+  if (scope === 'published') selectedPosts = posts.filter((post) => !post.draft);
+  if (scope === 'single') selectedPosts = [await choosePost(posts, '选择要处理图片的文章:')];
+
+  if (!selectedPosts.length) {
+    console.log(chalk.yellow('该范围内没有文章。'));
+    return;
+  }
+
+  await processImagesForPosts(selectedPosts);
+}
+
 function gitOutput(args) {
   return run('git', args).trim();
 }
@@ -455,6 +696,7 @@ async function publish() {
   if (drafts.length) {
     console.log(chalk.yellow(`仍有 ${drafts.length} 篇草稿。正式发布不会包含草稿。`));
   }
+  await processImagesForPosts(getPosts().filter((post) => !post.draft));
 
   const beforeStatus = gitOutput(['status', '--short']);
   if (beforeStatus) {
@@ -543,6 +785,7 @@ async function showMenu() {
         { name: '新建草稿', value: 'create' },
         { name: '编辑草稿', value: 'edit-draft' },
         { name: '编辑正式文章', value: 'edit-published' },
+        { name: '处理文章图片', value: 'images' },
         { name: '预览草稿', value: 'preview' },
         { name: '草稿转正式文章', value: 'promote' },
         { name: '发布正式站点', value: 'publish' },
@@ -562,6 +805,7 @@ async function main() {
       if (action === 'create') await createDraft();
       if (action === 'edit-draft') await editDraft();
       if (action === 'edit-published') await editPublished();
+      if (action === 'images') await processArticleImages();
       if (action === 'preview') await previewDrafts();
       if (action === 'promote') await promoteDraft();
       if (action === 'publish') await publish();
