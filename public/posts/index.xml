@@ -6,8 +6,24 @@
     <description>银辉的技术博客 - 专注 Web3 安全、智能合约审计、区块链安全分析、Go语言开发</description>
     <generator>Hugo 0.154.5 &amp; FixIt v0.4.2</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 02 Jun 2026 17:01:30 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 25 Jun 2026 11:33:44 +0800</lastBuildDate>
     <atom:link href="https://yinhui1984.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Agent 替你签 approve 时, 少检查了一层</title>
+      <link>https://yinhui1984.github.io/agent-approve-task-boundary/</link>
+      <pubDate>Thu, 25 Jun 2026 11:29:11 +0800</pubDate>
+      <guid>https://yinhui1984.github.io/agent-approve-task-boundary/</guid>
+      <category domain="https://yinhui1984.github.io/categories/security/">Security</category>
+      <description>&lt;p&gt;关于 AI AGENT 与 无限授权&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>ERC20 approve 到底授权了什么</title>
+      <link>https://yinhui1984.github.io/erc20-approve-allowance/</link>
+      <pubDate>Wed, 24 Jun 2026 10:36:18 +0800</pubDate>
+      <guid>https://yinhui1984.github.io/erc20-approve-allowance/</guid>
+      <category domain="https://yinhui1984.github.io/categories/security/">Security</category>
+      <description>&lt;p&gt;关于ERC20无限授权&lt;/p&gt;</description>
+    </item>
     <item>
       <title>全局累计奖励指数模型(reward-per-share-accumulator)</title>
       <link>https://yinhui1984.github.io/%E5%85%A8%E5%B1%80%E7%B4%AF%E8%AE%A1%E5%A5%96%E5%8A%B1%E6%8C%87%E6%95%B0%E6%A8%A1%E5%9E%8Breward-per-share-accumulator/</link>

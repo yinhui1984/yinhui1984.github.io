@@ -7,6 +7,10 @@ categories: [security]
 tags: [defi, approve, ERC20]
 ---
 
+关于ERC20无限授权
+
+<!--more-->
+
 这里看一笔真实的 USDC `approve` 交易.
 
 交易哈希: `0x8e0a15886616d1e7bc59c4c398fa3091fa5516a042af69ce44cdd06afe78a582`
@@ -21,7 +25,6 @@ ETH 主网, 区块高度: `22350004`
 
 这笔交易做的事情很简单: 调用 USDC 合约的 `approve(address,uint256)`. 但 `approve` 容易被误解, 因为它不是转账, 而是给另一个地址一个后续转账的权限.
 
-<!--more-->
 
 ## calldata
 

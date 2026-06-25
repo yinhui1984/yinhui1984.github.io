@@ -5,48 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
     <meta name="robots" content="noodp" />
     <title>ERC20 Approve 到底授权了什么 - YINHUI&#39;s BLOG</title><meta name="author" content="yinhui">
-<meta name="description" content="这里看一笔真实的 USDC approve 交易.
-交易哈希: 0x8e0a15886616d1e7bc59c4c398fa3091fa5516a042af69ce44cdd06afe78a582
-ETH 主网, 区块高度: 22350004
-原始 calldata:
-1 0x095ea7b3000000000000000000000000881d40237659c251811cec9c364ef91dc08d300cffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff 这笔交易做的事情很简单: 调用 USDC 合约的 approve(address,uint256). 但 approve 容易被误解, 因为它不是转账, 而是给另一个地址一个后续转账的权限.
+<meta name="description" content="关于ERC20无限授权
 "><meta name="keywords" content='defi, approve, ERC20'>
-	<meta itemprop="name" content="ERC20 approve 到底授权了什么">
-	<meta itemprop="description" content="这里看一笔真实的 USDC approve 交易.
-交易哈希: 0x8e0a15886616d1e7bc59c4c398fa3091fa5516a042af69ce44cdd06afe78a582
-ETH 主网, 区块高度: 22350004
-原始 calldata:
-1 0x095ea7b3000000000000000000000000881d40237659c251811cec9c364ef91dc08d300cffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff 这笔交易做的事情很简单: 调用 USDC 合约的 approve(address,uint256). 但 approve 容易被误解, 因为它不是转账, 而是给另一个地址一个后续转账的权限.">
-	<meta itemprop="datePublished" content="2026-06-24T10:36:18+08:00">
-	<meta itemprop="dateModified" content="2026-06-24T10:36:18+08:00">
-	<meta itemprop="wordCount" content="1146">
-	<meta itemprop="image" content="https://yinhui1984.github.io/images/avatar.png">
-	<meta itemprop="keywords" content="Defi,Approve,ERC20"><meta property="og:url" content="https://yinhui1984.github.io/erc20-approve-allowance/">
-	<meta property="og:site_name" content="YINHUI&#39;s BLOG">
-	<meta property="og:title" content="ERC20 approve 到底授权了什么">
-	<meta property="og:description" content="这里看一笔真实的 USDC approve 交易.
-交易哈希: 0x8e0a15886616d1e7bc59c4c398fa3091fa5516a042af69ce44cdd06afe78a582
-ETH 主网, 区块高度: 22350004
-原始 calldata:
-1 0x095ea7b3000000000000000000000000881d40237659c251811cec9c364ef91dc08d300cffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff 这笔交易做的事情很简单: 调用 USDC 合约的 approve(address,uint256). 但 approve 容易被误解, 因为它不是转账, 而是给另一个地址一个后续转账的权限.">
-	<meta property="og:locale" content="zh_CN">
-	<meta property="og:type" content="article">
-		<meta property="article:section" content="posts">
-		<meta property="article:published_time" content="2026-06-24T10:36:18+08:00">
-		<meta property="article:modified_time" content="2026-06-24T10:36:18+08:00">
-		<meta property="article:tag" content="Defi">
-		<meta property="article:tag" content="Approve">
-		<meta property="article:tag" content="ERC20">
-		<meta property="og:image" content="https://yinhui1984.github.io/images/avatar.png">
+  <meta itemprop="name" content="ERC20 approve 到底授权了什么">
+  <meta itemprop="description" content="关于ERC20无限授权">
+  <meta itemprop="datePublished" content="2026-06-24T10:36:18+08:00">
+  <meta itemprop="dateModified" content="2026-06-25T11:33:44+08:00">
+  <meta itemprop="wordCount" content="1157">
+  <meta itemprop="image" content="https://yinhui1984.github.io/images/avatar.png">
+  <meta itemprop="keywords" content="DeFi,Approve,ERC20"><meta property="og:url" content="https://yinhui1984.github.io/erc20-approve-allowance/">
+  <meta property="og:site_name" content="YINHUI&#39;s BLOG">
+  <meta property="og:title" content="ERC20 approve 到底授权了什么">
+  <meta property="og:description" content="关于ERC20无限授权">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-06-24T10:36:18+08:00">
+    <meta property="article:modified_time" content="2026-06-25T11:33:44+08:00">
+    <meta property="article:tag" content="DeFi">
+    <meta property="article:tag" content="Approve">
+    <meta property="article:tag" content="ERC20">
+    <meta property="og:image" content="https://yinhui1984.github.io/images/avatar.png">
 
-	<meta name="twitter:card" content="summary_large_image">
-	<meta name="twitter:image" content="https://yinhui1984.github.io/images/avatar.png">
-	<meta name="twitter:title" content="ERC20 approve 到底授权了什么">
-	<meta name="twitter:description" content="这里看一笔真实的 USDC approve 交易.
-交易哈希: 0x8e0a15886616d1e7bc59c4c398fa3091fa5516a042af69ce44cdd06afe78a582
-ETH 主网, 区块高度: 22350004
-原始 calldata:
-1 0x095ea7b3000000000000000000000000881d40237659c251811cec9c364ef91dc08d300cffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff 这笔交易做的事情很简单: 调用 USDC 合约的 approve(address,uint256). 但 approve 容易被误解, 因为它不是转账, 而是给另一个地址一个后续转账的权限.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://yinhui1984.github.io/images/avatar.png">
+  <meta name="twitter:title" content="ERC20 approve 到底授权了什么">
+  <meta name="twitter:description" content="关于ERC20无限授权">
 <meta name="application-name" content="YINHUI&#39;s BLOG">
 <meta name="apple-mobile-web-app-title" content="YINHUI&#39;s BLOG"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -61,8 +45,8 @@ ETH 主网, 区块高度: 22350004
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "https:\/\/yinhui1984.github.io\/erc20-approve-allowance\/"
-    },"image": ["https:\/\/yinhui1984.github.io\/images\/avatar.png"],"genre": "posts","keywords": "defi, approve, ERC20","wordcount":  1146 ,
-    "url": "https:\/\/yinhui1984.github.io\/erc20-approve-allowance\/","datePublished": "2026-06-24T10:36:18+08:00","dateModified": "2026-06-24T10:36:18+08:00","publisher": {
+    },"image": ["https:\/\/yinhui1984.github.io\/images\/avatar.png"],"genre": "posts","keywords": "defi, approve, ERC20","wordcount":  1157 ,
+    "url": "https:\/\/yinhui1984.github.io\/erc20-approve-allowance\/","datePublished": "2026-06-24T10:36:18+08:00","dateModified": "2026-06-25T11:33:44+08:00","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
         "@type": "Person",
@@ -135,7 +119,7 @@ ETH 主网, 区块高度: 22350004
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>ERC20 Approve 到底授权了什么</span>
       </h1></div><div class="post-meta">
       <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
-      yinhui</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/security/" class="post-category" title="分类 - Security"><i class="fa-regular fa-folder" aria-hidden="true"></i> Security</a></span></div><div class="post-meta-line"><span title="发布于 2026-06-24 10:36:18"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2026-06-24">2026-06-24</time></span>&nbsp;<span title="1146 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 1200 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 3 分钟</span>&nbsp;</div>
+      yinhui</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/security/" class="post-category" title="分类 - Security"><i class="fa-regular fa-folder" aria-hidden="true"></i> Security</a></span></div><div class="post-meta-line"><span title="发布于 2026-06-24 10:36:18"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2026-06-24">2026-06-24</time></span>&nbsp;<span title="更新于 2026-06-25 11:33:44"><i class="fa-regular fa-calendar-check me-1" aria-hidden="true"></i><time datetime="2026-06-25">2026-06-25</time></span>&nbsp;<span title="1157 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 1200 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 3 分钟</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>目录</span>
@@ -153,7 +137,8 @@ ETH 主网, 区块高度: 22350004
     <li><a href="#最后">最后</a></li>
   </ul>
 </nav></div>
-      </div><div class="content" id="content"><p>这里看一笔真实的 USDC <code>approve</code> 交易.</p>
+      </div><div class="content" id="content"><p>关于ERC20无限授权</p>
+<p>这里看一笔真实的 USDC <code>approve</code> 交易.</p>
 <p>交易哈希: <code>0x8e0a15886616d1e7bc59c4c398fa3091fa5516a042af69ce44cdd06afe78a582</code></p>
 <p>ETH 主网, 区块高度: <code>22350004</code></p>
 <p>原始 calldata:</p>
@@ -301,7 +286,7 @@ ETH 主网, 区块高度: 22350004
 </div><p>授权一旦写进去, 它就会一直留在那里, 直到被消费或被主动改掉.</p></div><div class="post-footer" id="post-footer">
   <div class="post-info">
     <div class="post-info-line">
-      <div class="post-info-mod"><span title="更新于 2026-06-24 10:36:18">更新于 2026-06-24&nbsp;</span>
+      <div class="post-info-mod"><span title="更新于 2026-06-25 11:33:44">更新于 2026-06-25&nbsp;</span>
       </div><div class="post-info-license">
             <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
           </div></div><div class="post-info-line">
@@ -317,7 +302,7 @@ ETH 主网, 区块高度: 22350004
       </div></div>
 
   <div class="post-info-more">
-    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/tags/defi/" class="post-tag" title="标签 - Defi">Defi</a><a href="/tags/approve/" class="post-tag" title="标签 - Approve">Approve</a><a href="/tags/erc20/" class="post-tag" title="标签 - ERC20">ERC20</a></section>
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/tags/defi/" class="post-tag" title="标签 - DeFi">DeFi</a><a href="/tags/approve/" class="post-tag" title="标签 - Approve">Approve</a><a href="/tags/erc20/" class="post-tag" title="标签 - ERC20">ERC20</a></section>
     <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
     </section>
   </div><div class="post-nav"><a href="/%E5%85%A8%E5%B1%80%E7%B4%AF%E8%AE%A1%E5%A5%96%E5%8A%B1%E6%8C%87%E6%95%B0%E6%A8%A1%E5%9E%8Breward-per-share-accumulator/" class="post-nav-item" rel="prev" title="全局累计奖励指数模型(reward-per-Share-Accumulator)"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>全局累计奖励指数模型(reward-per-Share-Accumulator)</a><a href="/agent-approve-task-boundary/" class="post-nav-item" rel="next" title="Agent 替你签 Approve 时, 少检查了一层">Agent 替你签 Approve 时, 少检查了一层<i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
@@ -342,7 +327,7 @@ ETH 主网, 区块高度: 22350004
 </nav></div>
       </div>
     </dialog></main><footer class="footer">
-    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.163.0"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.2"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.154.5"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.2"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
         </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
             <span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">
               <a href="/"></a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div></div>

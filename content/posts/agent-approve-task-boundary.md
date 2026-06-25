@@ -7,6 +7,10 @@ categories: [security]
 tags: [agent, approve, defi]
 ---
 
+关于 AI AGENT 与 无限授权
+
+<!--more-->
+
 先看一个很小的例子.
 
 用户给 Agent 的任务是: 帮我把 8 USDC 换成 ETH.
@@ -23,7 +27,7 @@ MetaSwap 是一个 DEX 聚合器, 不是一眼假的恶意合约. 这笔交易�
 
 但这里有个问题: 任务需要最多花 8 USDC, 实际授权却是 MetaSwap 可以长期花接近无限的 USDC. 链上看, 这只是一笔正常的 ERC20 `approve`. 从任务角度看, 它给出去的能力明显超过了这次任务需要.
 
-<!--more-->
+
 
 ## calldata 里能看到什么
 

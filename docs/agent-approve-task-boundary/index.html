@@ -5,52 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
     <meta name="robots" content="noodp" />
     <title>Agent 替你签 Approve 时, 少检查了一层 - YINHUI&#39;s BLOG</title><meta name="author" content="yinhui">
-<meta name="description" content="先看一个很小的例子.
-用户给 Agent 的任务是: 帮我把 8 USDC 换成 ETH.
-Agent 最后生成的链上动作是:
-1 approve(MetaSwap, type(uint256).max) 对应一笔 ETH 主网交易: tx = 0x8e0a15886616d1e7bc59c4c398fa3091fa5516a042af69ce44cdd06afe78a582, 区块高度 22350004.
-MetaSwap 是一个 DEX 聚合器, 不是一眼假的恶意合约. 这笔交易也可以正常执行: 签名有效, calldata 合法, token 合约不会 revert, gas 正常消耗.
-但这里有个问题: 任务需要最多花 8 USDC, 实际授权却是 MetaSwap 可以长期花接近无限的 USDC. 链上看, 这只是一笔正常的 ERC20 approve. 从任务角度看, 它给出去的能力明显超过了这次任务需要.
+<meta name="description" content="关于 AI AGENT 与 无限授权
 "><meta name="keywords" content='agent, approve, defi'>
-	<meta itemprop="name" content="Agent 替你签 approve 时, 少检查了一层">
-	<meta itemprop="description" content="先看一个很小的例子.
-用户给 Agent 的任务是: 帮我把 8 USDC 换成 ETH.
-Agent 最后生成的链上动作是:
-1 approve(MetaSwap, type(uint256).max) 对应一笔 ETH 主网交易: tx = 0x8e0a15886616d1e7bc59c4c398fa3091fa5516a042af69ce44cdd06afe78a582, 区块高度 22350004.
-MetaSwap 是一个 DEX 聚合器, 不是一眼假的恶意合约. 这笔交易也可以正常执行: 签名有效, calldata 合法, token 合约不会 revert, gas 正常消耗.
-但这里有个问题: 任务需要最多花 8 USDC, 实际授权却是 MetaSwap 可以长期花接近无限的 USDC. 链上看, 这只是一笔正常的 ERC20 approve. 从任务角度看, 它给出去的能力明显超过了这次任务需要.">
-	<meta itemprop="datePublished" content="2026-06-25T11:29:11+08:00">
-	<meta itemprop="dateModified" content="2026-06-25T11:29:11+08:00">
-	<meta itemprop="wordCount" content="1681">
-	<meta itemprop="image" content="https://yinhui1984.github.io/images/avatar.png">
-	<meta itemprop="keywords" content="Agent,Approve,Defi"><meta property="og:url" content="https://yinhui1984.github.io/agent-approve-task-boundary/">
-	<meta property="og:site_name" content="YINHUI&#39;s BLOG">
-	<meta property="og:title" content="Agent 替你签 approve 时, 少检查了一层">
-	<meta property="og:description" content="先看一个很小的例子.
-用户给 Agent 的任务是: 帮我把 8 USDC 换成 ETH.
-Agent 最后生成的链上动作是:
-1 approve(MetaSwap, type(uint256).max) 对应一笔 ETH 主网交易: tx = 0x8e0a15886616d1e7bc59c4c398fa3091fa5516a042af69ce44cdd06afe78a582, 区块高度 22350004.
-MetaSwap 是一个 DEX 聚合器, 不是一眼假的恶意合约. 这笔交易也可以正常执行: 签名有效, calldata 合法, token 合约不会 revert, gas 正常消耗.
-但这里有个问题: 任务需要最多花 8 USDC, 实际授权却是 MetaSwap 可以长期花接近无限的 USDC. 链上看, 这只是一笔正常的 ERC20 approve. 从任务角度看, 它给出去的能力明显超过了这次任务需要.">
-	<meta property="og:locale" content="zh_CN">
-	<meta property="og:type" content="article">
-		<meta property="article:section" content="posts">
-		<meta property="article:published_time" content="2026-06-25T11:29:11+08:00">
-		<meta property="article:modified_time" content="2026-06-25T11:29:11+08:00">
-		<meta property="article:tag" content="Agent">
-		<meta property="article:tag" content="Approve">
-		<meta property="article:tag" content="Defi">
-		<meta property="og:image" content="https://yinhui1984.github.io/images/avatar.png">
+  <meta itemprop="name" content="Agent 替你签 approve 时, 少检查了一层">
+  <meta itemprop="description" content="关于 AI AGENT 与 无限授权">
+  <meta itemprop="datePublished" content="2026-06-25T11:29:11+08:00">
+  <meta itemprop="dateModified" content="2026-06-25T11:33:44+08:00">
+  <meta itemprop="wordCount" content="1690">
+  <meta itemprop="image" content="https://yinhui1984.github.io/images/avatar.png">
+  <meta itemprop="keywords" content="Agent,Approve,DeFi"><meta property="og:url" content="https://yinhui1984.github.io/agent-approve-task-boundary/">
+  <meta property="og:site_name" content="YINHUI&#39;s BLOG">
+  <meta property="og:title" content="Agent 替你签 approve 时, 少检查了一层">
+  <meta property="og:description" content="关于 AI AGENT 与 无限授权">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-06-25T11:29:11+08:00">
+    <meta property="article:modified_time" content="2026-06-25T11:33:44+08:00">
+    <meta property="article:tag" content="Agent">
+    <meta property="article:tag" content="Approve">
+    <meta property="article:tag" content="DeFi">
+    <meta property="og:image" content="https://yinhui1984.github.io/images/avatar.png">
 
-	<meta name="twitter:card" content="summary_large_image">
-	<meta name="twitter:image" content="https://yinhui1984.github.io/images/avatar.png">
-	<meta name="twitter:title" content="Agent 替你签 approve 时, 少检查了一层">
-	<meta name="twitter:description" content="先看一个很小的例子.
-用户给 Agent 的任务是: 帮我把 8 USDC 换成 ETH.
-Agent 最后生成的链上动作是:
-1 approve(MetaSwap, type(uint256).max) 对应一笔 ETH 主网交易: tx = 0x8e0a15886616d1e7bc59c4c398fa3091fa5516a042af69ce44cdd06afe78a582, 区块高度 22350004.
-MetaSwap 是一个 DEX 聚合器, 不是一眼假的恶意合约. 这笔交易也可以正常执行: 签名有效, calldata 合法, token 合约不会 revert, gas 正常消耗.
-但这里有个问题: 任务需要最多花 8 USDC, 实际授权却是 MetaSwap 可以长期花接近无限的 USDC. 链上看, 这只是一笔正常的 ERC20 approve. 从任务角度看, 它给出去的能力明显超过了这次任务需要.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://yinhui1984.github.io/images/avatar.png">
+  <meta name="twitter:title" content="Agent 替你签 approve 时, 少检查了一层">
+  <meta name="twitter:description" content="关于 AI AGENT 与 无限授权">
 <meta name="application-name" content="YINHUI&#39;s BLOG">
 <meta name="apple-mobile-web-app-title" content="YINHUI&#39;s BLOG"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -65,8 +45,8 @@ MetaSwap 是一个 DEX 聚合器, 不是一眼假的恶意合约. 这笔交易�
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "https:\/\/yinhui1984.github.io\/agent-approve-task-boundary\/"
-    },"image": ["https:\/\/yinhui1984.github.io\/images\/avatar.png"],"genre": "posts","keywords": "agent, approve, defi","wordcount":  1681 ,
-    "url": "https:\/\/yinhui1984.github.io\/agent-approve-task-boundary\/","datePublished": "2026-06-25T11:29:11+08:00","dateModified": "2026-06-25T11:29:11+08:00","publisher": {
+    },"image": ["https:\/\/yinhui1984.github.io\/images\/avatar.png"],"genre": "posts","keywords": "agent, approve, defi","wordcount":  1690 ,
+    "url": "https:\/\/yinhui1984.github.io\/agent-approve-task-boundary\/","datePublished": "2026-06-25T11:29:11+08:00","dateModified": "2026-06-25T11:33:44+08:00","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
         "@type": "Person",
@@ -139,7 +119,7 @@ MetaSwap 是一个 DEX 聚合器, 不是一眼假的恶意合约. 这笔交易�
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Agent 替你签 Approve 时, 少检查了一层</span>
       </h1></div><div class="post-meta">
       <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
-      yinhui</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/security/" class="post-category" title="分类 - Security"><i class="fa-regular fa-folder" aria-hidden="true"></i> Security</a></span></div><div class="post-meta-line"><span title="发布于 2026-06-25 11:29:11"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2026-06-25">2026-06-25</time></span>&nbsp;<span title="1681 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 1700 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 4 分钟</span>&nbsp;</div>
+      yinhui</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/security/" class="post-category" title="分类 - Security"><i class="fa-regular fa-folder" aria-hidden="true"></i> Security</a></span></div><div class="post-meta-line"><span title="发布于 2026-06-25 11:29:11"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2026-06-25">2026-06-25</time></span>&nbsp;<span title="更新于 2026-06-25 11:33:44"><i class="fa-regular fa-calendar-check me-1" aria-hidden="true"></i><time datetime="2026-06-25">2026-06-25</time></span>&nbsp;<span title="1690 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 1700 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 4 分钟</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>目录</span>
@@ -155,7 +135,8 @@ MetaSwap 是一个 DEX 聚合器, 不是一眼假的恶意合约. 这笔交易�
     <li><a href="#可以先做的检查">可以先做的检查</a></li>
   </ul>
 </nav></div>
-      </div><div class="content" id="content"><p>先看一个很小的例子.</p>
+      </div><div class="content" id="content"><p>关于 AI AGENT 与 无限授权</p>
+<p>先看一个很小的例子.</p>
 <p>用户给 Agent 的任务是: 帮我把 8 USDC 换成 ETH.</p>
 <p>Agent 最后生成的链上动作是:</p>
 <div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
@@ -270,7 +251,7 @@ MetaSwap 是一个 DEX 聚合器, 不是一眼假的恶意合约. 这笔交易�
 <p><code>approve</code> 的链上语义只认识 <code>spender</code> 和 <code>amount</code>. Agent 钱包如果要理解任务, 就必须把“用户要做什么”和“calldata 实际授权了什么”放在同一个检查里.</p></div><div class="post-footer" id="post-footer">
   <div class="post-info">
     <div class="post-info-line">
-      <div class="post-info-mod"><span title="更新于 2026-06-25 11:29:11">更新于 2026-06-25&nbsp;</span>
+      <div class="post-info-mod"><span title="更新于 2026-06-25 11:33:44">更新于 2026-06-25&nbsp;</span>
       </div><div class="post-info-license">
             <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
           </div></div><div class="post-info-line">
@@ -286,7 +267,7 @@ MetaSwap 是一个 DEX 聚合器, 不是一眼假的恶意合约. 这笔交易�
       </div></div>
 
   <div class="post-info-more">
-    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/tags/agent/" class="post-tag" title="标签 - Agent">Agent</a><a href="/tags/approve/" class="post-tag" title="标签 - Approve">Approve</a><a href="/tags/defi/" class="post-tag" title="标签 - Defi">Defi</a></section>
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/tags/agent/" class="post-tag" title="标签 - Agent">Agent</a><a href="/tags/approve/" class="post-tag" title="标签 - Approve">Approve</a><a href="/tags/defi/" class="post-tag" title="标签 - DeFi">DeFi</a></section>
     <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
     </section>
   </div><div class="post-nav"><a href="/erc20-approve-allowance/" class="post-nav-item" rel="prev" title="ERC20 Approve 到底授权了什么"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>ERC20 Approve 到底授权了什么</a></div>
@@ -309,7 +290,7 @@ MetaSwap 是一个 DEX 聚合器, 不是一眼假的恶意合约. 这笔交易�
 </nav></div>
       </div>
     </dialog></main><footer class="footer">
-    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.163.0"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.2"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.154.5"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.2"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
         </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
             <span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">
               <a href="/"></a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div></div>

@@ -4,9 +4,9 @@
     <title>Agent - 标签 - YINHUI&#39;s BLOG</title>
     <link>https://yinhui1984.github.io/tags/agent/</link>
     <description>银辉的技术博客 - 专注 Web3 安全、智能合约审计、区块链安全分析、Go语言开发</description>
-    <generator>Hugo 0.163.0 &amp; FixIt v0.4.2</generator>
+    <generator>Hugo 0.154.5 &amp; FixIt v0.4.2</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 25 Jun 2026 11:29:11 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 25 Jun 2026 11:33:44 +0800</lastBuildDate>
     <atom:link href="https://yinhui1984.github.io/tags/agent/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Agent 替你签 approve 时, 少检查了一层</title>
@@ -14,7 +14,7 @@
       <pubDate>Thu, 25 Jun 2026 11:29:11 +0800</pubDate>
       <guid>https://yinhui1984.github.io/agent-approve-task-boundary/</guid>
       <category domain="https://yinhui1984.github.io/categories/security/">Security</category>
-      <description>&lt;p&gt;先看一个很小的例子.&lt;/p&gt;&#xA;&lt;p&gt;用户给 Agent 的任务是: 帮我把 8 USDC 换成 ETH.&lt;/p&gt;&#xA;&lt;p&gt;Agent 最后生成的链上动作是:&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;approve(MetaSwap, type(uint256).max)&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;对应一笔 ETH 主网交易: &lt;code&gt;tx = 0x8e0a15886616d1e7bc59c4c398fa3091fa5516a042af69ce44cdd06afe78a582&lt;/code&gt;, 区块高度 &lt;code&gt;22350004&lt;/code&gt;.&lt;/p&gt;&#xA;&lt;p&gt;MetaSwap 是一个 DEX 聚合器, 不是一眼假的恶意合约. 这笔交易也可以正常执行: 签名有效, calldata 合法, token 合约不会 revert, gas 正常消耗.&lt;/p&gt;&#xA;&lt;p&gt;但这里有个问题: 任务需要最多花 8 USDC, 实际授权却是 MetaSwap 可以长期花接近无限的 USDC. 链上看, 这只是一笔正常的 ERC20 &lt;code&gt;approve&lt;/code&gt;. 从任务角度看, 它给出去的能力明显超过了这次任务需要.&lt;/p&gt;</description>
+      <description>&lt;p&gt;关于 AI AGENT 与 无限授权&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

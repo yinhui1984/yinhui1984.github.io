@@ -1,29 +1,29 @@
 <!DOCTYPE html>
 <html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
   <head>
-	<meta name="generator" content="Hugo 0.163.0">
+	<meta name="generator" content="Hugo 0.154.5">
     <meta name="theme" content='FixIt v0.4.2'>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
     <meta name="robots" content="noodp" />
     <title>YINHUI&#39;s BLOG</title><meta name="author" content="">
 <meta name="description" content="银辉的技术博客 - 专注 Web3 安全、智能合约审计、区块链安全分析、Go语言开发"><meta name="keywords" content='Web3安全, Web3 Security, 区块链安全, Blockchain Security, 智能合约安全, Smart Contract Security, 智能合约审计, Smart Contract Audit, Solidity, Ethereum, EVM, DeFi安全, DeFi Security, Go语言, Golang, 技术博客, Tech Blog, 安全分析, Security Analysis, 漏洞分析, Vulnerability Analysis, 智能合约漏洞, Smart Contract Vulnerability, 攻击案例分析, Attack Case Analysis'>
-	<meta itemprop="name" content="YINHUI&#39;s BLOG">
-	<meta itemprop="description" content="银辉的技术博客 - 专注 Web3 安全、智能合约审计、区块链安全分析、Go语言开发">
-	<meta itemprop="datePublished" content="2026-06-25T11:29:11+08:00">
-	<meta itemprop="dateModified" content="2026-06-25T11:29:11+08:00">
-	<meta itemprop="image" content="https://yinhui1984.github.io/images/avatar.png"><meta property="og:url" content="https://yinhui1984.github.io/">
-	<meta property="og:site_name" content="YINHUI&#39;s BLOG">
-	<meta property="og:title" content="YINHUI&#39;s BLOG">
-	<meta property="og:description" content="银辉的技术博客 - 专注 Web3 安全、智能合约审计、区块链安全分析、Go语言开发">
-	<meta property="og:locale" content="zh_CN">
-	<meta property="og:type" content="website">
-		<meta property="og:image" content="https://yinhui1984.github.io/images/avatar.png">
+  <meta itemprop="name" content="YINHUI&#39;s BLOG">
+  <meta itemprop="description" content="银辉的技术博客 - 专注 Web3 安全、智能合约审计、区块链安全分析、Go语言开发">
+  <meta itemprop="datePublished" content="2026-06-25T11:29:11+08:00">
+  <meta itemprop="dateModified" content="2026-06-25T11:33:44+08:00">
+  <meta itemprop="image" content="https://yinhui1984.github.io/images/avatar.png"><meta property="og:url" content="https://yinhui1984.github.io/">
+  <meta property="og:site_name" content="YINHUI&#39;s BLOG">
+  <meta property="og:title" content="YINHUI&#39;s BLOG">
+  <meta property="og:description" content="银辉的技术博客 - 专注 Web3 安全、智能合约审计、区块链安全分析、Go语言开发">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="website">
+    <meta property="og:image" content="https://yinhui1984.github.io/images/avatar.png">
 
-	<meta name="twitter:card" content="summary_large_image">
-	<meta name="twitter:image" content="https://yinhui1984.github.io/images/avatar.png">
-	<meta name="twitter:title" content="YINHUI&#39;s BLOG">
-	<meta name="twitter:description" content="银辉的技术博客 - 专注 Web3 安全、智能合约审计、区块链安全分析、Go语言开发">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://yinhui1984.github.io/images/avatar.png">
+  <meta name="twitter:title" content="YINHUI&#39;s BLOG">
+  <meta name="twitter:description" content="银辉的技术博客 - 专注 Web3 安全、智能合约审计、区块链安全分析、Go语言开发">
 <meta name="application-name" content="YINHUI&#39;s BLOG">
 <meta name="apple-mobile-web-app-title" content="YINHUI&#39;s BLOG"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -100,39 +100,16 @@
     </a></div></div>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><h2 class="single-title" itemprop="name headline"><a href="/agent-approve-task-boundary/">Agent 替你签 Approve 时, 少检查了一层</a>
   </h2><div class="post-meta"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
-      yinhui</span></span>&nbsp;<span class="post-publish" title='2026-06-25 11:29:11'>发布于 <time datetime="2026-06-25">2026-06-25</time></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/security/" class="post-category" title="分类 - Security"><i class="fa-regular fa-folder" aria-hidden="true"></i> Security</a></span></div><div class="content"><p>先看一个很小的例子.</p>
-<p>用户给 Agent 的任务是: 帮我把 8 USDC 换成 ETH.</p>
-<p>Agent 最后生成的链上动作是:</p>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-text"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">approve(MetaSwap, type(uint256).max)</span></span></code></pre></td></tr></table></div>
-</div>
-</div><p>对应一笔 ETH 主网交易: <code>tx = 0x8e0a15886616d1e7bc59c4c398fa3091fa5516a042af69ce44cdd06afe78a582</code>, 区块高度 <code>22350004</code>.</p>
-<p>MetaSwap 是一个 DEX 聚合器, 不是一眼假的恶意合约. 这笔交易也可以正常执行: 签名有效, calldata 合法, token 合约不会 revert, gas 正常消耗.</p>
-<p>但这里有个问题: 任务需要最多花 8 USDC, 实际授权却是 MetaSwap 可以长期花接近无限的 USDC. 链上看, 这只是一笔正常的 ERC20 <code>approve</code>. 从任务角度看, 它给出去的能力明显超过了这次任务需要.</p></div><div class="post-footer">
-    <a href="/agent-approve-task-boundary/">阅读全文</a><div class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href='/tags/agent/' class="post-tag">Agent</a><a href='/tags/approve/' class="post-tag">Approve</a><a href='/tags/defi/' class="post-tag">Defi</a></div></div>
+      yinhui</span></span>&nbsp;<span class="post-publish" title='2026-06-25 11:29:11'>发布于 <time datetime="2026-06-25">2026-06-25</time></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/security/" class="post-category" title="分类 - Security"><i class="fa-regular fa-folder" aria-hidden="true"></i> Security</a></span></div><div class="content"><p>关于 AI AGENT 与 无限授权</p></div><div class="post-footer">
+    <a href="/agent-approve-task-boundary/">阅读全文</a><div class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href='/tags/agent/' class="post-tag">Agent</a><a href='/tags/approve/' class="post-tag">Approve</a><a href='/tags/defi/' class="post-tag">DeFi</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h2 class="single-title" itemprop="name headline"><a href="/erc20-approve-allowance/">ERC20 Approve 到底授权了什么</a>
   </h2><div class="post-meta"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
-      yinhui</span></span>&nbsp;<span class="post-publish" title='2026-06-24 10:36:18'>发布于 <time datetime="2026-06-24">2026-06-24</time></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/security/" class="post-category" title="分类 - Security"><i class="fa-regular fa-folder" aria-hidden="true"></i> Security</a></span></div><div class="content"><p>这里看一笔真实的 USDC <code>approve</code> 交易.</p>
-<p>交易哈希: <code>0x8e0a15886616d1e7bc59c4c398fa3091fa5516a042af69ce44cdd06afe78a582</code></p>
-<p>ETH 主网, 区块高度: <code>22350004</code></p>
-<p>原始 calldata:</p>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-text"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">0x095ea7b3000000000000000000000000881d40237659c251811cec9c364ef91dc08d300cffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</span></span></code></pre></td></tr></table></div>
-</div>
-</div><p>这笔交易做的事情很简单: 调用 USDC 合约的 <code>approve(address,uint256)</code>. 但 <code>approve</code> 容易被误解, 因为它不是转账, 而是给另一个地址一个后续转账的权限.</p></div><div class="post-footer">
-    <a href="/erc20-approve-allowance/">阅读全文</a><div class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href='/tags/defi/' class="post-tag">Defi</a><a href='/tags/approve/' class="post-tag">Approve</a><a href='/tags/erc20/' class="post-tag">ERC20</a></div></div>
+      yinhui</span></span>&nbsp;<span class="post-publish" title='2026-06-24 10:36:18'>发布于 <time datetime="2026-06-24">2026-06-24</time></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/security/" class="post-category" title="分类 - Security"><i class="fa-regular fa-folder" aria-hidden="true"></i> Security</a></span></div><div class="content"><p>关于ERC20无限授权</p></div><div class="post-footer">
+    <a href="/erc20-approve-allowance/">阅读全文</a><div class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href='/tags/defi/' class="post-tag">DeFi</a><a href='/tags/approve/' class="post-tag">Approve</a><a href='/tags/erc20/' class="post-tag">ERC20</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h2 class="single-title" itemprop="name headline"><a href="/%E5%85%A8%E5%B1%80%E7%B4%AF%E8%AE%A1%E5%A5%96%E5%8A%B1%E6%8C%87%E6%95%B0%E6%A8%A1%E5%9E%8Breward-per-share-accumulator/">全局累计奖励指数模型(reward-per-Share-Accumulator)</a>
   </h2><div class="post-meta"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
       yinhui</span></span>&nbsp;<span class="post-publish" title='2026-06-02 16:54:18'>发布于 <time datetime="2026-06-02">2026-06-02</time></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/blockchain/" class="post-category" title="分类 - Blockchain"><i class="fa-regular fa-folder" aria-hidden="true"></i> Blockchain</a></span></div><div class="content"><p>about <a href="https://batog.info/papers/scalable-reward-distribution.pdf" target="_blank" rel="external nofollow noopener noreferrer">Scalable Reward Distribution on the Ethereum Blockchain</a> and more&hellip;</p></div><div class="post-footer">
-    <a href="/%E5%85%A8%E5%B1%80%E7%B4%AF%E8%AE%A1%E5%A5%96%E5%8A%B1%E6%8C%87%E6%95%B0%E6%A8%A1%E5%9E%8Breward-per-share-accumulator/">阅读全文</a><div class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href='/tags/defi/' class="post-tag">Defi</a><a href='/tags/solidity/' class="post-tag">Solidity</a><a href='/tags/web3.0/' class="post-tag">Web3.0</a></div></div>
+    <a href="/%E5%85%A8%E5%B1%80%E7%B4%AF%E8%AE%A1%E5%A5%96%E5%8A%B1%E6%8C%87%E6%95%B0%E6%A8%A1%E5%9E%8Breward-per-share-accumulator/">阅读全文</a><div class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href='/tags/defi/' class="post-tag">DeFi</a><a href='/tags/solidity/' class="post-tag">Solidity</a><a href='/tags/web3.0/' class="post-tag">Web3.0</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h2 class="single-title" itemprop="name headline"><a href="/truffle_foundry_together/">在一个项目中同时使用Truffle和Foundry</a>
   </h2><div class="post-meta"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
       yinhui</span></span>&nbsp;<span class="post-publish" title='2023-06-09 13:35:50'>发布于 <time datetime="2023-06-09">2023-06-09</time></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/blockchain/" class="post-category" title="分类 - Blockchain"><i class="fa-regular fa-folder" aria-hidden="true"></i> Blockchain</a></span></div><div class="content"><p>foundry套件有很棒的功能，比如一堆作弊码可以快速验证自己的想法，可以给地址打标签以及trace。truffle可以向GDB一样debug源代码的功能又太爽了，所有想把两者融合在同一个项目中。</p></div><div class="post-footer">
@@ -140,11 +117,11 @@
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h2 class="single-title" itemprop="name headline"><a href="/binance-bgeo-attack-analysis/">Binance BGEO Attack Analysis</a>
   </h2><div class="post-meta"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
       yinhui</span></span>&nbsp;<span class="post-publish" title='2023-04-28 08:43:45'>发布于 <time datetime="2023-04-28">2023-04-28</time></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/security/" class="post-category" title="分类 - Security"><i class="fa-regular fa-folder" aria-hidden="true"></i> Security</a></span></div><div class="content"><p>参数检查不严格的锅</p></div><div class="post-footer">
-    <a href="/binance-bgeo-attack-analysis/">阅读全文</a><div class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href='/tags/defi/' class="post-tag">Defi</a></div></div>
+    <a href="/binance-bgeo-attack-analysis/">阅读全文</a><div class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href='/tags/defi/' class="post-tag">DeFi</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h2 class="single-title" itemprop="name headline"><a href="/healthtoken-attack-analysic/">HealthToken 攻击案例分析</a>
   </h2><div class="post-meta"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
       yinhui</span></span>&nbsp;<span class="post-publish" title='2023-04-27 13:08:06'>发布于 <time datetime="2023-04-27">2023-04-27</time></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/security/" class="post-category" title="分类 - Security"><i class="fa-regular fa-folder" aria-hidden="true"></i> Security</a></span></div><div class="content"><p>HEALTH Token 攻击案例分析</p></div><div class="post-footer">
-    <a href="/healthtoken-attack-analysic/">阅读全文</a><div class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href='/tags/defi/' class="post-tag">Defi</a></div></div>
+    <a href="/healthtoken-attack-analysic/">阅读全文</a><div class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href='/tags/defi/' class="post-tag">DeFi</a></div></div>
 </article><ul class="pagination"><li class="page-item active">
           <span class="page-link">
             <a href="/">1</a>
@@ -164,7 +141,7 @@
             <a href="/page/5/">5</a>
           </span>
         </li></ul></div></main><footer class="footer">
-    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.163.0"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.2"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.154.5"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.2"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
         </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
             <span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">
               <a href="/"></a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div></div>
