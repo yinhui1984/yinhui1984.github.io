@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Agent 替你签 Approve 时, 少检查了一层 - YINHUI&#39;s BLOG</title><meta name="author" content="yinhui">
+<meta name="description" content="先看一个很小的例子.
+用户给 Agent 的任务是: 帮我把 8 USDC 换成 ETH.
+Agent 最后生成的链上动作是:
+1 approve(MetaSwap, type(uint256).max) 对应一笔 ETH 主网交易: tx = 0x8e0a15886616d1e7bc59c4c398fa3091fa5516a042af69ce44cdd06afe78a582, 区块高度 22350004.
+MetaSwap 是一个 DEX 聚合器, 不是一眼假的恶意合约. 这笔交易也可以正常执行: 签名有效, calldata 合法, token 合约不会 revert, gas 正常消耗.
+但这里有个问题: 任务需要最多花 8 USDC, 实际授权却是 MetaSwap 可以长期花接近无限的 USDC. 链上看, 这只是一笔正常的 ERC20 approve. 从任务角度看, 它给出去的能力明显超过了这次任务需要.
+"><meta name="keywords" content='agent, approve, defi'>
+	<meta itemprop="name" content="Agent 替你签 approve 时, 少检查了一层">
+	<meta itemprop="description" content="先看一个很小的例子.
+用户给 Agent 的任务是: 帮我把 8 USDC 换成 ETH.
+Agent 最后生成的链上动作是:
+1 approve(MetaSwap, type(uint256).max) 对应一笔 ETH 主网交易: tx = 0x8e0a15886616d1e7bc59c4c398fa3091fa5516a042af69ce44cdd06afe78a582, 区块高度 22350004.
+MetaSwap 是一个 DEX 聚合器, 不是一眼假的恶意合约. 这笔交易也可以正常执行: 签名有效, calldata 合法, token 合约不会 revert, gas 正常消耗.
+但这里有个问题: 任务需要最多花 8 USDC, 实际授权却是 MetaSwap 可以长期花接近无限的 USDC. 链上看, 这只是一笔正常的 ERC20 approve. 从任务角度看, 它给出去的能力明显超过了这次任务需要.">
+	<meta itemprop="datePublished" content="2026-06-25T11:29:11+08:00">
+	<meta itemprop="dateModified" content="2026-06-25T11:29:11+08:00">
+	<meta itemprop="wordCount" content="1681">
+	<meta itemprop="image" content="https://yinhui1984.github.io/images/avatar.png">
+	<meta itemprop="keywords" content="Agent,Approve,Defi"><meta property="og:url" content="https://yinhui1984.github.io/agent-approve-task-boundary/">
+	<meta property="og:site_name" content="YINHUI&#39;s BLOG">
+	<meta property="og:title" content="Agent 替你签 approve 时, 少检查了一层">
+	<meta property="og:description" content="先看一个很小的例子.
+用户给 Agent 的任务是: 帮我把 8 USDC 换成 ETH.
+Agent 最后生成的链上动作是:
+1 approve(MetaSwap, type(uint256).max) 对应一笔 ETH 主网交易: tx = 0x8e0a15886616d1e7bc59c4c398fa3091fa5516a042af69ce44cdd06afe78a582, 区块高度 22350004.
+MetaSwap 是一个 DEX 聚合器, 不是一眼假的恶意合约. 这笔交易也可以正常执行: 签名有效, calldata 合法, token 合约不会 revert, gas 正常消耗.
+但这里有个问题: 任务需要最多花 8 USDC, 实际授权却是 MetaSwap 可以长期花接近无限的 USDC. 链上看, 这只是一笔正常的 ERC20 approve. 从任务角度看, 它给出去的能力明显超过了这次任务需要.">
+	<meta property="og:locale" content="zh_CN">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="posts">
+		<meta property="article:published_time" content="2026-06-25T11:29:11+08:00">
+		<meta property="article:modified_time" content="2026-06-25T11:29:11+08:00">
+		<meta property="article:tag" content="Agent">
+		<meta property="article:tag" content="Approve">
+		<meta property="article:tag" content="Defi">
+		<meta property="og:image" content="https://yinhui1984.github.io/images/avatar.png">
+
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:image" content="https://yinhui1984.github.io/images/avatar.png">
+	<meta name="twitter:title" content="Agent 替你签 approve 时, 少检查了一层">
+	<meta name="twitter:description" content="先看一个很小的例子.
+用户给 Agent 的任务是: 帮我把 8 USDC 换成 ETH.
+Agent 最后生成的链上动作是:
+1 approve(MetaSwap, type(uint256).max) 对应一笔 ETH 主网交易: tx = 0x8e0a15886616d1e7bc59c4c398fa3091fa5516a042af69ce44cdd06afe78a582, 区块高度 22350004.
+MetaSwap 是一个 DEX 聚合器, 不是一眼假的恶意合约. 这笔交易也可以正常执行: 签名有效, calldata 合法, token 合约不会 revert, gas 正常消耗.
+但这里有个问题: 任务需要最多花 8 USDC, 实际授权却是 MetaSwap 可以长期花接近无限的 USDC. 链上看, 这只是一笔正常的 ERC20 approve. 从任务角度看, 它给出去的能力明显超过了这次任务需要.">
+<meta name="application-name" content="YINHUI&#39;s BLOG">
+<meta name="apple-mobile-web-app-title" content="YINHUI&#39;s BLOG"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://yinhui1984.github.io/agent-approve-task-boundary/" title="Agent 替你签 approve 时, 少检查了一层 - YINHUI&#39;s BLOG" /><link rel="prev" type="text/html" href="https://yinhui1984.github.io/erc20-approve-allowance/" title="ERC20 approve 到底授权了什么" /><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Agent 替你签 approve 时, 少检查了一层",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/yinhui1984.github.io\/agent-approve-task-boundary\/"
+    },"image": ["https:\/\/yinhui1984.github.io\/images\/avatar.png"],"genre": "posts","keywords": "agent, approve, defi","wordcount":  1681 ,
+    "url": "https:\/\/yinhui1984.github.io\/agent-approve-task-boundary\/","datePublished": "2026-06-25T11:29:11+08:00","dateModified": "2026-06-25T11:29:11+08:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "yinhui"
+      },"description": ""
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="fixed" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="YINHUI&#39;s BLOG"><span class="header-title-text">YINHUI&#39;s BLOG</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="/categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="/">首页</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="YINHUI&#39;s BLOG"><span class="header-title-text">YINHUI&#39;s BLOG</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="/tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="/categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="/">首页</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Agent 替你签 Approve 时, 少检查了一层</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+      yinhui</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/security/" class="post-category" title="分类 - Security"><i class="fa-regular fa-folder" aria-hidden="true"></i> Security</a></span></div><div class="post-meta-line"><span title="发布于 2026-06-25 11:29:11"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2026-06-25">2026-06-25</time></span>&nbsp;<span title="1681 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 1700 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 4 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#calldata-里能看到什么">calldata 里能看到什么</a></li>
+    <li><a href="#现有检查大多在看能不能执行">现有检查大多在看能不能执行</a></li>
+    <li><a href="#少掉的是任务边界">少掉的是任务边界</a></li>
+    <li><a href="#为什么-agent-场景更明显">为什么 Agent 场景更明显</a></li>
+    <li><a href="#vscode-插件这个类比">VSCode 插件这个类比</a></li>
+    <li><a href="#可以先做的检查">可以先做的检查</a></li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><p>先看一个很小的例子.</p>
+<p>用户给 Agent 的任务是: 帮我把 8 USDC 换成 ETH.</p>
+<p>Agent 最后生成的链上动作是:</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-text"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">approve(MetaSwap, type(uint256).max)</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>对应一笔 ETH 主网交易: <code>tx = 0x8e0a15886616d1e7bc59c4c398fa3091fa5516a042af69ce44cdd06afe78a582</code>, 区块高度 <code>22350004</code>.</p>
+<p>MetaSwap 是一个 DEX 聚合器, 不是一眼假的恶意合约. 这笔交易也可以正常执行: 签名有效, calldata 合法, token 合约不会 revert, gas 正常消耗.</p>
+<p>但这里有个问题: 任务需要最多花 8 USDC, 实际授权却是 MetaSwap 可以长期花接近无限的 USDC. 链上看, 这只是一笔正常的 ERC20 <code>approve</code>. 从任务角度看, 它给出去的能力明显超过了这次任务需要.</p>
+<h2 class="heading-element" id="calldata-里能看到什么"><span>calldata 里能看到什么</span>
+  <a href="#calldata-%e9%87%8c%e8%83%bd%e7%9c%8b%e5%88%b0%e4%bb%80%e4%b9%88" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><code>approve</code> 的 ABI 是:</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">approve</span><span class="p">(</span><span class="kt">address</span> <span class="n">spender</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">);</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>这类交易最少要拆两个字段: <code>spender = 0x881D40237659C251811CEC9c364ef91dC08D300C</code>, <code>amount = 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</code>.</p>
+<p><code>spender</code> 决定谁可以调用 <code>transferFrom</code> 花用户的 USDC. <code>amount</code> 决定它最多可以花多少.</p>
+<p>如果 Agent 的任务只是 swap 8 USDC, 那更贴近任务边界的授权应该类似 <code>approve(MetaSwap, 8 USDC)</code>, 或者稍微留一点 slippage / fee buffer, 但也应该有一个明确上限.</p>
+<p><code>type(uint256).max</code> 的问题不是语法错误. 它完全合法. 问题是它把一次任务需要的额度, 变成了一个长期、近似无限的 allowance.</p>
+<h2 class="heading-element" id="现有检查大多在看能不能执行"><span>现有检查大多在看能不能执行</span>
+  <a href="#%e7%8e%b0%e6%9c%89%e6%a3%80%e6%9f%a5%e5%a4%a7%e5%a4%9a%e5%9c%a8%e7%9c%8b%e8%83%bd%e4%b8%8d%e8%83%bd%e6%89%a7%e8%a1%8c" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>现在 agent wallet / agent runtime 相关的防线, 大多可以回答这些问题: 这个 agent 是谁, 这个 tool 有没有注册, spender 合约是不是已知恶意地址, 交易 simulation 会不会失败, 交易有没有符合用户设置的每日限额或白名单, 输入在传给执行层之前有没有被篡改.</p>
+<p>这些都很有用.</p>
+<p>比如相关 ERC 草案和产品方向里, 已经可以看到几类基础设施:</p>
+<ul>
+<li><code>ERC-8257</code>: Agent Tool Registry, 给 agent tool 做链上注册</li>
+<li><code>ERC-8239</code>: Agent Skill Registry, 描述 agent 能力</li>
+<li><code>ERC-8004</code>: Trustless Agents, 处理 agent 身份、声誉、验证</li>
+<li><code>ERC-8195</code>: Task Market Protocol, 让人、agent、IoT 都可以接任务</li>
+<li><code>ERC-8183</code>: Agentic Commerce, 做托管、交付和结算</li>
+</ul>
+<p>产品侧也开始出现 agent wallet. MetaMask 在 2026 年 6 月开放 Agent Wallet early access, 让 AI agent 在用户定义的规则里做链上交易, 并经过 simulation、threat scanning、MEV protection 等检查. GoPlus 的 AgentGuard 也在做 AI agent runtime security.</p>
+<p>这些检查能拦很多东西. 但回到刚才那笔 <code>approve</code>, 它们可能都会通过: agent 身份合法, tool 合法, spender 未被标记为恶意, 交易 simulation 成功, 签名有效, 输入没有被篡改. 然后无限授权还是签出去了.</p>
+<h2 class="heading-element" id="少掉的是任务边界"><span>少掉的是任务边界</span>
+  <a href="#%e5%b0%91%e6%8e%89%e7%9a%84%e6%98%af%e4%bb%bb%e5%8a%a1%e8%be%b9%e7%95%8c" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>这里缺的不是又一个“这个地址是不是坏人”的检查.</p>
+<p>缺的是:</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-text"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">granted capability &lt;= task requirement</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>也就是实际授予的能力, 不能超过完成任务需要的能力. 可以把它叫做 Authorization Surplus:</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-text"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Authorization Surplus = 授予的能力 - 完成任务所需的能力</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>放到这笔交易里, 完成任务所需是花 8 USDC, 实际授予能力是 spender 可长期花接近无限 USDC, Authorization Surplus 近似无限.</p>
+<p>所以问题不是 agent 一定会偷钱. 更具体一点: 一个合法 agent 调用了合法 tool, 生成了一笔合法交易, 但这笔交易的权限范围超过了用户这次任务.</p>
+<p>这在 EVM 语义里不会报错. ERC20 只关心 owner 是否签了名, spender 和 amount 是否写进 allowance. 它不知道用户原始任务是“换 8 USDC”, 还是“长期授权这个 router”.</p>
+<h2 class="heading-element" id="为什么-agent-场景更明显"><span>为什么 Agent 场景更明显</span>
+  <a href="#%e4%b8%ba%e4%bb%80%e4%b9%88-agent-%e5%9c%ba%e6%99%af%e6%9b%b4%e6%98%8e%e6%98%be" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>人自己操作 DeFi 的时候, 也经常签无限授权.</p>
+<p>区别是, 人至少知道自己在点钱包弹窗, 虽然多数时候也不会读 calldata. Agent 场景里, 用户给的是自然语言任务, 中间会多一层规划和工具调用:</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-text"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">用户任务 -&gt; Agent plan -&gt; tool call -&gt; calldata -&gt; wallet policy -&gt; chain</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>如果 wallet policy 只看最后的 calldata, 它能看到 <code>approve(spender, amount)</code>, 但它不一定知道这个 <code>amount</code> 和用户原始任务之间的关系.</p>
+<p>这里就是任务边界检查的位置: 它要把原始任务里的上限, 带到交易检查里.</p>
+<p>比如 task token 是 USDC, task amount 是 8, tx function 是 <code>approve</code>, tx spender 是 MetaSwap, tx amount 是 <code>type(uint256).max</code>. 这时候策略引擎应该能说: approve amount 明显超过 task amount. 然后要求缩小额度, 或者让用户显式确认“我就是要给长期无限授权”.</p>
+<h2 class="heading-element" id="vscode-插件这个类比"><span>VSCode 插件这个类比</span>
+  <a href="#vscode-%e6%8f%92%e4%bb%b6%e8%bf%99%e4%b8%aa%e7%b1%bb%e6%af%94" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>这个问题有点像 VSCode 插件市场.</p>
+<p>你装一个插件, 可能只是想要一个小功能. 但插件拿到的权限可能是文件系统、网络、终端. 用户意图很小, 实际权限很大.</p>
+<p>Web3 agent 也是类似结构. 用户给的是一个小任务: 帮我 swap 一次. Agent 可能申请到一个更大的权限: 允许某个 spender 长期划走我的 token.</p>
+<p>区别是, Web3 这里动的是链上资产, 而且授权状态直接存在 token 合约的 <code>_allowances</code> 里. 只要没 revoke, 它就还在.</p>
+<h2 class="heading-element" id="可以先做的检查"><span>可以先做的检查</span>
+  <a href="#%e5%8f%af%e4%bb%a5%e5%85%88%e5%81%9a%e7%9a%84%e6%a3%80%e6%9f%a5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>如果要把任务边界放进 wallet / agent policy, 最小实现不需要很玄.</p>
+<p>第一步, decode calldata, 拿到 <code>function = approve(address,uint256)</code>, <code>spender</code>, <code>amount</code>.</p>
+<p>第二步, 从任务里抽出 token 和额度上限, 比如 <code>task = swap 8 USDC to ETH</code>, 那么 <code>max_input = 8 USDC</code>.</p>
+<p>第三步, 比较授权: <code>approve.amount &lt;= max_input + buffer</code>.</p>
+<p>第四步, 如果必须临时放大额度, 要把原因暴露出来, 并在任务结束后自动 revoke:</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="n">approve</span><span class="p">(</span><span class="n">spender</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>这里的关键不是某个具体 ERC 名字, 而是检查对象变了.</p>
+<p>以前很多检查在问: agent 是否可信, spender 是否恶意, 交易是否能成功.</p>
+<p>这里要多问一句: 这笔授权是否超过本次任务需要?</p>
+<p><code>approve</code> 的链上语义只认识 <code>spender</code> 和 <code>amount</code>. Agent 钱包如果要理解任务, 就必须把“用户要做什么”和“calldata 实际授权了什么”放在同一个检查里.</p></div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2026-06-25 11:29:11">更新于 2026-06-25&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://yinhui1984.github.io/agent-approve-task-boundary/" data-title="Agent 替你签 Approve 时, 少检查了一层" data-hashtags="agent,approve,defi"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://yinhui1984.github.io/agent-approve-task-boundary/" data-hashtag="agent"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://yinhui1984.github.io/agent-approve-task-boundary/" data-title="Agent 替你签 Approve 时, 少检查了一层"><i class="fa-brands fa-hacker-news" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://yinhui1984.github.io/agent-approve-task-boundary/" data-title="Agent 替你签 Approve 时, 少检查了一层"><svg class="icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>LINE</title><path d="M19.365 9.863c.349.0.63.285.63.631.0.345-.281.63-.63.63H17.61v1.125h1.755c.349.0.63.283.63.63.0.344-.281.629-.63.629h-2.386c-.345.0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346.0.627.285.627.63.0.349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211.0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346.0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195.0.375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345.0.63.285.63.63v4.771zm-5.741.0c0 .344-.282.629-.631.629-.345.0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346.0.628.285.628.63v4.771zm-2.466.629H4.917c-.345.0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348.0.63.285.63.63v4.141h1.756c.348.0.629.283.629.63.0.344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943.0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://yinhui1984.github.io/agent-approve-task-boundary/" data-title="Agent 替你签 Approve 时, 少检查了一层"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
+        </div>
+      </div></div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/tags/agent/" class="post-tag" title="标签 - Agent">Agent</a><a href="/tags/approve/" class="post-tag" title="标签 - Approve">Approve</a><a href="/tags/defi/" class="post-tag" title="标签 - Defi">Defi</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="/erc20-approve-allowance/" class="post-nav-item" rel="prev" title="ERC20 Approve 到底授权了什么"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>ERC20 Approve 到底授权了什么</a></div>
+</div>
+</article>
+
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content always-active" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#calldata-里能看到什么">calldata 里能看到什么</a></li>
+    <li><a href="#现有检查大多在看能不能执行">现有检查大多在看能不能执行</a></li>
+    <li><a href="#少掉的是任务边界">少掉的是任务边界</a></li>
+    <li><a href="#为什么-agent-场景更明显">为什么 Agent 场景更明显</a></li>
+    <li><a href="#vscode-插件这个类比">VSCode 插件这个类比</a></li>
+    <li><a href="#可以先做的检查">可以先做的检查</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.163.0"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.2"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="/"></a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="目录"><i class="fa-solid fa-bars" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/js/config/8d812ff0e1aef17b2e4f5b847ccd5674.js" defer></script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+</html>

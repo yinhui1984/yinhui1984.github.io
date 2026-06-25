@@ -4,9 +4,9 @@
     <title>Web3.0 - 标签 - YINHUI&#39;s BLOG</title>
     <link>https://yinhui1984.github.io/tags/web3.0/</link>
     <description>银辉的技术博客 - 专注 Web3 安全、智能合约审计、区块链安全分析、Go语言开发</description>
-    <generator>Hugo 0.154.5 &amp; FixIt v0.4.2</generator>
+    <generator>Hugo 0.163.0 &amp; FixIt v0.4.2</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 02 Jun 2026 17:01:30 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 02 Jun 2026 17:04:12 +0800</lastBuildDate>
     <atom:link href="https://yinhui1984.github.io/tags/web3.0/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>全局累计奖励指数模型(reward-per-share-accumulator)</title>
