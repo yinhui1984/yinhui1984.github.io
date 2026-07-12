@@ -6,7 +6,7 @@
     <description>银辉的技术博客 - 专注 Web3 安全、智能合约审计、区块链安全分析、Go语言开发</description>
     <generator>Hugo 0.154.5 &amp; FixIt v0.4.2</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 25 Jun 2026 11:33:44 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 25 Jun 2026 11:39:15 +0800</lastBuildDate>
     <atom:link href="https://yinhui1984.github.io/tags/approve/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Agent 替你签 approve 时, 少检查了一层</title>
