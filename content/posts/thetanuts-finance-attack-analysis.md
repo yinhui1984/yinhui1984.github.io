@@ -1,7 +1,7 @@
 ---
 title: "Thetanuts Finance Attack Analysis"
-date: 2026-07-13T07:28:48+08:00
-draft: true
+date: 2026-07-13T07:47:15+08:00
+draft: false
 author: yinhui
 categories: ["security"]
 tags: ["DeFi", "attack", "security"]

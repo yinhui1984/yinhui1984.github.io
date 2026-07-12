@@ -6,8 +6,16 @@
     <description>银辉的技术博客 - 专注 Web3 安全、智能合约审计、区块链安全分析、Go语言开发</description>
     <generator>Hugo 0.154.5 &amp; FixIt v0.4.2</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 25 Jun 2026 11:39:15 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 13 Jul 2026 07:32:56 +0800</lastBuildDate>
     <atom:link href="https://yinhui1984.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Thetanuts Finance Attack Analysis</title>
+      <link>https://yinhui1984.github.io/thetanuts-finance-attack-analysis/</link>
+      <pubDate>Mon, 13 Jul 2026 07:47:15 +0800</pubDate>
+      <guid>https://yinhui1984.github.io/thetanuts-finance-attack-analysis/</guid>
+      <category domain="https://yinhui1984.github.io/categories/security/">Security</category>
+      <description>&lt;p&gt;&lt;a href=&#34;https://x.com/ThetanutsFi&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;@ThetanutsFi&lt;/a&gt;旧版指数金库漏洞被利用 黑客获利约 10W USDC&lt;/p&gt;&#xA;&lt;p&gt;本文全部采用正向推理, 而不是通过TX反向验证. 所以内容较长.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Agent 替你签 approve 时, 少检查了一层</title>
       <link>https://yinhui1984.github.io/agent-approve-task-boundary/</link>
