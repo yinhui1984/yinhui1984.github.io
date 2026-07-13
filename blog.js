@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const https = require('https');
 const { execFileSync, execSync, spawn, spawnSync } = require('child_process');
 const inquirer = require('inquirer');
 const chalk = require('chalk');
@@ -572,32 +573,24 @@ async function previewDrafts() {
   });
 }
 
-async function promoteDraft() {
-  showTitle('草稿转正式文章');
-  const drafts = getPosts().filter((post) => post.draft);
-  if (!drafts.length) {
-    console.log(chalk.yellow('没有草稿。'));
-    return;
-  }
-
-  const post = await choosePost(drafts, '选择要转为正式文章的草稿:');
+async function promotePost(post) {
   const answers = await inquirer.prompt([
     {
       type: 'input',
       name: 'categories',
-      message: '正式分类，逗号分隔:',
+      message: `"${post.title}" 正式分类，逗号分隔:`,
       default: post.categories.filter((item) => item.toLowerCase() !== 'draft').join(', ') || 'Blockchain'
     },
     {
       type: 'input',
       name: 'tags',
-      message: '正式标签，逗号分隔:',
+      message: `"${post.title}" 正式标签，逗号分隔:`,
       default: post.tags.filter((item) => item.toLowerCase() !== 'draft').join(', ') || 'Web3.0'
     },
     {
       type: 'confirm',
       name: 'updateDate',
-      message: '将发布时间更新为现在?',
+      message: `将 "${post.title}" 的发布时间更新为现在?`,
       default: true
     },
     {
@@ -609,8 +602,8 @@ async function promoteDraft() {
   ]);
 
   if (!answers.confirm) {
-    console.log(chalk.yellow('已取消。'));
-    return;
+    console.log(chalk.yellow(`已跳过: ${post.title}`));
+    return false;
   }
 
   const parsed = parseFrontMatter(post.filePath);
@@ -623,7 +616,22 @@ async function promoteDraft() {
   }
   writeFrontMatter(post.filePath, frontMatter, parsed.body);
   console.log(chalk.green(`已转为正式文章: ${post.fileName}`));
-  console.log(chalk.yellow('注意：这篇文章尚未发布到线上。需要回到博客工作台选择“发布正式站点”。'));
+  return true;
+}
+
+async function promoteDraft() {
+  showTitle('草稿转正式文章');
+  const drafts = getPosts().filter((post) => post.draft);
+  if (!drafts.length) {
+    console.log(chalk.yellow('没有草稿。'));
+    return;
+  }
+
+  const post = await choosePost(drafts, '选择要转为正式文章的草稿:');
+  const promoted = await promotePost(post);
+  if (promoted) {
+    console.log(chalk.yellow('注意：这篇文章尚未发布到线上。需要回到博客工作台选择“发布正式站点”。'));
+  }
 }
 
 async function processArticleImages() {
@@ -671,6 +679,123 @@ function ensureGitAvailable() {
   }
 }
 
+function getRepoSlug() {
+  try {
+    const url = gitOutput(['remote', 'get-url', 'origin']).replace(/\.git$/, '');
+    const match = url.match(/github\.com[:/]([^/]+)\/(.+)$/);
+    if (!match) return null;
+    return { owner: match[1], repo: match[2] };
+  } catch {
+    return null;
+  }
+}
+
+function githubApiGet(pathname) {
+  return new Promise((resolve, reject) => {
+    const req = https.request(
+      {
+        hostname: 'api.github.com',
+        path: pathname,
+        method: 'GET',
+        headers: {
+          'User-Agent': 'blog-cli',
+          Accept: 'application/vnd.github+json'
+        },
+        timeout: 5000
+      },
+      (res) => {
+        let data = '';
+        res.on('data', (chunk) => {
+          data += chunk;
+        });
+        res.on('end', () => {
+          if (res.statusCode >= 200 && res.statusCode < 300) {
+            try {
+              resolve(JSON.parse(data));
+            } catch (error) {
+              reject(error);
+            }
+          } else {
+            reject(new Error(`GitHub API ${res.statusCode}`));
+          }
+        });
+      }
+    );
+    req.on('error', reject);
+    req.on('timeout', () => req.destroy(new Error('请求超时')));
+    req.end();
+  });
+}
+
+async function getLatestPagesDeployment(slug) {
+  const deployments = await githubApiGet(
+    `/repos/${slug.owner}/${slug.repo}/deployments?environment=github-pages&per_page=1`
+  );
+  if (!deployments.length) return null;
+  const deployment = deployments[0];
+  const statuses = await githubApiGet(
+    `/repos/${slug.owner}/${slug.repo}/deployments/${deployment.id}/statuses?per_page=1`
+  );
+  const latestStatus = statuses[0];
+  return {
+    sha: deployment.sha,
+    state: latestStatus ? latestStatus.state : 'unknown',
+    url: (latestStatus && latestStatus.environment_url) || `https://${slug.owner}.github.io/`
+  };
+}
+
+const DEPLOYMENT_STATE_LABEL = {
+  success: chalk.green('已上线'),
+  in_progress: chalk.yellow('部署中'),
+  queued: chalk.yellow('排队中'),
+  pending: chalk.yellow('等待中'),
+  error: chalk.red('部署出错'),
+  failure: chalk.red('部署失败'),
+  inactive: chalk.gray('已被替换'),
+  unknown: chalk.gray('未知')
+};
+
+async function reportDeploymentStatus(label) {
+  const slug = getRepoSlug();
+  if (!slug) return null;
+  try {
+    const headSha = gitOutput(['rev-parse', 'HEAD']);
+    const info = await getLatestPagesDeployment(slug);
+    if (!info) {
+      console.log(chalk.gray(`${label}: 未查询到部署记录`));
+      return null;
+    }
+    const stateLabel = DEPLOYMENT_STATE_LABEL[info.state] || chalk.white(info.state);
+    let line = `${label}: 提交 ${info.sha.slice(0, 7)} - ${stateLabel}`;
+    if (info.sha !== headSha) {
+      line += chalk.gray(` (本地最新提交 ${headSha.slice(0, 7)} 还未开始部署)`);
+    }
+    console.log(line);
+    return info;
+  } catch (error) {
+    console.log(chalk.gray(`${label}: 查询部署状态失败 (${error.message})`));
+    return null;
+  }
+}
+
+function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function pollDeploymentStatus(label, targetSha, { attempts = 6, intervalMs = 8000 } = {}) {
+  const TERMINAL_STATES = new Set(['success', 'error', 'failure']);
+  for (let i = 0; i < attempts; i += 1) {
+    const info = await reportDeploymentStatus(label);
+    if (info && info.sha === targetSha && TERMINAL_STATES.has(info.state)) {
+      return;
+    }
+    if (i < attempts - 1) {
+      await delay(intervalMs);
+    }
+  }
+  console.log(chalk.gray('部署可能仍在进行中，之后重新打开脚本可查看最新状态。'));
+}
+
 function buildSite(hugoCommand, includeDrafts) {
   const args = includeDrafts ? ['-D', '--cleanDestinationDir'] : ['--cleanDestinationDir'];
   run(hugoCommand, args, { stdio: 'inherit' });
@@ -693,9 +818,25 @@ async function publish() {
   const hugo = await getHugo();
   console.log(chalk.gray(hugo.version));
 
-  const drafts = getPosts().filter((post) => post.draft);
+  let drafts = getPosts().filter((post) => post.draft);
   if (drafts.length) {
-    console.log(chalk.yellow(`仍有 ${drafts.length} 篇草稿。正式发布不会包含草稿。`));
+    console.log(chalk.yellow(`发现 ${drafts.length} 篇草稿，正式发布不会包含草稿:`));
+    drafts.forEach((post) => console.log(chalk.gray(`  - ${post.title}`)));
+    const { toPromote } = await inquirer.prompt([
+      {
+        type: 'checkbox',
+        name: 'toPromote',
+        message: '要不要现在把其中一些转为正式文章再继续发布?(空格选择，回车确认，不选则跳过)',
+        choices: drafts.map((post) => ({ name: post.title, value: post.filePath }))
+      }
+    ]);
+    for (const filePath of toPromote) {
+      await promotePost(getPostInfo(filePath));
+    }
+    drafts = getPosts().filter((post) => post.draft);
+    if (drafts.length) {
+      console.log(chalk.yellow(`仍有 ${drafts.length} 篇草稿不会包含在本次发布中。`));
+    }
   }
   await processImagesForPosts(getPosts().filter((post) => !post.draft));
 
@@ -771,7 +912,11 @@ async function publish() {
   run('git', ['add', '.'], { stdio: 'inherit' });
   run('git', ['commit', '-m', answers.message], { stdio: 'inherit' });
   run('git', ['push'], { stdio: 'inherit' });
-  console.log(chalk.green('发布完成。'));
+  console.log(chalk.green('已推送到 GitHub。'));
+
+  const pushedSha = gitOutput(['rev-parse', 'HEAD']);
+  console.log(chalk.cyan('正在查询 GitHub Pages 部署状态...'));
+  await pollDeploymentStatus('部署状态', pushedSha);
 }
 
 async function showMenu() {
@@ -800,6 +945,7 @@ async function showMenu() {
 
 async function main() {
   try {
+    await reportDeploymentStatus('线上部署状态');
     while (true) {
       const action = await showMenu();
       if (action === 'exit') break;
