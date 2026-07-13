@@ -771,7 +771,7 @@ async function reportDeploymentStatus(label) {
       line += chalk.gray(` (本地最新提交 ${headSha.slice(0, 7)} 还未开始部署)`);
     }
     console.log(line);
-    return info;
+    return { ...info, isStale: info.sha !== headSha };
   } catch (error) {
     console.log(chalk.gray(`${label}: 查询部署状态失败 (${error.message})`));
     return null;
@@ -794,6 +794,7 @@ async function pollDeploymentStatus(label, targetSha, { attempts = 6, intervalMs
     }
   }
   console.log(chalk.gray('部署可能仍在进行中，之后重新打开脚本可查看最新状态。'));
+  console.log(chalk.gray('提示：如果长时间卡住不动，推送一次新的提交（哪怕是空提交 git commit --allow-empty）通常能重新触发部署。'));
 }
 
 function buildSite(hugoCommand, includeDrafts) {
@@ -945,7 +946,10 @@ async function showMenu() {
 
 async function main() {
   try {
-    await reportDeploymentStatus('线上部署状态');
+    const startupStatus = await reportDeploymentStatus('线上部署状态');
+    if (startupStatus && (startupStatus.isStale || !['success'].includes(startupStatus.state))) {
+      console.log(chalk.gray('提示：如果长时间卡住不动，推送一次新的提交（哪怕是空提交 git commit --allow-empty）通常能重新触发部署。'));
+    }
     while (true) {
       const action = await showMenu();
       if (action === 'exit') break;
