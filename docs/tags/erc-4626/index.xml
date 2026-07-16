@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ERC-4626 - 标签 - YINHUI&#39;s BLOG</title>
+    <link>https://yinhui1984.github.io/tags/erc-4626/</link>
+    <description>银辉的技术博客 - 专注 Web3 安全、智能合约审计、区块链安全分析、Go语言开发</description>
+    <generator>Hugo 0.154.5 &amp; FixIt v0.4.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 16 Jul 2026 09:46:34 +0800</lastBuildDate>
+    <atom:link href="https://yinhui1984.github.io/tags/erc-4626/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ERC-4626 tokenized yield-bearing vaults</title>
+      <link>https://yinhui1984.github.io/erc-4626-tokenized-yield-bearing-vaults/</link>
+      <pubDate>Thu, 16 Jul 2026 09:46:34 +0800</pubDate>
+      <guid>https://yinhui1984.github.io/erc-4626-tokenized-yield-bearing-vaults/</guid>
+      <category domain="https://yinhui1984.github.io/categories/web3/">Web3</category>
+      <description>&lt;p&gt;about ERC-4626 tokenized yield-bearing vaults&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

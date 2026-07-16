@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Defi - 标签 - YINHUI&#39;s BLOG</title>
+    <title>DeFi - 标签 - YINHUI&#39;s BLOG</title>
     <link>https://yinhui1984.github.io/tags/defi/</link>
     <description>银辉的技术博客 - 专注 Web3 安全、智能合约审计、区块链安全分析、Go语言开发</description>
     <generator>Hugo 0.154.5 &amp; FixIt v0.4.2</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 13 Jul 2026 07:32:56 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 13 Jul 2026 07:47:40 +0800</lastBuildDate>
     <atom:link href="https://yinhui1984.github.io/tags/defi/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Thetanuts Finance Attack Analysis</title>

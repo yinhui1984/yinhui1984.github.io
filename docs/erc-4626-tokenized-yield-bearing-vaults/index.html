@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>ERC-4626 Tokenized Yield-Bearing Vaults - YINHUI&#39;s BLOG</title><meta name="author" content="yinhui">
+<meta name="description" content="about ERC-4626 tokenized yield-bearing vaults
+"><meta name="keywords" content='web3.0, EIP, ERC, ERC-4626'>
+  <meta itemprop="name" content="ERC-4626 tokenized yield-bearing vaults">
+  <meta itemprop="description" content="about ERC-4626 tokenized yield-bearing vaults">
+  <meta itemprop="datePublished" content="2026-07-16T09:46:34+08:00">
+  <meta itemprop="dateModified" content="2026-07-16T09:46:34+08:00">
+  <meta itemprop="wordCount" content="7184">
+  <meta itemprop="image" content="https://yinhui1984.github.io/images/avatar.png">
+  <meta itemprop="keywords" content="Web3.0,EIP,ERC,ERC-4626"><meta property="og:url" content="https://yinhui1984.github.io/erc-4626-tokenized-yield-bearing-vaults/">
+  <meta property="og:site_name" content="YINHUI&#39;s BLOG">
+  <meta property="og:title" content="ERC-4626 tokenized yield-bearing vaults">
+  <meta property="og:description" content="about ERC-4626 tokenized yield-bearing vaults">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-07-16T09:46:34+08:00">
+    <meta property="article:modified_time" content="2026-07-16T09:46:34+08:00">
+    <meta property="article:tag" content="Web3.0">
+    <meta property="article:tag" content="EIP">
+    <meta property="article:tag" content="ERC">
+    <meta property="article:tag" content="ERC-4626">
+    <meta property="og:image" content="https://yinhui1984.github.io/images/avatar.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://yinhui1984.github.io/images/avatar.png">
+  <meta name="twitter:title" content="ERC-4626 tokenized yield-bearing vaults">
+  <meta name="twitter:description" content="about ERC-4626 tokenized yield-bearing vaults">
+<meta name="application-name" content="YINHUI&#39;s BLOG">
+<meta name="apple-mobile-web-app-title" content="YINHUI&#39;s BLOG"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://yinhui1984.github.io/erc-4626-tokenized-yield-bearing-vaults/" title="ERC-4626 tokenized yield-bearing vaults - YINHUI&#39;s BLOG" /><link rel="prev" type="text/html" href="https://yinhui1984.github.io/thetanuts-finance-attack-analysis/" title="Thetanuts Finance Attack Analysis" /><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "ERC-4626 tokenized yield-bearing vaults",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/yinhui1984.github.io\/erc-4626-tokenized-yield-bearing-vaults\/"
+    },"image": ["https:\/\/yinhui1984.github.io\/images\/avatar.png"],"genre": "posts","keywords": "web3.0, EIP, ERC, ERC-4626","wordcount":  7184 ,
+    "url": "https:\/\/yinhui1984.github.io\/erc-4626-tokenized-yield-bearing-vaults\/","datePublished": "2026-07-16T09:46:34+08:00","dateModified": "2026-07-16T09:46:34+08:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "yinhui"
+      },"description": ""
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="fixed" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="YINHUI&#39;s BLOG"><span class="header-title-text">YINHUI&#39;s BLOG</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="/categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="/">首页</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="YINHUI&#39;s BLOG"><span class="header-title-text">YINHUI&#39;s BLOG</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="/tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="/categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="/">首页</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>ERC-4626 Tokenized Yield-Bearing Vaults</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+      yinhui</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/web3/" class="post-category" title="分类 - Web3"><i class="fa-regular fa-folder" aria-hidden="true"></i> Web3</a></span></div><div class="post-meta-line"><span title="发布于 2026-07-16 09:46:34"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2026-07-16">2026-07-16</time></span>&nbsp;<span title="7184 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 7200 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 15 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#标准文档">标准文档</a>
+      <ul>
+        <li><a href="#解决的问题">解决的问题</a></li>
+        <li><a href="#2种存钱方式">2种存钱方式</a>
+          <ul>
+            <li><a href="#方式1按底层资产算deposit">方式1：按底层资产算（deposit）</a></li>
+            <li><a href="#方式2按-share-算mint">方式2：按 Share 算（mint）</a></li>
+            <li><a href="#deposit-vs-mint">deposit vs mint</a></li>
+          </ul>
+        </li>
+        <li><a href="#2种取钱方式">2种取钱方式</a>
+          <ul>
+            <li><a href="#方式1按底层资产算withdraw">方式1：按底层资产算（withdraw）</a></li>
+            <li><a href="#方式2按-share-算redeem">方式2：按 Share 算（redeem）</a></li>
+            <li><a href="#withdraw-vs-redeem">withdraw vs redeem</a></li>
+          </ul>
+        </li>
+        <li><a href="#汇率">汇率</a></li>
+        <li><a href="#share-价格为什么会上涨下跌">share 价格为什么会上涨/下跌？</a></li>
+        <li><a href="#取整方向">取整方向:</a></li>
+        <li><a href="#事件安全与扩展">事件、安全、与扩展</a>
+          <ul>
+            <li><a href="#event">EVENT</a></li>
+            <li><a href="#安全要点">安全要点</a></li>
+            <li><a href="#扩展">扩展</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#openzeppelin-文档">openzeppelin 文档</a>
+      <ul>
+        <li><a href="#通货膨胀攻击">通货膨胀攻击</a>
+          <ul>
+            <li><a href="#攻击步骤">攻击步骤</a></li>
+            <li><a href="#防御方案-虚拟偏移">防御方案: 虚拟偏移</a></li>
+          </ul>
+        </li>
+        <li><a href="#手续费实现">手续费实现</a>
+          <ul>
+            <li><a href="#核心矛盾含费与不含费的两种方向">核心矛盾：&ldquo;含费&quot;与&quot;不含费&quot;的两种方向</a></li>
+            <li><a href="#具体到四个-preview-函数">具体到四个 preview 函数</a></li>
+          </ul>
+        </li>
+        <li><a href="#_deposit-和-_withdraw-钩子"><code>_deposit</code> 和 <code>_withdraw</code> 钩子</a></li>
+        <li><a href="#deposit--withdraw-事件中的手续费">Deposit / Withdraw 事件中的手续费</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><p>about ERC-4626 tokenized yield-bearing vaults</p>
+<h2 class="heading-element" id="标准文档"><span>标准文档</span>
+  <a href="#%e6%a0%87%e5%87%86%e6%96%87%e6%a1%a3" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><a href="https://eips.ethereum.org/EIPS/eip-4626" target="_blank" rel="external nofollow noopener noreferrer">https://eips.ethereum.org/EIPS/eip-4626</a></p>
+<p><a href="https://ethereum.org/developers/docs/standards/tokens/erc-4626/" target="_blank" rel="external nofollow noopener noreferrer">https://ethereum.org/developers/docs/standards/tokens/erc-4626/</a></p>
+<h3 class="heading-element" id="解决的问题"><span>解决的问题</span>
+  <a href="#%e8%a7%a3%e5%86%b3%e7%9a%84%e9%97%ae%e9%a2%98" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>在 DeFi 世界里，有很多&quot;生息金库&quot;。比如你把 USDC 存进 Aave，Aave 把它借出去赚利息；你存进 Yearn，Yearn 用复杂的策略在多个协议间搬砖赚收益。</p>
+<p>问题是：每个协议的接口都不一样。Aave 叫 <code>supply()</code>，Yearn 叫 <code>deposit()</code>，另一个协议可能叫 <code>stake()</code>。你想做一个聚合器（比如自动把钱存到收益最高的地方），你就得给每个协议写一套适配代码。这就像&quot;每个牌子的手机都有自己的充电口，要随身带一堆转接头&quot;。 ERC-4626 就是给所有收益型金库定义了一个统一的充电口（接口标准）。</p>
+<p>核心类比：银行存款,就像你把黄金存进银行保险库，银行给你一张存单。以后你拿存单回来，就能把黄金取出来（可能更多，因为金库帮你赚了利息）。</p>
+<p>所以就有两个核心概念：</p>
+<ul>
+<li><code>asset</code> = 底层资产（USDC、ETH 等）</li>
+<li><code>share</code> = 金库份额代币（你的&quot;存单&quot;）</li>
+</ul>
+<blockquote>
+<p><em>关键：1 share 能换多少 asset</em> 不是固定的。金库赚了钱就涨，亏了钱就跌（坏账、被黑、slashing、无常损失等）。</p>
+</blockquote>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// 返回底层代币地址
+</span></span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">asset</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 返回金库管理多少底层资产（含复利、费用）
+</span></span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">totalAssets</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><h3 class="heading-element" id="2种存钱方式"><span>2种存钱方式</span>
+  <a href="#2%e7%a7%8d%e5%ad%98%e9%92%b1%e6%96%b9%e5%bc%8f" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><h4 class="heading-element" id="方式1按底层资产算deposit"><span>方式1：按底层资产算（deposit）</span>
+  <a href="#%e6%96%b9%e5%bc%8f1%e6%8c%89%e5%ba%95%e5%b1%82%e8%b5%84%e4%ba%a7%e7%ae%97deposit" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>&ldquo;我有 100 USDC，全存进去，能拿多少 share 算多少。&rdquo;</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// assets:   你要存入多少底层代币（精确值，比如 100 USDC = 100_000000）
+</span></span></span><span class="line"><span class="cl"><span class="c1">// receiver: 谁收到 share 代币（可以和 msg.sender 不同，你可以帮别人存）
+</span></span></span><span class="line"><span class="cl"><span class="c1">// returns:  实际铸造了多少 share 给 receiver（因取整，可能略少于理论值）
+</span></span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">deposit</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">assets</span><span class="p">,</span> <span class="kt">address</span> <span class="n">receiver</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">shares</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// OpenZeppelin 扩展版（非标准），多了 bytes 参数用于 hook 回调：
+</span></span></span><span class="line"><span class="cl"><span class="c1">// data 透传给 beforeDeposit / afterDeposit 钩子，金库可 override 做自定义逻辑
+</span></span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">deposit</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">assets</span><span class="p">,</span> <span class="kt">address</span> <span class="n">receiver</span><span class="p">,</span> <span class="kt">bytes</span> <span class="n">calldata</span> <span class="nb">data</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">shares</span><span class="p">)</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>调用 deposit 前需要先 <code>approve</code> 金库合约使用你的 USDC。</p>
+<p><strong>前置检查函数：</strong></p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// &#34;金库最多还能收多少 asset？&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1">// receiver:  谁将收到 share
+</span></span></span><span class="line"><span class="cl"><span class="c1">// returns:   当前 deposit 能存的最大 asset 量。
+</span></span></span><span class="line"><span class="cl"><span class="c1">//            type(uint256).max = 无上限，0 = 暂停/已满。
+</span></span></span><span class="line"><span class="cl"><span class="c1">//            永不 revert。
+</span></span></span><span class="line"><span class="cl"><span class="c1">//  假设用户有无限余额——不看用户钱包里实际有多少 token。
+</span></span></span><span class="line"><span class="cl"><span class="c1">//    前端应自行计算 min(maxDeposit, userBalance)。
+</span></span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">maxDeposit</span><span class="p">(</span><span class="kt">address</span> <span class="n">receiver</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">maxAssets</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// &#34;如果我现在 deposit(X)，能拿到多少 share？&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1">// assets:  你想存多少 asset
+</span></span></span><span class="line"><span class="cl"><span class="c1">// returns: 当前区块下你能拿到的 share 数。
+</span></span></span><span class="line"><span class="cl"><span class="c1">//          包含存款手续费，但不考虑限额（maxDeposit 的返回值）。
+</span></span></span><span class="line"><span class="cl"><span class="c1">//          实际 deposit 返回的 share ≥ preview 的值（用户至少拿到这么多）。
+</span></span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">previewDeposit</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">assets</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">shares</span><span class="p">)</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
+</div>
+</div><h4 class="heading-element" id="方式2按-share-算mint"><span>方式2：按 Share 算（mint）</span>
+  <a href="#%e6%96%b9%e5%bc%8f2%e6%8c%89-share-%e7%ae%97mint" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>&ldquo;我就要 50 个 share，需要扣多少 USDC 你看着办。&rdquo;</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// shares:   你要铸造多少 share（精确值）
+</span></span></span><span class="line"><span class="cl"><span class="c1">// receiver: 谁收到这些 share
+</span></span></span><span class="line"><span class="cl"><span class="c1">// returns:  实际从你账户转走了多少 asset（因取整，可能略多于理论值）
+</span></span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">mint</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">shares</span><span class="p">,</span> <span class="kt">address</span> <span class="n">receiver</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">assets</span><span class="p">)</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>调用 mint 前同样需要先 <code>approve</code> 金库合约使用你的 USDC（无论 deposit 还是 mint，金库都需要从你账户转走 asset）。</p>
+<p><strong>前置检查函数：</strong></p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// &#34;金库最多还能 mint 多少 share？&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1">// receiver: 谁将收到 share
+</span></span></span><span class="line"><span class="cl"><span class="c1">// returns:  当前能 mint 的最大 share 数。
+</span></span></span><span class="line"><span class="cl"><span class="c1">//           type(uint256).max = 无上限，0 = 暂停。
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 同样假设用户有无限余额，不看钱包实际余额。
+</span></span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">maxMint</span><span class="p">(</span><span class="kt">address</span> <span class="n">receiver</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">maxShares</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// &#34;如果我现在 mint(X share)，需要付多少 asset？&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1">// shares:  你想铸造多少 share
+</span></span></span><span class="line"><span class="cl"><span class="c1">// returns: 你需要付多少 asset。
+</span></span></span><span class="line"><span class="cl"><span class="c1">//          包含手续费，但不考虑限额。
+</span></span></span><span class="line"><span class="cl"><span class="c1">//          实际 mint 扣的 asset ≤ preview 的值（用户最多付这么多）。
+</span></span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">previewMint</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">shares</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">assets</span><span class="p">)</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
+</div>
+</div><h4 class="heading-element" id="deposit-vs-mint"><span>deposit vs mint</span>
+  <a href="#deposit-vs-mint" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><div class="table-wrapper">
+  <table>
+    <thead>
+        <tr>
+            <th></th>
+            <th>deposit</th>
+            <th>mint</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>你指定的量（精确）</td>
+            <td>asset 数量</td>
+            <td>share 数量</td>
+        </tr>
+        <tr>
+            <td>金库返回的量（估算）</td>
+            <td>share 数量</td>
+            <td>asset 数量</td>
+        </tr>
+        <tr>
+            <td>实际 vs preview</td>
+            <td>实际 share ≥ preview</td>
+            <td>实际 asset ≤ preview</td>
+        </tr>
+        <tr>
+            <td>需要 approve？</td>
+            <td>是</td>
+            <td>是</td>
+        </tr>
+        <tr>
+            <td>前置查询</td>
+            <td>maxDeposit + previewDeposit</td>
+            <td>maxMint + previewMint</td>
+        </tr>
+        <tr>
+            <td>类比</td>
+            <td>&ldquo;1000 人民币换多少美元？&rdquo;</td>
+            <td>&ldquo;我要 200 美元，多少人民币？&rdquo;</td>
+        </tr>
+    </tbody>
+  </table>
+</div><h3 class="heading-element" id="2种取钱方式"><span>2种取钱方式</span>
+  <a href="#2%e7%a7%8d%e5%8f%96%e9%92%b1%e6%96%b9%e5%bc%8f" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><h4 class="heading-element" id="方式1按底层资产算withdraw"><span>方式1：按底层资产算（withdraw）</span>
+  <a href="#%e6%96%b9%e5%bc%8f1%e6%8c%89%e5%ba%95%e5%b1%82%e8%b5%84%e4%ba%a7%e7%ae%97withdraw" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>&ldquo;我要取 100 USDC，烧多少 share 你算。&rdquo;</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// assets:   你要取多少底层代币（精确值）
+</span></span></span><span class="line"><span class="cl"><span class="c1">// receiver: 谁收到 asset（可以和 owner 不同）
+</span></span></span><span class="line"><span class="cl"><span class="c1">// owner:    share 从谁的账户里烧（owner 得有足够的 share，或 msg.sender 有 owner 的 approve）
+</span></span></span><span class="line"><span class="cl"><span class="c1">// returns:  实际烧了多少 share（因取整，可能略多于理论值）
+</span></span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">withdraw</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">assets</span><span class="p">,</span> <span class="kt">address</span> <span class="n">receiver</span><span class="p">,</span> <span class="kt">address</span> <span class="n">owner</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">shares</span><span class="p">)</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>如果 <code>owner != msg.sender</code>，需要先 <code>approve</code> 金库合约使用 owner 的 share。</p>
+<p><strong>前置检查函数：</strong></p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// &#34;owner 最多能取出多少 asset？&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1">// owner:   谁的 share 要被烧
+</span></span></span><span class="line"><span class="cl"><span class="c1">// returns: 当前能取的最大 asset 量。≤ 实际能取的最大值（宁可低估）。
+</span></span></span><span class="line"><span class="cl"><span class="c1">//          type(uint256).max = 无上限，0 = 暂停/没 share。
+</span></span></span><span class="line"><span class="cl"><span class="c1">//          永不 revert。
+</span></span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">maxWithdraw</span><span class="p">(</span><span class="kt">address</span> <span class="n">owner</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">maxAssets</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// &#34;如果我现在 withdraw(X asset)，要烧多少 share？&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1">// assets:  你想取多少 asset
+</span></span></span><span class="line"><span class="cl"><span class="c1">// returns: 需要烧多少 share。
+</span></span></span><span class="line"><span class="cl"><span class="c1">//          包含提款手续费，但不考虑限额（maxWithdraw 的返回值）。
+</span></span></span><span class="line"><span class="cl"><span class="c1">//          实际 withdraw 烧的 share ≤ preview 的值（用户最多烧这么多）。
+</span></span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">previewWithdraw</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">assets</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">shares</span><span class="p">)</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
+</div>
+</div><h4 class="heading-element" id="方式2按-share-算redeem"><span>方式2：按 Share 算（redeem）</span>
+  <a href="#%e6%96%b9%e5%bc%8f2%e6%8c%89-share-%e7%ae%97redeem" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>&ldquo;我要烧 50 share，能拿回多少 asset 算多少。&rdquo;</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// shares:   你要烧多少 share（精确值）
+</span></span></span><span class="line"><span class="cl"><span class="c1">// receiver: 谁收到 asset
+</span></span></span><span class="line"><span class="cl"><span class="c1">// owner:    share 从谁的账户里烧
+</span></span></span><span class="line"><span class="cl"><span class="c1">// returns:  实际拿回了多少 asset（因取整，可能略少于理论值）
+</span></span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">redeem</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">shares</span><span class="p">,</span> <span class="kt">address</span> <span class="n">receiver</span><span class="p">,</span> <span class="kt">address</span> <span class="n">owner</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">assets</span><span class="p">)</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>如果 <code>owner != msg.sender</code>，同样需要先 <code>approve</code> 金库合约使用 owner 的 share。</p>
+<p><strong>前置检查函数：</strong></p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// &#34;owner 最多能 redeem 多少 share？&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1">// owner:   谁的 share 要被赎回
+</span></span></span><span class="line"><span class="cl"><span class="c1">// returns: 当前能 redeem 的最大 share 数。规则同 maxWithdraw。
+</span></span></span><span class="line"><span class="cl"><span class="c1">//          type(uint256).max = 无上限，0 = 暂停。
+</span></span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">maxRedeem</span><span class="p">(</span><span class="kt">address</span> <span class="n">owner</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">maxShares</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// &#34;如果我现在 redeem(X share)，能拿回多少 asset？&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1">// shares:  你想烧多少 share
+</span></span></span><span class="line"><span class="cl"><span class="c1">// returns: 你能拿回多少 asset。
+</span></span></span><span class="line"><span class="cl"><span class="c1">//          包含手续费，但不考虑限额。
+</span></span></span><span class="line"><span class="cl"><span class="c1">//          实际 redeem 给的 asset ≥ preview 的值（用户至少拿到这么多）。
+</span></span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">previewRedeem</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">shares</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">assets</span><span class="p">)</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
+</div>
+</div><h4 class="heading-element" id="withdraw-vs-redeem"><span>withdraw vs redeem</span>
+  <a href="#withdraw-vs-redeem" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><div class="table-wrapper">
+  <table>
+    <thead>
+        <tr>
+            <th></th>
+            <th>withdraw</th>
+            <th>redeem</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>你指定的量（精确）</td>
+            <td>asset 数量</td>
+            <td>share 数量</td>
+        </tr>
+        <tr>
+            <td>金库返回的量（估算）</td>
+            <td>share 数量</td>
+            <td>asset 数量</td>
+        </tr>
+        <tr>
+            <td>实际 vs preview</td>
+            <td>实际 share ≤ preview</td>
+            <td>实际 asset ≥ preview</td>
+        </tr>
+        <tr>
+            <td>需要 approve？</td>
+            <td>owner≠sender 时</td>
+            <td>owner≠sender 时</td>
+        </tr>
+        <tr>
+            <td>前置查询</td>
+            <td>maxWithdraw + previewWithdraw</td>
+            <td>maxRedeem + previewRedeem</td>
+        </tr>
+        <tr>
+            <td>类比</td>
+            <td>&ldquo;我要取 100 美元&rdquo;</td>
+            <td>&ldquo;我要把存单全兑了&rdquo;</td>
+        </tr>
+    </tbody>
+  </table>
+</div><h3 class="heading-element" id="汇率"><span>汇率</span>
+  <a href="#%e6%b1%87%e7%8e%87" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><blockquote>
+<p>注: 汇率是通过2个convert函数间接给出的, 而不是直接给出(比如没有提供一个getRate函数)</p>
+</blockquote>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// &#34;X 个 asset 理想情况下能换多少 share？&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1">// assets:  你想换算的 asset 量
+</span></span></span><span class="line"><span class="cl"><span class="c1">// returns: 理想情况下的 share 数。向下取整。无手续费、无滑点。
+</span></span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">convertToShares</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">assets</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">shares</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// &#34;X 个 share 理想情况下能换多少 asset？&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1">// shares:  你想换算的 share 量
+</span></span></span><span class="line"><span class="cl"><span class="c1">// returns: 理想情况下的 asset 数。向下取整。无手续费、无滑点。
+</span></span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">convertToAssets</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">shares</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">assets</span><span class="p">)</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>注意, 与前面的previewXXX函数的不同: previewXXX是预览,所以包含了手续费,并且每笔交易都可能有所不同. convertToXXX不包含手续费, 相对比较稳定, 可作为价格预言机(TWAP)</p>
+<blockquote>
+<p>安全要点：<code>preview*</code> 是即时精确值，但可以被同一笔交易的前置操作操纵（比如闪电贷砸盘）。所以不要拿 <code>preview*</code> 当价格预言机。<code>convertTo*</code> 可以做 TWAP（时间加权平均价）防操纵。</p>
+</blockquote>
+<p>为什么不提供 <code>getRate()</code> 函数：</p>
+<p><strong>1. 精度问题</strong></p>
+<p>Solidity 没有浮点数。如果返回一个 rate 值（比如 1 share = 1.25 USDC），需要用 numerator/denominator 或定死小数位表示。更关键的是——极端情况下（比如金库只有 2 share 但管着 10 万 USDC），1 wei 级别的汇率精度极差。<code>convertToAssets(2 share)</code> 却能精确返回 10 万 USDC——输入你关心的量，精度由输入量级自然保证。</p>
+<p><strong>2. 取整方向问题</strong></p>
+<p>如果只给原始汇率，调用方自己做乘法时可能向上取整、可能向下取整——结果不一致。<code>convertTo*</code> 把取整方向锁死在函数内部（两个都向下取整），消除歧义。</p>
+<p><strong>3. 汇率可能非线性</strong></p>
+<p>大多数金库是线性的（share 价格跟数量无关），但标准不禁止非线性的（比如存得越多给的 share 越少）。一个单独的 <code>rate</code> 值无法表达这种行为，<code>convertTo*(amount)</code> 接受任意数量，更通用。</p>
+<p><strong>补充：<code>totalAssets() / totalSupply()</code> 能当粗糙的 rate 用吗？</strong></p>
+<p>能，前端展示&quot;你的 share 大概值多少钱&quot;基本就用它。但它不等于 <code>convertToAssets(1)</code>：</p>
+<ul>
+<li><code>totalAssets()</code> 是瞬时快照，<code>convertToAssets</code> 可以实现为 TWAP（更防操纵）</li>
+<li>没有取整保证——不适合直接当兑换价</li>
+</ul>
+<h3 class="heading-element" id="share-价格为什么会上涨下跌"><span>share 价格为什么会上涨/下跌？</span>
+  <a href="#share-%e4%bb%b7%e6%a0%bc%e4%b8%ba%e4%bb%80%e4%b9%88%e4%bc%9a%e4%b8%8a%e6%b6%a8%e4%b8%8b%e8%b7%8c" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>金库赚了钱（利息、交易费、奖励)，<code>totalAssets</code> 增加，但 share 总量不变 → 每 share 更值钱。</p>
+<p>初始：1000 USDC / 1000 share → 1 share = 1 USDC
+一年后：1100 USDC / 1000 share → 1 share = 1.1 USDC（涨了 10%）</p>
+<p>当然也可能下跌(坏账,被黑)或不变</p>
+<h3 class="heading-element" id="取整方向"><span>取整方向:</span>
+  <a href="#%e5%8f%96%e6%95%b4%e6%96%b9%e5%90%91" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>ERC-4626 明确规定——金库永远占便宜</p>
+<div class="table-wrapper">
+  <table>
+    <thead>
+        <tr>
+            <th>场景</th>
+            <th>取整方向</th>
+            <th>谁吃亏</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>用户 deposit，金库 mint share</td>
+            <td>向下取整</td>
+            <td>用户少拿 share</td>
+        </tr>
+        <tr>
+            <td>用户 mint，金库收 asset</td>
+            <td>向上取整</td>
+            <td>用户多付 asset</td>
+        </tr>
+        <tr>
+            <td>用户 withdraw，金库烧 share</td>
+            <td>向上取整</td>
+            <td>用户多烧 share</td>
+        </tr>
+        <tr>
+            <td>用户 redeem，金库付 asset</td>
+            <td>向下取整</td>
+            <td>用户少拿 asset</td>
+        </tr>
+        <tr>
+            <td>convertToShares</td>
+            <td>向下取整</td>
+            <td>消除歧义</td>
+        </tr>
+        <tr>
+            <td>convertToAssets</td>
+            <td>向下取整</td>
+            <td>消除歧义</td>
+        </tr>
+    </tbody>
+  </table>
+</div><blockquote>
+<p>为什么会这样: 因为如果反过来，攻击者可以通过反复存/取 + 取整差来慢慢从金库里抽水（&ldquo;取整攻击&rdquo;）</p>
+</blockquote>
+<h3 class="heading-element" id="事件安全与扩展"><span>事件、安全、与扩展</span>
+  <a href="#%e4%ba%8b%e4%bb%b6%e5%ae%89%e5%85%a8%e4%b8%8e%e6%89%a9%e5%b1%95" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><h4 class="heading-element" id="event"><span>EVENT</span>
+  <a href="#event" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// deposit 或 mint 成功后必须 emit
+</span></span></span><span class="line"><span class="cl"><span class="kd">event</span> <span class="nc">Deposit</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">indexed</span> <span class="nb">sender</span><span class="p">,</span>   <span class="c1">// msg.sender（谁触发了这笔交易）
+</span></span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">indexed</span> <span class="n">owner</span><span class="p">,</span>    <span class="c1">// receiver（谁收到了 share）
+</span></span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="n">assets</span><span class="p">,</span>           <span class="c1">// 存了多少 asset
+</span></span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="n">shares</span>            <span class="c1">// mint 了多少 share
+</span></span></span><span class="line"><span class="cl"><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// withdraw 或 redeem 成功后必须 emit
+</span></span></span><span class="line"><span class="cl"><span class="kd">event</span> <span class="nc">Withdraw</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">indexed</span> <span class="nb">sender</span><span class="p">,</span>   <span class="c1">// msg.sender
+</span></span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">indexed</span> <span class="n">receiver</span><span class="p">,</span> <span class="c1">// 谁收到了 asset
+</span></span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">indexed</span> <span class="n">owner</span><span class="p">,</span>    <span class="c1">// 谁的 share 被烧了
+</span></span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="n">assets</span><span class="p">,</span>           <span class="c1">// 取了多少 asset
+</span></span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="n">shares</span>            <span class="c1">// 烧了多少 share
+</span></span></span><span class="line"><span class="cl"><span class="p">);</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
+</div>
+</div><h4 class="heading-element" id="安全要点"><span>安全要点</span>
+  <a href="#%e5%ae%89%e5%85%a8%e8%a6%81%e7%82%b9" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>1, preview 不是预言机</p>
+<p><code>preview*</code> 是即时精确值，跟当前区块状态挂钩。如果攻击者在同一笔交易里先闪电贷砸盘改变 share 价格，再让你基于 <code>preview*</code> 做决策——你就被套了。</p>
+<blockquote>
+<p>价格预言机用 <code>convertTo*</code> + TWAP , 交易模拟用 <code>preview*</code></p>
+</blockquote>
+<p>2, 恶意实现</p>
+<p>一个合约可以&quot;长得像&quot; ERC-4626（函数签名匹配），但实际行为完全不对——比如 <code>previewRedeem</code> 返回 100 USDC，实际 <code>redeem</code> 只给你 50 USDC。标准管不了实现者是否诚实</p>
+<p>3, 滑点</p>
+<p>智能合约可以在收到不满意的 share 数时 revert。但 EOA 钱包（比如你手动在 MetaMask 里调 deposit）没法做这个判断——你只能接受返回值。所以很多金库会额外提供带 <code>minSharesOut</code> / <code>maxAssetsIn</code> 参数的版本，让 EOA 也能设置滑点容忍。</p>
+<h4 class="heading-element" id="扩展"><span>扩展</span>
+  <a href="#%e6%89%a9%e5%b1%95" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>ERC-4626 假设存/取是同步即时的（调 deposit → 立刻拿 share）。但有些场景做不到：</p>
+<div class="table-wrapper">
+  <table>
+    <thead>
+        <tr>
+            <th style="text-align: left">场景</th>
+            <th style="text-align: left">问题</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="text-align: left">RWA（现实资产）</td>
+            <td style="text-align: left">赎回需要等传统金融结算，可能几天</td>
+        </tr>
+        <tr>
+            <td style="text-align: left">跨链借贷</td>
+            <td style="text-align: left">需要等跨链消息确认</td>
+        </tr>
+        <tr>
+            <td style="text-align: left">保险模块</td>
+            <td style="text-align: left">解锁有等待期</td>
+        </tr>
+        <tr>
+            <td style="text-align: left">流动性挖矿</td>
+            <td style="text-align: left">提款有锁定期</td>
+        </tr>
+    </tbody>
+  </table>
+</div><ul>
+<li>
+<p>ERC-7540：给 ERC-4626 加了一层异步请求模型（先提交 request → 等待 → claim），保留 <code>deposit</code>/<code>redeem</code> 的接口不变。</p>
+</li>
+<li>
+<p>另外，ERC-4626 只支持单一底层资产。像 Uniswap LP token（本身就是两种资产的组合）没法直接套。</p>
+</li>
+<li>
+<p>ERC-7575：多资产金库，把 ERC-20（share）和 ERC-4626（金库逻辑）拆开，允许多个 entry point</p>
+</li>
+</ul>
+<h2 class="heading-element" id="openzeppelin-文档"><span>openzeppelin 文档</span>
+  <a href="#openzeppelin-%e6%96%87%e6%a1%a3" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><a href="https://docs.openzeppelin.com/contracts/5.x/erc4626" target="_blank" rel="external nofollow noopener noreferrer">https://docs.openzeppelin.com/contracts/5.x/erc4626</a></p>
+<p>和标准文档相同的内容略过. 说说openzeppelin增加到内容</p>
+<h3 class="heading-element" id="通货膨胀攻击"><span>通货膨胀攻击</span>
+  <a href="#%e9%80%9a%e8%b4%a7%e8%86%a8%e8%83%80%e6%94%bb%e5%87%bb" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>首先理解什么是&quot;抢跑（front-run）&quot;: 区块链上所有人发出的交易都先进一个公开的待处理池（mempool），矿工再从里面挑交易打包。也就是说，你的交易在还没执行之前，别人就能看到你要干什么。&ldquo;抢跑&quot;就是：攻击者看到你的交易在排队，他立刻发一笔交易，给更高的 gas 费让矿工先打包他的，赶在你前面执行</p>
+<h4 class="heading-element" id="攻击步骤"><span>攻击步骤</span>
+  <a href="#%e6%94%bb%e5%87%bb%e6%ad%a5%e9%aa%a4" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>假设一个全新的空金库（管理 USDC），还没任何人存过钱。</p>
+<ol>
+<li>
+<p>攻击者调用金库的 <code>deposit</code> 函数，存入 1 个最小单位的 USDC（即 0.000001 USDC，1 wei），拿到 1 个 share。此时金库状态：</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-fallback"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">totalAssets() = 0.000001 USDC（攻击者存的） 
+</span></span><span class="line"><span class="cl">totalSupply() = 1 share（只发给了攻击者） 
+</span></span><span class="line"><span class="cl">1 share ≈ 0.000001 USDC</span></span></code></pre></td></tr></table></div>
+</div>
+</div></li>
+<li>
+<p>攻击者在 mempool 里看到受害者即将要调金库的 <code>deposit(假设 5万 USDC)</code> ,攻击者抢跑：赶在受害者的交易之前，攻击者先调 USDC 代币合约 的 <code>transfer(金库合约地址, 50000.000001 USDC)</code>。这个数字不是随便的——恰好等于&quot;受害者要存的数量 + 1 wei&rdquo;。</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-fallback"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">totalAssets = 1 wei + (50000.000001 USDC) = 50000.000002 USDC totalSupply = 1 share（没变！） 
+</span></span><span class="line"><span class="cl">1 share ≈ 50000 USDC (汇率被疯狂抬高！)</span></span></code></pre></td></tr></table></div>
+</div>
+</div><blockquote>
+<p>为什么刚好是受害者存款额 + 1 wei？当然, 只要大于受害者的存款额就都是可以的</p>
+<p>受害者存入 <code>u</code> 个 USDC 时，能拿到的 share 数 = <code>⌊u × totalSupply / totalAssets⌋</code>（向下取整）</p>
+<p>如果 <code>u &lt; totalAssets</code>，则 <code>u × 1 / totalAssets &lt; 1</code>，取整后 = 0 share。</p>
+<p>所以在空金库（totalSupply = 1）的前提下，只要让 <code>totalAssets &gt; u</code>（即 <code>totalAssets</code> 的任何值超过受害者的存款量），受害者的 share 就会归零。</p>
+</blockquote>
+</li>
+<li>
+<p>受害者的交易执行。他调金库的 <code>deposit(5万 USDC)</code>：</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-fallback"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">按汇率 1 share = 50000+ USDC (大于用户的5万, 也就是说要5万多USDC才能够分到一个share)
+</span></span><span class="line"><span class="cl">用户 5万 / 50000+ = 不到 1 个share
+</span></span><span class="line"><span class="cl">Solidity 整数除法向下取整 → 拿到 0 share
+</span></span><span class="line"><span class="cl">金库吞了他的 5 万 USDC，但没给他任何 share</span></span></code></pre></td></tr></table></div>
+</div>
+</div></li>
+<li>
+<p>攻击者调用金库的 <code>redeem(1 share, 攻击者地址, 攻击者地址)</code>，烧掉自己那 1 个 share，把金库里的所有 USDC 提走：</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-fallback"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">金库总资产 = 攻击者存的 1 wei USDC + 攻击者捐的 50000.000001 USDC + 受害者存的 5万 USDC
+</span></span><span class="line"><span class="cl">攻击者拿回 ≈ 10 万 USDC
+</span></span><span class="line"><span class="cl">净赚 ≈ 5 万 USDC（受害者的钱）</span></span></code></pre></td></tr></table></div>
+</div>
+</div></li>
+</ol>
+<h4 class="heading-element" id="防御方案-虚拟偏移"><span>防御方案: 虚拟偏移</span>
+  <a href="#%e9%98%b2%e5%be%a1%e6%96%b9%e6%a1%88-%e8%99%9a%e6%8b%9f%e5%81%8f%e7%a7%bb" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>OZ 的方案借鉴了 YieldBox，两个措施组合：</p>
+<ol>
+<li>精度偏移（decimals offset）</li>
+</ol>
+<p>让 share 的小数位比 asset 多（比如 asset 是 6 位小数 USDC，share 用 12 位）。这样初始汇率极高（1 asset = 10^6 share），取整误差极小。</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-fallback"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">偏移前：1 asset → 1 share          攻击者 donation 10 万 → 受害者 0 share
+</span></span><span class="line"><span class="cl">偏移后：1 asset → 1,000,000 share  攻击者需要捐 10 万 × 10^6 才能造成同样伤害</span></span></code></pre></td></tr></table></div>
+</div>
+</div><ol start="2">
+<li>虚拟 share 和虚拟 asset</li>
+</ol>
+<p>在计算汇率时，假装金库里已经有了一笔初始资金——不真实存在，只参与数学：</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-fallback"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">真实：0 asset，0 share
+</span></span><span class="line"><span class="cl">虚拟：1 asset，10^δ share  ← 凭空加的
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">汇率 = (真实资产 + 虚拟资产) / (真实份额 + 虚拟份额)
+</span></span><span class="line"><span class="cl">空金库时 = 1 / 10^δ = 极低 → 攻击者需要天价 donation 才能影响汇率</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>关键效果：攻击者的 donation 大部分被虚拟 share 吃掉，不属于攻击者自己。攻击者的 loss 远大于他能偷到的金额——所以不划算。</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-fallback"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">无虚拟偏移：攻击者捐 10 万，全归自己（他是唯一股东）
+</span></span><span class="line"><span class="cl">有虚拟偏移：攻击者捐 10 万，大部分被虚拟 share 稀释，自己只能拿回一点点</span></span></code></pre></td></tr></table></div>
+</div>
+</div><blockquote>
+<p>这只是一种威慑, 现实中攻击者不可能亏掉, 会先模拟,或者拿不到对应的share就revert</p>
+</blockquote>
+<h3 class="heading-element" id="手续费实现"><span>手续费实现</span>
+  <a href="#%e6%89%8b%e7%bb%ad%e8%b4%b9%e5%ae%9e%e7%8e%b0" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><h4 class="heading-element" id="核心矛盾含费与不含费的两种方向"><span>核心矛盾：&ldquo;含费&quot;与&quot;不含费&quot;的两种方向</span>
+  <a href="#%e6%a0%b8%e5%bf%83%e7%9f%9b%e7%9b%be%e5%90%ab%e8%b4%b9%e4%b8%8e%e4%b8%8d%e5%90%ab%e8%b4%b9%e7%9a%84%e4%b8%a4%e7%a7%8d%e6%96%b9%e5%90%91" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>ERC-4626 的四个操作里，用户指定的那个量<strong>已经包含了手续费</strong>的情况，和<strong>不包含手续费</strong>的情况，是恰好交叉的：</p>
+<div class="table-wrapper">
+  <table>
+    <thead>
+        <tr>
+            <th>操作</th>
+            <th>用户指定</th>
+            <th>手续费在哪里</th>
+            <th>生活类比</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>deposit(100)</code></td>
+            <td>从钱包掏 100 USDC</td>
+            <td>费从 100 里<strong>扣掉</strong>，剩余进金库</td>
+            <td>&ldquo;我付 100 块，含了税&rdquo;</td>
+        </tr>
+        <tr>
+            <td><code>mint(50 share)</code></td>
+            <td>拿到 50 share</td>
+            <td>费<strong>额外加</strong>在成本上</td>
+            <td>&ldquo;我要拿到手 50，税另算&rdquo;</td>
+        </tr>
+        <tr>
+            <td><code>withdraw(100)</code></td>
+            <td>到手 100 USDC</td>
+            <td>费<strong>额外加</strong>在烧的 share 上</td>
+            <td>&ldquo;我要拿到手 100，手续费另算&rdquo;</td>
+        </tr>
+        <tr>
+            <td><code>redeem(50 share)</code></td>
+            <td>烧 50 share</td>
+            <td>费从赎回款里<strong>扣掉</strong></td>
+            <td>&ldquo;我烧 50，税从里面扣&rdquo;</td>
+        </tr>
+    </tbody>
+  </table>
+</div><blockquote>
+<p>规律：<strong>deposit 和 redeem 的用户输入量已含费；mint 和 withdraw 的用户输入量不含费，费是额外加上的。</strong></p>
+</blockquote>
+<hr>
+<p>因此需要两种不同的费用计算公式</p>
+<p>以 100 basis points（1%）为例：</p>
+<p><code>_feeOnRaw</code>：费是额外加上的</p>
+<p>原始值 1000 → 费 = <code>1000 × 100 / 10000 = 10</code> → 含费总计 = 1010</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-fallback"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">function _feeOnRaw(uint256 assets, uint256 bps) → uint256
+</span></span><span class="line"><span class="cl">    return assets × bps / 10000   // 向上取整</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>适用于 <code>mint</code> 和 <code>withdraw</code>——因为用户说&quot;我要拿 X&rdquo;，金库需要告诉用户&quot;你得额外付 Y 的费&quot;。</p>
+<p><code>_feeOnTotal</code>：费从总额里拆出来</p>
+<p>总额 1010 → 费 = <code>1010 × 100 / (10000 + 100) = 1010 × 100/10100 = 10</code> → 净额 = 1000</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-fallback"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">function _feeOnTotal(uint256 assets, uint256 bps) → uint256
+</span></span><span class="line"><span class="cl">    return assets × bps / (bps + 10000)   // 向上取整</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>适用于 <code>deposit</code> 和 <code>redeem</code>——因为用户说&quot;我总共出 X&quot;（或&quot;我总共烧 X&quot;），金库需要从里面拆出费交给 treasury，剩下的才是真正的存款/赎回。</p>
+<blockquote>
+<p>为什么分母是 <code>bps + 10000</code> 而不是 <code>10000</code>？
+因为 <code>assets</code> 已经包含了费。如果直接用 <code>assets × 1%</code>，算出来比真实的费要多一点（你在对&quot;含税费&quot;再征税）。正确做法是把 <code>assets</code> 拆回&quot;原始值 + 费&quot;这两个部分。</p>
+</blockquote>
+<h4 class="heading-element" id="具体到四个-preview-函数"><span>具体到四个 preview 函数</span>
+  <a href="#%e5%85%b7%e4%bd%93%e5%88%b0%e5%9b%9b%e4%b8%aa-preview-%e5%87%bd%e6%95%b0" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>以 1% 手续费为例，OZ 的实现逻辑：</p>
+<p><strong><code>previewDeposit(assets)</code></strong>：用户说&quot;我总共掏 100 USDC&quot;</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-fallback"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">费 = _feeOnTotal(100) = 100 × 100/10100 = 0.99 USDC → 交给 treasury
+</span></span><span class="line"><span class="cl">净投入 = 100 - 0.99 = 99.01 USDC → 进入金库，换算成 share
+</span></span><span class="line"><span class="cl">返回 share 数</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p><strong><code>previewMint(shares)</code></strong>：用户说&quot;我要铸造对应 100 USDC 的 share&quot;</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-fallback"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">先算出基础成本 = 100 USDC（不含费）
+</span></span><span class="line"><span class="cl">费 = _feeOnRaw(100) = 1 USDC → 额外加
+</span></span><span class="line"><span class="cl">总扣款 = 100 + 1 = 101 USDC
+</span></span><span class="line"><span class="cl">返回 101</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p><strong><code>previewWithdraw(assets)</code></strong>：用户说&quot;我要到手 100 USDC&quot;</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-fallback"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">到手 100 USDC，需要烧的基础 share 数 = X
+</span></span><span class="line"><span class="cl">费 = _feeOnRaw(100) = 1 USDC → 额外加
+</span></span><span class="line"><span class="cl">总需烧 = X + 额外的 1 USDC 对应的 share
+</span></span><span class="line"><span class="cl">返回总 share 数</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p><strong><code>previewRedeem(shares)</code></strong>：用户说&quot;我要烧对应 100 USDC 的 share&quot;</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-fallback"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">基础赎回 = 100 USDC
+</span></span><span class="line"><span class="cl">费 = _feeOnTotal(100) = 0.99 USDC → 交给 treasury
+</span></span><span class="line"><span class="cl">实际到手 = 100 - 0.99 = 99.01 USDC
+</span></span><span class="line"><span class="cl">返回 99.01</span></span></code></pre></td></tr></table></div>
+</div>
+</div><h3 class="heading-element" id="_deposit-和-_withdraw-钩子"><span><code>_deposit</code> 和 <code>_withdraw</code> 钩子</span>
+  <a href="#_deposit-%e5%92%8c-_withdraw-%e9%92%a9%e5%ad%90" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>OZ 在内部留了两个 hook，子合约可以重写来实现手续费：</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// 存款时调用（deposit 和 mint 都会走到这里）
+</span></span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">_deposit</span><span class="p">(</span><span class="kt">address</span> <span class="n">caller</span><span class="p">,</span> <span class="kt">address</span> <span class="n">receiver</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">assets</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">shares</span><span class="p">)</span> <span class="k">internal</span> <span class="k">virtual</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 默认：直接把 asset 从 caller 转给金库，mint share 给 receiver
+</span></span></span><span class="line"><span class="cl">    <span class="c1">// 带手续费的版本会在这里拆出 fee，转给 treasury
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 取款时调用（withdraw 和 redeem 都会走到这里）
+</span></span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">_withdraw</span><span class="p">(</span><span class="kt">address</span> <span class="n">caller</span><span class="p">,</span> <span class="kt">address</span> <span class="n">receiver</span><span class="p">,</span> <span class="kt">address</span> <span class="n">owner</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">assets</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">shares</span><span class="p">)</span> <span class="k">internal</span> <span class="k">virtual</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 默认：烧 share，转 asset
+</span></span></span><span class="line"><span class="cl">    <span class="c1">// 带手续费的版本会在这里拆出 fee，转给 treasury
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
+</div>
+</div><p>好处是只需重写这两个 hook，四个对外函数的行为全部自动对齐。</p>
+<h3 class="heading-element" id="deposit--withdraw-事件中的手续费"><span>Deposit / Withdraw 事件中的手续费</span>
+  <a href="#deposit--withdraw-%e4%ba%8b%e4%bb%b6%e4%b8%ad%e7%9a%84%e6%89%8b%e7%bb%ad%e8%b4%b9" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>OZ 文档特别说明了一个共识（EIP 本身对此写得不够明确）：</p>
+<ul>
+<li><strong><code>Deposit</code> 事件</strong>：<code>assets</code> 字段应包含手续费（用户掏的总数），<code>shares</code> 是实际收到的份额。两个数字之间的汇率差 = 买入价差。</li>
+<li><strong><code>Withdraw</code> 事件</strong>：<code>shares</code> 字段应包含手续费（用户烧的总数），<code>assets</code> 是实际到手的金额。两个数字之间的汇率差 = 卖出价差。</li>
+</ul>
+<blockquote>
+<p>前端可以通过 <code>assets/shares</code>（买入价）和另一笔交易的 <code>assets/shares</code>（卖出价）之间的差值看出金库收了多少费。</p>
+</blockquote></div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2026-07-16 09:46:34">更新于 2026-07-16&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://yinhui1984.github.io/erc-4626-tokenized-yield-bearing-vaults/" data-title="ERC-4626 Tokenized Yield-Bearing Vaults" data-hashtags="web3.0,EIP,ERC,ERC-4626"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://yinhui1984.github.io/erc-4626-tokenized-yield-bearing-vaults/" data-hashtag="web3.0"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://yinhui1984.github.io/erc-4626-tokenized-yield-bearing-vaults/" data-title="ERC-4626 Tokenized Yield-Bearing Vaults"><i class="fa-brands fa-hacker-news" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://yinhui1984.github.io/erc-4626-tokenized-yield-bearing-vaults/" data-title="ERC-4626 Tokenized Yield-Bearing Vaults"><svg class="icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>LINE</title><path d="M19.365 9.863c.349.0.63.285.63.631.0.345-.281.63-.63.63H17.61v1.125h1.755c.349.0.63.283.63.63.0.344-.281.629-.63.629h-2.386c-.345.0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346.0.627.285.627.63.0.349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211.0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346.0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195.0.375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345.0.63.285.63.63v4.771zm-5.741.0c0 .344-.282.629-.631.629-.345.0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346.0.628.285.628.63v4.771zm-2.466.629H4.917c-.345.0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348.0.63.285.63.63v4.141h1.756c.348.0.629.283.629.63.0.344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943.0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://yinhui1984.github.io/erc-4626-tokenized-yield-bearing-vaults/" data-title="ERC-4626 Tokenized Yield-Bearing Vaults"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
+        </div>
+      </div></div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/tags/web3.0/" class="post-tag" title="标签 - Web3.0">Web3.0</a><a href="/tags/eip/" class="post-tag" title="标签 - EIP">EIP</a><a href="/tags/erc/" class="post-tag" title="标签 - ERC">ERC</a><a href="/tags/erc-4626/" class="post-tag" title="标签 - ERC-4626">ERC-4626</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="/thetanuts-finance-attack-analysis/" class="post-nav-item" rel="prev" title="Thetanuts Finance Attack Analysis"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>Thetanuts Finance Attack Analysis</a></div>
+</div>
+</article>
+
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content always-active" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#标准文档">标准文档</a>
+      <ul>
+        <li><a href="#解决的问题">解决的问题</a></li>
+        <li><a href="#2种存钱方式">2种存钱方式</a>
+          <ul>
+            <li><a href="#方式1按底层资产算deposit">方式1：按底层资产算（deposit）</a></li>
+            <li><a href="#方式2按-share-算mint">方式2：按 Share 算（mint）</a></li>
+            <li><a href="#deposit-vs-mint">deposit vs mint</a></li>
+          </ul>
+        </li>
+        <li><a href="#2种取钱方式">2种取钱方式</a>
+          <ul>
+            <li><a href="#方式1按底层资产算withdraw">方式1：按底层资产算（withdraw）</a></li>
+            <li><a href="#方式2按-share-算redeem">方式2：按 Share 算（redeem）</a></li>
+            <li><a href="#withdraw-vs-redeem">withdraw vs redeem</a></li>
+          </ul>
+        </li>
+        <li><a href="#汇率">汇率</a></li>
+        <li><a href="#share-价格为什么会上涨下跌">share 价格为什么会上涨/下跌？</a></li>
+        <li><a href="#取整方向">取整方向:</a></li>
+        <li><a href="#事件安全与扩展">事件、安全、与扩展</a>
+          <ul>
+            <li><a href="#event">EVENT</a></li>
+            <li><a href="#安全要点">安全要点</a></li>
+            <li><a href="#扩展">扩展</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#openzeppelin-文档">openzeppelin 文档</a>
+      <ul>
+        <li><a href="#通货膨胀攻击">通货膨胀攻击</a>
+          <ul>
+            <li><a href="#攻击步骤">攻击步骤</a></li>
+            <li><a href="#防御方案-虚拟偏移">防御方案: 虚拟偏移</a></li>
+          </ul>
+        </li>
+        <li><a href="#手续费实现">手续费实现</a>
+          <ul>
+            <li><a href="#核心矛盾含费与不含费的两种方向">核心矛盾：&ldquo;含费&quot;与&quot;不含费&quot;的两种方向</a></li>
+            <li><a href="#具体到四个-preview-函数">具体到四个 preview 函数</a></li>
+          </ul>
+        </li>
+        <li><a href="#_deposit-和-_withdraw-钩子"><code>_deposit</code> 和 <code>_withdraw</code> 钩子</a></li>
+        <li><a href="#deposit--withdraw-事件中的手续费">Deposit / Withdraw 事件中的手续费</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.154.5"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.2"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="/"></a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="目录"><i class="fa-solid fa-bars" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/js/config/9d4ecce3feb370c9a4a10b44bcaa1508.js" defer></script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+</html>
