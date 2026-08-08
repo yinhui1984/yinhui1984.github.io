@@ -6,8 +6,16 @@
     <description>银辉的技术博客 - 专注 Web3 安全、智能合约审计、区块链安全分析、Go语言开发</description>
     <generator>Hugo 0.154.5 &amp; FixIt v0.4.2</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 07 Aug 2026 11:39:38 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 08 Aug 2026 10:04:27 +0800</lastBuildDate>
     <atom:link href="https://yinhui1984.github.io/categories/security/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AIC/NEX Attack Analysis</title>
+      <link>https://yinhui1984.github.io/aic-nex-attack-analysis/</link>
+      <pubDate>Sat, 08 Aug 2026 10:04:27 +0800</pubDate>
+      <guid>https://yinhui1984.github.io/aic-nex-attack-analysis/</guid>
+      <category domain="https://yinhui1984.github.io/categories/security/">Security</category>
+      <description>&lt;p&gt;In August 2026, at BSC block 113782392, a transaction (&lt;code&gt;0x905cc861bcc525d3a8e699583943831b97500bbac11c92dc20ed6edbddd69f87&lt;/code&gt;) drained the AIC/NEX pool (&lt;code&gt;0x974C0078740480aE830D379fDB8d5f441C9dDC75&lt;/code&gt;) on PancakeSwap V2: the AIC side of the pool&amp;rsquo;s reserves went from approximately 83.26 million (including the portion the attacker swapped in) down to just 4589 wei, netting the attacker about 40 million AIC, which was then converted into 32.361267 BNB via a two-hop swap and sent to the originating EOA &lt;code&gt;0xc3cb0872c42bfa5eb3b0258d7eea2ccaf6a49475&lt;/code&gt;.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>FTPEthReflect Attack Analysis</title>
       <link>https://yinhui1984.github.io/ftpethreflect-attack-analysis/</link>
