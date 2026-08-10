@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Approve - 标签 - YINHUI&#39;s BLOG</title>
-    <link>https://yinhui1984.github.io/tags/approve/</link>
+    <title>Metamask - 标签 - YINHUI&#39;s BLOG</title>
+    <link>https://yinhui1984.github.io/tags/metamask/</link>
     <description>银辉的技术博客 - 专注 Web3 安全、智能合约审计、区块链安全分析、Go语言开发</description>
     <generator>Hugo 0.154.5 &amp; FixIt v0.4.2</generator>
     <language>zh-CN</language>
     <lastBuildDate>Mon, 10 Aug 2026 09:17:23 +0800</lastBuildDate>
-    <atom:link href="https://yinhui1984.github.io/tags/approve/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://yinhui1984.github.io/tags/metamask/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>MetaMask Agent Wallet&#39;s Guard Mode Checks Four Things. The approve() Amount Isn&#39;t One of Them</title>
       <link>https://yinhui1984.github.io/metamask-agent-wallets-guard-mode-checks-four-things-the-approve-amount-isnt-one-of-them/</link>
@@ -15,22 +15,6 @@
       <guid>https://yinhui1984.github.io/metamask-agent-wallets-guard-mode-checks-four-things-the-approve-amount-isnt-one-of-them/</guid>
       <category domain="https://yinhui1984.github.io/categories/security/">Security</category>
       <description>&lt;p&gt;MetaMask Agent Wallet launched publicly on August 6, 2026. Its security model is a real, well-built pipeline. I read the pipeline against one specific pattern — an ERC20 &lt;code&gt;approve&lt;/code&gt; that grants more than the task needs — and it still goes through.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Agent 替你签 approve 时, 少检查了一层</title>
-      <link>https://yinhui1984.github.io/agent-approve-task-boundary/</link>
-      <pubDate>Thu, 25 Jun 2026 11:29:11 +0800</pubDate>
-      <guid>https://yinhui1984.github.io/agent-approve-task-boundary/</guid>
-      <category domain="https://yinhui1984.github.io/categories/security/">Security</category>
-      <description>&lt;p&gt;关于 AI AGENT 与 无限授权&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>ERC20 approve 到底授权了什么</title>
-      <link>https://yinhui1984.github.io/erc20-approve-allowance/</link>
-      <pubDate>Wed, 24 Jun 2026 10:36:18 +0800</pubDate>
-      <guid>https://yinhui1984.github.io/erc20-approve-allowance/</guid>
-      <category domain="https://yinhui1984.github.io/categories/security/">Security</category>
-      <description>&lt;p&gt;关于ERC20无限授权&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

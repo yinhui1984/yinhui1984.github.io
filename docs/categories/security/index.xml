@@ -6,8 +6,16 @@
     <description>银辉的技术博客 - 专注 Web3 安全、智能合约审计、区块链安全分析、Go语言开发</description>
     <generator>Hugo 0.154.5 &amp; FixIt v0.4.2</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 08 Aug 2026 10:04:27 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 10 Aug 2026 09:17:23 +0800</lastBuildDate>
     <atom:link href="https://yinhui1984.github.io/categories/security/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MetaMask Agent Wallet&#39;s Guard Mode Checks Four Things. The approve() Amount Isn&#39;t One of Them</title>
+      <link>https://yinhui1984.github.io/metamask-agent-wallets-guard-mode-checks-four-things-the-approve-amount-isnt-one-of-them/</link>
+      <pubDate>Mon, 10 Aug 2026 09:17:23 +0800</pubDate>
+      <guid>https://yinhui1984.github.io/metamask-agent-wallets-guard-mode-checks-four-things-the-approve-amount-isnt-one-of-them/</guid>
+      <category domain="https://yinhui1984.github.io/categories/security/">Security</category>
+      <description>&lt;p&gt;MetaMask Agent Wallet launched publicly on August 6, 2026. Its security model is a real, well-built pipeline. I read the pipeline against one specific pattern — an ERC20 &lt;code&gt;approve&lt;/code&gt; that grants more than the task needs — and it still goes through.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>AIC/NEX Attack Analysis</title>
       <link>https://yinhui1984.github.io/aic-nex-attack-analysis/</link>

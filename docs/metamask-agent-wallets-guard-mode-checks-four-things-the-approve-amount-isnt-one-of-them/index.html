@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>MetaMask Agent Wallet&#39;s Guard Mode Checks Four Things. the Approve() Amount Isn&#39;t One of Them - YINHUI&#39;s BLOG</title><meta name="author" content="yinhui">
+<meta name="description" content="MetaMask Agent Wallet launched publicly on August 6, 2026, with a documented three-layer security pipeline. Walking one approve(spender, type(uint256).max) pattern through Guard Mode&#39;s outflow limit, allowlist, threat scan, and --intent field shows which one never looks at the approval amount at all."><meta name="keywords" content='agent, approve, defi, metamask'>
+  <meta itemprop="name" content="MetaMask Agent Wallet&#39;s Guard Mode Checks Four Things. The approve() Amount Isn&#39;t One of Them">
+  <meta itemprop="description" content="MetaMask Agent Wallet launched publicly on August 6, 2026, with a documented three-layer security pipeline. Walking one approve(spender, type(uint256).max) pattern through Guard Mode&#39;s outflow limit, allowlist, threat scan, and --intent field shows which one never looks at the approval amount at all.">
+  <meta itemprop="datePublished" content="2026-08-10T09:17:23+08:00">
+  <meta itemprop="dateModified" content="2026-08-10T09:17:23+08:00">
+  <meta itemprop="wordCount" content="2802">
+  <meta itemprop="image" content="https://yinhui1984.github.io/images/avatar.png">
+  <meta itemprop="keywords" content="Agent,Approve,DeFi,Metamask"><meta property="og:url" content="https://yinhui1984.github.io/metamask-agent-wallets-guard-mode-checks-four-things-the-approve-amount-isnt-one-of-them/">
+  <meta property="og:site_name" content="YINHUI&#39;s BLOG">
+  <meta property="og:title" content="MetaMask Agent Wallet&#39;s Guard Mode Checks Four Things. The approve() Amount Isn&#39;t One of Them">
+  <meta property="og:description" content="MetaMask Agent Wallet launched publicly on August 6, 2026, with a documented three-layer security pipeline. Walking one approve(spender, type(uint256).max) pattern through Guard Mode&#39;s outflow limit, allowlist, threat scan, and --intent field shows which one never looks at the approval amount at all.">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-08-10T09:17:23+08:00">
+    <meta property="article:modified_time" content="2026-08-10T09:17:23+08:00">
+    <meta property="article:tag" content="Agent">
+    <meta property="article:tag" content="Approve">
+    <meta property="article:tag" content="DeFi">
+    <meta property="article:tag" content="Metamask">
+    <meta property="og:image" content="https://yinhui1984.github.io/images/avatar.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://yinhui1984.github.io/images/avatar.png">
+  <meta name="twitter:title" content="MetaMask Agent Wallet&#39;s Guard Mode Checks Four Things. The approve() Amount Isn&#39;t One of Them">
+  <meta name="twitter:description" content="MetaMask Agent Wallet launched publicly on August 6, 2026, with a documented three-layer security pipeline. Walking one approve(spender, type(uint256).max) pattern through Guard Mode&#39;s outflow limit, allowlist, threat scan, and --intent field shows which one never looks at the approval amount at all.">
+<meta name="application-name" content="YINHUI&#39;s BLOG">
+<meta name="apple-mobile-web-app-title" content="YINHUI&#39;s BLOG"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://yinhui1984.github.io/metamask-agent-wallets-guard-mode-checks-four-things-the-approve-amount-isnt-one-of-them/" title="MetaMask Agent Wallet&#39;s Guard Mode Checks Four Things. The approve() Amount Isn&#39;t One of Them - YINHUI&#39;s BLOG" /><link rel="prev" type="text/html" href="https://yinhui1984.github.io/aic-nex-attack-analysis/" title="AIC/NEX Attack Analysis" /><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "MetaMask Agent Wallet's Guard Mode Checks Four Things. The approve() Amount Isn't One of Them",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/yinhui1984.github.io\/metamask-agent-wallets-guard-mode-checks-four-things-the-approve-amount-isnt-one-of-them\/"
+    },"image": ["https:\/\/yinhui1984.github.io\/images\/avatar.png"],"genre": "posts","keywords": "agent, approve, defi, metamask","wordcount":  2802 ,
+    "url": "https:\/\/yinhui1984.github.io\/metamask-agent-wallets-guard-mode-checks-four-things-the-approve-amount-isnt-one-of-them\/","datePublished": "2026-08-10T09:17:23+08:00","dateModified": "2026-08-10T09:17:23+08:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "yinhui"
+      },"description": "MetaMask Agent Wallet launched publicly on August 6, 2026, with a documented three-layer security pipeline. Walking one approve(spender, type(uint256).max) pattern through Guard Mode's outflow limit, allowlist, threat scan, and --intent field shows which one never looks at the approval amount at all."
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="fixed" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="YINHUI&#39;s BLOG"><span class="header-title-text">YINHUI&#39;s BLOG</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="/categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="/">首页</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="YINHUI&#39;s BLOG"><span class="header-title-text">YINHUI&#39;s BLOG</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="/tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="/categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="/">首页</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>MetaMask Agent Wallet&#39;s Guard Mode Checks Four Things. the Approve() Amount Isn&#39;t One of Them</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+      yinhui</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/security/" class="post-category" title="分类 - Security"><i class="fa-regular fa-folder" aria-hidden="true"></i> Security</a></span></div><div class="post-meta-line"><span title="发布于 2026-08-10 09:17:23"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2026-08-10">2026-08-10</time></span>&nbsp;<span title="2802 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 2900 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 14 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#the-example-again">The example, again</a></li>
+    <li><a href="#what-actually-shipped">What actually shipped</a></li>
+    <li><a href="#walking-the-approve-through-each-check">Walking the approve through each check</a></li>
+    <li><a href="#skills-are-prompts-not-hooks">Skills are prompts, not hooks</a></li>
+    <li><a href="#the-one-place-this-might-already-be-handled">The one place this might already be handled</a></li>
+    <li><a href="#naming-the-missing-layer">Naming the missing layer</a></li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><p>MetaMask Agent Wallet launched publicly on August 6, 2026. Its security model is a real, well-built pipeline. I read the pipeline against one specific pattern — an ERC20 <code>approve</code> that grants more than the task needs — and it still goes through.</p>
+<h2 class="heading-element" id="the-example-again"><span>The example, again</span>
+  <a href="#the-example-again" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>In <a href="https://yinhui1984.github.io/agent-approve-task-boundary/" target="_blank" rel="external nofollow noopener noreferrer">an earlier note</a> from June 25, 2026, I looked at one small case. A user asks an agent to swap 8 USDC for ETH. The agent&rsquo;s last on-chain action is:</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-text"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">approve(MetaSwap, type(uint256).max)</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>That corresponds to a real Ethereum mainnet transaction, <code>0x8e0a15886616d1e7bc59c4c398fa3091fa5516a042af69ce44cdd06afe78a582</code>, block <code>22350004</code>. I re-checked it against a public RPC endpoint while writing this piece:</p>
+<json-viewer value="&#34;{\n  \&#34;to\&#34;: \&#34;0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48\&#34;,\n  \&#34;input\&#34;: \&#34;0x095ea7b3000000000000000000000000881d40237659c251811cec9c364ef91dc08d300c\n             ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff\&#34;,\n  \&#34;value\&#34;: \&#34;0x0\&#34;\n}&#34;" expand-depth="1" boxed copyable="{&#34;copiedText&#34;:&#34;已复制&#34;,&#34;copyText&#34;:&#34;复制&#34;}"></json-viewer><p><code>to</code> is the USDC contract. The selector <code>0x095ea7b3</code> is <code>approve(address,uint256)</code>. Decoding the two words gives <code>spender = 0x881d40237659c251811cec9c364ef91dc08d300c</code> and <code>amount = 2^256 - 1</code>, i.e. <code>type(uint256).max</code>. Signature valid, calldata well-formed, token contract doesn&rsquo;t revert, gas spent normally. MetaSwap is a DEX aggregator, not an obviously malicious contract.</p>
+<p>The task needed at most 8 USDC of spending power. What actually got granted was a standing, effectively unlimited allowance to a router. I called that gap <code>Authorization Surplus</code>:</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-text"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Authorization Surplus = granted capability - task requirement</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>That note was written while MetaMask&rsquo;s Agent Wallet was still in early access, running transactions through the same three checks — simulation, threat scanning, MEV protection — that define the pipeline today, and it argued that none of the three would catch this particular <code>approve</code>. Six weeks later Agent Wallet left early access and shipped to the public with the same pipeline, now fully documented. That&rsquo;s a good occasion to check the earlier reasoning against the actual spec instead of against a guess.</p>
+<h2 class="heading-element" id="what-actually-shipped"><span>What actually shipped</span>
+  <a href="#what-actually-shipped" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>Everything below is quoted or directly reproduced from MetaMask&rsquo;s own sources: the <a href="https://metamask.io/news/introducing-metamask-agent-wallet" target="_blank" rel="external nofollow noopener noreferrer">launch post</a>, the <a href="https://docs.metamask.io/agent-wallet/reference/architecture/" target="_blank" rel="external nofollow noopener noreferrer">architecture reference</a>, the <a href="https://docs.metamask.io/agent-wallet/reference/trading-modes/" target="_blank" rel="external nofollow noopener noreferrer">trading-modes reference</a>, the <a href="https://docs.metamask.io/agent-wallet/reference/outflow-policy/" target="_blank" rel="external nofollow noopener noreferrer">outflow-policy reference</a>, MetaMask&rsquo;s own security post, <a href="https://metamask.io/news/agentic-wallet-security" target="_blank" rel="external nofollow noopener noreferrer">What actually keeps an AI agent from draining your wallet</a>, and MetaMask&rsquo;s open-source <a href="https://github.com/MetaMask/agent-skills" target="_blank" rel="external nofollow noopener noreferrer">agent-skills</a> repository. Where I couldn&rsquo;t verify a claim against a primary source, I&rsquo;ve left it out or flagged it explicitly — this piece isn&rsquo;t trying to repeat marketing copy as fact.</p>
+<p>The <code>agent-skills</code> repo is the same one MetaMask&rsquo;s own <a href="https://docs.metamask.io/agent-wallet/quickstart" target="_blank" rel="external nofollow noopener noreferrer">quickstart</a> tells you to install with <code>npx skills add MetaMask/agent-skills</code> — it&rsquo;s the set of Markdown skill files that teach an LLM agent which <code>mm</code> CLI commands to run and when. I pulled it directly with <code>gh repo clone MetaMask/agent-skills</code>, pinned to commit <code>f0fd1e947dbcf9f80e14815616d7b618fcde4ffe</code> — &ldquo;update skills for v6.0.0&rdquo;, dated 2026-08-06, the same day Agent Wallet left early access. Anyone can reproduce this with either command; both resolve to the same public repository. The part relevant here is one directory:</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-text"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">skills/metamask-agent-wallet/
+</span></span><span class="line"><span class="cl">├── SKILL.md
+</span></span><span class="line"><span class="cl">├── references/
+</span></span><span class="line"><span class="cl">│   ├── decode.md
+</span></span><span class="line"><span class="cl">│   ├── polling.md
+</span></span><span class="line"><span class="cl">│   ├── signing.md
+</span></span><span class="line"><span class="cl">│   ├── swap.md
+</span></span><span class="line"><span class="cl">│   ├── transaction.md
+</span></span><span class="line"><span class="cl">│   ├── wallet.md
+</span></span><span class="line"><span class="cl">│   └── ... (auth, chain, earn, errors, market-data, perps, predict,
+</span></span><span class="line"><span class="cl">│            transfer, tx-history, x402)
+</span></span><span class="line"><span class="cl">├── workflows/
+</span></span><span class="line"><span class="cl">│   └── swap.md, bridge.md, earn-*.md, perps-*.md, predict-*.md, ...
+</span></span><span class="line"><span class="cl">└── scripts/
+</span></span><span class="line"><span class="cl">    ├── amount_to_hex.py
+</span></span><span class="line"><span class="cl">    └── x402_pay.py</span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
+</div>
+</div><p>I also installed the real CLI — <code>npm install @metamask/agent-wallet@6.0.0</code>, the same version number as the &ldquo;update skills for v6.0.0&rdquo; commit in the skills repo above — and ran <code>mm &lt;command&gt; --help</code> against the shipped binary itself for every command this piece relies on: <code>decode</code>, <code>wallet send-transaction</code>, <code>wallet sign-typed-data</code>, <code>wallet policy get/set/template</code>, <code>wallet trading-mode set</code>. The live binary&rsquo;s <code>--help</code> JSON matches the skill markdown&rsquo;s documented flags word for word, including <code>--intent</code>: &ldquo;Human-readable summary of what is being signed, forwarded with the request&rdquo; on <code>sign-typed-data</code>, and the transaction-level equivalent on <code>send-transaction</code>. So this isn&rsquo;t just prompt-file documentation that an LLM agent happens to read — it&rsquo;s the actual flag surface of the CLI a human or agent runs. <code>mm wallet policy template</code>, which would print the live policy schema, requires <code>mm login</code> first. Creating a real account crosses from reading a public spec into operating a live financial product, which is a different kind of claim than this piece is making — so that&rsquo;s where the verification stops.</p>
+<p>Agent Wallet ships two trading modes, chosen at <code>mm init</code>:</p>
+<ul>
+<li><strong>Guard Mode</strong> (default): a network allowlist, an address allowlist, a token-recipient allowlist, and a rolling 24-hour outflow limit. Anything outside those triggers 2FA.</li>
+<li><strong>Beast Mode</strong>: no allowlists, no outflow limit. Threat scanning still runs, and flagged transactions still require 2FA.</li>
+</ul>
+<p>Both modes run the same mandatory three-step pipeline on every supported EVM transaction before it signs: transaction simulation (shows balance changes, allowances, and gas routing before you sign), threat scanning powered by Blockaid, and MEV protection via Smart Transactions. Eligible transactions that pass all three and still lose money are covered up to $10,000/month under Transaction Protection.</p>
+<p>Keys, in server-wallet mode, live in a TEE that the agent can&rsquo;t reach. When a transaction needs 2FA, it enters an <code>AWAITING_MFA</code> state and the CLI returns a <code>pollingId</code>; you approve or reject via MetaMask Mobile or an email link, and the request auto-expires if you don&rsquo;t respond.</p>
+<p>This is a genuinely solid architecture. Key isolation, mandatory (not opt-in) security checks, and an escalation path to a human are all the right defaults. None of what follows is an argument that MetaMask built this carelessly. It&rsquo;s an argument that one specific class of capability — how much a single <code>approve</code> grants — sits outside every check this pipeline runs.</p>
+<h2 class="heading-element" id="walking-the-approve-through-each-check"><span>Walking the approve through each check</span>
+  <a href="#walking-the-approve-through-each-check" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>Take the exact case from June: agent asked to swap 8 USDC for ETH, MetaSwap (or any allowlisted router) as spender, <code>amount = type(uint256).max</code>. Run it through Guard Mode&rsquo;s four control points, one at a time, using only what MetaMask&rsquo;s own docs say each one does.</p>
+<p><strong>The outflow limit.</strong> The <a href="https://docs.metamask.io/agent-wallet/reference/outflow-policy/" target="_blank" rel="external nofollow noopener noreferrer">outflow-policy reference</a> defines it precisely: it tracks &ldquo;token outflow from your account&rdquo; — transfers, swaps, and deposits — and &ldquo;before signing, MetaMask simulates the transaction value and adds that value to your 24-hour total once the transaction is confirmed.&rdquo; An <code>approve</code> call moves zero tokens. Its simulated value is $0. The one numeric ceiling Guard Mode enforces literally cannot see it, by the same definition that makes the limit work correctly for transfers and swaps. The same reference page adds, separately: &ldquo;Signatures (for example, Permit2) are not included in the outflow calculation as of now&rdquo; — a second, explicit statement that capability-granting operations sit outside this particular ledger. The <code>agent-skills</code> repo corroborates that the limit is a flat scalar, not a per-transaction cap: <code>skills/metamask-agent-wallet/references/wallet.md</code> documents <code>mm wallet policy set --policy &quot;maxDailyOutflow: 1000&quot;</code> as the entire shape of the policy — one number, no field for bounding a single call&rsquo;s allowance.</p>
+<p><strong>The address allowlist.</strong> For the swap itself to be permitted at all, the router has to be on the allowlist — that&rsquo;s the whole point of the allowlist. But the allowlist checks identity, not scope. An <code>approve</code> to that same already-allowlisted router passes the identity check whether the amount is 8 USDC or <code>2^256 - 1</code>. The allowlist answers &ldquo;is this a contract you said you&rsquo;d trade with,&rdquo; not &ldquo;how much of your balance is this specific call requesting.&rdquo;</p>
+<p><strong>Blockaid threat scanning.</strong> This is a reputation and malice classifier — known drainers, fake tokens, honeypots, flagged contracts. MetaMask&rsquo;s own security post states the underlying design principle directly: <em>&ldquo;An agentic wallet is secure when it treats the AI agent as an unfamiliar transaction proposer rather than a trusted signer,&rdquo;</em> and, even more to the point, <em>&ldquo;an agent scoped to check balances doesn&rsquo;t need the authority to approve unlimited token spending.&rdquo;</em> That&rsquo;s the exact least-privilege argument this piece is making, in MetaMask&rsquo;s own words. But it&rsquo;s stated as design philosophy in a blog post, not implemented as a calldata-level check in Guard Mode. A legitimate router asking for excess allowance and the same router asking for exact allowance look identical to a scanner built to answer &ldquo;is this contract malicious,&rdquo; because the excess itself isn&rsquo;t the signal that scanner reads.</p>
+<p><strong>The <code>--intent</code> field.</strong> This is the one I didn&rsquo;t expect to find, and it&rsquo;s the cleanest illustration of the whole gap. <code>skills/metamask-agent-wallet/references/signing.md</code> documents <code>wallet sign-typed-data</code> — and <code>references/transaction.md</code> documents <code>wallet send-transaction</code> the same way — as taking an optional <code>--intent</code> flag: &ldquo;Human-readable summary of what is being signed, forwarded with the request.&rdquo; The example given in <code>signing.md</code> is:</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-bash"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mm wallet sign-typed-data --chain-id <span class="m">137</span> --payload <span class="s1">&#39;{&#34;types&#34;:...}&#39;</span> --wait --intent <span class="s2">&#34;Approve 10 USDC&#34;</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p><code>--intent</code> is attached to the request purely so a human can read it during 2FA review — <code>SKILL.md</code> and <code>references/polling.md</code> both state this explicitly, in identical wording: transfers, swaps, and other actions &ldquo;attach a human-readable <code>intent</code> summary to their wallet request&hellip; so the user can confirm what they are approving.&rdquo; Nothing in either file says this string is checked against the payload it&rsquo;s attached to. The agent that builds <code>--payload</code> also writes <code>--intent</code>. Both are self-reported by the same untrusted process. An agent can caption an unlimited-allowance payload <code>&quot;Approve 10 USDC&quot;</code> and nothing in the documented pipeline compares the caption to the calldata.</p>
+<p>There&rsquo;s a <code>mm decode</code> command, documented in <code>references/decode.md</code>, that turns raw calldata back into a plain-language <code>intent</code> string — genuinely useful, and it would correctly report <code>Call approve(spender: 0x..., amount: 115792089237316195423570985008687907853269984665640564039457584007913129639935)</code> for this exact transaction. But its documented use is scoped to calldata &ldquo;unfamiliar or was not constructed by you&rdquo; — a safety net for relaying a foreign contract&rsquo;s suggested call, not a self-consistency check the agent is required to run against its own output before signing.</p>
+<p>Put the four together: outflow limit sees $0, address allowlist sees an allowlisted counterparty, threat scan sees a non-malicious contract, and <code>--intent</code> is whatever string the agent chose to write. All four pass. The transaction goes through Guard Mode without a single 2FA prompt — structurally, based on what each check is documented to look at, not because any one of them is broken.</p>
+<h2 class="heading-element" id="skills-are-prompts-not-hooks"><span>Skills are prompts, not hooks</span>
+  <a href="#skills-are-prompts-not-hooks" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>There&rsquo;s a second, different kind of gap worth naming here, because it sits behind all four checks rather than alongside them. Everything in <code>agent-skills</code> — decode unfamiliar calldata first (<code>references/decode.md</code>), don&rsquo;t skip the quote review step (<code>workflows/swap.md</code>), attach a meaningful <code>--intent</code> — is a prompt, not a hook. It&rsquo;s Markdown text an LLM agent is trusted to read and follow, and nothing in the CLI or the wallet service requires any of it to have actually happened. The installed binary confirms this directly: <code>mm swap quote --help</code> documents <code>--yes</code> as &ldquo;skip interactive confirmation&rdquo; — exactly the step <code>workflows/swap.md</code> tells the agent not to skip. <code>mm swap execute --help</code> runs straight from <code>--from</code>/<code>--to</code>/<code>--amount</code>/<code>--from-chain-id</code>, no prior <code>--quote-id</code> required. <code>mm wallet send-transaction --help</code> has no dependency on <code>mm decode</code> at all — calldata can go from agent to signature with nothing decoded in between. An agent that never installs the skill, or installs it and ignores the advice, isn&rsquo;t bypassing a control; there was never a code-level control there to bypass. Which means the outflow limit, the address allowlist, and Blockaid&rsquo;s threat scan aren&rsquo;t just the three checks that don&rsquo;t look at an <code>approve</code> amount — they&rsquo;re also the only parts of this pipeline guaranteed to run at all, independent of which agent framework or which model is issuing the commands.</p>
+<p>That leaves a real question for whoever is actually running this: what are you trusting when you turn Guard Mode on? The rules MetaMask enforces, you don&rsquo;t have to trust the agent to respect — they run whether the agent is careful or not. The rules the skill recommends — decode before sending, show the quote, write an honest <code>--intent</code> — you do have to trust the agent to respect, because nothing downstream checks whether it actually did. A capable, well-aligned agent probably follows them. A cheaper model, a buggy agent framework, or one that never loaded the skill in the first place has no code standing in its way, and Guard Mode has no way to tell which kind of agent it&rsquo;s talking to — because it was never checking that layer to begin with.</p>
+<p>I want to be precise about what this argument is and isn&rsquo;t. I don&rsquo;t have an Agent Wallet early-access account, so I haven&rsquo;t run this against live infrastructure, and I&rsquo;m not claiming to. What I have is MetaMask&rsquo;s own specification, quoted above, and a real on-chain transaction with the exact shape the specification says would pass. That&rsquo;s a design-level analysis, not a live exploit — closer to reading an audit report against a contract than to draining a wallet. If MetaMask&rsquo;s actual runtime does something the public docs don&rsquo;t mention, this is exactly the kind of claim that gets updated the moment better evidence shows up.</p>
+<h2 class="heading-element" id="the-one-place-this-might-already-be-handled"><span>The one place this might already be handled</span>
+  <a href="#the-one-place-this-might-already-be-handled" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>One documented feature complicates the picture, and it deserves to be stated rather than buried. <code>references/swap.md</code> notes: &ldquo;ERC-7821 batch execution: on eligible chains and accounts, the CLI automatically batches approval + trade into a single <code>execute()</code> transaction&hellip; No flag is needed — this is automatic when supported.&rdquo; <code>workflows/swap.md</code> repeats it: &ldquo;The user sees &lsquo;Approval and swap submitted as a single transaction.&rsquo;&rdquo; On accounts that support ERC-7821 batched calls, the <code>approve</code> never exists as its own signed transaction at all — it&rsquo;s bundled atomically with the trade.</p>
+<p>That&rsquo;s a real improvement over the classic two-step &ldquo;approve, then swap&rdquo; flow the June transaction used, and it closes off one attack surface: there&rsquo;s no window where an unlimited allowance sits live on-chain with no trade attached to it. But it doesn&rsquo;t answer the actual question here, because nothing in the public docs says what amount gets encoded into the approval <em>inside</em> that batch. If the batch encoder sizes the allowance to the exact swap amount, the gap is closed for eligible accounts specifically because someone made that choice — not because Guard Mode&rsquo;s allowlist or outflow limit would have caught an oversized one. If it still encodes <code>type(uint256).max</code> inside the bundle for gas or UX reasons, the surplus is just as unlimited, and it&rsquo;s now also invisible as a standalone entry in the wallet&rsquo;s transaction history. I can&rsquo;t verify which from the outside, and I&rsquo;d rather say that plainly than round it off in either direction. It&rsquo;s the one part of this analysis that&rsquo;s a genuinely open question, not a documented gap.</p>
+<p>For accounts that don&rsquo;t support ERC-7821 — which is most EOA-based server wallets today — the flow reverts to the plain two-step pattern, and the four checks above apply exactly as described.</p>
+<h2 class="heading-element" id="naming-the-missing-layer"><span>Naming the missing layer</span>
+  <a href="#naming-the-missing-layer" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>None of the four controls Guard Mode ships are wrong. Outflow limits should track realized value moved, not hypothetical future capacity — that&rsquo;s the correct definition for what they&rsquo;re for. Allowlists should check counterparty identity — that&rsquo;s the correct definition for what they&rsquo;re for. Threat scanning should flag malicious contracts — a legitimate router isn&rsquo;t one, regardless of how much it&rsquo;s been approved for. The gap isn&rsquo;t a bug in any one of these; it&rsquo;s that none of them was ever the right tool for the question &ldquo;does this specific grant match what this specific task needs.&rdquo; That&rsquo;s a different axis than &ldquo;is this transaction safe.&rdquo;</p>
+<p>The check that&rsquo;s missing is small enough to describe in one line:</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-text"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">approve.amount &lt;= task.max_input + buffer</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>Where would it live, concretely, given what&rsquo;s actually in the open-source repo? <code>mm decode</code> (<code>references/decode.md</code>) already produces exactly the structured output needed — <code>functionName</code>, <code>params</code>, spender, amount. The missing piece is a required step in the swap/transfer skill workflow, not a new wallet-level primitive: before <code>wallet send-transaction</code> or <code>wallet sign-typed-data</code> is called with agent-constructed calldata, decode it, compare <code>amount</code> against the task&rsquo;s stated bound (8 USDC, in this case), and refuse — or force explicit user confirmation — if the decoded amount exceeds it. That&rsquo;s a change to <code>skills/metamask-agent-wallet/references/transaction.md</code> and <code>signing.md</code>, commit <code>f0fd1e9</code> and onward, in a public repo anyone can send a pull request to — not a change to Blockaid&rsquo;s threat model or to the outflow ledger&rsquo;s definition. The other half of the fix is operational: if a task genuinely needs a temporarily larger allowance, grant it, but revoke it when the task ends —</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-text"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">approve(spender, 0)</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>— instead of leaving <code>type(uint256).max</code> sitting in <code>_allowances</code> indefinitely, which is what the June transaction did and what a Guard-Mode-passed equivalent would still do today.</p>
+<p>The deeper point carries past this one product. <code>approve</code>&rsquo;s on-chain semantics only know <code>spender</code> and <code>amount</code> — they have no concept of &ldquo;task.&rdquo; Every check discussed here — outflow, allowlist, threat scan, even the human-facing <code>--intent</code> caption — operates on the transaction as MetaMask&rsquo;s pipeline receives it, which is already downstream of the point where the user&rsquo;s actual instruction got compressed into a <code>spender</code> and an <code>amount</code> chosen by the agent itself. An agent wallet that wants to bind the two has to carry the task&rsquo;s bound through that compression step and check the calldata against it explicitly, because nothing below the wallet layer is going to do it for free.</p></div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2026-08-10 09:17:23">更新于 2026-08-10&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://yinhui1984.github.io/metamask-agent-wallets-guard-mode-checks-four-things-the-approve-amount-isnt-one-of-them/" data-title="MetaMask Agent Wallet&#39;s Guard Mode Checks Four Things. the Approve() Amount Isn&#39;t One of Them" data-hashtags="agent,approve,defi,metamask"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://yinhui1984.github.io/metamask-agent-wallets-guard-mode-checks-four-things-the-approve-amount-isnt-one-of-them/" data-hashtag="agent"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://yinhui1984.github.io/metamask-agent-wallets-guard-mode-checks-four-things-the-approve-amount-isnt-one-of-them/" data-title="MetaMask Agent Wallet&#39;s Guard Mode Checks Four Things. the Approve() Amount Isn&#39;t One of Them"><i class="fa-brands fa-hacker-news" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://yinhui1984.github.io/metamask-agent-wallets-guard-mode-checks-four-things-the-approve-amount-isnt-one-of-them/" data-title="MetaMask Agent Wallet&#39;s Guard Mode Checks Four Things. the Approve() Amount Isn&#39;t One of Them"><svg class="icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>LINE</title><path d="M19.365 9.863c.349.0.63.285.63.631.0.345-.281.63-.63.63H17.61v1.125h1.755c.349.0.63.283.63.63.0.344-.281.629-.63.629h-2.386c-.345.0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346.0.627.285.627.63.0.349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211.0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346.0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195.0.375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345.0.63.285.63.63v4.771zm-5.741.0c0 .344-.282.629-.631.629-.345.0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346.0.628.285.628.63v4.771zm-2.466.629H4.917c-.345.0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348.0.63.285.63.63v4.141h1.756c.348.0.629.283.629.63.0.344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943.0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://yinhui1984.github.io/metamask-agent-wallets-guard-mode-checks-four-things-the-approve-amount-isnt-one-of-them/" data-title="MetaMask Agent Wallet&#39;s Guard Mode Checks Four Things. the Approve() Amount Isn&#39;t One of Them"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
+        </div>
+      </div></div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/tags/agent/" class="post-tag" title="标签 - Agent">Agent</a><a href="/tags/approve/" class="post-tag" title="标签 - Approve">Approve</a><a href="/tags/defi/" class="post-tag" title="标签 - DeFi">DeFi</a><a href="/tags/metamask/" class="post-tag" title="标签 - Metamask">Metamask</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="/aic-nex-attack-analysis/" class="post-nav-item" rel="prev" title="AIC/NEX Attack Analysis"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>AIC/NEX Attack Analysis</a></div>
+</div>
+</article>
+
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content always-active" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#the-example-again">The example, again</a></li>
+    <li><a href="#what-actually-shipped">What actually shipped</a></li>
+    <li><a href="#walking-the-approve-through-each-check">Walking the approve through each check</a></li>
+    <li><a href="#skills-are-prompts-not-hooks">Skills are prompts, not hooks</a></li>
+    <li><a href="#the-one-place-this-might-already-be-handled">The one place this might already be handled</a></li>
+    <li><a href="#naming-the-missing-layer">Naming the missing layer</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.154.5"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.2"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="/"></a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="目录"><i class="fa-solid fa-bars" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/json-viewer-element/json-viewer-element.umd.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/js/config/b808d6522d014be5d82df9da73c81cce.js" defer></script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+</html>

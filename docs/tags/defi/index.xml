@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Defi - 标签 - YINHUI&#39;s BLOG</title>
+    <title>DeFi - 标签 - YINHUI&#39;s BLOG</title>
     <link>https://yinhui1984.github.io/tags/defi/</link>
     <description>银辉的技术博客 - 专注 Web3 安全、智能合约审计、区块链安全分析、Go语言开发</description>
     <generator>Hugo 0.154.5 &amp; FixIt v0.4.2</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 25 Jul 2026 20:05:01 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 10 Aug 2026 09:17:23 +0800</lastBuildDate>
     <atom:link href="https://yinhui1984.github.io/tags/defi/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MetaMask Agent Wallet&#39;s Guard Mode Checks Four Things. The approve() Amount Isn&#39;t One of Them</title>
+      <link>https://yinhui1984.github.io/metamask-agent-wallets-guard-mode-checks-four-things-the-approve-amount-isnt-one-of-them/</link>
+      <pubDate>Mon, 10 Aug 2026 09:17:23 +0800</pubDate>
+      <guid>https://yinhui1984.github.io/metamask-agent-wallets-guard-mode-checks-four-things-the-approve-amount-isnt-one-of-them/</guid>
+      <category domain="https://yinhui1984.github.io/categories/security/">Security</category>
+      <description>&lt;p&gt;MetaMask Agent Wallet launched publicly on August 6, 2026. Its security model is a real, well-built pipeline. I read the pipeline against one specific pattern — an ERC20 &lt;code&gt;approve&lt;/code&gt; that grants more than the task needs — and it still goes through.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>BarnBridge SmartYield 攻击分析:$774943 —— 一次 $600 撬动的治理接管</title>
       <link>https://yinhui1984.github.io/barnbridge-smartyield-%E6%94%BB%E5%87%BB%E5%88%86%E6%9E%90-774943--%E4%B8%80%E6%AC%A1-600-%E6%92%AC%E5%8A%A8%E7%9A%84%E6%B2%BB%E7%90%86%E6%8E%A5%E7%AE%A1/</link>
