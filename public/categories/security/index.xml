@@ -6,8 +6,16 @@
     <description>银辉的技术博客 - 专注 Web3 安全、智能合约审计、区块链安全分析、Go语言开发</description>
     <generator>Hugo 0.154.5 &amp; FixIt v0.4.2</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 12 Aug 2026 21:16:15 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 14 Aug 2026 16:57:50 +0800</lastBuildDate>
     <atom:link href="https://yinhui1984.github.io/categories/security/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CryptoDAOGlobal Attack Analysic</title>
+      <link>https://yinhui1984.github.io/cryptodaoglobal-attack-analysic/</link>
+      <pubDate>Fri, 14 Aug 2026 16:57:50 +0800</pubDate>
+      <guid>https://yinhui1984.github.io/cryptodaoglobal-attack-analysic/</guid>
+      <category domain="https://yinhui1984.github.io/categories/security/">Security</category>
+      <description>&lt;p&gt;On BSC block 112652246, this transaction succeeded with 5,206 internal calls. The top-level caller was a contract at 0xf00bC28D22d71Be74Bc8aB0d11Fe77F6D77850ac, invoked by EOA 0x427671b2c8e91034a91fe698f9b7259b2345f45d, and the entry function is literally called &lt;code&gt;attack(address,uint256,uint256)&lt;/code&gt;. When it was over, 13,445.27 USDT had moved to the EOA. This post is about what that transaction did, and how a fork reproduction of it matches the trace to the dollar.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>USM drained for 70.8 ETH by funding 62M FUM against a price that hadn&#39;t been refreshed in 99 days</title>
       <link>https://yinhui1984.github.io/usm-drained-for-70.8-eth-by-funding-62m-fum-against-a-price-that-hadnt-been-refreshed-in-99-days/</link>
