@@ -6,8 +6,16 @@
     <description>银辉的技术博客 - 专注 Web3 安全、智能合约审计、区块链安全分析、Go语言开发</description>
     <generator>Hugo 0.154.5 &amp; FixIt v0.4.2</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 17 Aug 2026 11:31:50 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 17 Aug 2026 22:11:36 +0800</lastBuildDate>
     <atom:link href="https://yinhui1984.github.io/tags/attack/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Fox (FoxLpBondsPool) Attack Analysis: A $482M &#39;Create Your Own Market Then Harvest&#39; Exploit</title>
+      <link>https://yinhui1984.github.io/fox-attack-analysis/</link>
+      <pubDate>Mon, 17 Aug 2026 22:11:36 +0800</pubDate>
+      <guid>https://yinhui1984.github.io/fox-attack-analysis/</guid>
+      <category domain="https://yinhui1984.github.io/categories/security/">Security</category>
+      <description>&lt;p&gt;Chain: BSC (56)&lt;br&gt;&#xA;Attack Tx: &lt;code&gt;0x8e1775cbfd44db29744cc6687ff1822d2c47321de6e94062f789ad6181ad5514&lt;/code&gt;&lt;br&gt;&#xA;Block: &lt;code&gt;116169049&lt;/code&gt;&lt;br&gt;&#xA;Victim Contracts: &lt;code&gt;FoxLpBondsPool&lt;/code&gt; Proxy &lt;code&gt;0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0&lt;/code&gt; (Implementation &lt;code&gt;0x58E2A853BB14e46BefD3148bd4280370fEA4655A&lt;/code&gt;), &lt;code&gt;Treasury&lt;/code&gt; Proxy &lt;code&gt;0x361d08ff43761E6a7E8Fcabe48048AE9010801cc&lt;/code&gt; (Implementation &lt;code&gt;0x87614d97808dcdecb069fe8489848fa1c001e04d&lt;/code&gt;)&lt;/p&gt;&#xA;&lt;p&gt;Fox is a staking protocol that had been running on BSC for some time, and &lt;code&gt;FoxLpBondsPool&lt;/code&gt; is one of its &amp;ldquo;LP Bond&amp;rdquo; entrypoints: users deposit USDT, the protocol converts half of it into FOX, pairs it with the other half of USDT into PancakeSwap&amp;rsquo;s FOX/USDT pool to get LP tokens, and then records your deposit under a bond-like model—principal is released linearly according to lockup days, plus there&amp;rsquo;s an &amp;ldquo;inviter reward&amp;rdquo;. This incident stemmed from this accounting step, where someone extracted roughly 677.5k USDT in instant profit in a single transaction, plus a massive minting certificate with a paper value close to $500 million that releases slowly over 540 days.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>LaunchpadFactoryAuto drained for $17.7k via arbitrary multicall in Uniswap V4 PositionManager</title>
       <link>https://yinhui1984.github.io/launchpadfactoryauto-attack-analysis/</link>

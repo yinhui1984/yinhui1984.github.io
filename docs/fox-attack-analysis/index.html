@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Fox (FoxLpBondsPool) Attack Analysis: A $482M &#39;Create Your Own Market Then Harvest&#39; Exploit - YINHUI&#39;s BLOG</title><meta name="author" content="yinhui">
+<meta name="description" content="Chain: BSC (56)
+Attack Tx: 0x8e1775cbfd44db29744cc6687ff1822d2c47321de6e94062f789ad6181ad5514
+Block: 116169049
+Victim Contracts: FoxLpBondsPool Proxy 0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0 (Implementation 0x58E2A853BB14e46BefD3148bd4280370fEA4655A), Treasury Proxy 0x361d08ff43761E6a7E8Fcabe48048AE9010801cc (Implementation 0x87614d97808dcdecb069fe8489848fa1c001e04d)
+Fox is a staking protocol that had been running on BSC for some time, and FoxLpBondsPool is one of its &ldquo;LP Bond&rdquo; entrypoints: users deposit USDT, the protocol converts half of it into FOX, pairs it with the other half of USDT into PancakeSwap&rsquo;s FOX/USDT pool to get LP tokens, and then records your deposit under a bond-like model—principal is released linearly according to lockup days, plus there&rsquo;s an &ldquo;inviter reward&rdquo;. This incident stemmed from this accounting step, where someone extracted roughly 677.5k USDT in instant profit in a single transaction, plus a massive minting certificate with a paper value close to $500 million that releases slowly over 540 days.
+"><meta name="keywords" content='attack'>
+  <meta itemprop="name" content="Fox (FoxLpBondsPool) Attack Analysis: A $482M &#39;Create Your Own Market Then Harvest&#39; Exploit">
+  <meta itemprop="description" content="Chain: BSC (56)
+Attack Tx: 0x8e1775cbfd44db29744cc6687ff1822d2c47321de6e94062f789ad6181ad5514
+Block: 116169049
+Victim Contracts: FoxLpBondsPool Proxy 0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0 (Implementation 0x58E2A853BB14e46BefD3148bd4280370fEA4655A), Treasury Proxy 0x361d08ff43761E6a7E8Fcabe48048AE9010801cc (Implementation 0x87614d97808dcdecb069fe8489848fa1c001e04d)
+Fox is a staking protocol that had been running on BSC for some time, and FoxLpBondsPool is one of its “LP Bond” entrypoints: users deposit USDT, the protocol converts half of it into FOX, pairs it with the other half of USDT into PancakeSwap’s FOX/USDT pool to get LP tokens, and then records your deposit under a bond-like model—principal is released linearly according to lockup days, plus there’s an “inviter reward”. This incident stemmed from this accounting step, where someone extracted roughly 677.5k USDT in instant profit in a single transaction, plus a massive minting certificate with a paper value close to $500 million that releases slowly over 540 days.">
+  <meta itemprop="datePublished" content="2026-08-17T22:11:36+08:00">
+  <meta itemprop="dateModified" content="2026-08-17T22:11:36+08:00">
+  <meta itemprop="wordCount" content="1534">
+  <meta itemprop="image" content="https://yinhui1984.github.io/images/avatar.png">
+  <meta itemprop="keywords" content="Attack"><meta property="og:url" content="https://yinhui1984.github.io/fox-attack-analysis/">
+  <meta property="og:site_name" content="YINHUI&#39;s BLOG">
+  <meta property="og:title" content="Fox (FoxLpBondsPool) Attack Analysis: A $482M &#39;Create Your Own Market Then Harvest&#39; Exploit">
+  <meta property="og:description" content="Chain: BSC (56)
+Attack Tx: 0x8e1775cbfd44db29744cc6687ff1822d2c47321de6e94062f789ad6181ad5514
+Block: 116169049
+Victim Contracts: FoxLpBondsPool Proxy 0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0 (Implementation 0x58E2A853BB14e46BefD3148bd4280370fEA4655A), Treasury Proxy 0x361d08ff43761E6a7E8Fcabe48048AE9010801cc (Implementation 0x87614d97808dcdecb069fe8489848fa1c001e04d)
+Fox is a staking protocol that had been running on BSC for some time, and FoxLpBondsPool is one of its “LP Bond” entrypoints: users deposit USDT, the protocol converts half of it into FOX, pairs it with the other half of USDT into PancakeSwap’s FOX/USDT pool to get LP tokens, and then records your deposit under a bond-like model—principal is released linearly according to lockup days, plus there’s an “inviter reward”. This incident stemmed from this accounting step, where someone extracted roughly 677.5k USDT in instant profit in a single transaction, plus a massive minting certificate with a paper value close to $500 million that releases slowly over 540 days.">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-08-17T22:11:36+08:00">
+    <meta property="article:modified_time" content="2026-08-17T22:11:36+08:00">
+    <meta property="article:tag" content="Attack">
+    <meta property="og:image" content="https://yinhui1984.github.io/images/avatar.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://yinhui1984.github.io/images/avatar.png">
+  <meta name="twitter:title" content="Fox (FoxLpBondsPool) Attack Analysis: A $482M &#39;Create Your Own Market Then Harvest&#39; Exploit">
+  <meta name="twitter:description" content="Chain: BSC (56)
+Attack Tx: 0x8e1775cbfd44db29744cc6687ff1822d2c47321de6e94062f789ad6181ad5514
+Block: 116169049
+Victim Contracts: FoxLpBondsPool Proxy 0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0 (Implementation 0x58E2A853BB14e46BefD3148bd4280370fEA4655A), Treasury Proxy 0x361d08ff43761E6a7E8Fcabe48048AE9010801cc (Implementation 0x87614d97808dcdecb069fe8489848fa1c001e04d)
+Fox is a staking protocol that had been running on BSC for some time, and FoxLpBondsPool is one of its “LP Bond” entrypoints: users deposit USDT, the protocol converts half of it into FOX, pairs it with the other half of USDT into PancakeSwap’s FOX/USDT pool to get LP tokens, and then records your deposit under a bond-like model—principal is released linearly according to lockup days, plus there’s an “inviter reward”. This incident stemmed from this accounting step, where someone extracted roughly 677.5k USDT in instant profit in a single transaction, plus a massive minting certificate with a paper value close to $500 million that releases slowly over 540 days.">
+<meta name="application-name" content="YINHUI&#39;s BLOG">
+<meta name="apple-mobile-web-app-title" content="YINHUI&#39;s BLOG"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://yinhui1984.github.io/fox-attack-analysis/" title="Fox (FoxLpBondsPool) Attack Analysis: A $482M &#39;Create Your Own Market Then Harvest&#39; Exploit - YINHUI&#39;s BLOG" /><link rel="prev" type="text/html" href="https://yinhui1984.github.io/launchpadfactoryauto-attack-analysis/" title="LaunchpadFactoryAuto drained for $17.7k via arbitrary multicall in Uniswap V4 PositionManager" /><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Fox (FoxLpBondsPool) Attack Analysis: A $482M 'Create Your Own Market Then Harvest' Exploit",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/yinhui1984.github.io\/fox-attack-analysis\/"
+    },"image": ["https:\/\/yinhui1984.github.io\/images\/avatar.png"],"genre": "posts","keywords": "attack","wordcount":  1534 ,
+    "url": "https:\/\/yinhui1984.github.io\/fox-attack-analysis\/","datePublished": "2026-08-17T22:11:36+08:00","dateModified": "2026-08-17T22:11:36+08:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "yinhui"
+      },"description": ""
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="fixed" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="YINHUI&#39;s BLOG"><span class="header-title-text">YINHUI&#39;s BLOG</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="/categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="/">首页</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="YINHUI&#39;s BLOG"><span class="header-title-text">YINHUI&#39;s BLOG</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="/tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="/categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="/">首页</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Fox (FoxLpBondsPool) Attack Analysis: A $482M &#39;Create Your Own Market Then Harvest&#39; Exploit</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+      yinhui</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/security/" class="post-category" title="分类 - Security"><i class="fa-regular fa-folder" aria-hidden="true"></i> Security</a></span></div><div class="post-meta-line"><span title="发布于 2026-08-17 22:11:36"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2026-08-17">2026-08-17</time></span>&nbsp;<span title="1534 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 1600 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 8 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#first-lets-see-what-stake-is-doing">First, let’s see what <code>stake()</code> is doing</a></li>
+    <li><a href="#selling-received-rewards-into-a-pool-freshly-crushed-by-yourself">Selling received rewards into a pool freshly crushed by yourself</a></li>
+    <li><a href="#attack-flow-by-execution-order-in-trace">Attack flow (by execution order in trace)</a></li>
+    <li><a href="#results">Results</a></li>
+    <li><a href="#summary">Summary</a></li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><p>Chain: BSC (56)<br>
+Attack Tx: <code>0x8e1775cbfd44db29744cc6687ff1822d2c47321de6e94062f789ad6181ad5514</code><br>
+Block: <code>116169049</code><br>
+Victim Contracts: <code>FoxLpBondsPool</code> Proxy <code>0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0</code> (Implementation <code>0x58E2A853BB14e46BefD3148bd4280370fEA4655A</code>), <code>Treasury</code> Proxy <code>0x361d08ff43761E6a7E8Fcabe48048AE9010801cc</code> (Implementation <code>0x87614d97808dcdecb069fe8489848fa1c001e04d</code>)</p>
+<p>Fox is a staking protocol that had been running on BSC for some time, and <code>FoxLpBondsPool</code> is one of its &ldquo;LP Bond&rdquo; entrypoints: users deposit USDT, the protocol converts half of it into FOX, pairs it with the other half of USDT into PancakeSwap&rsquo;s FOX/USDT pool to get LP tokens, and then records your deposit under a bond-like model—principal is released linearly according to lockup days, plus there&rsquo;s an &ldquo;inviter reward&rdquo;. This incident stemmed from this accounting step, where someone extracted roughly 677.5k USDT in instant profit in a single transaction, plus a massive minting certificate with a paper value close to $500 million that releases slowly over 540 days.</p>
+<h2 class="heading-element" id="first-lets-see-what-stake-is-doing"><span>First, let&rsquo;s see what <code>stake()</code> is doing</span>
+  <a href="#first-lets-see-what-stake-is-doing" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">stake</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_usdtAmount</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_swapPrice</span><span class="p">)</span> <span class="k">external</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="n">_usdtAmount</span> <span class="o">&gt;=</span> <span class="n">MIN_AMOUNT</span><span class="p">,</span> <span class="s">&#34;usdtAmount invalid&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="n">inviterAddress</span> <span class="o">=</span> <span class="n">IReferral</span><span class="p">(</span><span class="n">referralAddress</span><span class="p">).</span><span class="n">referralMap</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="n">inviterAddress</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="s">&#34;no referral&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">IERC20</span><span class="p">(</span><span class="n">usdtToken</span><span class="p">).</span><span class="n">safeTransferFrom</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="n">_usdtAmount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_usdtAmount</span> <span class="o">=</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">usdtToken</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="n">startTime</span> <span class="o">=</span> <span class="nb">block</span><span class="p">.</span><span class="nb">timestamp</span> <span class="o">/</span> <span class="n">TIME_BASE</span> <span class="o">*</span> <span class="n">TIME_BASE</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="kt">uint256</span> <span class="n">swapPrice</span><span class="p">,</span> <span class="p">)</span> <span class="o">=</span> <span class="n">getSwapPrice</span><span class="p">(</span><span class="n">startTime</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">swapPrice</span> <span class="o">&gt;</span> <span class="n">_swapPrice</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">((</span><span class="n">swapPrice</span> <span class="o">-</span> <span class="n">_swapPrice</span><span class="p">)</span> <span class="o">*</span> <span class="n">BASE_100</span> <span class="o">/</span> <span class="n">_swapPrice</span> <span class="o">&lt;=</span> <span class="mi">100</span><span class="p">,</span> <span class="s">&#34;swapPrice invalid&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="n">stakeAmount</span> <span class="o">=</span> <span class="n">_usdtAmount</span> <span class="o">*</span> <span class="mi">1</span><span class="n">e18</span> <span class="o">/</span> <span class="n">swapPrice</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">ISwapRouter</span><span class="p">(</span><span class="n">swapRouter</span><span class="p">).</span><span class="n">swapExactTokensForTokens</span><span class="p">(</span><span class="n">_usdtAmount</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">usdtToFoxPath</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="nb">block</span><span class="p">.</span><span class="nb">timestamp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="n">usdtBalance</span> <span class="o">=</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">usdtToken</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="n">foxBalance</span> <span class="o">=</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">foxToken</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(,</span> <span class="p">,</span> <span class="kt">uint256</span> <span class="n">liquidity</span><span class="p">)</span> <span class="o">=</span> <span class="n">ISwapRouter</span><span class="p">(</span><span class="n">swapRouter</span><span class="p">).</span><span class="n">addLiquidity</span><span class="p">(</span><span class="n">usdtToken</span><span class="p">,</span> <span class="n">foxToken</span><span class="p">,</span> <span class="n">usdtBalance</span><span class="p">,</span> <span class="n">foxBalance</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="nb">block</span><span class="p">.</span><span class="nb">timestamp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">...</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="n">inviterRewardAmount</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">stakeDays</span> <span class="o">&gt;=</span> <span class="mi">180</span> <span class="o">&amp;&amp;</span> <span class="n">_usdtAmount</span> <span class="o">&gt;=</span> <span class="n">INVITER_REWARD_MIN_AMOUNT</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">inviterRewardAmount</span> <span class="o">=</span> <span class="n">stakeAmount</span> <span class="o">*</span> <span class="n">INVITER_REWARD_RATIO</span> <span class="o">/</span> <span class="n">BASE_100</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">ITreasury</span><span class="p">(</span><span class="n">treasury</span><span class="p">).</span><span class="n">lpBonds</span><span class="p">(</span><span class="n">liquidity</span><span class="p">,</span> <span class="n">stakeAmount</span><span class="p">,</span> <span class="n">stakeDays</span><span class="p">,</span> <span class="n">inviterAddress</span><span class="p">,</span> <span class="n">inviterRewardAmount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
+</div>
+</div><p><code>getSwapPrice()</code> reads PancakeSwap V2&rsquo;s <code>getAmountsOut(1e18, [FOX, USDT])</code>, which is the current spot price of this FOX/USDT pool:</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">getSwapPrice</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_timestamp</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="p">...</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">amountsOut</span> <span class="o">=</span> <span class="n">ISwapRouter</span><span class="p">(</span><span class="n">swapRouter</span><span class="p">).</span><span class="n">getAmountsOut</span><span class="p">(</span><span class="mi">1</span><span class="n">e18</span><span class="p">,</span> <span class="n">foxToUsdtPath</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="n">swapPrice</span> <span class="o">=</span> <span class="n">amountsOut</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">discountRateTo</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">swapPrice</span> <span class="o">=</span> <span class="n">swapPrice</span> <span class="o">*</span> <span class="p">(</span><span class="n">BASE_100</span> <span class="o">-</span> <span class="n">getDiscountRate</span><span class="p">(</span><span class="n">_timestamp</span><span class="p">))</span> <span class="o">/</span> <span class="n">BASE_100</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="n">swapPrice</span><span class="p">,</span> <span class="n">amountsOut</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>What&rsquo;s worth noting here is that the pair <code>stake()</code> uses to read the price and the one it immediately turns around to trade on via <code>swapExactTokensForTokens</code> + <code>addLiquidity</code> is the <strong>exact same pool</strong> (the state variable <code>lpFoxToken</code>, verified in practice, equals PancakeSwap&rsquo;s FOX/USDT pair address). And the calculation <code>stakeAmount = _usdtAmount * 1e18 / swapPrice</code> happens <strong>before</strong> the internal swap—so looking at this step alone, <code>stakeAmount</code> is actually computed using an unpolluted, honest price, not a fake number fed in after prior external manipulation.</p>
+<p>The real vulnerability isn&rsquo;t here; it&rsquo;s what comes next.</p>
+<h2 class="heading-element" id="selling-received-rewards-into-a-pool-freshly-crushed-by-yourself"><span>Selling received rewards into a pool freshly crushed by yourself</span>
+  <a href="#selling-received-rewards-into-a-pool-freshly-crushed-by-yourself" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>Inside <code>stake()</code>, there is a step that takes <code>_usdtAmount / 2</code> to swap for FOX, and then pairs it with the other half of USDT to <code>addLiquidity</code>. Under normal staking volume, this step has virtually no impact—a user depositing a few thousand USDT causes negligible slippage in a pool with millions in depth. But <strong>nowhere in the code does it check whether <code>_usdtAmount</code> is reasonable relative to this pool&rsquo;s depth</strong>; <code>MIN_AMOUNT</code> only enforces a lower bound (100 USDT), with no upper bound whatsoever.</p>
+<p>The larger <code>_usdtAmount</code> is, the greater the impact that <code>_usdtAmount / 2</code> internal swap has on the pool. Meanwhile, the &ldquo;inviter reward&rdquo; in <code>Treasury.lpBonds()</code> is minted and transferred to the inviter only <strong>after</strong> this internal swap:</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">lpBonds</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_lpFoxAmount</span><span class="p">,</span><span class="kt">uint256</span> <span class="n">_stakeAmount</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_stakeDays</span><span class="p">,</span> <span class="kt">address</span> <span class="n">inviterAddress</span><span class="p">,</span><span class="kt">uint256</span> <span class="n">inviterRewardAmount</span><span class="p">)</span> <span class="k">external</span> <span class="n">onlyStakingPool</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IERC20</span><span class="p">(</span><span class="n">lpFoxToken</span><span class="p">).</span><span class="n">safeTransferFrom</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="n">DEAD</span><span class="p">,</span> <span class="n">_lpFoxAmount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IMintableERC20</span><span class="p">(</span><span class="n">foxToken</span><span class="p">).</span><span class="n">mint</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="n">_stakeAmount</span> <span class="o">+</span> <span class="n">inviterRewardAmount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IMintableERC20</span><span class="p">(</span><span class="n">stakedFoxToken</span><span class="p">).</span><span class="n">mint</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="n">_stakeAmount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">_stakeDays</span> <span class="o">&gt;=</span> <span class="mi">180</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">IMintableERC20</span><span class="p">(</span><span class="n">rewardFoxToken</span><span class="p">).</span><span class="n">mint</span><span class="p">(</span><span class="n">foxDistributor</span><span class="p">,</span> <span class="n">_stakeAmount</span> <span class="o">*</span> <span class="n">REWARD_RATIO</span> <span class="o">/</span> <span class="n">BASE_100</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">inviterRewardAmount</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">IERC20</span><span class="p">(</span><span class="n">foxToken</span><span class="p">).</span><span class="n">safeTransfer</span><span class="p">(</span><span class="n">inviterAddress</span><span class="p">,</span> <span class="n">inviterRewardAmount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
+</div>
+</div><p><code>onlyStakingPool</code> only checks whether the caller is a whitelisted pool contract, not whether the passed numbers make sense—<code>_stakeAmount</code>, <code>inviterRewardAmount</code>, etc., are all accepted as-is by <code>Treasury</code> and directly minted.</p>
+<p>Putting it all together: <code>inviterRewardAmount</code> itself is 3% of <code>stakeAmount</code> calculated at the honest price, so this FOX quantity wasn&rsquo;t &ldquo;inflated&rdquo;. But if <code>_usdtAmount</code> is large enough to <strong>smash through the pool&rsquo;s FOX reserves within the same transaction</strong>, then once this 3% reward is received, selling it back into a pool that has almost no FOX reserves left will yield USDT far exceeding &ldquo;3% fair value&rdquo;—because FOX is now extremely scarce relative to USDT, so even a small amount of FOX can trade out a massive chunk of USDT.</p>
+<p>In other words: the <strong>quantity</strong> of the reward was not manipulated, but the <strong>market at the moment the reward was cashed out</strong> was engineered by the attacker within that exact same transaction.</p>
+<p>As a side note, that slippage check in <code>stake()</code>:</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="k">if</span><span class="p">(</span><span class="n">swapPrice</span> <span class="o">&gt;</span> <span class="n">_swapPrice</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">((</span><span class="n">swapPrice</span> <span class="o">-</span> <span class="n">_swapPrice</span><span class="p">)</span> <span class="o">*</span> <span class="n">BASE_100</span> <span class="o">/</span> <span class="n">_swapPrice</span> <span class="o">&lt;=</span> <span class="mi">100</span><span class="p">,</span> <span class="s">&#34;swapPrice invalid&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>only takes effect when &ldquo;the read price is higher than the caller-supplied <code>_swapPrice</code>&quot;—this was designed from a staker&rsquo;s perspective to prevent front-running from worsening execution price; it doesn&rsquo;t care at all how much lower the price is than expected. In this attack, the attacker passed <code>type(uint256).max</code> as <code>_swapPrice</code>, directly making this <code>if</code> evaluate to <code>false</code>. To be clear though: because price reading occurs <strong>before</strong> any manipulation, even replacing this with a bidirectional check wouldn&rsquo;t have stopped this attack—the check that was actually missing is &ldquo;whether <code>_usdtAmount</code> is absurd relative to pool depth&rdquo;, not &ldquo;whether the price was read crooked&rdquo;.</p>
+<h2 class="heading-element" id="attack-flow-by-execution-order-in-trace"><span>Attack flow (by execution order in trace)</span>
+  <a href="#attack-flow-by-execution-order-in-trace" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>The capital came from an aggregated flash loan spanning 20+ lending markets/pools (Venus&rsquo;s <code>VBep20Delegator</code>, several PancakeSwap V3 pools, a Vault, a <code>PoolManager</code>, multiple PancakeSwap V2 pairs), pulling together 481,974,785.536796421654333021 USDT, transferred into the attack contract <code>0x7DA2AF76394B7c00aE46001E6139a316554cFEE4</code>.</p>
+<p>This sum was fed directly into <code>stake()</code>:</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-text"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">TransparentUpgradeableProxy_d1a0.stake(
+</span></span><span class="line"><span class="cl">  481974785536796421654333021,   // ≈ 481,974,785.54 USDT
+</span></span><span class="line"><span class="cl">  115792089237316195423570985008687907853269984665640564039457584007913129639935  // type(uint256).max
+</span></span><span class="line"><span class="cl">)</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>Once inside <code>stake()</code>:</p>
+<ol>
+<li><code>getReserves()</code> reads the pool state right before the attack: 2,786,697.20 USDT / 496,041.72 FOX.</li>
+<li>At this price (about 5.436 USDT/FOX after discount), it computes <code>stakeAmount = 88,659,280.81 FOX</code>—this is the &ldquo;bond&rdquo; principal the attacker receives this time, released linearly over 540 days, not cashed out in this transaction.</li>
+<li>Internal swap converts half the USDT (240,987,392.77) into FOX, and the pool&rsquo;s FOX reserve gets hammered from 496,041.72 down to 5,684.54 by this single massive swap, draining 98.85%.</li>
+<li>The remaining USDT and the freshly swapped small amount of FOX are paired via <code>addLiquidity</code>, and the minted LP is immediately transferred by <code>Treasury.lpBonds</code> to the blackhole address to be burned—this is a fixed design of the protocol; LP is never kept in anyone&rsquo;s hands.</li>
+<li><code>Treasury.lpBonds</code> mints 88,659,280.81 real <code>StakedFox</code> to the staking pool based on <code>stakeAmount</code>, 9,752,520.89 <code>RewardFox</code> (11%) to the distributor address, and transfers the 2,659,778.42 FOX inviter reward directly to inviter address <code>0xAE37BDc9a94C24b3527348a889d9A6b738228c3c</code>.</li>
+<li>When this inviter FOX is transferred to the PancakeSwap pool, Fox token&rsquo;s own 2.5% sell tax first skims off 66,494.46 tokens (transferred to an address named <code>SafeProxy</code>; the <code>_update</code> logic in Fox&rsquo;s contract separately taxes transfers into the pool address, which this transfer happened to hit), leaving a net 2,593,283.96 FOX actually sold into the pool.</li>
+<li>This step is the harvest: the FOX in the pool was already battered down to just 5,684.54 tokens in step 3, so selling 2,593,283.96 FOX in at this point pulls out 482,652,334.59 USDT.</li>
+</ol>
+<h2 class="heading-element" id="results"><span>Results</span>
+  <a href="#results" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>In and out: put in 481,974,785.54 USDT, sold FOX to get back 482,652,334.59 USDT, netting roughly 677,549 USDT in instant profit within the same transaction (not yet counting the aggregate flash loan interest costs, though that&rsquo;s minor relative to this scale). The flash loan principal was returned immediately afterward, visible in the subsequent repayment calls in the on-chain trace.</p>
+<p>On top of this immediate cash in hand, the attacker still holds a staking principal certificate of 88,659,280.81 FOX—this is the even bigger hole in this incident: this FOX was minted out of thin air, backed not by equivalent assets deposited by the attacker (that part was already drained in steps 6/7 within the same transaction), but by <code>Treasury</code>&rsquo;s unconditional <code>mint</code>. By protocol design, this principal takes 540 days to linearly release completely, but as long as <code>redeem()</code> can still be called normally, it will eventually turn into real, transferable FOX, diluting the pool and token holders.</p>
+<h2 class="heading-element" id="summary"><span>Summary</span>
+  <a href="#summary" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>The common denominator of this type of issue is: the scale of an action a function executes on its own (here, adding liquidity to a pool) is decided entirely by caller-supplied parameters, with zero correlation checks against the depth of the market it actually interacts with (here, that AMM pool). As long as a caller can gather sufficient capital in one shot (in this case, by aggregating flash loans across a dozen+ lending markets), they can force the protocol itself to execute an operation large enough to smash through the market, and then within the same transaction, monetize that impact using a downstream payout whose <strong>quantity was originally normal</strong> but whose <strong>timing of realization lands right on top of the distorted market they engineered</strong>.</p>
+<p>Looking at the minting formula alone or the reward ratio alone, neither snippet of code is outrageous by itself; what actually broke is that between &ldquo;how much money the user deposits&rdquo; and &ldquo;how deep the market is that this money will operate on&rdquo;, there was no upper bound constraint whatsoever.</p></div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2026-08-17 22:11:36">更新于 2026-08-17&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://yinhui1984.github.io/fox-attack-analysis/" data-title="Fox (FoxLpBondsPool) Attack Analysis: A $482M &#39;Create Your Own Market Then Harvest&#39; Exploit" data-hashtags="attack"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://yinhui1984.github.io/fox-attack-analysis/" data-hashtag="attack"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://yinhui1984.github.io/fox-attack-analysis/" data-title="Fox (FoxLpBondsPool) Attack Analysis: A $482M &#39;Create Your Own Market Then Harvest&#39; Exploit"><i class="fa-brands fa-hacker-news" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://yinhui1984.github.io/fox-attack-analysis/" data-title="Fox (FoxLpBondsPool) Attack Analysis: A $482M &#39;Create Your Own Market Then Harvest&#39; Exploit"><svg class="icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>LINE</title><path d="M19.365 9.863c.349.0.63.285.63.631.0.345-.281.63-.63.63H17.61v1.125h1.755c.349.0.63.283.63.63.0.344-.281.629-.63.629h-2.386c-.345.0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346.0.627.285.627.63.0.349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211.0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346.0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195.0.375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345.0.63.285.63.63v4.771zm-5.741.0c0 .344-.282.629-.631.629-.345.0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346.0.628.285.628.63v4.771zm-2.466.629H4.917c-.345.0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348.0.63.285.63.63v4.141h1.756c.348.0.629.283.629.63.0.344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943.0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://yinhui1984.github.io/fox-attack-analysis/" data-title="Fox (FoxLpBondsPool) Attack Analysis: A $482M &#39;Create Your Own Market Then Harvest&#39; Exploit"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
+        </div>
+      </div></div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/tags/attack/" class="post-tag" title="标签 - Attack">Attack</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="/launchpadfactoryauto-attack-analysis/" class="post-nav-item" rel="prev" title="LaunchpadFactoryAuto Drained for $17.7k via Arbitrary Multicall in Uniswap V4 PositionManager"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>LaunchpadFactoryAuto Drained for $17.7k via Arbitrary Multicall in Uniswap V4 PositionManager</a></div>
+</div>
+</article>
+
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content always-active" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#first-lets-see-what-stake-is-doing">First, let’s see what <code>stake()</code> is doing</a></li>
+    <li><a href="#selling-received-rewards-into-a-pool-freshly-crushed-by-yourself">Selling received rewards into a pool freshly crushed by yourself</a></li>
+    <li><a href="#attack-flow-by-execution-order-in-trace">Attack flow (by execution order in trace)</a></li>
+    <li><a href="#results">Results</a></li>
+    <li><a href="#summary">Summary</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.154.5"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.2"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="/"></a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="目录"><i class="fa-solid fa-bars" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/js/config/f159c5961cd6787e7ec8e6c89ae33192.js" defer></script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+</html>
