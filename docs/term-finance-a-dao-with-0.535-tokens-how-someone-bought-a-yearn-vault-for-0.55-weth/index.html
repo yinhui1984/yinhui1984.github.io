@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Term Finance: A DAO With 0.535 Tokens: How Someone Bought a Yearn Vault for 0.55 WETH - YINHUI&#39;s BLOG</title><meta name="author" content="yinhui">
+<meta name="description" content="How Term Finance&#39;s Yearn V3 vault holding ~2926 WETH was drained by capturing DAO governance with 0.535 tokens for 0.55 WETH and puppeting Zodiac Delay via Roles."><meta name="keywords" content='attack, Term Finance'>
+  <meta itemprop="name" content="Term Finance: A DAO With 0.535 Tokens: How Someone Bought a Yearn Vault for 0.55 WETH">
+  <meta itemprop="description" content="How Term Finance&#39;s Yearn V3 vault holding ~2926 WETH was drained by capturing DAO governance with 0.535 tokens for 0.55 WETH and puppeting Zodiac Delay via Roles.">
+  <meta itemprop="datePublished" content="2026-08-24T09:59:52+08:00">
+  <meta itemprop="dateModified" content="2026-08-24T09:59:52+08:00">
+  <meta itemprop="wordCount" content="2028">
+  <meta itemprop="image" content="https://yinhui1984.github.io/images/avatar.png">
+  <meta itemprop="keywords" content="Attack,Term Finance"><meta property="og:url" content="https://yinhui1984.github.io/term-finance-a-dao-with-0.535-tokens-how-someone-bought-a-yearn-vault-for-0.55-weth/">
+  <meta property="og:site_name" content="YINHUI&#39;s BLOG">
+  <meta property="og:title" content="Term Finance: A DAO With 0.535 Tokens: How Someone Bought a Yearn Vault for 0.55 WETH">
+  <meta property="og:description" content="How Term Finance&#39;s Yearn V3 vault holding ~2926 WETH was drained by capturing DAO governance with 0.535 tokens for 0.55 WETH and puppeting Zodiac Delay via Roles.">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-08-24T09:59:52+08:00">
+    <meta property="article:modified_time" content="2026-08-24T09:59:52+08:00">
+    <meta property="article:tag" content="Attack">
+    <meta property="article:tag" content="Term Finance">
+    <meta property="og:image" content="https://yinhui1984.github.io/images/avatar.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://yinhui1984.github.io/images/avatar.png">
+  <meta name="twitter:title" content="Term Finance: A DAO With 0.535 Tokens: How Someone Bought a Yearn Vault for 0.55 WETH">
+  <meta name="twitter:description" content="How Term Finance&#39;s Yearn V3 vault holding ~2926 WETH was drained by capturing DAO governance with 0.535 tokens for 0.55 WETH and puppeting Zodiac Delay via Roles.">
+<meta name="application-name" content="YINHUI&#39;s BLOG">
+<meta name="apple-mobile-web-app-title" content="YINHUI&#39;s BLOG"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://yinhui1984.github.io/term-finance-a-dao-with-0.535-tokens-how-someone-bought-a-yearn-vault-for-0.55-weth/" title="Term Finance: A DAO With 0.535 Tokens: How Someone Bought a Yearn Vault for 0.55 WETH - YINHUI&#39;s BLOG" /><link rel="prev" type="text/html" href="https://yinhui1984.github.io/fox-attack-analysis/" title="Fox (FoxLpBondsPool) Attack Analysis: A $482M &#39;Create Your Own Market Then Harvest&#39; Exploit" /><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Term Finance: A DAO With 0.535 Tokens: How Someone Bought a Yearn Vault for 0.55 WETH",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/yinhui1984.github.io\/term-finance-a-dao-with-0.535-tokens-how-someone-bought-a-yearn-vault-for-0.55-weth\/"
+    },"image": ["https:\/\/yinhui1984.github.io\/images\/avatar.png"],"genre": "posts","keywords": "attack, Term Finance","wordcount":  2028 ,
+    "url": "https:\/\/yinhui1984.github.io\/term-finance-a-dao-with-0.535-tokens-how-someone-bought-a-yearn-vault-for-0.55-weth\/","datePublished": "2026-08-24T09:59:52+08:00","dateModified": "2026-08-24T09:59:52+08:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "yinhui"
+      },"description": "How Term Finance's Yearn V3 vault holding ~2926 WETH was drained by capturing DAO governance with 0.535 tokens for 0.55 WETH and puppeting Zodiac Delay via Roles."
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="fixed" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="YINHUI&#39;s BLOG"><span class="header-title-text">YINHUI&#39;s BLOG</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="/categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="/">首页</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="YINHUI&#39;s BLOG"><span class="header-title-text">YINHUI&#39;s BLOG</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="/tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="/categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="/">首页</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Term Finance: A DAO With 0.535 Tokens: How Someone Bought a Yearn Vault for 0.55 WETH</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+      yinhui</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/security/" class="post-category" title="分类 - Security"><i class="fa-regular fa-folder" aria-hidden="true"></i> Security</a></span></div><div class="post-meta-line"><span title="发布于 2026-08-24 09:59:52"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2026-08-24">2026-08-24</time></span>&nbsp;<span title="2028 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 2100 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 10 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#the-proxy-that-looked-like-incident-response">The proxy that looked like incident response</a></li>
+    <li><a href="#half-a-token-controls-the-whole-vault">Half a token controls the whole vault</a></li>
+    <li><a href="#who-actually-owns-the-timelock">Who actually owns the timelock</a></li>
+    <li><a href="#the-clock-not-the-calendar">The clock, not the calendar</a></li>
+    <li><a href="#rebuilding-it-with-a-fresh-wallet">Rebuilding it with a fresh wallet</a></li>
+    <li><a href="#checking-it-against-what-actually-happened">Checking it against what actually happened</a></li>
+    <li><a href="#five-more-vaults-same-transaction">Five more vaults, same transaction</a></li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><p>Ethereum mainnet, block <code>25816049</code>. A transaction (<code>0xd354a15b15cb73d30908f411aee3f795ec86737a4d080e9a818ac4d6d3014129</code>) walks through a proxy contract, calls a function called <code>executeProposal()</code>, and by the time it&rsquo;s done a wallet that started the day with nothing has <code>2841.743535791961701401</code> WETH sitting in it. The vault it came from — <code>0x26fCb50eEC367ddAB060ccf5E7394Cecd95F7Db2</code>, a real Yearn V3 vault with <code>totalAssets()</code> around 2926 WETH — didn&rsquo;t get hacked in the usual sense. Nobody found a reentrancy bug or a rounding error in a swap. Someone won a vote.</p>
+<p>I want to walk through how that vote got won, because the contract that lets you win it is, read in isolation, completely unremarkable.</p>
+<h2 class="heading-element" id="the-proxy-that-looked-like-incident-response"><span>The proxy that looked like incident response</span>
+  <a href="#the-proxy-that-looked-like-incident-response" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>The contract in question is a proxy at <code>0x64E477800051EFb06Ae4086f4b258b270668b4dF</code>, logic at <code>0x3e30DDF30172F54C50cB490fF56E10f1a4737cF1</code>, both unverified on Etherscan. Decompiling the logic gives you something that reads like a one-shot governance executor: <code>initialize</code>, <code>propose</code>, <code>voteFor</code>, <code>executeProposal</code>, a permit-style deposit function at selector <code>0x0edade10</code>, and an unwind function at <code>0x5dd30406</code>. Every state-changing function is <code>onlyOwner</code>, and <code>owner</code> is set exactly once in <code>initialize()</code> and can never be transferred or renounced — <code>transferOwnership</code>/<code>renounceOwnership</code> are both wired to hit <code>OwnableUnauthorizedAccount</code> unconditionally. That&rsquo;s a deliberate design choice, not a decompiler artifact — checked the bytecode paths directly.</p>
+<p>The obvious question with any <code>initialize()</code> that isn&rsquo;t gated by an owner check is whether it&rsquo;s front-runnable. I went and pulled the proxy&rsquo;s own creation transaction to check. <code>initialize()</code> isn&rsquo;t called separately at all — it&rsquo;s invoked atomically inside the constructor, standard <code>ERC1967Proxy(impl, initData)</code> pattern, so there&rsquo;s no window between deployment and initialization for anyone to race. Whoever deployed this proxy became its owner in the same transaction, full stop.</p>
+<p>That deployer is EOA <code>0xa908b3472d76e7744bab0a5911768a4a6300612b</code> — no code, nothing flagged on Etherscan. And the <code>_data</code> blob baked into that constructor call decodes to plain JSON: a proposal titled <em>&ldquo;Veto strategy vault parameter change,&rdquo;</em> with a summary reading <em>&ldquo;Vote YES to VETO the curator&rsquo;s proposed vault parameter change. Otherwise, the transaction will become executable when this proposal expires.&rdquo;</em> Paired with an exit-strategy contract deployed by the same EOA three blocks earlier (<code>0x184f2E57b4cE135181FA2A2166AC394339016338</code>, constructor args <code>(VAULT, WETH, recipient=same EOA)</code>, with the string <code>&quot;Fixed Recipient WETH Exit Strategy&quot;</code> sitting right there in the bytecode), the whole thing reads, on a first pass, like a defensive contract — someone spinning up emergency tooling to block a bad proposal from a curator multisig.</p>
+<p>It isn&rsquo;t.</p>
+<h2 class="heading-element" id="half-a-token-controls-the-whole-vault"><span>Half a token controls the whole vault</span>
+  <a href="#half-a-token-controls-the-whole-vault" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>The vault wraps its shares into governance through <code>GovernanceWrappedERC20</code> at <code>0x5b96c5bBdcB361E1E9944bAa071b237E27829Be0</code>, feeding an Aragon OSx <code>TokenVoting</code> plugin (<code>0x213771693A4411446b4ECce5bce4a405778b2171</code>) attached to a DAO contract at <code>0x0ae12AF3878a2d896f5C4DCE3Be7250FB187c0a6</code>. Standard stack, nothing custom. What isn&rsquo;t standard is what I found when I checked <code>totalSupply()</code> on the wrapped token:</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-fallback"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">VOTING_TOKEN.totalSupply() = 0.535216182805348484</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>Half a token. That&rsquo;s the entire voting base behind a governance layer with <code>execute()</code> rights over a vault holding thousands of WETH. <code>minParticipation</code> is 5%, <code>supportThreshold</code> is 50% — both computed against that 0.535-token supply, so they don&rsquo;t constrain anything meaningful. <code>minProposerVotingPower</code> is 0, so there&rsquo;s no floor on who can even open a proposal in the first place.</p>
+<p>The <code>0x0edade10</code> deposit function is how you get into that voting layer: it takes an EIP-2612 permit for an arbitrary address, pulls that address&rsquo;s vault shares, wraps them into <code>VOTING_TOKEN</code>, and self-delegates. The parameter is arbitrary — nothing stops you from using someone else&rsquo;s valid permit signature if you had one — but checking the <code>Transfer</code> event for this specific deposit, the shares moved were <code>0.485216182805348480</code>, sent from <code>0xa908b3472d76e7744bab0a5911768a4a6300612b</code> to the proxy. Same address as the deployer. Self-funded, not stolen. That&rsquo;s 90.66% of the entire wrapped supply, bought with roughly 0.55 WETH — call it a couple thousand dollars at the time.</p>
+<h2 class="heading-element" id="who-actually-owns-the-timelock"><span>Who actually owns the timelock</span>
+  <a href="#who-actually-owns-the-timelock" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>None of that matters much on its own if the DAO&rsquo;s <code>execute()</code> still routes through a real timelock. It does — there&rsquo;s a Zodiac <code>Delay</code> module at <code>0x35C99CF4a5DF2D9bCd822BeE32676D9590229e33</code> sitting behind a <code>Roles</code> module at <code>0xD9DdE54D99a27F0f0E2b282369BFaa95528e9B75</code>, guarding the main Safe at <code>0x46DA347d1Db6EdCA62BF6Cd5892Dc284fC938613</code>. <code>txCooldown</code> is 608400 seconds, <code>txExpiration</code> is 604800 seconds — close enough to real seven-day production timelock parameters, not a toy config.</p>
+<p>Here&rsquo;s the part that actually breaks things: <code>DELAY.owner() == ROLES</code>. Not &ldquo;Roles is registered as one of Delay&rsquo;s modules&rdquo; — Roles is the admin of Delay, full owner-level control, including <code>enableModule()</code>. And role 1 on that Roles instance is granted to the DAO. So the chain isn&rsquo;t &ldquo;DAO can act through Delay&rsquo;s normal module queue with its seven-day wait&rdquo; — it&rsquo;s &ldquo;DAO holds a role that lets it puppet Delay&rsquo;s owner functions directly, any time it can get one proposal through.&rdquo;</p>
+<p>Reading the seventeen actions the proposal actually queues, in order:</p>
+<ul>
+<li>Action 0: <code>Delay.setTxCooldown(0)</code> — selector <code>0xebb2b4a2</code></li>
+<li>Action 1: <code>Delay.setTxExpiration(0)</code> — selector <code>0x9b56d5be</code></li>
+<li>Action 2: <code>ROLES.callTargetFunctionWithRole(DELAY, enableModule(DAO), role=1)</code> — the call lands on Delay&rsquo;s <code>enableModule</code>, selector <code>0x610b5925</code>, and succeeds because <code>msg.sender</code> for that call is <code>ROLES</code>, which is <code>Delay</code>&rsquo;s owner</li>
+</ul>
+<p>That third action is the whole trick. It doesn&rsquo;t rely on the DAO already being a registered module of Delay — it makes the DAO a module, live, inside the same transaction, by using Roles&rsquo; owner-level access to call <code>enableModule</code> on its behalf. The moment that lands, the next fourteen actions run as <code>execTransactionFromModule</code>/<code>executeNextTx</code> pairs sourced directly from the DAO — no more Roles wrapper needed — draining the vault&rsquo;s four real strategies via <code>update_debt(strategy, 0, 10000)</code>, then registering the exit-strategy contract as a fifth strategy and pushing its debt cap to max. That last step is what finally calls the exit strategy&rsquo;s <code>deposit()</code>, which checks a gate — <code>txCooldown == 0 || txExpiration == 0 || DELAY.isModuleEnabled(DAO)</code> — that was only just satisfied, two actions earlier, by the same transaction that&rsquo;s now calling it. Then it moves everything it received straight out: <code>WETH.transferFrom(VAULT, this, amount)</code> immediately followed by <code>WETH.transfer(owner, amount)</code>. No redeem step, no second transaction. The vault&rsquo;s own event log calls this <code>AssetsForwarded</code>.</p>
+<p>The timelock&rsquo;s seven-day cooldown never got a chance to matter, because the thing enforcing it got reassigned before it was asked to enforce anything.</p>
+<h2 class="heading-element" id="the-clock-not-the-calendar"><span>The clock, not the calendar</span>
+  <a href="#the-clock-not-the-calendar" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><code>propose()</code> landed at block <code>25772694</code>, timestamp <code>1786944335</code>. <code>voteFor()</code> followed at block <code>25772700</code>, timestamp <code>1786944407</code> — seventy-two seconds later, same sitting. I originally assumed <code>TokenVoting</code>&rsquo;s early-execution mode meant the actual seven-day wait was avoidable once the outcome was mathematically locked in — it isn&rsquo;t. <code>votingMode()</code> returns <code>2</code>, and checking the enum declaration order in the actual source (<code>{Standard, EarlyExecution, VoteReplacement}</code>) rather than guessing, <code>2</code> is <code>VoteReplacement</code>. No early execution. <code>canExecute()</code> stays false until the real voting period runs out.</p>
+<p>It ran out, and <code>executeProposal()</code> fired at block <code>25816049</code>, timestamp <code>1787466347</code>. From <code>propose()</code> to execution: <code>522012</code> seconds. <code>minDuration</code> on this plugin is <code>522000</code> seconds. Twelve seconds. Whoever or whatever triggered that final call did it twelve seconds after the earliest possible moment the contract would let them — not &ldquo;came back a few days later,&rdquo; but watching a clock and pulling the trigger the instant it hit zero.</p>
+<p>Worth noting, and I can&rsquo;t answer this from the trace: the vault&rsquo;s <code>role_manager</code> had an <code>EMERGENCY_MANAGER</code> bit that could call <code>shutdown_vault()</code> at any point during those six days. Nobody did. Whether that&rsquo;s because nobody was watching, or because the &ldquo;voting YES vetoes a bad curator proposal&rdquo; framing read as legitimate to whoever was, isn&rsquo;t something call data can settle.</p>
+<h2 class="heading-element" id="rebuilding-it-with-a-fresh-wallet"><span>Rebuilding it with a fresh wallet</span>
+  <a href="#rebuilding-it-with-a-fresh-wallet" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>Reading the mechanism is one thing. Before calling it done, I wanted to check that someone starting from zero — their own wallet, their own contracts, no borrowed signatures or replayed calldata from the real incident — could actually walk the whole chain themselves. So I forked mainnet at block <code>25816048</code> and wrote an attacker from scratch:</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">AttackerExitStrategy</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">public</span> <span class="k">immutable</span> <span class="n">vaultAddr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">public</span> <span class="k">immutable</span> <span class="n">assetAddr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">public</span> <span class="k">immutable</span> <span class="n">recipientAddr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="k">public</span> <span class="n">used</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">deposit</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">amount</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">)</span> <span class="k">external</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span> <span class="o">==</span> <span class="n">vaultAddr</span><span class="p">,</span> <span class="s">&#34;onlyVault&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="n">to</span> <span class="o">==</span> <span class="n">vaultAddr</span><span class="p">,</span> <span class="s">&#34;invalid receiver&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="o">!</span><span class="n">used</span><span class="p">,</span> <span class="s">&#34;already used&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">used</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">IERC20Like</span><span class="p">(</span><span class="n">assetAddr</span><span class="p">).</span><span class="n">transferFrom</span><span class="p">(</span><span class="n">vaultAddr</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="n">amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">IERC20Like</span><span class="p">(</span><span class="n">assetAddr</span><span class="p">).</span><span class="nb">transfer</span><span class="p">(</span><span class="n">recipientAddr</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">amount</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
+</div>
+</div><p>Twenty lines, independently authored, no shared bytecode with the real exit strategy — just the same behavior the real one has, worked out from reading it. Paired it with a hand-written EIP-1967 proxy (matching the real deployment pattern, no OpenZeppelin dependency needed) pointed at the real, still-unmodified executor logic contract. Then:</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">_step1_fundAndDeposit</span><span class="p">()</span> <span class="k">internal</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">capital</span> <span class="o">=</span> <span class="mi">1</span><span class="p">.</span><span class="mi">5</span> <span class="kc">ether</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">deal</span><span class="p">(</span><span class="n">WETH</span><span class="p">,</span> <span class="n">attacker</span><span class="p">,</span> <span class="n">capital</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">vm</span><span class="p">.</span><span class="n">startPrank</span><span class="p">(</span><span class="n">attacker</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">weth</span><span class="p">.</span><span class="n">approve</span><span class="p">(</span><span class="n">VAULT</span><span class="p">,</span> <span class="n">capital</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vaultShares</span> <span class="o">=</span> <span class="n">vault</span><span class="p">.</span><span class="n">deposit</span><span class="p">(</span><span class="n">capital</span><span class="p">,</span> <span class="n">attacker</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vm</span><span class="p">.</span><span class="n">stopPrank</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>Ordinary retail capital — 1.5 WETH, not a flash loan — deposited through the vault&rsquo;s completely normal, public <code>deposit()</code>. Then a self-signed EIP-2612 permit (own key, <code>vm.sign</code>, nothing borrowed), fed into the real <code>0x0edade10</code> to wrap those shares into voting power. One thing worth calling out here: <code>TokenVoting</code>&rsquo;s actual vote tally reads <code>getPastVotes(_, block.number - 1)</code> — a committed snapshot from the previous block, not a same-block spot balance — so there&rsquo;s no way to wrap voting power and vote on it inside one transaction. I rolled forward a block before calling <code>propose()</code>, which rules out a same-block flash-loan version of this attack; you need at least one block of exposure, though nothing close to a long lockup.</p>
+<p>From there: <code>propose()</code>, <code>voteFor()</code>, <code>vm.warp</code> forward seven days to clear the real minimum voting duration, then <code>executeProposal()</code>.</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-fallback"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Suite result: ok. 1 passed; 0 failed</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>Net extracted: <code>2844.158763636700960597</code> WETH, against <code>1.5</code> WETH of starting capital. Ran it twice, byte-identical both times, gas <code>7685430</code> on the nose. The number differs slightly from the real historical extraction — <code>2841.743535791961701401</code> WETH — because the clean-room run waits out a full fresh seven days from a fresh proposal, and the vault&rsquo;s own accounting drifts a little in that window. Same mechanism, same order of magnitude, independently arrived at.</p>
+<p>One more thing the fork test caught that a surface read wouldn&rsquo;t have: two of the four real strategies don&rsquo;t fully zero out. Yearn V3&rsquo;s <code>_update_debt</code> only pulls what <code>strategy.maxRedeem()</code> reports as currently liquid — positions that haven&rsquo;t matured yet stay put no matter how hard you ask. In the real attack this left <code>84.47</code> WETH behind, 2.89% of <code>totalAssets()</code>, still sitting in strategies that presumably become drainable the same way once their underlying positions mature.</p>
+<h2 class="heading-element" id="checking-it-against-what-actually-happened"><span>Checking it against what actually happened</span>
+  <a href="#checking-it-against-what-actually-happened" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>Comparing all of this against the real transaction, selector by selector: <code>tx.origin</code> matches, the call sequence into <code>executeProposal → canExecute → TokenVoting.execute → DAO.execute</code> matches, and the three self-bootstrap calls — <code>0xebb2b4a2</code> / <code>0x9b56d5be</code> / <code>0x610b5925</code> — land in the exact order worked out above. The event name really is <code>AssetsForwarded</code>. The extracted amount, <code>2841.743535791961701401</code> WETH, differs from the historical-replay estimate by eleven decimal places — rounding-level noise, not a different outcome.</p>
+<p>One thing I had wrong: reading the strategy bytecode, I guessed the four drained strategies were Term Finance repoToken positions. The real trace shows standard Aave (<code>getReserveNormalizedIncome</code>, <code>scaledBalanceOf</code>) and Morpho (<code>MetaMorphoV1_1</code>) internals instead. Doesn&rsquo;t change anything about the mechanism — the vulnerability never depended on what the strategies did internally, only on how much of their balance was currently liquid — but it&rsquo;s a fair reminder that reading unverified bytecode gets you the <em>behavior</em> far more reliably than it gets you the <em>label</em>.</p>
+<h2 class="heading-element" id="five-more-vaults-same-transaction"><span>Five more vaults, same transaction</span>
+  <a href="#five-more-vaults-same-transaction" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>There&rsquo;s a second transaction from the same window, <code>0x9f273f9a5a20c2fc957b06bbfa45db486390eede4a7f44fbe1a2eb6744c2e8a0</code> — 1550 calls, roughly four times the size of the one above. It runs the identical selector sequence (<code>0xebb2b4a2</code> / <code>0x9b56d5be</code> / <code>0x610b5925</code>) against five separate Delay/Roles/DAO stacks, one after another, inside a single transaction. Each of those five vaults shows <code>proposalId == 0</code> — meaning for every one of them, the vote that just captured their governance layer was the <em>first</em> vote that layer had ever seen. Denominated in USDC this time, the five together net <code>1,679,639.290442</code> USDC, all landing at <code>0x686457a7468B9B31c5dbA43b1b16077B48520691</code> — a different payout address than the WETH vault&rsquo;s <code>0xa908b3472d76e7744bab0a5911768a4a6300612b</code>. Whether the same person controls both is outside what calldata can tell you.</p>
+<p>Six vaults, same configuration mistake, same twelve-second-precision timing discipline. Not an isolated incident against one contract — a template, applied wherever it had been deployed.</p>
+<p>The number worth remembering isn&rsquo;t <code>2841.74</code> WETH. It&rsquo;s <code>0.535216182805348484</code> — the total supply of the token that decided who got to move it.</p></div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2026-08-24 09:59:52">更新于 2026-08-24&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://yinhui1984.github.io/term-finance-a-dao-with-0.535-tokens-how-someone-bought-a-yearn-vault-for-0.55-weth/" data-title="Term Finance: A DAO With 0.535 Tokens: How Someone Bought a Yearn Vault for 0.55 WETH" data-hashtags="attack,Term Finance"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://yinhui1984.github.io/term-finance-a-dao-with-0.535-tokens-how-someone-bought-a-yearn-vault-for-0.55-weth/" data-hashtag="attack"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://yinhui1984.github.io/term-finance-a-dao-with-0.535-tokens-how-someone-bought-a-yearn-vault-for-0.55-weth/" data-title="Term Finance: A DAO With 0.535 Tokens: How Someone Bought a Yearn Vault for 0.55 WETH"><i class="fa-brands fa-hacker-news" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://yinhui1984.github.io/term-finance-a-dao-with-0.535-tokens-how-someone-bought-a-yearn-vault-for-0.55-weth/" data-title="Term Finance: A DAO With 0.535 Tokens: How Someone Bought a Yearn Vault for 0.55 WETH"><svg class="icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>LINE</title><path d="M19.365 9.863c.349.0.63.285.63.631.0.345-.281.63-.63.63H17.61v1.125h1.755c.349.0.63.283.63.63.0.344-.281.629-.63.629h-2.386c-.345.0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346.0.627.285.627.63.0.349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211.0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346.0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195.0.375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345.0.63.285.63.63v4.771zm-5.741.0c0 .344-.282.629-.631.629-.345.0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346.0.628.285.628.63v4.771zm-2.466.629H4.917c-.345.0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348.0.63.285.63.63v4.141h1.756c.348.0.629.283.629.63.0.344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943.0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://yinhui1984.github.io/term-finance-a-dao-with-0.535-tokens-how-someone-bought-a-yearn-vault-for-0.55-weth/" data-title="Term Finance: A DAO With 0.535 Tokens: How Someone Bought a Yearn Vault for 0.55 WETH"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
+        </div>
+      </div></div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/tags/attack/" class="post-tag" title="标签 - Attack">Attack</a><a href="/tags/term-finance/" class="post-tag" title="标签 - Term Finance">Term Finance</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="/fox-attack-analysis/" class="post-nav-item" rel="prev" title="Fox (FoxLpBondsPool) Attack Analysis: A $482M &#39;Create Your Own Market Then Harvest&#39; Exploit"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>Fox (FoxLpBondsPool) Attack Analysis: A $482M &#39;Create Your Own Market Then Harvest&#39; Exploit</a></div>
+</div>
+</article>
+
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content always-active" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#the-proxy-that-looked-like-incident-response">The proxy that looked like incident response</a></li>
+    <li><a href="#half-a-token-controls-the-whole-vault">Half a token controls the whole vault</a></li>
+    <li><a href="#who-actually-owns-the-timelock">Who actually owns the timelock</a></li>
+    <li><a href="#the-clock-not-the-calendar">The clock, not the calendar</a></li>
+    <li><a href="#rebuilding-it-with-a-fresh-wallet">Rebuilding it with a fresh wallet</a></li>
+    <li><a href="#checking-it-against-what-actually-happened">Checking it against what actually happened</a></li>
+    <li><a href="#five-more-vaults-same-transaction">Five more vaults, same transaction</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.154.5"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.2"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="/"></a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="目录"><i class="fa-solid fa-bars" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/js/config/35207ae6073b74e8d57134470b41554e.js" defer></script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+</html>

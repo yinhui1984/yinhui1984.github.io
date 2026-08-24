@@ -18,7 +18,7 @@ Block: 116169049
 Victim Contracts: FoxLpBondsPool Proxy 0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0 (Implementation 0x58E2A853BB14e46BefD3148bd4280370fEA4655A), Treasury Proxy 0x361d08ff43761E6a7E8Fcabe48048AE9010801cc (Implementation 0x87614d97808dcdecb069fe8489848fa1c001e04d)
 Fox is a staking protocol that had been running on BSC for some time, and FoxLpBondsPool is one of its “LP Bond” entrypoints: users deposit USDT, the protocol converts half of it into FOX, pairs it with the other half of USDT into PancakeSwap’s FOX/USDT pool to get LP tokens, and then records your deposit under a bond-like model—principal is released linearly according to lockup days, plus there’s an “inviter reward”. This incident stemmed from this accounting step, where someone extracted roughly 677.5k USDT in instant profit in a single transaction, plus a massive minting certificate with a paper value close to $500 million that releases slowly over 540 days.">
   <meta itemprop="datePublished" content="2026-08-17T22:11:36+08:00">
-  <meta itemprop="dateModified" content="2026-08-17T22:11:36+08:00">
+  <meta itemprop="dateModified" content="2026-08-17T22:14:38+08:00">
   <meta itemprop="wordCount" content="1534">
   <meta itemprop="image" content="https://yinhui1984.github.io/images/avatar.png">
   <meta itemprop="keywords" content="Attack"><meta property="og:url" content="https://yinhui1984.github.io/fox-attack-analysis/">
@@ -33,7 +33,7 @@ Fox is a staking protocol that had been running on BSC for some time, and FoxLpB
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2026-08-17T22:11:36+08:00">
-    <meta property="article:modified_time" content="2026-08-17T22:11:36+08:00">
+    <meta property="article:modified_time" content="2026-08-17T22:14:38+08:00">
     <meta property="article:tag" content="Attack">
     <meta property="og:image" content="https://yinhui1984.github.io/images/avatar.png">
 
@@ -48,7 +48,7 @@ Fox is a staking protocol that had been running on BSC for some time, and FoxLpB
 <meta name="application-name" content="YINHUI&#39;s BLOG">
 <meta name="apple-mobile-web-app-title" content="YINHUI&#39;s BLOG"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://yinhui1984.github.io/fox-attack-analysis/" title="Fox (FoxLpBondsPool) Attack Analysis: A $482M &#39;Create Your Own Market Then Harvest&#39; Exploit - YINHUI&#39;s BLOG" /><link rel="prev" type="text/html" href="https://yinhui1984.github.io/launchpadfactoryauto-attack-analysis/" title="LaunchpadFactoryAuto drained for $17.7k via arbitrary multicall in Uniswap V4 PositionManager" /><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://yinhui1984.github.io/fox-attack-analysis/" title="Fox (FoxLpBondsPool) Attack Analysis: A $482M &#39;Create Your Own Market Then Harvest&#39; Exploit - YINHUI&#39;s BLOG" /><link rel="prev" type="text/html" href="https://yinhui1984.github.io/launchpadfactoryauto-attack-analysis/" title="LaunchpadFactoryAuto drained for $17.7k via arbitrary multicall in Uniswap V4 PositionManager" /><link rel="next" type="text/html" href="https://yinhui1984.github.io/term-finance-a-dao-with-0.535-tokens-how-someone-bought-a-yearn-vault-for-0.55-weth/" title="Term Finance: A DAO With 0.535 Tokens: How Someone Bought a Yearn Vault for 0.55 WETH" /><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
   {
@@ -60,7 +60,7 @@ Fox is a staking protocol that had been running on BSC for some time, and FoxLpB
       "@type": "WebPage",
       "@id": "https:\/\/yinhui1984.github.io\/fox-attack-analysis\/"
     },"image": ["https:\/\/yinhui1984.github.io\/images\/avatar.png"],"genre": "posts","keywords": "attack","wordcount":  1534 ,
-    "url": "https:\/\/yinhui1984.github.io\/fox-attack-analysis\/","datePublished": "2026-08-17T22:11:36+08:00","dateModified": "2026-08-17T22:11:36+08:00","publisher": {
+    "url": "https:\/\/yinhui1984.github.io\/fox-attack-analysis\/","datePublished": "2026-08-17T22:11:36+08:00","dateModified": "2026-08-17T22:14:38+08:00","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
         "@type": "Person",
@@ -133,7 +133,7 @@ Fox is a staking protocol that had been running on BSC for some time, and FoxLpB
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Fox (FoxLpBondsPool) Attack Analysis: A $482M &#39;Create Your Own Market Then Harvest&#39; Exploit</span>
       </h1></div><div class="post-meta">
       <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
-      yinhui</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/security/" class="post-category" title="分类 - Security"><i class="fa-regular fa-folder" aria-hidden="true"></i> Security</a></span></div><div class="post-meta-line"><span title="发布于 2026-08-17 22:11:36"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2026-08-17">2026-08-17</time></span>&nbsp;<span title="1534 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 1600 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 8 分钟</span>&nbsp;</div>
+      yinhui</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/security/" class="post-category" title="分类 - Security"><i class="fa-regular fa-folder" aria-hidden="true"></i> Security</a></span></div><div class="post-meta-line"><span title="发布于 2026-08-17 22:11:36"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2026-08-17">2026-08-17</time></span>&nbsp;<span title="更新于 2026-08-17 22:14:38"><i class="fa-regular fa-calendar-check me-1" aria-hidden="true"></i><time datetime="2026-08-17">2026-08-17</time></span>&nbsp;<span title="1534 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 1600 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 8 分钟</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>目录</span>
@@ -342,7 +342,7 @@ Victim Contracts: <code>FoxLpBondsPool</code> Proxy <code>0x9fa6D8a13b35E051BFc1
 <p>Looking at the minting formula alone or the reward ratio alone, neither snippet of code is outrageous by itself; what actually broke is that between &ldquo;how much money the user deposits&rdquo; and &ldquo;how deep the market is that this money will operate on&rdquo;, there was no upper bound constraint whatsoever.</p></div><div class="post-footer" id="post-footer">
   <div class="post-info">
     <div class="post-info-line">
-      <div class="post-info-mod"><span title="更新于 2026-08-17 22:11:36">更新于 2026-08-17&nbsp;</span>
+      <div class="post-info-mod"><span title="更新于 2026-08-17 22:14:38">更新于 2026-08-17&nbsp;</span>
       </div><div class="post-info-license">
             <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
           </div></div><div class="post-info-line">
@@ -361,7 +361,7 @@ Victim Contracts: <code>FoxLpBondsPool</code> Proxy <code>0x9fa6D8a13b35E051BFc1
     <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/tags/attack/" class="post-tag" title="标签 - Attack">Attack</a></section>
     <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
     </section>
-  </div><div class="post-nav"><a href="/launchpadfactoryauto-attack-analysis/" class="post-nav-item" rel="prev" title="LaunchpadFactoryAuto Drained for $17.7k via Arbitrary Multicall in Uniswap V4 PositionManager"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>LaunchpadFactoryAuto Drained for $17.7k via Arbitrary Multicall in Uniswap V4 PositionManager</a></div>
+  </div><div class="post-nav"><a href="/launchpadfactoryauto-attack-analysis/" class="post-nav-item" rel="prev" title="LaunchpadFactoryAuto Drained for $17.7k via Arbitrary Multicall in Uniswap V4 PositionManager"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>LaunchpadFactoryAuto Drained for $17.7k via Arbitrary Multicall in Uniswap V4 PositionManager</a><a href="/term-finance-a-dao-with-0.535-tokens-how-someone-bought-a-yearn-vault-for-0.55-weth/" class="post-nav-item" rel="next" title="Term Finance: A DAO With 0.535 Tokens: How Someone Bought a Yearn Vault for 0.55 WETH">Term Finance: A DAO With 0.535 Tokens: How Someone Bought a Yearn Vault for 0.55 WETH<i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
 </div>
 </article>
 
