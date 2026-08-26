@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>When a Uniswap V3 Vault Prices Its Own Shares at the Edge of Its Range - YINHUI&#39;s BLOG</title><meta name="author" content="yinhui">
+<meta name="description" content="How an Arrakis Finance G-UNI vault&#39;s mint/burn pricing broke once a flash-loan-sized swap pushed spot price past the position&#39;s own Uniswap V3 range, netting 2.94 ETH in one transaction."><meta name="keywords" content='attack'>
+  <meta itemprop="name" content="When a Uniswap V3 Vault Prices Its Own Shares at the Edge of Its Range">
+  <meta itemprop="description" content="How an Arrakis Finance G-UNI vault&#39;s mint/burn pricing broke once a flash-loan-sized swap pushed spot price past the position&#39;s own Uniswap V3 range, netting 2.94 ETH in one transaction.">
+  <meta itemprop="datePublished" content="2026-08-26T12:41:48+08:00">
+  <meta itemprop="dateModified" content="2026-08-26T12:41:48+08:00">
+  <meta itemprop="wordCount" content="1413">
+  <meta itemprop="image" content="https://yinhui1984.github.io/images/avatar.png">
+  <meta itemprop="keywords" content="Attack"><meta property="og:url" content="https://yinhui1984.github.io/when-a-uniswap-v3-vault-prices-its-own-shares-at-the-edge-of-its-range/">
+  <meta property="og:site_name" content="YINHUI&#39;s BLOG">
+  <meta property="og:title" content="When a Uniswap V3 Vault Prices Its Own Shares at the Edge of Its Range">
+  <meta property="og:description" content="How an Arrakis Finance G-UNI vault&#39;s mint/burn pricing broke once a flash-loan-sized swap pushed spot price past the position&#39;s own Uniswap V3 range, netting 2.94 ETH in one transaction.">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-08-26T12:41:48+08:00">
+    <meta property="article:modified_time" content="2026-08-26T12:41:48+08:00">
+    <meta property="article:tag" content="Attack">
+    <meta property="og:image" content="https://yinhui1984.github.io/images/avatar.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://yinhui1984.github.io/images/avatar.png">
+  <meta name="twitter:title" content="When a Uniswap V3 Vault Prices Its Own Shares at the Edge of Its Range">
+  <meta name="twitter:description" content="How an Arrakis Finance G-UNI vault&#39;s mint/burn pricing broke once a flash-loan-sized swap pushed spot price past the position&#39;s own Uniswap V3 range, netting 2.94 ETH in one transaction.">
+<meta name="application-name" content="YINHUI&#39;s BLOG">
+<meta name="apple-mobile-web-app-title" content="YINHUI&#39;s BLOG"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://yinhui1984.github.io/when-a-uniswap-v3-vault-prices-its-own-shares-at-the-edge-of-its-range/" title="When a Uniswap V3 Vault Prices Its Own Shares at the Edge of Its Range - YINHUI&#39;s BLOG" /><link rel="prev" type="text/html" href="https://yinhui1984.github.io/term-finance-a-dao-with-0.535-tokens-how-someone-bought-a-yearn-vault-for-0.55-weth/" title="Term Finance: A DAO With 0.535 Tokens: How Someone Bought a Yearn Vault for 0.55 WETH" /><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "When a Uniswap V3 Vault Prices Its Own Shares at the Edge of Its Range",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/yinhui1984.github.io\/when-a-uniswap-v3-vault-prices-its-own-shares-at-the-edge-of-its-range\/"
+    },"image": ["https:\/\/yinhui1984.github.io\/images\/avatar.png"],"genre": "posts","keywords": "attack","wordcount":  1413 ,
+    "url": "https:\/\/yinhui1984.github.io\/when-a-uniswap-v3-vault-prices-its-own-shares-at-the-edge-of-its-range\/","datePublished": "2026-08-26T12:41:48+08:00","dateModified": "2026-08-26T12:41:48+08:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "yinhui"
+      },"description": "How an Arrakis Finance G-UNI vault's mint/burn pricing broke once a flash-loan-sized swap pushed spot price past the position's own Uniswap V3 range, netting 2.94 ETH in one transaction."
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="fixed" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="YINHUI&#39;s BLOG"><span class="header-title-text">YINHUI&#39;s BLOG</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="/categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="/">首页</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="YINHUI&#39;s BLOG"><span class="header-title-text">YINHUI&#39;s BLOG</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="/tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="/categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="/">首页</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>When a Uniswap V3 Vault Prices Its Own Shares at the Edge of Its Range</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+      yinhui</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/security/" class="post-category" title="分类 - Security"><i class="fa-regular fa-folder" aria-hidden="true"></i> Security</a></span></div><div class="post-meta-line"><span title="发布于 2026-08-26 12:41:48"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2026-08-26">2026-08-26</time></span>&nbsp;<span title="1413 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 1500 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 7 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#the-vault-in-one-paragraph">The vault in one paragraph</a></li>
+    <li><a href="#what-happens-at-the-range-boundary">What happens at the range boundary</a></li>
+    <li><a href="#what-actually-happened">What actually happened</a></li>
+    <li><a href="#rebuilding-it-independently">Rebuilding it independently</a></li>
+    <li><a href="#where-the-first-pass-went-wrong">Where the first pass went wrong</a></li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><p>A Gelato G-UNI vault on Arrakis Finance priced its own shares off a Uniswap V3 position&rsquo;s current-block valuation. Moderate price manipulation looked harmless — it wasn&rsquo;t, once the price crossed the position&rsquo;s own range boundary in one swap.</p>
+<h1 class="heading-element" id="when-a-uniswap-v3-vault-prices-its-own-shares-at-the-edge-of-its-range"><span>When a Uniswap V3 vault prices its own shares at the edge of its range</span>
+  <a href="#when-a-uniswap-v3-vault-prices-its-own-shares-at-the-edge-of-its-range" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p>Chain: Ethereum mainnet. Attack tx: <code>0x6ae3af4b2f25a56594de99cfb31369150dd9ac059c49efe04b9e3e0163dbc672</code>, block <code>25817966</code>. Victim contract: <code>0x7c687f775A3b73BBAb0E15832F24caaB5D53bDDe</code>, an <code>EIP173Proxy</code> in front of <code>ArrakisVaultV1</code> at <code>0xd68b055fb444D136e3aC4df023f4C42334F06395</code>. It&rsquo;s a Gelato G-UNI vault, &ldquo;Gelato Uniswap WETH/ENS LP&rdquo;, wrapping a single Uniswap V3 position on the WETH/ENS pool at <code>0xb9C4a5522a2f8bA9E2fF7063Df8C02ed443337A3</code> (1% fee tier). Net result: the attacker walked away with about 2.94135 ETH in one transaction, no prior capital, no privileged role.</p>
+<p>I spent a while on this vault&rsquo;s <code>mint()</code>/<code>burn()</code> before I found the actual bug, and I got the wrong answer the first three times. That part is worth writing down too, because the reasoning that went wrong is the same reasoning most people would use to wave this off as safe.</p>
+<h2 class="heading-element" id="the-vault-in-one-paragraph"><span>The vault in one paragraph</span>
+  <a href="#the-vault-in-one-paragraph" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><code>ArrakisVaultV1</code> holds one Uniswap V3 position, defined by <code>lowerTick</code> and <code>upperTick</code> (here <code>32000</code> and <code>60000</code>). Anyone can call <code>mint(mintAmount, receiver)</code> to deposit <code>token0</code>/<code>token1</code> and get G-UNI shares back, and anyone can call <code>burn(burnAmount, receiver)</code> to redeem shares for the underlying. Both go through <code>getUnderlyingBalances()</code>, which calls <code>_getUnderlyingBalances(sqrtRatioX96, tick)</code>:</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="p">(</span><span class="n">amount0Current</span><span class="p">,</span> <span class="n">amount1Current</span><span class="p">)</span> <span class="o">=</span> <span class="n">LiquidityAmounts</span><span class="p">.</span><span class="n">getAmountsForLiquidity</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sqrtRatioX96</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lowerTick</span><span class="p">.</span><span class="n">getSqrtRatioAtTick</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">    <span class="n">upperTick</span><span class="p">.</span><span class="n">getSqrtRatioAtTick</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">    <span class="n">liquidity</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p><code>sqrtRatioX96</code> comes straight from <code>pool.slot0()</code> — the current spot price, read fresh on every call, no TWAP. That&rsquo;s the read a lot of people would flag immediately: current-block spot price feeding a pricing function, and no time lock between reading it and using it (<code>mint</code>/<code>burn</code> do both in the same call, so there isn&rsquo;t even a same-transaction reentrancy angle, it&rsquo;s one call doing one read and one write).</p>
+<p>So I did what you&rsquo;d normally do here: take a flash loan, swap enough of one token to push <code>slot0</code> somewhere unfavorable, call <code>mint()</code>, swap back, call <code>burn()</code>, see if the round trip nets a profit. I ran this at moderate swap sizes — a few percent of pool depth, then a somewhat larger one — and every time the numbers came back clean. <code>mint()</code> charges you proportionally to <code>getUnderlyingBalances()</code> at whatever price you just pushed it to, <code>burn()</code> pays out proportionally at whatever price you push it back to, and the two prices don&rsquo;t have to match for the round trip to be fair, because both sides are using the <em>same</em> function reading the <em>same</em> live state. Moving the price didn&rsquo;t create an edge. Spot-price manipulation on <code>getUnderlyingBalances()</code> looked like a dead end.</p>
+<p>That conclusion is wrong, and the reason it&rsquo;s wrong is specific to what <code>getAmountsForLiquidity</code> does once the price actually leaves the position&rsquo;s range.</p>
+<h2 class="heading-element" id="what-happens-at-the-range-boundary"><span>What happens at the range boundary</span>
+  <a href="#what-happens-at-the-range-boundary" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><code>getAmountsForLiquidity</code> has three branches, keyed on where <code>sqrtRatioX96</code> sits relative to <code>sqrtRatioAX96</code> (lower bound) and <code>sqrtRatioBX96</code> (upper bound):</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">sqrtRatioX96</span> <span class="o">&lt;=</span> <span class="n">sqrtRatioAX96</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">amount0</span> <span class="o">=</span> <span class="n">getAmount0ForLiquidity</span><span class="p">(</span><span class="n">sqrtRatioAX96</span><span class="p">,</span> <span class="n">sqrtRatioBX96</span><span class="p">,</span> <span class="n">liquidity</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">amount1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">sqrtRatioX96</span> <span class="o">&lt;</span> <span class="n">sqrtRatioBX96</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">amount0</span> <span class="o">=</span> <span class="n">getAmount0ForLiquidity</span><span class="p">(</span><span class="n">sqrtRatioX96</span><span class="p">,</span> <span class="n">sqrtRatioBX96</span><span class="p">,</span> <span class="n">liquidity</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">amount1</span> <span class="o">=</span> <span class="n">getAmount1ForLiquidity</span><span class="p">(</span><span class="n">sqrtRatioAX96</span><span class="p">,</span> <span class="n">sqrtRatioX96</span><span class="p">,</span> <span class="n">liquidity</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">amount0</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">amount1</span> <span class="o">=</span> <span class="n">getAmount1ForLiquidity</span><span class="p">(</span><span class="n">sqrtRatioAX96</span><span class="p">,</span> <span class="n">sqrtRatioBX96</span><span class="p">,</span> <span class="n">liquidity</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>Inside the range, the split between <code>amount0</code> and <code>amount1</code> moves continuously with price, which is what makes &ldquo;moderate manipulation&rdquo; harmless — you&rsquo;re just sliding along a curve both <code>mint</code> and <code>burn</code> agree on. But once price crosses either boundary, you land in the first or third branch, and notice what&rsquo;s missing from those two: <code>sqrtRatioX96</code> isn&rsquo;t in the formula at all. Below the lower bound, the reported value of the position is a function of <code>lowerTick</code>, <code>upperTick</code>, and <code>liquidity</code> only — it&rsquo;s pinned. Pushing price further down does nothing to that number. It&rsquo;s correct Uniswap V3 math, not a bug in the library; a position waiting below its range really does have a fixed value in terms of the token it&rsquo;ll receive when price comes back up.</p>
+<p>What I hadn&rsquo;t tested was the actual attack shape: don&rsquo;t nudge the price, cross the <em>entire range</em> in one swap, using a flash loan sized to do it. Two things happen at once when you do that. First, the valuation function saturates into the pinned branch. Second — and this is the part that makes it not just &ldquo;free repricing&rdquo; — a swap that crosses the whole range also trades against the position&rsquo;s own liquidity for its entire width, which means it generates real, non-trivial fee income for that position. Uniswap V3 tracks this per-tick via <code>feeGrowthGlobal0X128</code>/<code>feeGrowthGlobal1X128</code>, and <code>_computeFeesEarned()</code> reads it back out. So the same transaction that pins the valuation also inflates the fee credit baked into that valuation, and the two effects land on the same <code>mint()</code>/<code>burn()</code> call.</p>
+<h2 class="heading-element" id="what-actually-happened"><span>What actually happened</span>
+  <a href="#what-actually-happened" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>The attacker&rsquo;s contract (<code>0x028d9c17b1a097e7e115a6400203df86339baf4a</code>, deployed by the tx&rsquo;s initiator) did this:</p>
+<ol>
+<li>Flash-borrowed 1800 WETH from Morpho.</li>
+<li>Approved the vault for both WETH and ENS at <code>type(uint256).max</code>.</li>
+<li>Swapped 150 WETH into the WETH/ENS pool, <code>zeroForOne = true</code>, with <code>sqrtPriceLimitX96</code> set to essentially the protocol minimum — no real limit. Tick went from <code>60333</code> to <code>-887272</code>, the floor of the entire Uniswap V3 tick space. The vault&rsquo;s range is <code>[32000, 60000]</code>; this swap didn&rsquo;t just nudge the price out of range, it blew straight through it.</li>
+<li>Called <code>getMintAmounts()</code> then <code>mint()</code> on the vault with the WETH and ENS now sitting in the contract. Got 4486619135659964587643 shares (about 4486.6), pulling in 1253394683838271695411 WETH and 13159587645638410744793 ENS.</li>
+<li>Swapped a small amount of ENS back to WETH, then immediately called <code>burn()</code> on all 4486.6 shares, receiving 1248407278620612918512 WETH and 13283298507313887894451 ENS back.</li>
+<li>Swapped the remaining ENS back to WETH — tick recovered to around 59024, close to where it started.</li>
+<li>Repaid the 1800 WETH flash loan, netted 2941350352900037140 wei of WETH, unwrapped it, kept the profit.</li>
+</ol>
+<p>The mint/burn ratio in step 4 — roughly 10.5 ENS per WETH — has nothing to do with the real market price of ENS (the tick recovering to ~59024 by the end tells you that). It&rsquo;s the ratio <code>getMintAmounts()</code> produced while the position was sitting in the pinned, below-range branch, with a chunk of freshly-generated fee credit added on top.</p>
+<h2 class="heading-element" id="rebuilding-it-independently"><span>Rebuilding it independently</span>
+  <a href="#rebuilding-it-independently" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>I didn&rsquo;t want to just replay the attacker&rsquo;s calldata — that only proves their transaction worked, not that the mechanism is really what I think it is. So I wrote a separate Foundry test from scratch: my own contract, my own swap call, my own choice of mint/burn parameters, forked at block <code>25817965</code> (one block before the attack):</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kt">uint256</span> <span class="n">startingCapital</span> <span class="o">=</span> <span class="mi">1800</span> <span class="kc">ether</span><span class="p">;</span> <span class="c1">// WETH
+</span></span></span><span class="line"><span class="cl"><span class="n">deal</span><span class="p">(</span><span class="n">WETH</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="n">startingCapital</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">IERC20</span><span class="p">(</span><span class="n">WETH</span><span class="p">).</span><span class="n">approve</span><span class="p">(</span><span class="n">POOL</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="nc">uint256</span><span class="p">).</span><span class="nb">max</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kt">uint256</span> <span class="n">crashAmount</span> <span class="o">=</span> <span class="mi">150</span> <span class="kc">ether</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">IUniswapV3Pool</span><span class="p">(</span><span class="n">POOL</span><span class="p">).</span><span class="n">swap</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="kc">true</span><span class="p">,</span> <span class="kt">int256</span><span class="p">(</span><span class="n">crashAmount</span><span class="p">),</span> <span class="n">MIN_SQRT_RATIO</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// tick after crash: -887272, confirmed below lowerTick (32000)
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">uint256</span> <span class="n">wethForMint</span> <span class="o">=</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">WETH</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="kt">uint256</span> <span class="n">ensForMint</span> <span class="o">=</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">ENS</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="p">(,</span> <span class="p">,</span> <span class="kt">uint256</span> <span class="n">mintAmount</span><span class="p">)</span> <span class="o">=</span> <span class="n">IVault</span><span class="p">(</span><span class="n">VAULT</span><span class="p">).</span><span class="n">getMintAmounts</span><span class="p">(</span><span class="n">wethForMint</span><span class="p">,</span> <span class="n">ensForMint</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">IERC20</span><span class="p">(</span><span class="n">WETH</span><span class="p">).</span><span class="n">approve</span><span class="p">(</span><span class="n">VAULT</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="nc">uint256</span><span class="p">).</span><span class="nb">max</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">IERC20</span><span class="p">(</span><span class="n">ENS</span><span class="p">).</span><span class="n">approve</span><span class="p">(</span><span class="n">VAULT</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="nc">uint256</span><span class="p">).</span><span class="nb">max</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">IVault</span><span class="p">(</span><span class="n">VAULT</span><span class="p">).</span><span class="n">mint</span><span class="p">(</span><span class="n">mintAmount</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="n">IVault</span><span class="p">(</span><span class="n">VAULT</span><span class="p">).</span><span class="n">burn</span><span class="p">(</span><span class="n">mintAmount</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">));</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
+</div>
+</div><p>Same capital size as the real attacker (1800 WETH), same crash size (150 WETH). Result: 2945124607296743704 wei net profit, i.e. 2.945124607296743704 WETH — against the real attack&rsquo;s 2.94135 ETH. That&rsquo;s under 0.13% off, which is close enough that I&rsquo;m confident this is the same mechanism, not a coincidentally-similar one. I also reran the same logic with 200 WETH of starting capital instead of 1800, just to check the exploit wasn&rsquo;t somehow tuned to that exact number — still profitable, 0.1368 WETH, smaller crash and smaller position but the same shape.</p>
+<h2 class="heading-element" id="where-the-first-pass-went-wrong"><span>Where the first pass went wrong</span>
+  <a href="#where-the-first-pass-went-wrong" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>Going back to why the naive flash-loan test missed this: I was testing &ldquo;does moving the price create an edge,&rdquo; and at moderate magnitude the honest answer is no. The mechanism only shows up once you push price <em>past</em> the position&rsquo;s own boundary, and even then it&rsquo;s not just &ldquo;price manipulation&rdquo; doing the work — it&rsquo;s the saturation of the valuation formula plus the fee credit from actually trading through the full range, arriving together in the same call. A flash-loan probe that stops at &ldquo;a large swap&rdquo; instead of &ldquo;a swap that crosses the entire configured range&rdquo; will come back clean every time, right up until it doesn&rsquo;t.</p>
+<p>The proxy sitting in front of the vault has its admin slot zeroed out (<code>proxyAdmin() == address(0)</code>), so there&rsquo;s no upgrade path to patch this after the fact — whatever the position&rsquo;s range and liquidity happen to be at any given block is the actual attack surface, indefinitely.</p></div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2026-08-26 12:41:48">更新于 2026-08-26&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://yinhui1984.github.io/when-a-uniswap-v3-vault-prices-its-own-shares-at-the-edge-of-its-range/" data-title="When a Uniswap V3 Vault Prices Its Own Shares at the Edge of Its Range" data-hashtags="attack"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://yinhui1984.github.io/when-a-uniswap-v3-vault-prices-its-own-shares-at-the-edge-of-its-range/" data-hashtag="attack"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://yinhui1984.github.io/when-a-uniswap-v3-vault-prices-its-own-shares-at-the-edge-of-its-range/" data-title="When a Uniswap V3 Vault Prices Its Own Shares at the Edge of Its Range"><i class="fa-brands fa-hacker-news" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://yinhui1984.github.io/when-a-uniswap-v3-vault-prices-its-own-shares-at-the-edge-of-its-range/" data-title="When a Uniswap V3 Vault Prices Its Own Shares at the Edge of Its Range"><svg class="icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>LINE</title><path d="M19.365 9.863c.349.0.63.285.63.631.0.345-.281.63-.63.63H17.61v1.125h1.755c.349.0.63.283.63.63.0.344-.281.629-.63.629h-2.386c-.345.0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346.0.627.285.627.63.0.349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211.0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346.0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195.0.375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345.0.63.285.63.63v4.771zm-5.741.0c0 .344-.282.629-.631.629-.345.0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346.0.628.285.628.63v4.771zm-2.466.629H4.917c-.345.0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348.0.63.285.63.63v4.141h1.756c.348.0.629.283.629.63.0.344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943.0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://yinhui1984.github.io/when-a-uniswap-v3-vault-prices-its-own-shares-at-the-edge-of-its-range/" data-title="When a Uniswap V3 Vault Prices Its Own Shares at the Edge of Its Range"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
+        </div>
+      </div></div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/tags/attack/" class="post-tag" title="标签 - Attack">Attack</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="/term-finance-a-dao-with-0.535-tokens-how-someone-bought-a-yearn-vault-for-0.55-weth/" class="post-nav-item" rel="prev" title="Term Finance: A DAO With 0.535 Tokens: How Someone Bought a Yearn Vault for 0.55 WETH"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>Term Finance: A DAO With 0.535 Tokens: How Someone Bought a Yearn Vault for 0.55 WETH</a></div>
+</div>
+</article>
+
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content always-active" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#the-vault-in-one-paragraph">The vault in one paragraph</a></li>
+    <li><a href="#what-happens-at-the-range-boundary">What happens at the range boundary</a></li>
+    <li><a href="#what-actually-happened">What actually happened</a></li>
+    <li><a href="#rebuilding-it-independently">Rebuilding it independently</a></li>
+    <li><a href="#where-the-first-pass-went-wrong">Where the first pass went wrong</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.154.5"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.2"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="/"></a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="目录"><i class="fa-solid fa-bars" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/js/config/3691c8e731cb961389e66130de0d9fc9.js" defer></script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+</html>

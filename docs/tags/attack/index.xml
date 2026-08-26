@@ -6,8 +6,16 @@
     <description>银辉的技术博客 - 专注 Web3 安全、智能合约审计、区块链安全分析、Go语言开发</description>
     <generator>Hugo 0.154.5 &amp; FixIt v0.4.2</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 24 Aug 2026 09:59:52 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 26 Aug 2026 12:41:48 +0800</lastBuildDate>
     <atom:link href="https://yinhui1984.github.io/tags/attack/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>When a Uniswap V3 Vault Prices Its Own Shares at the Edge of Its Range</title>
+      <link>https://yinhui1984.github.io/when-a-uniswap-v3-vault-prices-its-own-shares-at-the-edge-of-its-range/</link>
+      <pubDate>Wed, 26 Aug 2026 12:41:48 +0800</pubDate>
+      <guid>https://yinhui1984.github.io/when-a-uniswap-v3-vault-prices-its-own-shares-at-the-edge-of-its-range/</guid>
+      <category domain="https://yinhui1984.github.io/categories/security/">Security</category>
+      <description>&lt;p&gt;A Gelato G-UNI vault on Arrakis Finance priced its own shares off a Uniswap V3 position&amp;rsquo;s current-block valuation. Moderate price manipulation looked harmless — it wasn&amp;rsquo;t, once the price crossed the position&amp;rsquo;s own range boundary in one swap.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Term Finance: A DAO With 0.535 Tokens: How Someone Bought a Yearn Vault for 0.55 WETH</title>
       <link>https://yinhui1984.github.io/term-finance-a-dao-with-0.535-tokens-how-someone-bought-a-yearn-vault-for-0.55-weth/</link>
