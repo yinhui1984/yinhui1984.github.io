@@ -6,8 +6,16 @@
     <description>银辉的技术博客 - 专注 Web3 安全、智能合约审计、区块链安全分析、Go语言开发</description>
     <generator>Hugo 0.154.5 &amp; FixIt v0.4.2</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 26 Aug 2026 12:41:48 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 02 Sep 2026 07:11:00 +0800</lastBuildDate>
     <atom:link href="https://yinhui1984.github.io/tags/attack/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Enjin CryptoItems Attack Analysis: 5.2M ENJ Drained via Storage-Slot Collision in Delegatecall Proxy</title>
+      <link>https://yinhui1984.github.io/enjin-cryptoitems-attack-analysis/</link>
+      <pubDate>Wed, 02 Sep 2026 07:11:00 +0800</pubDate>
+      <guid>https://yinhui1984.github.io/enjin-cryptoitems-attack-analysis/</guid>
+      <category domain="https://yinhui1984.github.io/categories/security/">Security</category>
+      <description>&lt;p&gt;On Ethereum mainnet at block 25834070, transaction &lt;code&gt;0xd4a382da03c99ce3084661b913b50b525a4b283f66f510bcf1040152830b2a7e&lt;/code&gt; drained 5,238,353 ENJ (over 53% of the reserve in the Adapter contract) from Enjin&amp;rsquo;s CryptoItems ecosystem. The attacker netted 5,231,353 ENJ while an unintended 7,000 ENJ was routed to a legitimate creator through the protocol&amp;rsquo;s built-in royalty fee logic.&lt;/p&gt;&#xA;&lt;p&gt;The vulnerability stems from a storage-slot collision between a &amp;ldquo;Managed&amp;rdquo; delegatecall proxy template and an independent logic contract routed to by that proxy. Calling an unauthenticated &lt;code&gt;initialize()&lt;/code&gt; function on the proxy overwrote its pending-manager storage slot, turning a routine backend registration into an immediate, permissionless manager takeover. Once in control, the attacker poisoned the proxy&amp;rsquo;s routing table, deployed per-item adapter shells, hijacked the transfer gateway to reassign high-value items from real holders, and melted them into ENJ backing reserves.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>When a Uniswap V3 Vault Prices Its Own Shares at the Edge of Its Range</title>
       <link>https://yinhui1984.github.io/when-a-uniswap-v3-vault-prices-its-own-shares-at-the-edge-of-its-range/</link>

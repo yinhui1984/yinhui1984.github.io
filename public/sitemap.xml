@@ -1,511 +1,517 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://yinhui1984.github.io/tags/attack/</loc>
-    <lastmod>2026-08-26T12:41:48+08:00</lastmod>
+    <loc>http://localhost:1313/tags/attack/</loc>
+    <lastmod>2026-09-02T07:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/categories/</loc>
-    <lastmod>2026-08-26T12:41:48+08:00</lastmod>
+    <loc>http://localhost:1313/categories/</loc>
+    <lastmod>2026-09-02T07:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/posts/</loc>
-    <lastmod>2026-08-26T12:41:48+08:00</lastmod>
+    <loc>http://localhost:1313/enjin-cryptoitems-attack-analysis/</loc>
+    <lastmod>2026-09-02T07:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/categories/security/</loc>
-    <lastmod>2026-08-26T12:41:48+08:00</lastmod>
+    <loc>http://localhost:1313/posts/</loc>
+    <lastmod>2026-09-02T07:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/tags/</loc>
-    <lastmod>2026-08-26T12:41:48+08:00</lastmod>
+    <loc>http://localhost:1313/categories/security/</loc>
+    <lastmod>2026-09-02T07:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/when-a-uniswap-v3-vault-prices-its-own-shares-at-the-edge-of-its-range/</loc>
-    <lastmod>2026-08-26T12:41:48+08:00</lastmod>
+    <loc>http://localhost:1313/tags/</loc>
+    <lastmod>2026-09-02T07:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/</loc>
-    <lastmod>2026-08-26T12:41:48+08:00</lastmod>
+    <loc>http://localhost:1313/</loc>
+    <lastmod>2026-09-02T07:11:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/tags/term-finance/</loc>
+    <loc>http://localhost:1313/when-a-uniswap-v3-vault-prices-its-own-shares-at-the-edge-of-its-range/</loc>
+    <lastmod>2026-08-26T12:50:42+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>http://localhost:1313/tags/term-finance/</loc>
     <lastmod>2026-08-24T10:00:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/term-finance-a-dao-with-0.535-tokens-how-someone-bought-a-yearn-vault-for-0.55-weth/</loc>
+    <loc>http://localhost:1313/term-finance-a-dao-with-0.535-tokens-how-someone-bought-a-yearn-vault-for-0.55-weth/</loc>
     <lastmod>2026-08-24T10:00:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/fox-attack-analysis/</loc>
+    <loc>http://localhost:1313/fox-attack-analysis/</loc>
     <lastmod>2026-08-17T22:14:38+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/launchpadfactoryauto-attack-analysis/</loc>
+    <loc>http://localhost:1313/launchpadfactoryauto-attack-analysis/</loc>
     <lastmod>2026-08-17T11:34:47+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/cryptodaoglobal-attack-analysic/</loc>
+    <loc>http://localhost:1313/cryptodaoglobal-attack-analysic/</loc>
     <lastmod>2026-08-14T16:58:57+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/usm-drained-for-70.8-eth-by-funding-62m-fum-against-a-price-that-hadnt-been-refreshed-in-99-days/</loc>
+    <loc>http://localhost:1313/usm-drained-for-70.8-eth-by-funding-62m-fum-against-a-price-that-hadnt-been-refreshed-in-99-days/</loc>
     <lastmod>2026-08-12T21:16:34+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/tags/agent/</loc>
+    <loc>http://localhost:1313/tags/agent/</loc>
     <lastmod>2026-08-10T09:17:48+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/tags/approve/</loc>
+    <loc>http://localhost:1313/tags/approve/</loc>
     <lastmod>2026-08-10T09:17:48+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/tags/defi/</loc>
+    <loc>http://localhost:1313/tags/defi/</loc>
     <lastmod>2026-08-10T09:17:48+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/tags/metamask/</loc>
+    <loc>http://localhost:1313/tags/metamask/</loc>
     <lastmod>2026-08-10T09:17:48+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/metamask-agent-wallets-guard-mode-checks-four-things-the-approve-amount-isnt-one-of-them/</loc>
+    <loc>http://localhost:1313/metamask-agent-wallets-guard-mode-checks-four-things-the-approve-amount-isnt-one-of-them/</loc>
     <lastmod>2026-08-10T09:17:48+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/aic-nex-attack-analysis/</loc>
+    <loc>http://localhost:1313/aic-nex-attack-analysis/</loc>
     <lastmod>2026-08-08T10:04:55+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/tags/ftpethreflect/</loc>
+    <loc>http://localhost:1313/tags/ftpethreflect/</loc>
     <lastmod>2026-08-07T11:40:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/ftpethreflect-attack-analysis/</loc>
+    <loc>http://localhost:1313/ftpethreflect-attack-analysis/</loc>
     <lastmod>2026-08-07T11:40:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/tags/security/</loc>
+    <loc>http://localhost:1313/tags/security/</loc>
     <lastmod>2026-08-07T11:40:05+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/lienfinance-attack-analysis/</loc>
+    <loc>http://localhost:1313/lienfinance-attack-analysis/</loc>
     <lastmod>2026-08-04T10:17:48+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/barnbridge-smartyield-%E6%94%BB%E5%87%BB%E5%88%86%E6%9E%90-774943--%E4%B8%80%E6%AC%A1-600-%E6%92%AC%E5%8A%A8%E7%9A%84%E6%B2%BB%E7%90%86%E6%8E%A5%E7%AE%A1/</loc>
+    <loc>http://localhost:1313/barnbridge-smartyield-%E6%94%BB%E5%87%BB%E5%88%86%E6%9E%90-774943--%E4%B8%80%E6%AC%A1-600-%E6%92%AC%E5%8A%A8%E7%9A%84%E6%B2%BB%E7%90%86%E6%8E%A5%E7%AE%A1/</loc>
     <lastmod>2026-07-25T20:05:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/tags/web3.0/</loc>
+    <loc>http://localhost:1313/tags/web3.0/</loc>
     <lastmod>2026-07-25T20:05:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/tags/summer.fi/</loc>
+    <loc>http://localhost:1313/tags/summer.fi/</loc>
     <lastmod>2026-07-21T10:02:36+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/summer.fi-6m-attack-analysis/</loc>
+    <loc>http://localhost:1313/summer.fi-6m-attack-analysis/</loc>
     <lastmod>2026-07-21T10:02:36+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/tags/eip/</loc>
+    <loc>http://localhost:1313/tags/eip/</loc>
     <lastmod>2026-07-16T09:47:40+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/tags/erc/</loc>
+    <loc>http://localhost:1313/tags/erc/</loc>
     <lastmod>2026-07-16T09:47:40+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/tags/erc-4626/</loc>
+    <loc>http://localhost:1313/tags/erc-4626/</loc>
     <lastmod>2026-07-16T09:47:40+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/erc-4626-tokenized-yield-bearing-vaults/</loc>
+    <loc>http://localhost:1313/erc-4626-tokenized-yield-bearing-vaults/</loc>
     <lastmod>2026-07-16T09:47:40+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/categories/web3/</loc>
+    <loc>http://localhost:1313/categories/web3/</loc>
     <lastmod>2026-07-16T09:47:40+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/thetanuts-finance-attack-analysis/</loc>
+    <loc>http://localhost:1313/thetanuts-finance-attack-analysis/</loc>
     <lastmod>2026-07-13T07:47:40+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/agent-approve-task-boundary/</loc>
+    <loc>http://localhost:1313/agent-approve-task-boundary/</loc>
     <lastmod>2026-06-25T11:39:15+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/tags/erc20/</loc>
+    <loc>http://localhost:1313/tags/erc20/</loc>
     <lastmod>2026-06-25T11:39:15+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/erc20-approve-allowance/</loc>
+    <loc>http://localhost:1313/erc20-approve-allowance/</loc>
     <lastmod>2026-06-25T11:39:15+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/categories/blockchain/</loc>
+    <loc>http://localhost:1313/categories/blockchain/</loc>
     <lastmod>2026-06-02T17:04:12+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/tags/solidity/</loc>
+    <loc>http://localhost:1313/tags/solidity/</loc>
     <lastmod>2026-06-02T17:04:12+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/%E5%85%A8%E5%B1%80%E7%B4%AF%E8%AE%A1%E5%A5%96%E5%8A%B1%E6%8C%87%E6%95%B0%E6%A8%A1%E5%9E%8Breward-per-share-accumulator/</loc>
+    <loc>http://localhost:1313/%E5%85%A8%E5%B1%80%E7%B4%AF%E8%AE%A1%E5%A5%96%E5%8A%B1%E6%8C%87%E6%95%B0%E6%A8%A1%E5%9E%8Breward-per-share-accumulator/</loc>
     <lastmod>2026-06-02T17:04:12+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/tags/l3/</loc>
+    <loc>http://localhost:1313/tags/l3/</loc>
     <lastmod>2023-06-12T10:01:44+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/truffle_foundry_together/</loc>
+    <loc>http://localhost:1313/truffle_foundry_together/</loc>
     <lastmod>2023-06-12T10:01:44+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/binance-bgeo-attack-analysis/</loc>
+    <loc>http://localhost:1313/binance-bgeo-attack-analysis/</loc>
     <lastmod>2023-04-28T09:35:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/healthtoken-attack-analysic/</loc>
+    <loc>http://localhost:1313/healthtoken-attack-analysic/</loc>
     <lastmod>2023-04-27T13:54:33+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/olympusdao-attack-analysis/</loc>
+    <loc>http://localhost:1313/olympusdao-attack-analysis/</loc>
     <lastmod>2023-04-27T09:40:07+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/analysis_of_swaposv2_attack/</loc>
+    <loc>http://localhost:1313/analysis_of_swaposv2_attack/</loc>
     <lastmod>2023-04-19T11:03:21+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/dpk-exchange-attack/</loc>
+    <loc>http://localhost:1313/dpk-exchange-attack/</loc>
     <lastmod>2023-03-24T22:22:45+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/euler-finance-attack/</loc>
+    <loc>http://localhost:1313/euler-finance-attack/</loc>
     <lastmod>2023-03-22T14:56:44+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/phoenix-access-control-attack/</loc>
+    <loc>http://localhost:1313/phoenix-access-control-attack/</loc>
     <lastmod>2023-03-15T17:20:10+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/tags/swap/</loc>
+    <loc>http://localhost:1313/tags/swap/</loc>
     <lastmod>2023-03-13T09:59:12+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/uniswap/</loc>
+    <loc>http://localhost:1313/uniswap/</loc>
     <lastmod>2023-03-13T09:59:12+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/analyse_of_egd_finance_attack/</loc>
+    <loc>http://localhost:1313/analyse_of_egd_finance_attack/</loc>
     <lastmod>2023-03-07T09:17:26+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/tags/evm/</loc>
+    <loc>http://localhost:1313/tags/evm/</loc>
     <lastmod>2023-02-28T20:22:55+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/evm-puzzles/</loc>
+    <loc>http://localhost:1313/evm-puzzles/</loc>
     <lastmod>2023-02-28T20:22:55+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/tags/l0/</loc>
+    <loc>http://localhost:1313/tags/l0/</loc>
     <lastmod>2023-02-28T20:22:55+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/ethernaut/</loc>
+    <loc>http://localhost:1313/ethernaut/</loc>
     <lastmod>2023-02-28T20:03:07+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/ethernaut_19_magicnumber/</loc>
+    <loc>http://localhost:1313/ethernaut_19_magicnumber/</loc>
     <lastmod>2023-01-19T20:13:21+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/solidity_tx_origin_msg_sender/</loc>
+    <loc>http://localhost:1313/solidity_tx_origin_msg_sender/</loc>
     <lastmod>2023-04-27T13:59:08+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/ipfs/</loc>
+    <loc>http://localhost:1313/ipfs/</loc>
     <lastmod>2022-11-02T15:15:14+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/tags/ipfs/</loc>
+    <loc>http://localhost:1313/tags/ipfs/</loc>
     <lastmod>2022-11-02T15:15:14+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/tags/l1/</loc>
+    <loc>http://localhost:1313/tags/l1/</loc>
     <lastmod>2022-11-02T15:15:14+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/tags/wasm/</loc>
+    <loc>http://localhost:1313/tags/wasm/</loc>
     <lastmod>2022-10-17T11:03:12+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/webassembly/</loc>
+    <loc>http://localhost:1313/webassembly/</loc>
     <lastmod>2022-10-17T11:03:12+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/evm/</loc>
+    <loc>http://localhost:1313/evm/</loc>
     <lastmod>2022-10-08T09:31:47+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/utxo/</loc>
+    <loc>http://localhost:1313/utxo/</loc>
     <lastmod>2022-09-27T17:22:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/tags/utxo/</loc>
+    <loc>http://localhost:1313/tags/utxo/</loc>
     <lastmod>2022-09-27T17:22:28+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/tags/p2p/</loc>
+    <loc>http://localhost:1313/tags/p2p/</loc>
     <lastmod>2022-08-30T10:13:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/p2p/</loc>
+    <loc>http://localhost:1313/p2p/</loc>
     <lastmod>2022-08-30T10:13:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/tags/zkps/</loc>
+    <loc>http://localhost:1313/tags/zkps/</loc>
     <lastmod>2022-08-23T11:36:19+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E/</loc>
+    <loc>http://localhost:1313/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E/</loc>
     <lastmod>2022-08-23T11:36:19+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/tags/consensus/</loc>
+    <loc>http://localhost:1313/tags/consensus/</loc>
     <lastmod>2022-08-22T17:13:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/tags/pow/</loc>
+    <loc>http://localhost:1313/tags/pow/</loc>
     <lastmod>2022-08-22T17:13:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/pow/</loc>
+    <loc>http://localhost:1313/pow/</loc>
     <lastmod>2022-08-22T17:13:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/genesis.json/</loc>
+    <loc>http://localhost:1313/genesis.json/</loc>
     <lastmod>2022-08-22T17:13:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/tags/genesis.json/</loc>
+    <loc>http://localhost:1313/tags/genesis.json/</loc>
     <lastmod>2022-08-22T17:13:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/tags/python/</loc>
+    <loc>http://localhost:1313/tags/python/</loc>
     <lastmod>2022-08-22T17:13:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/tags/web3.py/</loc>
+    <loc>http://localhost:1313/tags/web3.py/</loc>
     <lastmod>2022-08-22T17:13:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/%E4%BD%BF%E7%94%A8web3.py%E5%AE%9E%E7%8E%B0%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8C%89%E9%9C%80%E6%8C%96%E7%9F%BF/</loc>
+    <loc>http://localhost:1313/%E4%BD%BF%E7%94%A8web3.py%E5%AE%9E%E7%8E%B0%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8C%89%E9%9C%80%E6%8C%96%E7%9F%BF/</loc>
     <lastmod>2022-08-22T17:13:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/tags/ethereum/</loc>
+    <loc>http://localhost:1313/tags/ethereum/</loc>
     <lastmod>2022-08-28T20:42:52+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/tags/go-ethereum/</loc>
+    <loc>http://localhost:1313/tags/go-ethereum/</loc>
     <lastmod>2022-08-28T20:42:52+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E6%89%8B%E5%B7%A5%E6%89%93%E9%80%A0/</loc>
+    <loc>http://localhost:1313/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E6%89%8B%E5%B7%A5%E6%89%93%E9%80%A0/</loc>
     <lastmod>2022-08-22T17:13:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/tags/ganache/</loc>
+    <loc>http://localhost:1313/tags/ganache/</loc>
     <lastmod>2022-08-28T20:42:52+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/tags/truffle/</loc>
+    <loc>http://localhost:1313/tags/truffle/</loc>
     <lastmod>2022-08-28T20:42:52+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E4%BD%BF%E7%94%A8truffle%E5%A5%97%E4%BB%B6/</loc>
+    <loc>http://localhost:1313/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%BC%96%E5%86%99%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6-%E4%BD%BF%E7%94%A8truffle%E5%A5%97%E4%BB%B6/</loc>
     <lastmod>2022-08-28T20:42:52+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/archives/</loc>
+    <loc>http://localhost:1313/archives/</loc>
     <lastmod>2022-06-30T11:12:11+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://yinhui1984.github.io/search/</loc>
+    <loc>http://localhost:1313/search/</loc>
     <lastmod>2022-06-30T11:12:11+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

@@ -9,7 +9,7 @@
   <meta itemprop="name" content="When a Uniswap V3 Vault Prices Its Own Shares at the Edge of Its Range">
   <meta itemprop="description" content="How an Arrakis Finance G-UNI vault&#39;s mint/burn pricing broke once a flash-loan-sized swap pushed spot price past the position&#39;s own Uniswap V3 range, netting 2.94 ETH in one transaction.">
   <meta itemprop="datePublished" content="2026-08-26T12:41:48+08:00">
-  <meta itemprop="dateModified" content="2026-08-26T12:41:48+08:00">
+  <meta itemprop="dateModified" content="2026-08-26T12:50:42+08:00">
   <meta itemprop="wordCount" content="1413">
   <meta itemprop="image" content="https://yinhui1984.github.io/images/avatar.png">
   <meta itemprop="keywords" content="Attack"><meta property="og:url" content="https://yinhui1984.github.io/when-a-uniswap-v3-vault-prices-its-own-shares-at-the-edge-of-its-range/">
@@ -20,7 +20,7 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2026-08-26T12:41:48+08:00">
-    <meta property="article:modified_time" content="2026-08-26T12:41:48+08:00">
+    <meta property="article:modified_time" content="2026-08-26T12:50:42+08:00">
     <meta property="article:tag" content="Attack">
     <meta property="og:image" content="https://yinhui1984.github.io/images/avatar.png">
 
@@ -31,7 +31,7 @@
 <meta name="application-name" content="YINHUI&#39;s BLOG">
 <meta name="apple-mobile-web-app-title" content="YINHUI&#39;s BLOG"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://yinhui1984.github.io/when-a-uniswap-v3-vault-prices-its-own-shares-at-the-edge-of-its-range/" title="When a Uniswap V3 Vault Prices Its Own Shares at the Edge of Its Range - YINHUI&#39;s BLOG" /><link rel="prev" type="text/html" href="https://yinhui1984.github.io/term-finance-a-dao-with-0.535-tokens-how-someone-bought-a-yearn-vault-for-0.55-weth/" title="Term Finance: A DAO With 0.535 Tokens: How Someone Bought a Yearn Vault for 0.55 WETH" /><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://yinhui1984.github.io/when-a-uniswap-v3-vault-prices-its-own-shares-at-the-edge-of-its-range/" title="When a Uniswap V3 Vault Prices Its Own Shares at the Edge of Its Range - YINHUI&#39;s BLOG" /><link rel="prev" type="text/html" href="https://yinhui1984.github.io/term-finance-a-dao-with-0.535-tokens-how-someone-bought-a-yearn-vault-for-0.55-weth/" title="Term Finance: A DAO With 0.535 Tokens: How Someone Bought a Yearn Vault for 0.55 WETH" /><link rel="next" type="text/html" href="https://yinhui1984.github.io/enjin-cryptoitems-attack-analysis/" title="Enjin CryptoItems Attack Analysis: 5.2M ENJ Drained via Storage-Slot Collision in Delegatecall Proxy" /><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
   {
@@ -43,7 +43,7 @@
       "@type": "WebPage",
       "@id": "https:\/\/yinhui1984.github.io\/when-a-uniswap-v3-vault-prices-its-own-shares-at-the-edge-of-its-range\/"
     },"image": ["https:\/\/yinhui1984.github.io\/images\/avatar.png"],"genre": "posts","keywords": "attack","wordcount":  1413 ,
-    "url": "https:\/\/yinhui1984.github.io\/when-a-uniswap-v3-vault-prices-its-own-shares-at-the-edge-of-its-range\/","datePublished": "2026-08-26T12:41:48+08:00","dateModified": "2026-08-26T12:41:48+08:00","publisher": {
+    "url": "https:\/\/yinhui1984.github.io\/when-a-uniswap-v3-vault-prices-its-own-shares-at-the-edge-of-its-range\/","datePublished": "2026-08-26T12:41:48+08:00","dateModified": "2026-08-26T12:50:42+08:00","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
         "@type": "Person",
@@ -116,7 +116,7 @@
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>When a Uniswap V3 Vault Prices Its Own Shares at the Edge of Its Range</span>
       </h1></div><div class="post-meta">
       <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
-      yinhui</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/security/" class="post-category" title="分类 - Security"><i class="fa-regular fa-folder" aria-hidden="true"></i> Security</a></span></div><div class="post-meta-line"><span title="发布于 2026-08-26 12:41:48"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2026-08-26">2026-08-26</time></span>&nbsp;<span title="1413 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 1500 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 7 分钟</span>&nbsp;</div>
+      yinhui</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/security/" class="post-category" title="分类 - Security"><i class="fa-regular fa-folder" aria-hidden="true"></i> Security</a></span></div><div class="post-meta-line"><span title="发布于 2026-08-26 12:41:48"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2026-08-26">2026-08-26</time></span>&nbsp;<span title="更新于 2026-08-26 12:50:42"><i class="fa-regular fa-calendar-check me-1" aria-hidden="true"></i><time datetime="2026-08-26">2026-08-26</time></span>&nbsp;<span title="1413 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 1500 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 7 分钟</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>目录</span>
@@ -263,7 +263,7 @@
 <p>The proxy sitting in front of the vault has its admin slot zeroed out (<code>proxyAdmin() == address(0)</code>), so there&rsquo;s no upgrade path to patch this after the fact — whatever the position&rsquo;s range and liquidity happen to be at any given block is the actual attack surface, indefinitely.</p></div><div class="post-footer" id="post-footer">
   <div class="post-info">
     <div class="post-info-line">
-      <div class="post-info-mod"><span title="更新于 2026-08-26 12:41:48">更新于 2026-08-26&nbsp;</span>
+      <div class="post-info-mod"><span title="更新于 2026-08-26 12:50:42">更新于 2026-08-26&nbsp;</span>
       </div><div class="post-info-license">
             <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
           </div></div><div class="post-info-line">
@@ -282,7 +282,7 @@
     <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/tags/attack/" class="post-tag" title="标签 - Attack">Attack</a></section>
     <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
     </section>
-  </div><div class="post-nav"><a href="/term-finance-a-dao-with-0.535-tokens-how-someone-bought-a-yearn-vault-for-0.55-weth/" class="post-nav-item" rel="prev" title="Term Finance: A DAO With 0.535 Tokens: How Someone Bought a Yearn Vault for 0.55 WETH"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>Term Finance: A DAO With 0.535 Tokens: How Someone Bought a Yearn Vault for 0.55 WETH</a></div>
+  </div><div class="post-nav"><a href="/term-finance-a-dao-with-0.535-tokens-how-someone-bought-a-yearn-vault-for-0.55-weth/" class="post-nav-item" rel="prev" title="Term Finance: A DAO With 0.535 Tokens: How Someone Bought a Yearn Vault for 0.55 WETH"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>Term Finance: A DAO With 0.535 Tokens: How Someone Bought a Yearn Vault for 0.55 WETH</a><a href="/enjin-cryptoitems-attack-analysis/" class="post-nav-item" rel="next" title="Enjin CryptoItems Attack Analysis: 5.2M ENJ Drained via Storage-Slot Collision in Delegatecall Proxy">Enjin CryptoItems Attack Analysis: 5.2M ENJ Drained via Storage-Slot Collision in Delegatecall Proxy<i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
 </div>
 </article>
 

