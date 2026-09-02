@@ -6,8 +6,16 @@
     <description>银辉的技术博客 - 专注 Web3 安全、智能合约审计、区块链安全分析、Go语言开发</description>
     <generator>Hugo 0.154.5 &amp; FixIt v0.4.2</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 02 Sep 2026 07:11:00 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 03 Sep 2026 07:32:50 +0800</lastBuildDate>
     <atom:link href="https://yinhui1984.github.io/categories/security/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>GEB CDP positions drained for 5.94 WETH by calling GebProxyActions directly instead of via delegatecall</title>
+      <link>https://yinhui1984.github.io/geb-cdp-positions-drained-for-5.94-weth-by-calling-gebproxyactions-directly-instead-of-via-delegatecall/</link>
+      <pubDate>Thu, 03 Sep 2026 07:32:50 +0800</pubDate>
+      <guid>https://yinhui1984.github.io/geb-cdp-positions-drained-for-5.94-weth-by-calling-gebproxyactions-directly-instead-of-via-delegatecall/</guid>
+      <category domain="https://yinhui1984.github.io/categories/security/">Security</category>
+      <description>&lt;p&gt;A CDP system built on the GEB framework — the same architecture family MakerDAO&amp;rsquo;s &lt;code&gt;DssProxyActions&lt;/code&gt; and Reflexer&amp;rsquo;s RAI popularized — lost about 5.94 WETH in a single transaction to a bug that has nothing to do with price manipulation, flash loans, or reentrancy. It&amp;rsquo;s a plain identity mixup between &lt;code&gt;delegatecall&lt;/code&gt; and a regular &lt;code&gt;CALL&lt;/code&gt;, sitting in a helper contract that was never supposed to hold any state of its own in the first place.&lt;/p&gt;&#xA;&lt;p&gt;Transaction: &lt;code&gt;0xfbce28e35c26358110dd9ed91f9ceef588acb264c3cf6c573df65ca21335058f&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Enjin CryptoItems Attack Analysis: 5.2M ENJ Drained via Storage-Slot Collision in Delegatecall Proxy</title>
       <link>https://yinhui1984.github.io/enjin-cryptoitems-attack-analysis/</link>
