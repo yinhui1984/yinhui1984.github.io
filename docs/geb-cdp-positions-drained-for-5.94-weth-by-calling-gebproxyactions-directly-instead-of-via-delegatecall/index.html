@@ -9,8 +9,8 @@
   <meta itemprop="name" content="GEB CDP positions drained for 5.94 WETH by calling GebProxyActions directly instead of via delegatecall">
   <meta itemprop="description" content="A confused-deputy bug in a GEB-framework CDP system: a delegatecall-only helper contract got called directly once in its history, and that let anyone permanently impersonate the recorded owner of four SAFEs for 5.94 WETH.">
   <meta itemprop="datePublished" content="2026-09-03T07:32:50+08:00">
-  <meta itemprop="dateModified" content="2026-09-03T07:32:50+08:00">
-  <meta itemprop="wordCount" content="2376">
+  <meta itemprop="dateModified" content="2026-09-03T07:33:50+08:00">
+  <meta itemprop="wordCount" content="2438">
   <meta itemprop="image" content="https://yinhui1984.github.io/images/avatar.png">
   <meta itemprop="keywords" content="Attack"><meta property="og:url" content="https://yinhui1984.github.io/geb-cdp-positions-drained-for-5.94-weth-by-calling-gebproxyactions-directly-instead-of-via-delegatecall/">
   <meta property="og:site_name" content="YINHUI&#39;s BLOG">
@@ -20,7 +20,7 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2026-09-03T07:32:50+08:00">
-    <meta property="article:modified_time" content="2026-09-03T07:32:50+08:00">
+    <meta property="article:modified_time" content="2026-09-03T07:33:50+08:00">
     <meta property="article:tag" content="Attack">
     <meta property="og:image" content="https://yinhui1984.github.io/images/avatar.png">
 
@@ -42,8 +42,8 @@
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "https:\/\/yinhui1984.github.io\/geb-cdp-positions-drained-for-5.94-weth-by-calling-gebproxyactions-directly-instead-of-via-delegatecall\/"
-    },"image": ["https:\/\/yinhui1984.github.io\/images\/avatar.png"],"genre": "posts","keywords": "attack","wordcount":  2376 ,
-    "url": "https:\/\/yinhui1984.github.io\/geb-cdp-positions-drained-for-5.94-weth-by-calling-gebproxyactions-directly-instead-of-via-delegatecall\/","datePublished": "2026-09-03T07:32:50+08:00","dateModified": "2026-09-03T07:32:50+08:00","publisher": {
+    },"image": ["https:\/\/yinhui1984.github.io\/images\/avatar.png"],"genre": "posts","keywords": "attack","wordcount":  2438 ,
+    "url": "https:\/\/yinhui1984.github.io\/geb-cdp-positions-drained-for-5.94-weth-by-calling-gebproxyactions-directly-instead-of-via-delegatecall\/","datePublished": "2026-09-03T07:32:50+08:00","dateModified": "2026-09-03T07:33:50+08:00","publisher": {
       "@type": "Organization",
       "name": ""},"author": {
         "@type": "Person",
@@ -116,7 +116,7 @@
     <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>GEB CDP Positions Drained for 5.94 WETH by Calling GebProxyActions Directly Instead of via Delegatecall</span>
       </h1></div><div class="post-meta">
       <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
-      yinhui</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/security/" class="post-category" title="分类 - Security"><i class="fa-regular fa-folder" aria-hidden="true"></i> Security</a></span></div><div class="post-meta-line"><span title="发布于 2026-09-03 07:32:50"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2026-09-03">2026-09-03</time></span>&nbsp;<span title="2376 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 2400 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 12 分钟</span>&nbsp;</div>
+      yinhui</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/security/" class="post-category" title="分类 - Security"><i class="fa-regular fa-folder" aria-hidden="true"></i> Security</a></span></div><div class="post-meta-line"><span title="发布于 2026-09-03 07:32:50"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2026-09-03">2026-09-03</time></span>&nbsp;<span title="更新于 2026-09-03 07:33:50"><i class="fa-regular fa-calendar-check me-1" aria-hidden="true"></i><time datetime="2026-09-03">2026-09-03</time></span>&nbsp;<span title="2438 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 2500 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 12 分钟</span>&nbsp;</div>
     </div><div class="details toc" id="toc-static" data-kept="false">
         <div class="details-summary toc-title">
           <span>目录</span>
@@ -134,6 +134,7 @@
 </nav></div>
       </div><div class="content" id="content"><p>A CDP system built on the GEB framework — the same architecture family MakerDAO&rsquo;s <code>DssProxyActions</code> and Reflexer&rsquo;s RAI popularized — lost about 5.94 WETH in a single transaction to a bug that has nothing to do with price manipulation, flash loans, or reentrancy. It&rsquo;s a plain identity mixup between <code>delegatecall</code> and a regular <code>CALL</code>, sitting in a helper contract that was never supposed to hold any state of its own in the first place.</p>
 <p>Transaction: <code>0xfbce28e35c26358110dd9ed91f9ceef588acb264c3cf6c573df65ca21335058f</code></p>
+<p><strong>Update, September 3, 2026</strong>: the analysis below was written without knowing which deployment this actually was — the addresses and mechanism were enough on their own. Other researchers (ExVul, SlowMist) have since publicly identified it as Reflexer Finance&rsquo;s GEB/RAI system, which had been sitting in Global Settlement since early 2021. Doesn&rsquo;t change anything about the mechanism below, just filling in the name.</p>
 <h2 class="heading-element" id="the-setup"><span>The setup</span>
   <a href="#the-setup" class="heading-mark">
     <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
@@ -664,7 +665,7 @@
 <p>If you&rsquo;re auditing a system like this, the check isn&rsquo;t &ldquo;does this function have the right modifier&rdquo; — it does, by its own logic. It&rsquo;s &ldquo;what happens to every piece of state this contract can write, if <code>address(this)</code> or <code>msg.sender</code> inside it ever resolves to something other than what the design assumes.&rdquo; That question doesn&rsquo;t have an answer inside the contract&rsquo;s own code. It only has an answer once you go check who has actually called it, historically, and how.</p></div><div class="post-footer" id="post-footer">
   <div class="post-info">
     <div class="post-info-line">
-      <div class="post-info-mod"><span title="更新于 2026-09-03 07:32:50">更新于 2026-09-03&nbsp;</span>
+      <div class="post-info-mod"><span title="更新于 2026-09-03 07:33:50">更新于 2026-09-03&nbsp;</span>
       </div><div class="post-info-license">
             <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
           </div></div><div class="post-info-line">

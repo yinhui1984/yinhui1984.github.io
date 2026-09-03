@@ -14,6 +14,8 @@ Transaction: `0xfbce28e35c26358110dd9ed91f9ceef588acb264c3cf6c573df65ca21335058f
 
 <!--more-->
 
+**Update, September 3, 2026**: the analysis below was written without knowing which deployment this actually was — the addresses and mechanism were enough on their own. Other researchers (ExVul, SlowMist) have since publicly identified it as Reflexer Finance's GEB/RAI system, which had been sitting in Global Settlement since early 2021. Doesn't change anything about the mechanism below, just filling in the name.
+
 ## The setup
 
 GEB-style CDP systems split their logic into a core ledger (`SAFEEngine`), a SAFE (CDP) registry (`GebSafeManager`), a settlement module for winding the system down (`GlobalSettlement`), collateral adapters (`CollateralJoin1` for WETH), and a pile of convenience wrappers users interact with day to day. The one that matters here is `GebProxyActions`.
