@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Whoever You Name Pays: A Missing Payer Check in BonfireSwap - YINHUI&#39;s BLOG</title><meta name="author" content="yinhui">
+<meta name="description" content="BonfireSwap&#39;s transfer() took its payer from a function argument and then paid the caller&#39;s chosen beneficiary out of the Pancake pair&#39;s excess. One transaction drained 65 holders who had simply approved the wrapper once."><meta name="keywords" content='attack'>
+  <meta itemprop="name" content="Whoever You Name Pays: A Missing Payer Check in BonfireSwap">
+  <meta itemprop="description" content="BonfireSwap&#39;s transfer() took its payer from a function argument and then paid the caller&#39;s chosen beneficiary out of the Pancake pair&#39;s excess. One transaction drained 65 holders who had simply approved the wrapper once.">
+  <meta itemprop="datePublished" content="2026-09-20T18:15:40+08:00">
+  <meta itemprop="dateModified" content="2026-09-20T18:15:40+08:00">
+  <meta itemprop="wordCount" content="1768">
+  <meta itemprop="image" content="https://yinhui1984.github.io/images/avatar.png">
+  <meta itemprop="keywords" content="Attack"><meta property="og:url" content="https://yinhui1984.github.io/whoever-you-name-pays-a-missing-payer-check-in-bonfireswap/">
+  <meta property="og:site_name" content="YINHUI&#39;s BLOG">
+  <meta property="og:title" content="Whoever You Name Pays: A Missing Payer Check in BonfireSwap">
+  <meta property="og:description" content="BonfireSwap&#39;s transfer() took its payer from a function argument and then paid the caller&#39;s chosen beneficiary out of the Pancake pair&#39;s excess. One transaction drained 65 holders who had simply approved the wrapper once.">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-09-20T18:15:40+08:00">
+    <meta property="article:modified_time" content="2026-09-20T18:15:40+08:00">
+    <meta property="article:tag" content="Attack">
+    <meta property="og:image" content="https://yinhui1984.github.io/images/avatar.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://yinhui1984.github.io/images/avatar.png">
+  <meta name="twitter:title" content="Whoever You Name Pays: A Missing Payer Check in BonfireSwap">
+  <meta name="twitter:description" content="BonfireSwap&#39;s transfer() took its payer from a function argument and then paid the caller&#39;s chosen beneficiary out of the Pancake pair&#39;s excess. One transaction drained 65 holders who had simply approved the wrapper once.">
+<meta name="application-name" content="YINHUI&#39;s BLOG">
+<meta name="apple-mobile-web-app-title" content="YINHUI&#39;s BLOG"><meta name="theme-color" data-light="#ffffff" data-dark="#ffffff" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://yinhui1984.github.io/whoever-you-name-pays-a-missing-payer-check-in-bonfireswap/" title="Whoever You Name Pays: A Missing Payer Check in BonfireSwap - YINHUI&#39;s BLOG" /><link rel="prev" type="text/html" href="https://yinhui1984.github.io/geb-cdp-positions-drained-for-5.94-weth-by-calling-gebproxyactions-directly-instead-of-via-delegatecall/" title="GEB CDP positions drained for 5.94 WETH by calling GebProxyActions directly instead of via delegatecall" /><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Whoever You Name Pays: A Missing Payer Check in BonfireSwap",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/yinhui1984.github.io\/whoever-you-name-pays-a-missing-payer-check-in-bonfireswap\/"
+    },"image": ["https:\/\/yinhui1984.github.io\/images\/avatar.png"],"genre": "posts","keywords": "attack","wordcount":  1768 ,
+    "url": "https:\/\/yinhui1984.github.io\/whoever-you-name-pays-a-missing-payer-check-in-bonfireswap\/","datePublished": "2026-09-20T18:15:40+08:00","dateModified": "2026-09-20T18:15:40+08:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "yinhui"
+      },"description": "BonfireSwap's transfer() took its payer from a function argument and then paid the caller's chosen beneficiary out of the Pancake pair's excess. One transaction drained 65 holders who had simply approved the wrapper once."
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="fixed" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="YINHUI&#39;s BLOG"><span class="header-title-text">YINHUI&#39;s BLOG</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="/categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="/">首页</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="YINHUI&#39;s BLOG"><span class="header-title-text">YINHUI&#39;s BLOG</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="/tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="/categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="/">首页</a></li><li class="menu-item menu-system"></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Whoever You Name Pays: A Missing Payer Check in BonfireSwap</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+      yinhui</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/security/" class="post-category" title="分类 - Security"><i class="fa-regular fa-folder" aria-hidden="true"></i> Security</a></span></div><div class="post-meta-line"><span title="发布于 2026-09-20 18:15:40"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2026-09-20">2026-09-20</time></span>&nbsp;<span title="1768 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 1800 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 9 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#the-wrapper">The wrapper</a></li>
+    <li><a href="#where-it-breaks">Where it breaks</a></li>
+    <li><a href="#why-the-excess-appears-instantly">Why the excess appears instantly</a></li>
+    <li><a href="#the-transaction-end-to-end">The transaction, end to end</a></li>
+    <li><a href="#reproducing-it">Reproducing it</a></li>
+    <li><a href="#the-token-helped-on-its-own-schedule">The token helped, on its own schedule</a></li>
+    <li><a href="#one-thing-that-doesnt-work">One thing that doesn&rsquo;t work</a></li>
+    <li><a href="#the-fix">The fix</a></li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><p>A BSC swap wrapper let the caller decide who pays. <code>BonfireSwap.transfer()</code> passes its first argument straight into <code>transferFrom</code>, so any holder with a standing <code>approve</code> can be spent by anyone. The same function then pays out the pool excess to a beneficiary the caller also chooses. One transaction, 65 holders, +66.080052 BNB to the attacker.</p>
+<h1 class="heading-element" id="whoever-you-name-pays-a-missing-payer-check-in-bonfireswap"><span>Whoever You Name Pays: A Missing Payer Check in BonfireSwap</span>
+  <a href="#whoever-you-name-pays-a-missing-payer-check-in-bonfireswap" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h1><p>Chain: BNB Smart Chain. Attack tx: <code>0xb4c00e8f3ba815b6c70f45026f8794d2c1f079646a89919077688ce60692193f</code>, and the state I read everything against is block <code>122003953</code>.</p>
+<p>Three contracts matter. <code>Bonfire</code> at <code>0x5e90253fbae4Dab78aa351f4E6fed08A64AB5590</code> is a SafeMoon-style reflection token: every transfer skims 10%, split 5% to holders as reflection and 5% into the token contract&rsquo;s own liquidity pot. <code>BonfireSwap</code> at <code>0x17e801E17CeFC6334059189c178D4783830E03D3</code> is a swap wrapper that lets a user route a transfer through the token and into the Pancake pair at <code>0xD3F478F0d5E98b01f757bc6cB54Db4C00b9838f2</code> (token0 = BONFIRE, token1 = WBNB), with the price math outsourced to an upgradeable helper at <code>0xf33D46ecBB9fEdF80F8fEeBa8eb9d3c1053d3f91</code>.</p>
+<p>Net result: the attacker contract at <code>0x28e976ea7b83553d6d1d45ce81334156a2632127</code> walked away with 66.080052 BNB, no privileged role and no capital of its own.</p>
+<h2 class="heading-element" id="the-wrapper"><span>The wrapper</span>
+  <a href="#the-wrapper" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><code>BonfireSwap</code> mostly exists so that a taxed token can be traded without the user hashing out fee-on-transfer details themselves. <code>transfer()</code> is the entry point that takes a user&rsquo;s tokens, pushes them into the pair, and then immediately tries to collect whatever the pair is holding on top of its cached reserves. Trimmed to the relevant lines:</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">transfer</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amountAIn</span><span class="p">,</span> <span class="kt">address</span> <span class="n">beneficiary</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">deadline</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ensure</span><span class="p">(</span><span class="n">deadline</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span> <span class="n">amountAOut</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amountBOut</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_safeTransferFrom</span><span class="p">(</span><span class="n">tokenAddress</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">pancakePair</span><span class="p">,</span> <span class="n">amountAIn</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="n">amountAOut</span><span class="p">,</span> <span class="n">amountBOut</span><span class="p">)</span> <span class="o">=</span> <span class="n">skimPools</span><span class="p">(</span><span class="n">beneficiary</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>Read the first line of the body carefully. <code>_safeTransferFrom</code> is the usual low-level wrapper around <code>transferFrom</code>, and its <code>from</code> is <code>to</code> — the function&rsquo;s first argument. Nothing in <code>transfer</code> compares that argument to <code>msg.sender</code>. The function does not care who calls it, and it does not care whose address you hand it, as long as that address has approved the wrapper at some point.</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">_safeTransferFrom</span><span class="p">(</span><span class="kt">address</span> <span class="n">token</span><span class="p">,</span> <span class="kt">address</span> <span class="k">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">amount</span><span class="p">)</span> <span class="k">internal</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="kt">bool</span> <span class="n">success</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="nb">data</span><span class="p">)</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">        <span class="n">token</span><span class="p">.</span><span class="nb">call</span><span class="p">(</span><span class="nb">abi</span><span class="p">.</span><span class="nb">encodeWithSelector</span><span class="p">(</span><span class="n">TRANSFERFROM</span><span class="p">,</span> <span class="k">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">amount</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="n">success</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nb">data</span><span class="p">.</span><span class="n">length</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="nb">abi</span><span class="p">.</span><span class="nb">decode</span><span class="p">(</span><span class="nb">data</span><span class="p">,</span> <span class="p">(</span><span class="kt">bool</span><span class="p">))),</span>
+</span></span><span class="line"><span class="cl">        <span class="s">&#39;BonfireSwap: TRANSFERFROM_FAILED&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>The second line of <code>transfer</code> is the payout. <code>skimPools(beneficiary)</code> loops over a registry of pools and, for each one holding more BONFIRE than its cached <code>reserve0</code>, calls <code>skimPool</code>, which pays the difference out:</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">skimPotential</span><span class="p">(</span><span class="kt">address</span> <span class="n">pool</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint</span> <span class="n">amountEstimation</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint</span> <span class="n">reserve</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">IUniswapV2Pair</span><span class="p">(</span><span class="n">pool</span><span class="p">).</span><span class="n">token0</span><span class="p">()</span> <span class="o">==</span> <span class="n">tokenAddress</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="n">reserve</span><span class="p">,,)</span> <span class="o">=</span> <span class="n">IUniswapV2Pair</span><span class="p">(</span><span class="n">pool</span><span class="p">).</span><span class="n">getReserves</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(,</span><span class="n">reserve</span><span class="p">,)</span> <span class="o">=</span> <span class="n">IUniswapV2Pair</span><span class="p">(</span><span class="n">pool</span><span class="p">).</span><span class="n">getReserves</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint</span> <span class="n">potential</span> <span class="o">=</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">tokenAddress</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="n">pool</span><span class="p">)</span> <span class="o">-</span> <span class="n">reserve</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">amountEstimation</span> <span class="o">=</span> <span class="n">potential</span> <span class="o">-</span> <span class="p">(</span><span class="n">potential</span> <span class="o">*</span> <span class="n">totalTax</span> <span class="o">/</span> <span class="mi">100</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">skimPools</span><span class="p">(</span><span class="kt">address</span> <span class="n">beneficiary</span><span class="p">)</span> <span class="k">public</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint</span> <span class="n">amountAOut</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">amountBOut</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">uint8</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">pools</span><span class="p">.</span><span class="n">length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">skimPotential</span><span class="p">(</span><span class="n">pools</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="n">minimumSkimAmount</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="p">(</span><span class="kt">uint</span> <span class="n">a0</span><span class="p">,</span> <span class="kt">uint</span> <span class="n">a1</span><span class="p">)</span> <span class="o">=</span> <span class="n">skimPool</span><span class="p">(</span><span class="n">pools</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">beneficiary</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">...</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
+</div>
+</div><p><code>skimPool(pool, beneficiary)</code> is public, takes both the pool and the payout address as parameters, and checks neither. The <code>minimumSkimAmount</code> gate lives only on the multi-pool loop; the single-pool function anyone can call has no threshold at all.</p>
+<h2 class="heading-element" id="where-it-breaks"><span>Where it breaks</span>
+  <a href="#where-it-breaks" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>Two missing checks, and each of them is enough on its own to move someone else&rsquo;s money.</p>
+<p>The payer is an argument. A holder who ever used <code>BonfireSwap</code> normally would have approved it once, and that <code>approve</code> is the only thing standing between their balance and any caller. There is no path where the victim has to do anything wrong: no signature to trick them into, no function of theirs to call, no state of theirs to change. The allowance was created by their own ordinary use of the wrapper.</p>
+<p>The beneficiary is also an argument. The pool excess that <code>skimPools</code> collects is real tokens sitting in the pair; the wrapper never asks whether the caller has any claim on them.</p>
+<p>What ties the two together is that the payout leg runs in the same call as the pull leg. Push tokens into the pair and, in the same transaction, that push creates the excess that the next two lines are about to pay out.</p>
+<h2 class="heading-element" id="why-the-excess-appears-instantly"><span>Why the excess appears instantly</span>
+  <a href="#why-the-excess-appears-instantly" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>The token taxes transfers, and the pair is not on the fee-exclusion list. So when the wrapper pulls <code>x</code> out of a victim and sends it to the pair, the pair receives <code>0.9x</code> while its cached <code>reserve0</code> stays where it was. That gap <em>is</em> <code>balanceOf(pair) - reserve0</code>.</p>
+<p>There&rsquo;s a second contribution from the same transfer. The 5% reflection slice is redistributed to all holders, and the pair holds around 41% of supply, so the pair&rsquo;s balance also ticks up by its share of that slice. The excess ends up slightly bigger than <code>0.9x</code>, which is why <code>skimPools</code> fires for pull sizes a little below what the 1e15 threshold would suggest.</p>
+<p>The payout itself is not pure subtraction. <code>skimPool</code> asks the upgradeable helper for the amounts:</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="p">(</span><span class="n">amountAOut</span><span class="p">,</span> <span class="n">amountBOut</span><span class="p">)</span> <span class="o">=</span> <span class="n">magic</span><span class="p">.</span><span class="n">computeSwapAmountsWithReflection</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">balanceA</span><span class="p">,</span> <span class="n">balanceB</span><span class="p">,</span> <span class="n">reserveA</span><span class="p">,</span> <span class="n">reserveB</span><span class="p">,</span> <span class="n">reflectionB</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IERC20</span><span class="p">(</span><span class="n">pair</span><span class="p">.</span><span class="n">token1</span><span class="p">()).</span><span class="n">totalSupply</span><span class="p">(),</span> <span class="n">pancakeSwapFeePermille</span><span class="p">);</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>and then settles it through a normal pair swap:</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="n">gains</span> <span class="o">=</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">pair</span><span class="p">.</span><span class="n">token0</span><span class="p">()).</span><span class="n">balanceOf</span><span class="p">(</span><span class="n">to</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">pair</span><span class="p">.</span><span class="n">swap</span><span class="p">(</span><span class="n">amountBOut</span><span class="p">,</span> <span class="n">amountAOut</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="k">new</span> <span class="kt">bytes</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="n">gains</span> <span class="o">=</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">pair</span><span class="p">.</span><span class="n">token0</span><span class="p">()).</span><span class="n">balanceOf</span><span class="p">(</span><span class="n">to</span><span class="p">)</span> <span class="o">-</span> <span class="n">gains</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">require</span><span class="p">(</span><span class="n">gains</span> <span class="o">&gt;=</span> <span class="n">minAmountOut</span><span class="p">,</span> <span class="s">&#34;BonfireSwap: MinOut not met.&#34;</span><span class="p">);</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>So the pair hands BONFIRE out to <code>to</code>, its own K check has to hold with the reflection rebate counted in, and the tokens that leave the pair are taxed like any other transfer — the beneficiary nets 90% of <code>amountBOut</code>.</p>
+<h2 class="heading-element" id="the-transaction-end-to-end"><span>The transaction, end to end</span>
+  <a href="#the-transaction-end-to-end" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>The real transaction does one loop and nothing else:</p>
+<ol>
+<li><code>BonfireSwap.transfer(victim, x, attackerContract, block.timestamp)</code> for each address with a live allowance. The victim&rsquo;s tokens move to the pair, the excess appears, <code>skimPools</code> pays the attacker contract in BONFIRE.</li>
+<li>Sell that BONFIRE back into the same pair for WBNB.</li>
+<li><code>WBNB.withdraw</code>, to end up in BNB.</li>
+</ol>
+<p>65 distinct addresses paid in that single transaction. Nothing exotic in the flow: no flash loan in the call trace, no third protocol, no governance. The pair is both the injection target and the exit.</p>
+<h2 class="heading-element" id="reproducing-it"><span>Reproducing it</span>
+  <a href="#reproducing-it" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>I rebuilt it against block <code>122003953</code> on a fork, starting from zero balance:</p>
+<ul>
+<li>A single pull of <code>5e21</code> raw BONFIRE — the token&rsquo;s <code>_maxTxAmount</code> — leaves the attacker contract holding <code>4220513422969450438759</code> BONFIRE after the payout&rsquo;s own 10% tax.</li>
+<li>Clearing the largest victim in one transaction (two pulls, because their balance is above the per-transfer cap) and selling gives <code>64484719618547273645</code> wei, or 64.48 WBNB. Gas: 770,110 against the block&rsquo;s 70,000,000 limit.</li>
+<li>Running every address that still had a balance — 78 of them — in a single transaction gives <code>66074167100212519084</code>, 66.07 WBNB, in 9,564,825 gas.</li>
+</ul>
+<p>The real transaction came out at 66.080052 BNB; my fork run of the same chain lands 0.0089% below it, which is close enough that I stopped worrying about which one is &ldquo;the&rdquo; number.</p>
+<p>Three constraints shaped the reproduction, and they&rsquo;re worth writing down because they&rsquo;re easy to miss:</p>
+<ul>
+<li><code>_maxTxAmount</code> caps the pull leg <em>and</em> the payout leg, because both are ordinary token transfers and both go through the same <code>require(amount &lt;= _maxTxAmount)</code>.</li>
+<li>Around a fifth of the victims have a finite allowance rather than an unlimited one, so the pull has to be <code>min(balance, allowance)</code>. Get that wrong and it reverts with <code>BonfireSwap: TRANSFERFROM_FAILED</code> — the wrapper swallows the inner reason and reports its own.</li>
+<li>The token&rsquo;s own <code>swapAndLiquify</code> can fire mid-transaction and refresh the pair&rsquo;s reserves, so anything you cached from <code>getReserves()</code> before a transfer is stale after it. The K check does not forgive that.</li>
+</ul>
+<h2 class="heading-element" id="the-token-helped-on-its-own-schedule"><span>The token helped, on its own schedule</span>
+  <a href="#the-token-helped-on-its-own-schedule" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>Part of the loss didn&rsquo;t go to the attacker. The BONFIRE token contract holds its own accumulated tax pot, and once that pot crosses <code>numTokensSellToAddToLiquidity = 5e20</code>, the next transfer whose <code>from</code> isn&rsquo;t the pair makes the token sell half the pot for ETH and pair the rest with it:</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="n">swapExactTokensForETHSupportingFeeOnTransferTokens</span><span class="p">(</span><span class="n">half</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="n">deadline</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">addLiquidityETH</span><span class="p">{</span><span class="nb">value</span><span class="o">:</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">).</span><span class="nb">balance</span> <span class="o">-</span> <span class="n">initialBalance</span><span class="p">}(</span><span class="n">tokenAddress</span><span class="p">,</span> <span class="n">otherHalf</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">owner</span><span class="p">(),</span> <span class="n">deadline</span><span class="p">);</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>Two things about those two lines. The swap passes <code>0</code> as the minimum output, so it has no slippage floor at all. And the LP is minted to <code>owner()</code>, which for this token is <code>address(0)</code> — the owner renounced, so that liquidity is unrecoverable by design.</p>
+<p>In the real transaction the token contract lost 499,652,336,110.22 BONFIRE this way, and the V1 factory&rsquo;s <code>feeTo</code> picked up 0.219 LP. It&rsquo;s a side effect of the attack rather than its goal, but it&rsquo;s the kind of side effect that only shows up if you watch the token contract&rsquo;s balance, not just the attacker&rsquo;s.</p>
+<p>The reflection accounting cuts the other way too, slightly. A victim&rsquo;s balance drops by a little less than the amount pulled, because they&rsquo;re a holder and the same transfer pays them their slice of the 5% reflection. The largest victim went from <code>5875946668764761448339</code> to a loss of <code>4999575521397973466852</code> for a nominal 5e21 pull.</p>
+<h2 class="heading-element" id="one-thing-that-doesnt-work"><span>One thing that doesn&rsquo;t work</span>
+  <a href="#one-thing-that-doesnt-work" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>The obvious way to scale an extraction like this is a flash loan, and for this token it cannot work from the pair itself. The borrow leg is taxed and so is the repayment leg. Borrow <code>B</code> and you receive <code>0.9B</code>; the pair wants at least <code>1.002B</code> back, which means transferring <code>B * 1.002 / 0.9</code>, or about 11.3% more than you borrowed — while you only ever received 90% of it. You need roughly 21% of the loan in hand before you start, which is not a flash loan anymore.</p>
+<p>There&rsquo;s a second obstacle if you try anyway: mid-callback the pair&rsquo;s real balance sits below its cached reserve, and anything that prices off <code>balanceOf - reserve</code> during that window underflows before it can revert cleanly.</p>
+<h2 class="heading-element" id="the-fix"><span>The fix</span>
+  <a href="#the-fix" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>Two checks, one on each entry point:</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-solidity"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="line-nos-btn" aria-label="切换行号" role="button" title="切换行号"><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行"><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板"><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// transfer / simpleTransfer / loggedTransfer / simpleLoggedTransfer
+</span></span></span><span class="line"><span class="cl"><span class="nb">require</span><span class="p">(</span><span class="n">to</span> <span class="o">==</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="s">&#34;BonfireSwap: SENDER_MISMATCH&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// skimPool / skimPools
+</span></span></span><span class="line"><span class="cl"><span class="nb">require</span><span class="p">(</span><span class="n">beneficiary</span> <span class="o">==</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="s">&#34;BonfireSwap: BENEFICIARY_NOT_CALLER&#34;</span><span class="p">);</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>The first makes the payer come from <code>msg.sender</code> instead of an argument. The second keeps the payout from being redirected: inside the contract, the auto-skim still pays whatever beneficiary the paying user asked for, because that path doesn&rsquo;t go through the public entry point.</p>
+<p>I checked both on the fork — the chain above stops moving anything, and a user spending their own tokens through the same function still works.</p>
+<p>The shape to remember is the one at the top: <code>transferFrom(token, to, pair, amount)</code> where <code>to</code> came in as a parameter. When an allowance is involved, the address that spends it and the address that authorised it have to be the same one, and that has to be enforced rather than assumed.</p></div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2026-09-20 18:15:40">更新于 2026-09-20&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://yinhui1984.github.io/whoever-you-name-pays-a-missing-payer-check-in-bonfireswap/" data-title="Whoever You Name Pays: A Missing Payer Check in BonfireSwap" data-hashtags="attack"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://yinhui1984.github.io/whoever-you-name-pays-a-missing-payer-check-in-bonfireswap/" data-hashtag="attack"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://yinhui1984.github.io/whoever-you-name-pays-a-missing-payer-check-in-bonfireswap/" data-title="Whoever You Name Pays: A Missing Payer Check in BonfireSwap"><i class="fa-brands fa-hacker-news" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://yinhui1984.github.io/whoever-you-name-pays-a-missing-payer-check-in-bonfireswap/" data-title="Whoever You Name Pays: A Missing Payer Check in BonfireSwap"><svg class="icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>LINE</title><path d="M19.365 9.863c.349.0.63.285.63.631.0.345-.281.63-.63.63H17.61v1.125h1.755c.349.0.63.283.63.63.0.344-.281.629-.63.629h-2.386c-.345.0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346.0.627.285.627.63.0.349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211.0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346.0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195.0.375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345.0.63.285.63.63v4.771zm-5.741.0c0 .344-.282.629-.631.629-.345.0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346.0.628.285.628.63v4.771zm-2.466.629H4.917c-.345.0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348.0.63.285.63.63v4.141h1.756c.348.0.629.283.629.63.0.344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943.0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://yinhui1984.github.io/whoever-you-name-pays-a-missing-payer-check-in-bonfireswap/" data-title="Whoever You Name Pays: A Missing Payer Check in BonfireSwap"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
+        </div>
+      </div></div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/tags/attack/" class="post-tag" title="标签 - Attack">Attack</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="/geb-cdp-positions-drained-for-5.94-weth-by-calling-gebproxyactions-directly-instead-of-via-delegatecall/" class="post-nav-item" rel="prev" title="GEB CDP Positions Drained for 5.94 WETH by Calling GebProxyActions Directly Instead of via Delegatecall"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>GEB CDP Positions Drained for 5.94 WETH by Calling GebProxyActions Directly Instead of via Delegatecall</a></div>
+</div>
+</article>
+
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content always-active" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#the-wrapper">The wrapper</a></li>
+    <li><a href="#where-it-breaks">Where it breaks</a></li>
+    <li><a href="#why-the-excess-appears-instantly">Why the excess appears instantly</a></li>
+    <li><a href="#the-transaction-end-to-end">The transaction, end to end</a></li>
+    <li><a href="#reproducing-it">Reproducing it</a></li>
+    <li><a href="#the-token-helped-on-its-own-schedule">The token helped, on its own schedule</a></li>
+    <li><a href="#one-thing-that-doesnt-work">One thing that doesn&rsquo;t work</a></li>
+    <li><a href="#the-fix">The fix</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.154.5"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.2"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="/"></a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="目录"><i class="fa-solid fa-bars" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/js/config/cfe1a26398a0d34c9ea135ac2a01e376.js" defer></script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+</html>

@@ -6,8 +6,16 @@
     <description>银辉的技术博客 - 专注 Web3 安全、智能合约审计、区块链安全分析、Go语言开发</description>
     <generator>Hugo 0.154.5 &amp; FixIt v0.4.2</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 03 Sep 2026 07:33:50 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 20 Sep 2026 18:15:40 +0800</lastBuildDate>
     <atom:link href="https://yinhui1984.github.io/tags/attack/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Whoever You Name Pays: A Missing Payer Check in BonfireSwap</title>
+      <link>https://yinhui1984.github.io/whoever-you-name-pays-a-missing-payer-check-in-bonfireswap/</link>
+      <pubDate>Sun, 20 Sep 2026 18:15:40 +0800</pubDate>
+      <guid>https://yinhui1984.github.io/whoever-you-name-pays-a-missing-payer-check-in-bonfireswap/</guid>
+      <category domain="https://yinhui1984.github.io/categories/security/">Security</category>
+      <description>&lt;p&gt;A BSC swap wrapper let the caller decide who pays. &lt;code&gt;BonfireSwap.transfer()&lt;/code&gt; passes its first argument straight into &lt;code&gt;transferFrom&lt;/code&gt;, so any holder with a standing &lt;code&gt;approve&lt;/code&gt; can be spent by anyone. The same function then pays out the pool excess to a beneficiary the caller also chooses. One transaction, 65 holders, +66.080052 BNB to the attacker.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>GEB CDP positions drained for 5.94 WETH by calling GebProxyActions directly instead of via delegatecall</title>
       <link>https://yinhui1984.github.io/geb-cdp-positions-drained-for-5.94-weth-by-calling-gebproxyactions-directly-instead-of-via-delegatecall/</link>
